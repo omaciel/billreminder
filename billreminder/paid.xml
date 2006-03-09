@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Bill>
+    <Payee>Kelvin</Payee>
+    <DueDate>2005-10-03T00:00:00.0000000-04:00</DueDate>
+    <AmountDue>6</AmountDue>
+    <Notes>Lunch</Notes>
+    <Paid>false</Paid>
+  </Bill>
+  <Bill>
+    <Payee>Red Hat Corp.</Payee>
+    <DueDate>2006-05-10T00:00:00.0000000-04:00</DueDate>
+    <AmountDue>100</AmountDue>
+    <Notes>RHCE classes</Notes>
+    <Paid>false</Paid>
+  </Bill>
+</ArrayOfBill>

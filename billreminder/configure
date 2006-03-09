@@ -1,0 +1,11 @@
+mcs -r:System.Windows.Forms -r:System.Drawing -r:System.Data \
+ -out:BillReminder.exe \
+ AlertWindow.cs \
+ Bill.cs \
+ BillCollection.cs \
+ Configuration.cs \
+ Menu.cs \
+ Display.cs \
+ Search.cs \
+ NewBill.cs \
+ Preferences.cs
