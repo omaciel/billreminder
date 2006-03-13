@@ -64,7 +64,7 @@ namespace BillReminder
 		private System.Windows.Forms.Timer timer1;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.ComponentModel.IContainer components;
-
+		
 		public Menu()
 		{
 			//
@@ -108,7 +108,7 @@ namespace BillReminder
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			//System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(Menu));
+			//System.Resources.ResourceManager resources = new System.Resources.ResourceManager("icon");
 			this.button6 = new System.Windows.Forms.Button();
 			this.btnSearch = new System.Windows.Forms.Button();
 			this.btnDisplay = new System.Windows.Forms.Button();
@@ -188,18 +188,19 @@ namespace BillReminder
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Image = Image.FromFile("brlogo.png");
+			this.pictureBox1.Image = Image.FromFile("header.jpg");
+			//this.pictureBox1.Image = logo;
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.pictureBox1.Location = new System.Drawing.Point(8, 8);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(217, 80);
+			this.pictureBox1.Size = new System.Drawing.Size(200, 80);
 			this.pictureBox1.TabIndex = 6;
 			this.pictureBox1.TabStop = false;
 			// 
 			// Menu
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-			this.ClientSize = new System.Drawing.Size(235, 296);
+			this.ClientSize = new System.Drawing.Size(217, 296);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.button6);
 			this.Controls.Add(this.btnSearch);
@@ -211,6 +212,8 @@ namespace BillReminder
 			this.Name = "Menu";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "BillReminder";
+                        //this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon.ico")));
+			//this.Icon = ((System.Drawing.Icon)(Image.FromFile("icon.ico")));
 			this.ResumeLayout(false);
 
 		}
