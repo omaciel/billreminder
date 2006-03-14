@@ -90,9 +90,14 @@ class GtkClient:
 
     def __init__(self):
                 
-        self.glade = gtk.glade.XML('billreminder.glade', 'frmMenu')
+        self.glade = gtk.glade.XML('billreminder.glade')
+        
+        self.frmMenu = self.glade.get_widget ("frmMenu")
+        self.frmDisplay = self.glade.get_widget ("frmDisplay")
+        
 	self.btnClose = self.glade.get_widget("btnClose")
 	self.btnDisplay = self.glade.get_widget("btnDisplay")
+        self.frmMenu = self.glade.get_widget('frmMenu')
 	
         self.glade.signal_autoconnect({
             'on_btnClose_clicked' : self.on_btnClose_clicked,
@@ -104,23 +109,32 @@ class GtkClient:
 	gtk.main_quit()
 
     def on_btnDisplay_clicked(self, widget, data = None):
-	Display("")
+	self.frmMenu.hide()
+        Display("")
+        self.frmMenu.Show()
+    
+    def initialize_database():
+        # Arquivo da base de dados
+        db= '%s/data/BillReminder.db' % path
+        
+        # Faz conexão com a base de dados ou cria caso não exista
+        if os.path.isfile (db) :
+            cn = sqlite.connect (db, isolation_level=None)
+            rs = cn.cursor ()
+        else :
+            cn = sqlite.connect (db, isolation_level=None)
+            rs = cn.cursor ()
+            rs.execute ("CREATE TABLE bills (id INTEGER PRIMARY KEY, payee VARCHAR(50) NOT NULL, amountDue VARCHAR(10) NOT NULL, dueDate INTEGER NOT NULL, paid CHAR(1) DEFAULT '0' )")
+
 
 if __name__ == '__main__':
    
-    # Arquivo da base de dados
-    #db= '%s/data/BillReminder.db' % path
-    db = 'data/BillReminder.db'
-
-    # Faz conexão com a base de dados ou cria caso não exista
-    if os.path.isfile (db) :
-        cn = sqlite.connect (db, isolation_level=None)
-        rs = cn.cursor ()
-    else :
-	cn = sqlite.connect (db, isolation_level=None)
-	rs = cn.cursor ()
-	rs.execute ("CREATE TABLE bills (id INTEGER PRIMARY KEY, payee VARCHAR(50) NOT NULL, amountDue VARCHAR(10) NOT NULL, dueDate INTEGER NOT NULL, paid CHAR(1) DEFAULT '0' )")
-
+   # Initializes the sqlite db
+   #initialize_database()
+   
+   # Handle for glade file
+   #gladeFile = gtk.glade.XML('billreminder.glade')
+   
     #gtk.threads_init()
     client = GtkClient()
     gtk.main()
