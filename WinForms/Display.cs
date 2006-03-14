@@ -292,6 +292,8 @@ namespace BillReminder
 			// Extract new Bill object
 			Bill newBill = w.GetBill;
 
+                        Console.WriteLine(w.DialogResult.ToString());
+
 			// Check if Save was clicked and new bill was returned
 			if ((w.DialogResult == DialogResult.OK) && (newBill != null))
 				try 

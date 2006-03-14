@@ -231,6 +231,7 @@ namespace BillReminder
 			this.btnAdd.TabIndex = 0;
 			this.btnAdd.Text = "Save";
 			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+                        this.btnAdd.DialogResult = DialogResult.OK;
 			// 
 			// panel2
 			// 
@@ -269,15 +270,18 @@ namespace BillReminder
 		{
 			// TODO: Call validating routine
 
-			this.CreateBill();
+			// Creates bill object
+                        this.CreateBill();
 
-			this.Close();
+                        this.ClosingRoutine();
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
-			this.m_Bill = null;
-			this.Close();
+			// Null bill object is passed back
+                        this.m_Bill = null;
+			
+                        this.ClosingRoutine();
 		}
 
 		private void btnClear_Click(object sender, System.EventArgs e)
@@ -292,15 +296,22 @@ namespace BillReminder
 
 		private void NewBill_Closed(object sender, System.EventArgs e)
 		{
-			if (this.m_Bill == null)
-				this.DialogResult = DialogResult.Cancel;
-			else
-				this.DialogResult = DialogResult.OK;
+		        this.ClosingRoutine();
 		}
 
 		#endregion
 
 		#region "Methods"
+
+                private void ClosingRoutine()
+                {
+                        if (this.m_Bill == null)
+				this.DialogResult = DialogResult.Cancel;
+			else
+				this.DialogResult = DialogResult.OK;
+
+                        this.Close();
+                }
 
 		private void PopulateForm() 
 		{
@@ -333,7 +344,8 @@ namespace BillReminder
 			this.m_Bill = new Bill();
 			this.m_Bill.Payee = this.cboPayee.Text;
 			this.m_Bill.DueDate = this.dtpDueDate.Value;
-			this.m_Bill.AmountDue = Convert.ToDouble(this.txtAmount.Text.Remove(0,1));
+			// Get rid of any $ in the amount
+                        this.m_Bill.AmountDue = Convert.ToDouble(this.txtAmount.Text.Replace("$",""));
 			this.m_Bill.Notes = this.txtNotes.Text;
 		}
 

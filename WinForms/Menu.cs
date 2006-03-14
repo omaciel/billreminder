@@ -131,7 +131,7 @@ namespace BillReminder
 			// 
 			// btnSearch
 			// 
-			this.btnSearch.Image = Image.FromFile("stock_search.png");
+			//this.btnSearch.Image = Image.FromFile("stock_search.png");
 			this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.btnSearch.Location = new System.Drawing.Point(8, 168);
 			this.btnSearch.Name = "btnSearch";
@@ -379,6 +379,12 @@ namespace BillReminder
 			this.DisplayLateBills();
 
 		}
+
+                protected override void OnPaint(PaintEventArgs e)
+                {
+                        base.OnPaint(e);
+                }
+
 	
 	}
 }

@@ -70,4 +70,27 @@
     <Notes>RH253</Notes>
     <Paid>false</Paid>
   </Bill>
+  <Bill>
+    <Payee>Ubuntu</Payee>
+    <DueDate>2006-03-31T00:00:00.0000000-05:00</DueDate>
+    <AmountDue>200</AmountDue>
+    <Notes>Certification</Notes>
+    <Paid>false</Paid>
+  </Bill>
+  <Bill>
+    <Payee>Ubuntu</Payee>
+    <DueDate>2006-05-08T00:00:00.0000000-04:00</DueDate>
+    <AmountDue>15.99</AmountDue>
+    <Notes>New t-shirt
+</Notes>
+    <Paid>false</Paid>
+  </Bill>
+  <Bill>
+    <Payee>Sony</Payee>
+    <DueDate>2006-03-23T00:00:00.0000000-05:00</DueDate>
+    <AmountDue>300</AmountDue>
+    <Notes>New PSP
+</Notes>
+    <Paid>false</Paid>
+  </Bill>
 </ArrayOfBill>
