@@ -1,6 +1,5 @@
 mcs -r:System.Windows.Forms -r:System.Drawing -r:System.Data  \
  -out:BillReminder.exe \
  *.cs \
- -resource:icon.ico,icon \
- -resource:header.jpg,logo \
+ -linkresource:images.resources \
  -doc:help.xml

@@ -32,6 +32,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
+using System.Reflection;
+using System.Resources;
 
 namespace BillReminder
 {
@@ -108,7 +110,7 @@ namespace BillReminder
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			//System.Resources.ResourceManager resources = new System.Resources.ResourceManager("icon");
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager("images", Assembly.GetExecutingAssembly());
 			this.button6 = new System.Windows.Forms.Button();
 			this.btnSearch = new System.Windows.Forms.Button();
 			this.btnDisplay = new System.Windows.Forms.Button();
@@ -188,8 +190,8 @@ namespace BillReminder
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Image = Image.FromFile("header.jpg");
-			//this.pictureBox1.Image = logo;
+			//this.pictureBox1.Image = Image.FromFile("header.jpg");
+			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("logo")));
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.pictureBox1.Location = new System.Drawing.Point(8, 8);
 			this.pictureBox1.Name = "pictureBox1";
@@ -212,7 +214,7 @@ namespace BillReminder
 			this.Name = "Menu";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "BillReminder";
-                        //this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon.ico")));
+                        //this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
 			//this.Icon = ((System.Drawing.Icon)(Image.FromFile("icon.ico")));
 			this.ResumeLayout(false);
 
