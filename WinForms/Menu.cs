@@ -214,7 +214,7 @@ namespace BillReminder
 			this.Name = "Menu";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "BillReminder";
-                        //this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
 			//this.Icon = ((System.Drawing.Icon)(Image.FromFile("icon.ico")));
 			this.ResumeLayout(false);
 

@@ -48,7 +48,7 @@ public class Bill : IComparable
 	/// <summary>
 	/// Default Bill constructor.
 	/// </summary>
-	public Bill(){}
+	public Bill() {}
 
 	/// <summary>
 	/// Bill Constructor.

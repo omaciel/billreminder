@@ -14,4 +14,11 @@
     <Notes>RHCE classes</Notes>
     <Paid>false</Paid>
   </Bill>
+  <Bill>
+    <Payee>Books Online</Payee>
+    <DueDate>2006-03-08T00:00:00.0000000-05:00</DueDate>
+    <AmountDue>59</AmountDue>
+    <Notes>New C# book</Notes>
+    <Paid>false</Paid>
+  </Bill>
 </ArrayOfBill>

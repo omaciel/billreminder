@@ -3,4 +3,5 @@ mcs -r:System.Windows.Forms -r:System.Drawing -r:System.Data  \
  -linkresource:frmAbout.resources \
  -linkresource:frmMain.resources \
  -linkresource:frmBillDialog.resources \
- Bill.cs BillCollection.cs Configuration.cs frmMain.cs frmAbout.cs frmBillDialog.cs
+ -linkresource:frmAlert.resources \
+ Bill.cs BillCollection.cs Configuration.cs frmMain.cs frmAbout.cs frmBillDialog.cs frmAlert.cs

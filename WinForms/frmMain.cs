@@ -28,6 +28,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
+using System.Text;
 
 namespace BillReminder
 {
@@ -63,6 +64,7 @@ namespace BillReminder
 		private System.Windows.Forms.Button btnPaid;
 		private System.Windows.Forms.Button btnExit;
 		private System.Windows.Forms.StatusBarPanel sbPanel1;
+		private System.Windows.Forms.StatusBarPanel sbPanel2;
 		private System.Windows.Forms.MainMenu mainMenu1;
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuItem2;
@@ -71,10 +73,12 @@ namespace BillReminder
 		private System.Windows.Forms.MenuItem menuItem5;
 		private System.Windows.Forms.MenuItem menuItem6;
 		private System.Windows.Forms.MenuItem menuItem7;
+		private System.Windows.Forms.Timer timer1;
+		private System.ComponentModel.IContainer components;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		private System.ComponentModel.Container components = null;
+		//private System.ComponentModel.Container components = null;
 
 		public frmMain()
 		{
@@ -86,8 +90,9 @@ namespace BillReminder
 			//Configuration Singleton class
 			this.config = Configuration.Instance();
 			
-			// Initializes temporary container
-			//this.Records = bc;
+			// Initializes the timer
+			this.timer1.Interval = 6000;
+			this.timer1.Enabled = true;
 			
 			// Form initialization and record population
 			this.FormatListView();
@@ -116,6 +121,7 @@ namespace BillReminder
 		/// </summary>
 		private void InitializeComponent()
 		{
+		    this.components = new System.ComponentModel.Container();
 			this.pnTop = new System.Windows.Forms.Panel();
 			this.lvBills = new System.Windows.Forms.ListView();
 			this.pnBottom = new System.Windows.Forms.Panel();
@@ -126,6 +132,7 @@ namespace BillReminder
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.sbStatus = new System.Windows.Forms.StatusBar();
 			this.sbPanel1 = new System.Windows.Forms.StatusBarPanel();
+			this.sbPanel2 = new System.Windows.Forms.StatusBarPanel();
 			this.mainMenu1 = new System.Windows.Forms.MainMenu();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.menuItem2 = new System.Windows.Forms.MenuItem();
@@ -134,6 +141,7 @@ namespace BillReminder
 			this.menuItem5 = new System.Windows.Forms.MenuItem();
 			this.menuItem6 = new System.Windows.Forms.MenuItem();
 			this.menuItem7 = new System.Windows.Forms.MenuItem();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.pnTop.SuspendLayout();
 			this.pnBottom.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.sbPanel1)).BeginInit();
@@ -220,15 +228,29 @@ namespace BillReminder
 			this.sbStatus.Location = new System.Drawing.Point(10, 342);
 			this.sbStatus.Name = "sbStatus";
 			this.sbStatus.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
-																						this.sbPanel1});
-			this.sbStatus.Size = new System.Drawing.Size(492, 16);
+																						this.sbPanel1, this.sbPanel2});
+			this.sbStatus.Size = new System.Drawing.Size(492, 26);
+			this.sbStatus.SizingGrip = false;
 			this.sbStatus.TabIndex = 2;
 			this.sbStatus.Text = "statusBar1";
+			this.sbStatus.ShowPanels = true;
+			// 
+			// timer1
+			// 
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// sbPanel1
 			// 
 			this.sbPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
 			this.sbPanel1.Text = "statusBarPanel1";
+			this.sbPanel1.Width = 200;
+			//
+			// sbPanel2
+			//
+			this.sbPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
+			this.sbPanel2.Text = "Status";
+			this.sbPanel2.Width = 510;
 			// 
 			// mainMenu1
 			// 
@@ -293,7 +315,7 @@ namespace BillReminder
 			this.MaximizeBox = false;
 			this.Menu = this.mainMenu1;
 			this.Name = "frmMain";
-			this.Text = "frmMain";
+			this.Text = "BillReminder";
 			this.Load += new System.EventHandler(this.frmMain_Load);
 			this.pnTop.ResumeLayout(false);
 			this.pnBottom.ResumeLayout(false);
@@ -386,7 +408,8 @@ namespace BillReminder
 				this.lvBills.Items[0].Selected = true;
 			this.lvBills.Select();
 
-			//this.statusBar1.Panels[0].Text = String.Format("Count: {0}",this.listView1.Items.Count);
+			Console.WriteLine("Count: " + this.lvBills.Items.Count.ToString());
+			this.sbPanel1.Text = String.Format("Count: {0}",this.lvBills.Items.Count);
 		}
 
 		/// <summary>
@@ -558,6 +581,49 @@ namespace BillReminder
 			this.RefreshForm(this.config.UnpaidBills);
 		}
 
+		private void DisplayLateBills() 
+		{
+			// Calculate offset to midnight
+			this.timer1.Interval = this.MillisecondsToMidnight();
+
+			//Used to hold list of (over)due bills
+			StringBuilder msg = new StringBuilder();
+
+			msg.Append("The following bills are due:\n\n");
+
+			foreach (Bill b in this.config.UnpaidBills)
+				if (b.Status != (int)Status.Current)
+					msg.Append(String.Format("{0}  -  {1}\n", b.Payee, b.AmountDue.ToString("c")));
+					
+
+			/// TODO:
+			/// Check if previous instance of AlertWindow already exists
+			/// in which case we want to re-use it.
+			
+			// Displays list of late/due bills in a window
+			frmAlert aw = new frmAlert(msg.ToString(),"Overdue");
+			aw.ShowDialog();
+			aw.Dispose();
+			aw = null;
+
+			
+		}
+
+		private int MillisecondsToMidnight() 
+		{
+			// Time now
+			DateTime now = System.DateTime.Now;
+			
+			// Time tomorrow at midnight
+			DateTime tomorrow = new DateTime(now.Year,now.Month,now.Day + 1,0,0,0);
+			
+			// Milliseconds remaining untill tomorrow
+			TimeSpan diff = tomorrow.Subtract(now);
+
+			return Convert.ToInt32(diff.TotalMilliseconds);
+
+		}
+		
 		#endregion
 
 		private void menuItem2_Click(object sender, System.EventArgs e)
@@ -624,5 +690,14 @@ namespace BillReminder
 		{
 		
 		}
+		
+		private void timer1_Tick(object sender, System.EventArgs e)
+		{
+//			this.timer1.Interval = this.MillisecondsToMidnight();
+
+			this.DisplayLateBills();
+
+		}
+		
 	}
 }
