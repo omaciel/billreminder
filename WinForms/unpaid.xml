@@ -93,4 +93,11 @@
 </Notes>
     <Paid>false</Paid>
   </Bill>
+  <Bill>
+    <Payee>NY Yankess</Payee>
+    <DueDate>2006-03-15T00:00:00.0000000-05:00</DueDate>
+    <AmountDue>55</AmountDue>
+    <Notes>Let's win it all!</Notes>
+    <Paid>false</Paid>
+  </Bill>
 </ArrayOfBill>
