@@ -54,6 +54,7 @@ namespace BillReminder
 		//
 		// TODO: make the file location for serializable objects
 		//       more flexible and leave it up to the end user
+		//       to choose the location.
 		//       to choose the location.		
 		private static string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 		private static string confDir = "/.config/billreminder/";

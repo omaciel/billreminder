@@ -140,7 +140,7 @@ namespace BillReminder
 			this.cboPayee.Name = "cboPayee";
 			this.cboPayee.Size = new System.Drawing.Size(160, 24);
 			this.cboPayee.TabIndex = 2;
-			this.cboPayee.Text = "comboBox1";
+			this.cboPayee.Text = "";
 			// 
 			// label2
 			// 

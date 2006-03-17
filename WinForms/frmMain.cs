@@ -473,21 +473,26 @@ namespace BillReminder
 				b.AmountDue = Convert.ToDouble(item.SubItems[1].Text.Remove(0,1));
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
 		
-				// Get actual object reference from collection
-				BillCollection bc = this.config.Bills.Search(b.Payee, b.DueDate,b.AmountDue);
+		                int idx = this.config.Bills.IndexOf(b);
 
-				// Shouldn't really loop since only one object should exist
-				foreach (Bill c in bc) 
-				{
+				Console.WriteLine(this.config.Bills[idx].ToString());
+
+				// Get actual object reference from collection
+				//BillCollection bc = this.config.Bills.Search(b.Payee, b.DueDate,b.AmountDue);
+
+			        	
+                                // Shouldn't really loop since only one object should exist
+				//foreach (Bill c in bc) 
+				//{
 					// Get index of Bill within original collection
-					int idx = this.config.Bills.IndexOf(c);
+					//int idx = this.config.Bills.IndexOf(c);
 
 					// Instantiate new window
 					frmBillDialog w = new frmBillDialog();
 					// Assign selected bill to bill holder
-					w.GetBill = c;
+					w.GetBill = b;
 					// Show window
-					w.ShowDialog(this);
+					w.ShowDialog();
 
 					// If user did NOT cancel action
 					if (w.DialogResult != DialogResult.Cancel) 
@@ -503,7 +508,7 @@ namespace BillReminder
 						// Properly disposes of window
 						w.Dispose();
 					}
-				}		
+				//} */		
 			}
 		}
 
@@ -602,20 +607,29 @@ namespace BillReminder
 
 			if (this.config.Bills.Count > 0)
 			{
+				// Counts due bills
+				int counter = 0;
+				
 				foreach (Bill b in this.config.Bills)
-					if (b.Status != (int)Status.Current)
+					if (b.Status != (int)Status.Current) 
+					{
 						msg.Append(String.Format("{0}  -  {1}\n", b.Payee, b.AmountDue.ToString("c")));
+						counter++;
+					}
 						
 
 				/// TODO:
 				/// Check if previous instance of AlertWindow already exists
 				/// in which case we want to re-use it.
 				
-				// Displays list of late/due bills in a window
-				frmAlert aw = new frmAlert(msg.ToString(),"Overdue");
-				aw.ShowDialog();
-				aw.Dispose();
-				aw = null;
+				if (counter > 0)
+				{
+					// Displays list of late/due bills in a window
+					frmAlert aw = new frmAlert(msg.ToString(),"Overdue");
+					aw.ShowDialog();
+					aw.Dispose();
+					aw = null;
+				}
 			}
 			
 		}
