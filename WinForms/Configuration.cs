@@ -48,19 +48,19 @@ namespace BillReminder
 		private static Configuration configuration;
 		
 		// Three individual collections used
-		private static BillCollection unpaidBills;
-		private static BillCollection paidBills;
-		private static BillCollection searchedBills;
+		private static BillCollection bills;
 
 		// File location for serializable objects
 		//
 		// TODO: make the file location for serializable objects
 		//       more flexible and leave it up to the end user
-		//       to choose the location.
-		private static string UNPAIDFILE = "./unpaid.xml";
-		private static string PAIDFILE = "./paid.xml";
+		//       to choose the location.		
+		private static string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+		private static string confDir = "/.config/billreminder/";
+		private static string dataFile = "bills.xml";
+		private static string filePath = homeDir + confDir + dataFile;
+		private static string dirPath = homeDir + confDir;
 		
-
 		#region "Constructors"
 
 		/// <summary>
@@ -70,8 +70,7 @@ namespace BillReminder
 		{
 			//bills = new BillContainer();
 			// Initialization of collections
-			unpaidBills = new BillCollection();
-			paidBills = new BillCollection();
+			bills = new BillCollection();
 
 			// Deserializes any serializable object into proper
 			// collection.
@@ -101,31 +100,77 @@ namespace BillReminder
 		/// </summary>
 		private static void LoadBills()
 		{
-			// Check to see if serializable unpaidBills objects exist
-			if (File.Exists(UNPAIDFILE)) 
-				DeserializeBills(UNPAIDFILE, ref unpaidBills);
+			// Check to see if serializable Bills objects exist
+			if ((InitializeConfigurationDirectory()) && (InitializeDataFiles())) 
+				DeserializeBills();
 			else
 				// Create empty collection
-				SerializeBills(UNPAIDFILE, unpaidBills);
-
-			// Check to see if serializable paidBills objects exist
-			if (File.Exists(PAIDFILE)) 
-				DeserializeBills(PAIDFILE, ref paidBills);
-			else
-				// Create empty collection
-				SerializeBills(PAIDFILE, paidBills);	
+				Console.WriteLine("There were some errors and this application will shutdown!");
 		}
 
+		private static bool InitializeDataFiles() 
+		{
+			bool created = true;
+			
+			if (!(File.Exists(filePath)))
+				try 
+				{
+				    // Create empty collection
+					SerializeBills();
+					}
+				catch (IOException io) 
+				{
+					Console.WriteLine("some other problem");
+					Console.WriteLine(io.ToString());
+					created = false;
+				}
+				catch(UnauthorizedAccessException uae) 
+				{
+					Console.WriteLine("You don't have the permission to create directories!");
+					Console.WriteLine(uae.ToString());
+					created = false;
+				}
+
+			return created;
+		}
+
+		private static bool InitializeConfigurationDirectory() 
+		{
+			bool created = true;
+			
+			if (!(Directory.Exists(dirPath)))
+				try 
+				{
+					Directory.CreateDirectory(homeDir + confDir); 
+					Console.WriteLine(homeDir + confDir + " created!");
+				}
+				catch (IOException io) 
+				{
+					Console.WriteLine("some other problem");
+					Console.WriteLine(io.ToString());
+					created = false;
+				}
+				catch(UnauthorizedAccessException uae) 
+				{
+					Console.WriteLine("You don't have the permission to create directories!");
+					Console.WriteLine(uae.ToString());
+					created = false;
+				}
+
+			return created;
+		}
+
+		
 		/// <summary>
 		/// Responsible for XML deserialization of collections
 		/// </summary>
 		/// <param name="filename"></param>
 		/// <param name="billCollection"></param>
-		public static void DeserializeBills(string filename, ref BillCollection billCollection) 
+		public static void DeserializeBills() 
 		{
 			XmlSerializer s = new XmlSerializer( typeof( BillCollection ) );
-			TextReader r = new StreamReader( filename );
-			billCollection = (BillCollection)s.Deserialize( r );
+			TextReader r = new StreamReader( filePath );
+			bills = (BillCollection)s.Deserialize( r );
 
 			r.Close();
 		}
@@ -135,13 +180,13 @@ namespace BillReminder
 		/// </summary>
 		/// <param name="filename"></param>
 		/// <param name="billCollection"></param>
-		private static void SerializeBills(string filename, BillCollection billCollection) 
+		private static void SerializeBills() 
 		{
 			try 
 			{
 				XmlSerializer s = new XmlSerializer( typeof( BillCollection ) );
-				TextWriter w = new StreamWriter( filename );
-				s.Serialize( w, billCollection );
+				TextWriter w = new StreamWriter( filePath );
+				s.Serialize( w, bills );
 				w.Close();}
 			catch ( Exception ex ){ Console.WriteLine(ex.ToString());}
 		}
@@ -151,12 +196,9 @@ namespace BillReminder
 		/// method.
 		/// </summary>
 		/// <param name="type"></param>
-		public static void Write(BillType type) 
+		public static void Write() 
 		{
-			if (type == BillType.Paid)
-				SerializeBills(PAIDFILE, paidBills);
-			else
-				SerializeBills(UNPAIDFILE, unpaidBills);
+			SerializeBills();
 		}
 
 		#endregion
@@ -166,28 +208,10 @@ namespace BillReminder
 		/// <summary>
 		/// Direct access to unpaidBills collection.
 		/// </summary>
-		public BillCollection UnpaidBills 
+		public BillCollection Bills 
 		{
-			get { return unpaidBills;}
-			set { unpaidBills = value;}
-		}
-
-		/// <summary>
-		/// Direct access to paidBills collection.
-		/// </summary>
-		public BillCollection PaidBills 
-		{
-			get { return paidBills;}
-			set { paidBills = value;}
-		}
-		
-		/// <summary>
-		/// Direct access to searchedBills collection.
-		/// </summary>
-		public BillCollection SearchedBills
-		{
-			get {return searchedBills;}
-			set { searchedBills = value;}
+			get { return bills;}
+			set { bills = value;}
 		}
 
 		#endregion

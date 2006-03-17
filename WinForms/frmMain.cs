@@ -359,9 +359,10 @@ namespace BillReminder
 			this.lvBills.View = View.Details;
 
 			this.lvBills.Columns.Clear();
-			this.lvBills.Columns.Add("Payee",190,HorizontalAlignment.Center);
+			this.lvBills.Columns.Add("Payee",110,HorizontalAlignment.Center);
 			this.lvBills.Columns.Add("Amount",80,HorizontalAlignment.Center);
 			this.lvBills.Columns.Add("Due Date",80,HorizontalAlignment.Center);
+			this.lvBills.Columns.Add("Status",80,HorizontalAlignment.Center);
 
 			this.lvBills.EndUpdate();
 		}
@@ -378,15 +379,20 @@ namespace BillReminder
 
 			// TODO: Add sorting capability
 
-			foreach (Bill b in this.config.UnpaidBills) 
+			foreach (Bill b in this.config.Bills) 
 			{
 				ListViewItem iBill = new ListViewItem(b.Payee);
 				iBill.SubItems.Add(b.AmountDue.ToString("c"));
 				iBill.SubItems.Add(b.DueDate.ToShortDateString());
+				iBill.SubItems.Add((((Status)(b.Status)).ToString()));
 				iBill.Tag = b.Notes;
 
 				// some color coding
-				if (b.Status == (int)Status.OverDue) 
+				if (b.Paid == true)
+				{
+				    iBill.ForeColor = Color.Gray;
+				}
+				else if (b.Status == (int)Status.OverDue) 
 				{
 					iBill.ForeColor = Color.Red;
 				} 
@@ -394,7 +400,7 @@ namespace BillReminder
 				{
 					iBill.ForeColor = Color.Green;
 				} 
-				else 
+				else
 				{
 					iBill.ForeColor = Color.Blue;
 				}
@@ -433,13 +439,13 @@ namespace BillReminder
 				try 
 				{
 					//Add new bill to collection
-					this.config.UnpaidBills.Add(newBill);
+					this.config.Bills.Add(newBill);
 					//Automatically saves collection
-					Configuration.Write(Configuration.BillType.Unpaid);
+					Configuration.Write();
 					//Confirmation Message
 					MessageBox.Show(string.Format("Bill: {0} added.",newBill));
 					//Refresh form
-					this.RefreshForm(this.config.UnpaidBills);
+					this.RefreshForm(this.config.Bills);
 				}
 				catch (ArgumentException ae) 
 				{
@@ -468,13 +474,13 @@ namespace BillReminder
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
 		
 				// Get actual object reference from collection
-				BillCollection bc = this.config.UnpaidBills.Search(b.Payee, b.DueDate,b.AmountDue);
+				BillCollection bc = this.config.Bills.Search(b.Payee, b.DueDate,b.AmountDue);
 
 				// Shouldn't really loop since only one object should exist
 				foreach (Bill c in bc) 
 				{
 					// Get index of Bill within original collection
-					int idx = this.config.UnpaidBills.IndexOf(c);
+					int idx = this.config.Bills.IndexOf(c);
 
 					// Instantiate new window
 					frmBillDialog w = new frmBillDialog();
@@ -487,12 +493,12 @@ namespace BillReminder
 					if (w.DialogResult != DialogResult.Cancel) 
 					{
 						// Get object back
-						this.config.UnpaidBills[idx] = w.GetBill;
+						this.config.Bills[idx] = w.GetBill;
 
 						//Serialize it
-						Configuration.Write(Configuration.BillType.Unpaid);
+						Configuration.Write();
 						//Refresh form
-						this.RefreshForm(this.config.UnpaidBills);
+						this.RefreshForm(this.config.Bills);
 
 						// Properly disposes of window
 						w.Dispose();
@@ -519,23 +525,23 @@ namespace BillReminder
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
 		
 				// Get actual object reference from collection
-				BillCollection bc = this.config.UnpaidBills.Search(b.Payee, b.DueDate,b.AmountDue);
+				BillCollection bc = this.config.Bills.Search(b.Payee, b.DueDate,b.AmountDue);
 
 				// Shouldn't really loop since only one object should exist
 				foreach (Bill c in bc) 
 				{
 					// Get index of Bill within original collection
-					int idx = this.config.UnpaidBills.IndexOf(c);
+					int idx = this.config.Bills.IndexOf(c);
 
 					// Remove bill from collection
-					this.config.UnpaidBills.RemoveAt(idx);
+					this.config.Bills.RemoveAt(idx);
 				}
 			}
 
 			//Serialize it
-			Configuration.Write(Configuration.BillType.Unpaid);
+			Configuration.Write();
 			//Refresh form
-			this.RefreshForm(this.config.UnpaidBills);
+			this.RefreshForm(this.config.Bills);
 		}
 
 		/// <summary>
@@ -557,28 +563,31 @@ namespace BillReminder
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
 		
 				// Get actual object reference from collection
-				BillCollection bc = this.config.UnpaidBills.Search(b.Payee, b.DueDate,b.AmountDue);
+				BillCollection bc = this.config.Bills.Search(b.Payee, b.DueDate,b.AmountDue);
 
 				// Shouldn't really loop since only one object should exist
 				foreach (Bill c in bc) 
 				{
 					// Get index of Bill within original collection
-					int idx = this.config.UnpaidBills.IndexOf(c);
+					int idx = this.config.Bills.IndexOf(c);
 
+					// Mark it as paid
+					this.config.Bills[idx].Paid = true;
+					
 					// Add it to Paid collection
-					if (!this.config.PaidBills.Contains(c))
-						this.config.PaidBills.Add(c);
+					//if (!this.config.PaidBills.Contains(c))
+						//this.config.PaidBills.Add(c);
 
 					// Remove bill from collection
-					this.config.UnpaidBills.RemoveAt(idx);
+					//this.config.Bills.RemoveAt(idx);
 				}
 			}
 
 			//Serialize it both paid and unpaid collections
-			Configuration.Write(Configuration.BillType.Unpaid);
-			Configuration.Write(Configuration.BillType.Paid);
+			Configuration.Write();
+			//Configuration.Write(Configuration.BillType.Paid);
 			//Refresh form
-			this.RefreshForm(this.config.UnpaidBills);
+			this.RefreshForm(this.config.Bills);
 		}
 
 		private void DisplayLateBills() 
@@ -591,21 +600,23 @@ namespace BillReminder
 
 			msg.Append("The following bills are due:\n\n");
 
-			foreach (Bill b in this.config.UnpaidBills)
-				if (b.Status != (int)Status.Current)
-					msg.Append(String.Format("{0}  -  {1}\n", b.Payee, b.AmountDue.ToString("c")));
-					
+			if (this.config.Bills.Count > 0)
+			{
+				foreach (Bill b in this.config.Bills)
+					if (b.Status != (int)Status.Current)
+						msg.Append(String.Format("{0}  -  {1}\n", b.Payee, b.AmountDue.ToString("c")));
+						
 
-			/// TODO:
-			/// Check if previous instance of AlertWindow already exists
-			/// in which case we want to re-use it.
-			
-			// Displays list of late/due bills in a window
-			frmAlert aw = new frmAlert(msg.ToString(),"Overdue");
-			aw.ShowDialog();
-			aw.Dispose();
-			aw = null;
-
+				/// TODO:
+				/// Check if previous instance of AlertWindow already exists
+				/// in which case we want to re-use it.
+				
+				// Displays list of late/due bills in a window
+				frmAlert aw = new frmAlert(msg.ToString(),"Overdue");
+				aw.ShowDialog();
+				aw.Dispose();
+				aw = null;
+			}
 			
 		}
 

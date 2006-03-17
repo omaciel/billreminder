@@ -320,9 +320,9 @@ namespace BillReminder
 
 		private void PopulatePayee() 
 		{
-			if (config.UnpaidBills.Count > 0) 
+			if (config.Bills.Count > 0) 
 			{
-				foreach (Bill b in config.UnpaidBills) 
+				foreach (Bill b in config.Bills) 
 				{
 					string payee = b.Payee;
 					if (!this.cboPayee.Items.Contains(payee))
