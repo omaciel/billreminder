@@ -51,8 +51,6 @@ namespace BillReminder
 
 		// Singleton
 		private Configuration config;
-		// Temporary container
-		private BillCollection billsToDisplay;
 		
 		private System.Windows.Forms.Panel pnTop;
 		private System.Windows.Forms.Panel pnBottom;
@@ -225,14 +223,14 @@ namespace BillReminder
 			// 
 			// sbStatus
 			// 
-			this.sbStatus.Location = new System.Drawing.Point(10, 342);
+			this.sbStatus.Location = new System.Drawing.Point(10, 302);
 			this.sbStatus.Name = "sbStatus";
 			this.sbStatus.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
 																						this.sbPanel1, this.sbPanel2});
 			this.sbStatus.Size = new System.Drawing.Size(492, 26);
 			this.sbStatus.SizingGrip = false;
 			this.sbStatus.TabIndex = 2;
-			this.sbStatus.Text = "statusBar1";
+			this.sbStatus.Text = "";
 			this.sbStatus.ShowPanels = true;
 			// 
 			// timer1
@@ -313,6 +311,7 @@ namespace BillReminder
 			this.Controls.Add(this.pnBottom);
 			this.DockPadding.All = 10;
 			this.MaximizeBox = false;
+			this.MinimizeBox = true;
 			this.Menu = this.mainMenu1;
 			this.Name = "frmMain";
 			this.Text = "BillReminder";
@@ -339,7 +338,7 @@ namespace BillReminder
 		private void RefreshForm(BillCollection bc) 
 		{
 			// Use this collection to display
-			this.billsToDisplay = bc;
+			//this.billsToDisplay = bc;
 
 			// Refresh ListView
 			this.PopulateListView();
@@ -424,7 +423,7 @@ namespace BillReminder
 		private void AddBill() 
 		{
 			// Instantiate frmBillDialog form
-			frmBillDialog w = new frmBillDialog();
+			frmBillDialog w = new frmBillDialog("Add Bill");
 
 			// Shows frmBillDialog.cs 
 			w.ShowDialog(this);
@@ -463,6 +462,13 @@ namespace BillReminder
 		{
 			// Paid bill instance
 			Bill b = null;
+			
+			// Temp collection of bills
+			BillCollection tmp = new BillCollection();
+			
+			//
+			// TODO: Find a better way to extract selected bill from ListView
+			//
 
 			// Extract individually selected unpaidBills
 			foreach (ListViewItem item in this.lvBills.SelectedItems) 
@@ -472,44 +478,44 @@ namespace BillReminder
 				b.Payee = item.Text;
 				b.AmountDue = Convert.ToDouble(item.SubItems[1].Text.Remove(0,1));
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
-		
-		                int idx = this.config.Bills.IndexOf(b);
-
-				Console.WriteLine(this.config.Bills[idx].ToString());
-
-				// Get actual object reference from collection
-				//BillCollection bc = this.config.Bills.Search(b.Payee, b.DueDate,b.AmountDue);
-
-			        	
-                                // Shouldn't really loop since only one object should exist
-				//foreach (Bill c in bc) 
-				//{
-					// Get index of Bill within original collection
-					//int idx = this.config.Bills.IndexOf(c);
-
-					// Instantiate new window
-					frmBillDialog w = new frmBillDialog();
-					// Assign selected bill to bill holder
-					w.GetBill = b;
-					// Show window
-					w.ShowDialog();
-
-					// If user did NOT cancel action
-					if (w.DialogResult != DialogResult.Cancel) 
-					{
-						// Get object back
-						this.config.Bills[idx] = w.GetBill;
-
-						//Serialize it
-						Configuration.Write();
-						//Refresh form
-						this.RefreshForm(this.config.Bills);
-
-						// Properly disposes of window
-						w.Dispose();
-					}
-				//} */		
+				b.Notes = item.Tag.ToString();
+				
+				tmp.Add(b);
 			}
+			
+			// Use only the first bill in collection
+			int idx = this.config.Bills.IndexOf(tmp[0]);
+
+			Console.WriteLine(this.config.Bills[idx].ToString());
+			
+			// Instantiate new window
+			frmBillDialog w = new frmBillDialog("Edit Bill");
+			// Assign selected bill to bill holder
+			w.GetBill = b;
+			// Show window
+			w.ShowDialog();
+
+			// If user did NOT cancel action
+			if (w.DialogResult != DialogResult.Cancel) 
+			{
+				// Get object back
+				this.config.Bills[idx] = w.GetBill;
+
+                                Console.WriteLine("Serialize edited bill");
+                                                
+				//Serialize it
+				Configuration.Write();
+						
+				Console.WriteLine("Repopulate bills");
+						
+				//Refresh form
+				this.RefreshForm(this.config.Bills);
+
+				// Properly disposes of window
+				w.Dispose();
+			}
+			
+			Console.WriteLine("Done editing");
 		}
 
 		/// <summary>
@@ -519,6 +525,13 @@ namespace BillReminder
 		{
 			// Paid bill instance
 			Bill b = null;
+			
+			// Temp collection of bills
+			BillCollection tmp = new BillCollection();
+			
+			//
+			// TODO: Find a better way to extract selected bill from ListView
+			//
 
 			// Extract individually selected unpaidBills
 			foreach (ListViewItem item in this.lvBills.SelectedItems) 
@@ -528,25 +541,22 @@ namespace BillReminder
 				b.Payee = item.Text;
 				b.AmountDue = Convert.ToDouble(item.SubItems[1].Text.Remove(0,1));
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
-		
-				// Get actual object reference from collection
-				BillCollection bc = this.config.Bills.Search(b.Payee, b.DueDate,b.AmountDue);
-
-				// Shouldn't really loop since only one object should exist
-				foreach (Bill c in bc) 
-				{
-					// Get index of Bill within original collection
-					int idx = this.config.Bills.IndexOf(c);
-
-					// Remove bill from collection
-					this.config.Bills.RemoveAt(idx);
-				}
+				b.Notes = item.Tag.ToString();
+				
+				tmp.Add(b);
 			}
+			
+			// Use only the first bill in collection
+			int idx = this.config.Bills.IndexOf(tmp[0]);
+
+			// Remove bill from collection
+			this.config.Bills.RemoveAt(idx);
 
 			//Serialize it
 			Configuration.Write();
 			//Refresh form
 			this.RefreshForm(this.config.Bills);
+
 		}
 
 		/// <summary>

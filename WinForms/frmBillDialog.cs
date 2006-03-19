@@ -56,13 +56,16 @@ namespace BillReminder
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-		public frmBillDialog()
+		public frmBillDialog(string title)
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
+			// Sets window title
+			this.Text = title;
+			
 			this.config = Configuration.Instance();
 			this.PopulatePayee();
 		}
