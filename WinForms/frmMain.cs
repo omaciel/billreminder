@@ -29,6 +29,8 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
 using System.Text;
+using System.Globalization;
+//using System.Threading;
 
 namespace BillReminder
 {
@@ -84,6 +86,9 @@ namespace BillReminder
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
+			
+			// Testing Globalization
+			//Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR", false);
 			
 			//Configuration Singleton class
 			this.config = Configuration.Instance();
@@ -469,6 +474,8 @@ namespace BillReminder
 			//
 			// TODO: Find a better way to extract selected bill from ListView
 			//
+			
+			
 
 			// Extract individually selected unpaidBills
 			foreach (ListViewItem item in this.lvBills.SelectedItems) 
@@ -476,7 +483,14 @@ namespace BillReminder
 				// Temporary holder for selected unpaidBill
 				b = new Bill();
 				b.Payee = item.Text;
-				b.AmountDue = Convert.ToDouble(item.SubItems[1].Text.Remove(0,1));
+				
+				Console.WriteLine("HERE: " + item.SubItems[1].Text);
+				string amount = item.SubItems[1].Text.Replace(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol,string.Empty);
+				
+				b.AmountDue = double.Parse(amount);//, NumberStyles.Currency, CultureInfo.CurrentCulture);
+				
+				Console.WriteLine("HERE:");
+				
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
 				b.Notes = item.Tag.ToString();
 				

@@ -27,6 +27,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace BillReminder
 {
@@ -291,7 +292,7 @@ namespace BillReminder
 			{
 				//Populate Bill object
 				this.cboPayee.Text = this.m_Bill.Payee;
-				this.txtAmount.Text = this.m_Bill.AmountDue.ToString("c");
+				this.txtAmount.Text = this.m_Bill.AmountDue.ToString();
 				this.mcCalendar.SetDate(this.m_Bill.DueDate);
 				this.txtNotes.Text = this.m_Bill.Notes;
 
@@ -316,8 +317,8 @@ namespace BillReminder
 			this.m_Bill = new Bill();
 			this.m_Bill.Payee = this.cboPayee.Text;
 			this.m_Bill.DueDate = this.mcCalendar.SelectionEnd;
-			// Get rid of any $ in the amount
-                        this.m_Bill.AmountDue = Convert.ToDouble(this.txtAmount.Text.Replace("$",""));
+			// Keep in mind globalization
+                        this.m_Bill.AmountDue = double.Parse(this.txtAmount.Text, NumberStyles.Currency, CultureInfo.CurrentCulture);
 			this.m_Bill.Notes = this.txtNotes.Text;
 		}
 
