@@ -588,6 +588,13 @@ namespace BillReminder
 		{
 			// Paid bill instance
 			Bill b = null;
+			
+			// Temp collection of bills
+			BillCollection tmp = new BillCollection();
+			
+			//
+			// TODO: Find a better way to extract selected bill from ListView
+			//
 
 			// Extract individually selected unpaidBills
 			foreach (ListViewItem item in this.lvBills.SelectedItems) 
@@ -595,30 +602,26 @@ namespace BillReminder
 				// Temporary holder for selected unpaidBill
 				b = new Bill();
 				b.Payee = item.Text;
-				b.AmountDue = Convert.ToDouble(item.SubItems[1].Text.Remove(0,1));
+				
+				Console.WriteLine("Amount - Before parsing: " + item.SubItems[1].Text);
+				string amount = item.SubItems[1].Text.Replace(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol,string.Empty);
+				
+				b.AmountDue = double.Parse(amount, NumberStyles.Currency, CultureInfo.CurrentCulture);
+				
+				Console.WriteLine("Amount - After parsing:" + b.AmountDue.ToString());
+				
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
-		
-				// Get actual object reference from collection
-				BillCollection bc = this.config.Bills.Search(b.Payee, b.DueDate,b.AmountDue);
-
-				// Shouldn't really loop since only one object should exist
-				foreach (Bill c in bc) 
-				{
-					// Get index of Bill within original collection
-					int idx = this.config.Bills.IndexOf(c);
-
-					// Mark it as paid
-					this.config.Bills[idx].Paid = true;
-					
-					// Add it to Paid collection
-					//if (!this.config.PaidBills.Contains(c))
-						//this.config.PaidBills.Add(c);
-
-					// Remove bill from collection
-					//this.config.Bills.RemoveAt(idx);
-				}
+				b.Notes = item.Tag.ToString();
+				
+				tmp.Add(b);
 			}
-
+			
+			
+			// Use only the first bill in collection
+			int idx = this.config.Bills.IndexOf(tmp[0]);
+			// Mark it as paid
+			this.config.Bills[idx].Paid = true;
+			
 			//Serialize it both paid and unpaid collections
 			Configuration.Write();
 			//Configuration.Write(Configuration.BillType.Paid);
