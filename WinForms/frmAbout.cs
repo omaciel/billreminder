@@ -145,7 +145,7 @@ namespace BillReminder
 			// 
 			// btnOk
 			// 
-			this.btnOk.Location = new System.Drawing.Point(160, 224);
+			this.btnOk.Location = new System.Drawing.Point(140, 224);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(48, 24);
 			this.btnOk.TabIndex = 7;

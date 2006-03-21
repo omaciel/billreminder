@@ -64,12 +64,12 @@ namespace BillReminder
 			this.panel1.Controls.Add(this.lblBills);
 			this.panel1.Location = new System.Drawing.Point(8, 8);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(216, 200);
+			this.panel1.Size = new System.Drawing.Size(200, 200);
 			this.panel1.TabIndex = 0;
 			// 
 			// btnOK
 			// 
-			this.btnOK.Location = new System.Drawing.Point(160, 216);
+			this.btnOK.Location = new System.Drawing.Point(136, 216);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(64, 24);
 			this.btnOK.TabIndex = 1;
@@ -86,7 +86,7 @@ namespace BillReminder
 			// frmAlert
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-			this.ClientSize = new System.Drawing.Size(232, 250);
+			this.ClientSize = new System.Drawing.Size(232, 225);
 			this.Controls.Add(this.btnOK);
 			this.Controls.Add(this.panel1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

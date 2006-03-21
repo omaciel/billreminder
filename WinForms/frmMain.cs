@@ -232,7 +232,7 @@ namespace BillReminder
 			this.sbStatus.Name = "sbStatus";
 			this.sbStatus.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
 																						this.sbPanel1, this.sbPanel2});
-			this.sbStatus.Size = new System.Drawing.Size(492, 26);
+			this.sbStatus.Size = new System.Drawing.Size(492, 36);
 			this.sbStatus.SizingGrip = false;
 			this.sbStatus.TabIndex = 2;
 			this.sbStatus.Text = "";
@@ -310,7 +310,7 @@ namespace BillReminder
 			// frmMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-			this.ClientSize = new System.Drawing.Size(512, 368);
+			this.ClientSize = new System.Drawing.Size(512, 348);
 			this.Controls.Add(this.sbStatus);
 			this.Controls.Add(this.pnTop);
 			this.Controls.Add(this.pnBottom);
@@ -484,12 +484,12 @@ namespace BillReminder
 				b = new Bill();
 				b.Payee = item.Text;
 				
-				Console.WriteLine("HERE: " + item.SubItems[1].Text);
+				Console.WriteLine("Amount - Before parsing: " + item.SubItems[1].Text);
 				string amount = item.SubItems[1].Text.Replace(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol,string.Empty);
 				
-				b.AmountDue = double.Parse(amount);//, NumberStyles.Currency, CultureInfo.CurrentCulture);
+				b.AmountDue = double.Parse(amount, NumberStyles.Currency, CultureInfo.CurrentCulture);
 				
-				Console.WriteLine("HERE:");
+				Console.WriteLine("Amount - After parsing:" + b.AmountDue.ToString());
 				
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
 				b.Notes = item.Tag.ToString();
@@ -553,7 +553,14 @@ namespace BillReminder
 				// Temporary holder for selected unpaidBill
 				b = new Bill();
 				b.Payee = item.Text;
-				b.AmountDue = Convert.ToDouble(item.SubItems[1].Text.Remove(0,1));
+				
+				Console.WriteLine("Amount - Before parsing: " + item.SubItems[1].Text);
+				string amount = item.SubItems[1].Text.Replace(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol,string.Empty);
+				
+				b.AmountDue = double.Parse(amount, NumberStyles.Currency, CultureInfo.CurrentCulture);
+				
+				Console.WriteLine("Amount - After parsing:" + b.AmountDue.ToString());
+				
 				b.DueDate = Convert.ToDateTime(item.SubItems[2].Text);
 				b.Notes = item.Tag.ToString();
 				

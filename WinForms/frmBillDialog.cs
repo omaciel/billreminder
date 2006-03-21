@@ -121,7 +121,7 @@ namespace BillReminder
 			this.pnLeft.Controls.Add(this.mcCalendar);
 			this.pnLeft.Location = new System.Drawing.Point(8, 8);
 			this.pnLeft.Name = "pnLeft";
-			this.pnLeft.Size = new System.Drawing.Size(424, 208);
+			this.pnLeft.Size = new System.Drawing.Size(424, 248);
 			this.pnLeft.TabIndex = 0;
 			// 
 			// mcCalendar
@@ -187,7 +187,7 @@ namespace BillReminder
 			this.pnRight.Controls.Add(this.btnSave);
 			this.pnRight.Location = new System.Drawing.Point(440, 8);
 			this.pnRight.Name = "pnRight";
-			this.pnRight.Size = new System.Drawing.Size(96, 208);
+			this.pnRight.Size = new System.Drawing.Size(96, 248);
 			this.pnRight.TabIndex = 1;
 			// 
 			// btnSave
@@ -220,7 +220,7 @@ namespace BillReminder
 			// frmBillDialog
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-			this.ClientSize = new System.Drawing.Size(546, 226);
+			this.ClientSize = new System.Drawing.Size(576, 256);
 			this.Controls.Add(this.pnRight);
 			this.Controls.Add(this.pnLeft);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
