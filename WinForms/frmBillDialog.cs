@@ -28,6 +28,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace BillReminder
 {
@@ -242,11 +243,12 @@ namespace BillReminder
 		private void btnSave_Click(object sender, System.EventArgs e)
 		{
 			// TODO: Call validating routine
+			if (ValidateAmount()) {
+				// Creates bill object
+                        	this.CreateBill();
 
-			// Creates bill object
-                        this.CreateBill();
-
-                        this.ClosingRoutine();
+                        	this.ClosingRoutine();
+                        }
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
@@ -286,6 +288,34 @@ namespace BillReminder
                         this.Close();
                 }
 
+               private bool ValidateAmount()
+               {
+                       // Boolean flag
+                       bool isValid = true;
+
+                       // Globalized decimal separator
+                       string decSymbol =
+CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
+
+                       /* Regular Expression: Only numbers, allowing for a +/-.
+                       /  If decimal separator is used, allow only 2 decimals. */
+                       string KeyPressRegex = "^[+-]?[\\d,]*\\" + decSymbol + "?\\d{0,2}$";
+
+                       // Check amount value to see if matches expression
+                       if (!Regex.IsMatch(txtAmount.Text.Trim(), KeyPressRegex))
+                       {
+                               MessageBox.Show("Currency values only!","Numeric Values");
+
+                               // Sets focus to amount text box
+                               txtAmount.Focus(); //= true;
+                               txtAmount.SelectAll();
+
+                               // No a match
+                               isValid = false;
+                       }
+
+                       return isValid;
+               }
 		private void PopulateForm() 
 		{
 			if (this.m_Bill != null) 

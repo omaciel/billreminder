@@ -164,6 +164,7 @@ namespace BillReminder
 			// 
 			this.lvBills.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvBills.Location = new System.Drawing.Point(5, 5);
+			this.lvBills.MultiSelect = false;
 			this.lvBills.Name = "lvBills";
 			this.lvBills.Size = new System.Drawing.Size(372, 300);
 			this.lvBills.TabIndex = 0;
