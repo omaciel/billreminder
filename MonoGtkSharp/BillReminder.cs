@@ -30,6 +30,17 @@ using Glade;
 
 namespace BillReminder
 {
+
+	/// <summary>
+	/// Used for enumerating bills' status.
+	/// </summary>
+	enum Status 
+	{
+		OverDue = -1,
+		Due = 0,
+		Current = 1
+	}
+
 class MainWindow {
 	[Glade.Widget] Window frmMain;
 	[Glade.Widget] Window frmAbout;
@@ -94,7 +105,7 @@ class MainWindow {
 		{
                 	foreach (Bill b in this.config.Bills) 
 			{
-				list.AppendValues (b.Payee, b.AmountDue.ToString("c"), b.DueDate.ToShortDateString(),"*");
+				list.AppendValues (b.Payee, b.AmountDue.ToString("c"), b.DueDate.ToShortDateString(),(((Status)(b.Status)).ToString()));
 			}
  
 			set_sensitivity(true);
