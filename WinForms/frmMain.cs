@@ -673,13 +673,17 @@ namespace BillReminder
 		{
 			// Time now
 			DateTime now = System.DateTime.Now;
-			
+		
+		        Console.WriteLine("Before time");	
 			// Time tomorrow at midnight
-			DateTime tomorrow = new DateTime(now.Year,now.Month,now.Day + 1,0,0,0);
-			
+			//DateTime tomorrow = new DateTime(now.Year,now.Month,now.Day + 1);
+			DateTime tomorrow = now.AddDays(1);
+			Console.WriteLine("After time");
+
 			// Milliseconds remaining untill tomorrow
 			TimeSpan diff = tomorrow.Subtract(now);
 
+			Console.WriteLine(diff.ToString());
 			return Convert.ToInt32(diff.TotalMilliseconds);
 
 		}

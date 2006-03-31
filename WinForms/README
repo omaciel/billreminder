@@ -37,7 +37,9 @@ Optional:
 Instalation
 ===========
 
-Right now there is no Make file so run the configure file to install a local copy inside the source's folder.
+Right now there is no Makefile so run the configure file to install a local copy inside the source's folder and run the following command:
+
+mono BillReminder.exe
 
 Contact:
 =======
