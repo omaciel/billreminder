@@ -53,6 +53,7 @@ class BillDialog:
         self.txtAmount = self.gladefile.get_widget("txtAmount")
         self.cCalendar = self.gladefile.get_widget("cCalendar")
         self.cboPayee = self.gladefile.get_widget("cboPayee")
+#        self.cboPayee = gtk.combo_box_entry_new_text()
 
         store = gtk.ListStore(gobject.TYPE_STRING)
         store.append (["testing1"])
@@ -60,17 +61,11 @@ class BillDialog:
         store.append (["testing3"])
         store.append (["testing4"])
 
-        self.cboPayee.clear()
         self.cboPayee.set_model(store)
-        cell = gtk.CellRendererText()
-        self.cboPayee.pack_start(cell, True)
-        self.cboPayee.add_attribute(cell, 'text',0)
         self.cboPayee.set_text_column(0)
-        #self.cboPayee.set_active(0)
-
+        self.cboPayeeEntry = self.cboPayee.child
+        self.selectedText = ''
         #dic = {"on_cboPayee_changed" : self.on_cboPayee_changed}
-
-        #self.gladefile.signal_autoconnect(dic)
 
     def run(self):
         """This function will show the dialog"""        
@@ -106,10 +101,13 @@ class BillDialog:
         #self.oBill.Payee = self.cboPayee.get_active_text()
 
     def _getPayee(self):
-        model = self.cboPayee.get_model()
-        iter = self.cboPayee.get_active_iter()
-        if iter:
-            return model.get_value(iter, 0)
+        if self.cboPayee.get_active_iter() != None:
+            model = self.cboPayee.get_model()
+            iter = self.cboPayee.get_active_iter()
+            if iter:
+                return model.get_value(iter, 0)
+        else:
+            return self.cboPayeeEntry.get_text()
 
 class AboutDialog:
     """This is the About dialog window"""
