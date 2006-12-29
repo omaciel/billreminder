@@ -1,7 +1,0 @@
-mcs -r:System.Windows.Forms -r:System.Drawing -r:System.Data  \
- -out:BillReminder.exe \
- -linkresource:frmAbout.resources \
- -linkresource:frmMain.resources \
- -linkresource:frmBillDialog.resources \
- -linkresource:frmAlert.resources \
- Bill.cs BillCollection.cs Configuration.cs frmMain.cs frmAbout.cs frmBillDialog.cs frmAlert.cs
