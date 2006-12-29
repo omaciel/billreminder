@@ -19,7 +19,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-# BillReminder - Copyright (c) 2006 Og Maciel
+# BillReminder - Copyright (c) 2006, 2007 Og Maciel
 #
 # -*- coding: utf-8 -*-
 
