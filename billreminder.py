@@ -36,6 +36,7 @@ try:
     import time
     import gobject
     from bill import Bill
+    from dal import DAL
 except:
     sys.exit(1)
 
@@ -53,7 +54,6 @@ class BillDialog:
         self.txtAmount = self.gladefile.get_widget("txtAmount")
         self.cCalendar = self.gladefile.get_widget("cCalendar")
         self.cboPayee = self.gladefile.get_widget("cboPayee")
-#        self.cboPayee = gtk.combo_box_entry_new_text()
 
         store = gtk.ListStore(gobject.TYPE_STRING)
         store.append (["testing1"])
@@ -151,8 +151,14 @@ class BillReminder:
                 "on_mnuAbout_activate" : self.on_mnuAbout_activate}
         self.gladefile.signal_autoconnect(dic)
 
+        # Connects to the database
+        self.dal = DAL()
+
         #Formats the tree view
         self.formatTreeView()
+
+        # and populate it
+        self.populateTreeView(self.dal.get({'paid': 0}))
 
     def on_frmMain_destroy(self, widget):
         """Quit yourself"""
@@ -168,15 +174,29 @@ class BillReminder:
 
         # Checks if the user did not cancel the action
         if (response == gtk.RESPONSE_OK):
-            # Format the dueDate field
-            dueDate = datetime.datetime.fromtimestamp(bill.DueDate())
-            dueDate = dueDate.strftime('%Y/%m/%d')
-            self.billList.append([bill.Payee(), dueDate, bill.AmountDue()])
-                        #self.billList.append(bill.getList())
+            # Add new bill to database
+            if self.dal.add(bill):
+                # Format the dueDate field
+                dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
+                dueDate = dueDate.strftime('%Y/%m/%d')
+                self.billList.append([bill.payee, dueDate, bill.amountDue])
 
     def on_mnuAbout_activate(self, widget):
         frmAbout = AboutDialog()
         response = frmAbout.run()
+
+    def populateTreeView(self, records):
+        """ Populates the treeview control with the records passed """
+
+        for rec in records:
+            payee = rec['payee']
+            dueDate = rec['dueDate']
+            dueDate = datetime.datetime.fromtimestamp(rec['dueDate'])
+            dueDate = dueDate.strftime('%Y/%m/%d')
+            amountDue = rec['amountDue']
+            #notes = rec['notes']
+            #paid = rec['paid']
+            self.billList.append([payee, dueDate, amountDue])
 
     def formatTreeView(self):
         #Here are some variables that can be reused later
