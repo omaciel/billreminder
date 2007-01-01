@@ -27,7 +27,7 @@ from datetime import datetime
 import time
 
 class Bill(object):
-    def __init__(self, payee, dueDate, amountDue, notes=None):
+    def __init__(self, payee, dueDate, amountDue, notes=None, paid=0):
         self.payee = payee
         if not dueDate:
             self.dueDate = time.time()
@@ -35,18 +35,7 @@ class Bill(object):
             self.dueDate = dueDate
         self.amountDue = amountDue
         self.notes = notes
-
-    def Payee(self):
-        return self.payee
-
-    def DueDate(self):
-        return self.dueDate
-
-    def AmountDue(self):
-        return self.amountDue
-
-    def Notes(self):
-        return self.notes
+        self.paid = paid
 
     def __repr__(self):
         return self.payee
