@@ -62,11 +62,21 @@ class DAL(object):
             self.cur.execute (self.createSQL)
             self.conn.commit()
 
-    def add(self, kwargs):
+    def _makeBillDict(self, bill):
+        billDict = {}
+        billDict['payee'] = bill.payee
+        billDict['dueDate'] = bill.dueDate
+        billDict['amountDue'] = bill.amountDue
+        billDict['notes'] = bill.notes
+
+        return billDict
+
+    def add(self, bill):
         """ Adds a bill to the database """
         # Separate columns and values
-        values = kwargs.values()
-        cols = kwargs.keys()
+        billDict = self._makeBillDict(bill)
+        values = billDict.values()
+        cols = billDict.keys()
 
         # Insert statement
         stmt = "INSERT INTO %s (%s) VALUES (%s)" %\
@@ -74,17 +84,19 @@ class DAL(object):
 
         return self._executeSQL(stmt, values)
 
-    def delete(self, kwargs):
+    def delete(self, bill):
+        billDict = self._makeBillDict(bill)
         # Generate WHERE clause and separate arguments
-        (stmt, args) = self._createQueryParams(kwargs)
+        (stmt, args) = self._createQueryParams(billDict)
 
         # Delete statement
         stmt = "DELETE FROM %(name)s" % dict(name=self.name) + stmt
 
         return self._executeSQL(stmt, args)
 
-    def edit(self, id, kwargs):
-        pairs = kwargs.items()
+    def edit(self, id, bill):
+        billDict = self._makeBillDict(bill)
+        pairs = billDict.items()
 
         params = "=?, ".join([ x[0] for x in pairs ]) + "=?"
         stmt = "UPDATE %s SET %s WHERE %s=?" % (self.name, params, self.key)
@@ -95,6 +107,7 @@ class DAL(object):
         return self._executeSQL(stmt, args)
 
     def get(self, kwargs):
+        """ Returns one or more records that meet the criteria passed """
         (stmt, args) = self._createQueryParams(kwargs)
 
         stmt = "SELECT %(fields)s FROM %(name)s" \
