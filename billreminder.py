@@ -184,7 +184,9 @@ class BillReminder:
                 # Format the dueDate field
                 dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
                 dueDate = dueDate.strftime('%Y/%m/%d')
-                self.billList.append([bill.payee, dueDate, bill.amountDue])
+                # Format the amount field
+                amountDue = "%0.2f" % bill.amountDue
+                self.billList.append([bill.payee, dueDate, amountDue])
 
     def on_mnuAbout_activate(self, widget):
         frmAbout = AboutDialog()
