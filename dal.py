@@ -25,7 +25,7 @@
 
 import os
 from pysqlite2 import dbapi2 as sqlite
-#from bill import Bill
+from bill import Bill
 
 class DAL(object):
 
