@@ -185,7 +185,7 @@ class BillReminder:
                 dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
                 dueDate = dueDate.strftime('%Y/%m/%d')
                 # Format the amount field
-                amountDue = "%0.2f" % bill.amountDue
+                amountDue = "%0.2f" % float(bill.amountDue)
                 self.billList.append([bill.payee, dueDate, amountDue])
 
     def on_mnuAbout_activate(self, widget):
@@ -197,10 +197,12 @@ class BillReminder:
 
         for rec in records:
             payee = rec['payee']
+            # Format the dueDate field
             dueDate = rec['dueDate']
             dueDate = datetime.datetime.fromtimestamp(rec['dueDate'])
             dueDate = dueDate.strftime('%Y/%m/%d')
-            amountDue = rec['amountDue']
+            # Format the amount field
+            amountDue = "%0.2f" % float(rec['amountDue'])
             #notes = rec['notes']
             #paid = rec['paid']
             self.billList.append([payee, dueDate, amountDue])
