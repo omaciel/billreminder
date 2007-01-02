@@ -126,7 +126,9 @@ class DAL(object):
             " ORDER BY payee ASC" % dict(name=self.name)
 
         self.cur.execute(stmt)
-        return self.cur.fetchall()
+        rows = [payee[0].encode("utf-8") for payee in self.cur.fetchall()]
+
+        return rows
 
     def _executeSQL(self, stmt, args):
         """ Excutes passed SQL and returns the result """
