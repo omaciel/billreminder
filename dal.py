@@ -120,6 +120,14 @@ class DAL(object):
 
         return rows
 
+    def Payees(self):
+        """ Returns a list of distinct payees """
+        stmt = "SELECT DISTINCT payee from %(name)s" \
+            " ORDER BY payee ASC" % dict(name=self.name)
+
+        self.cur.execute(stmt)
+        return self.cur.fetchall()
+
     def _executeSQL(self, stmt, args):
         """ Excutes passed SQL and returns the result """
         # Flag
