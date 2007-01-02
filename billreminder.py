@@ -55,16 +55,9 @@ class BillDialog:
         self.cCalendar = self.gladefile.get_widget("cCalendar")
         self.cboPayee = self.gladefile.get_widget("cboPayee")
 
-        store = gtk.ListStore(gobject.TYPE_STRING)
-        store.append (["testing1"])
-        store.append (["testing2"])
-        store.append (["testing3"])
-        store.append (["testing4"])
+        # Populate payees
+        self._populatePayee()
 
-        self.cboPayee.set_model(store)
-        self.cboPayee.set_text_column(0)
-        self.cboPayeeEntry = self.cboPayee.child
-        self.selectedText = ''
         #dic = {"on_cboPayee_changed" : self.on_cboPayee_changed}
 
     def run(self):
@@ -95,12 +88,25 @@ class BillDialog:
             #return the result and bill
             return None, None
 
-        #Extract bill information
-        #self.oBill.DueDate = self.cCalendar.get_date()
-        #self.oBill.AmountDue = self.txtAmount.get_text()
-        #self.oBill.Payee = self.cboPayee.get_active_text()
+    def _populatePayee(self):
+        """ Populates combobox with existing payees """
+        # Connects to the database
+        dal = DAL()
+
+        # List of payees from database
+        payees = dal.Payees()
+
+        store = gtk.ListStore(gobject.TYPE_STRING)
+        for payee in payees:
+            store.append([payee])
+
+        self.cboPayee.set_model(store)
+        self.cboPayee.set_text_column(0)
+        self.cboPayeeEntry = self.cboPayee.child
+        self.selectedText = ''
 
     def _getPayee(self):
+        """ Extracts information typed into comboboxentry """
         if self.cboPayee.get_active_iter() != None:
             model = self.cboPayee.get_model()
             iter = self.cboPayee.get_active_iter()
@@ -111,7 +117,6 @@ class BillDialog:
 
 class AboutDialog:
     """This is the About dialog window"""
-
     def __init__(self):
 
         #Set the Glade file
@@ -136,7 +141,7 @@ class AboutDialog:
         return  result  
 
 class BillReminder:
-    """This is the main window of the application"""
+    """ This is the main window of the application """
 
     def __init__(self):
         #Set the Glade file
