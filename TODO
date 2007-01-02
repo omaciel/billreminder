@@ -1,0 +1,3 @@
+
+Mon Jan  1 21:15:05 EST 2007
+*  Turn the class DAL into a singleton.
