@@ -149,12 +149,26 @@ class BillReminder:
         self.formName = "frmMain"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
 
-        #Create our dictionay and connect it
-        dic = {"on_frmMain_destroy" : self.on_frmMain_destroy,
-                "on_btnQuit_clicked" : self.on_btnQuit_clicked,
-                "on_btnAdd_clicked" : self.on_btnAdd_clicked,
-                "on_mnuAbout_activate" : self.on_mnuAbout_activate}
-        self.gladefile.signal_autoconnect(dic)
+        #get form widgets and map it to objects
+        self.frmMain = self.gladefile.get_widget(self.formName)
+        self.btnQuit = self.gladefile.get_widget('btnQuit')
+        self.btnAdd = self.gladefile.get_widget('btnAdd')
+        self.btnRemove = self.gladefile.get_widget('btnRemove')
+        self.btnEdit = self.gladefile.get_widget('btnEdit')
+        self.btnPaid = self.gladefile.get_widget('btnPaid')
+        self.mnuAbout = self.gladefile.get_widget('mnuAbout')
+        
+        #set unused buttons to disable mode
+        self.btnRemove.set_sensitive(False)
+        self.btnEdit.set_sensitive(False)
+        
+        self.btnPaid.set_sensitive(False)
+        
+        # connect all handled signals to our procedures
+        self.frmMain.connect('destroy', self.on_frmMain_destroy)
+        self.btnQuit.connect('clicked',self.on_btnQuit_clicked)
+        self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
+        self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
 
         # Connects to the database
         self.dal = DAL()
@@ -196,8 +210,7 @@ class BillReminder:
         """
             This event will be fired when a user double click
             a row in the bill treeview.
-            For now we will just rise up a dialog box showing
-            the first cell value.
+            For now we will just print row values.
         """
         sel = widget.get_selection()
         model, iter = sel.get_selected()
