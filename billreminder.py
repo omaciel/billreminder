@@ -218,11 +218,11 @@ class BillReminder:
     def on_billView_button_press_event(self, widget, event):
         if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
             c = ContextMenu(self)
-            c.addMenuItem('Add New', None,gtk.STOCK_NEW)
+            c.addMenuItem('Add New', None,gtk.STOCK_ADD)
             c.addMenuItem('-', None)
-            c.addMenuItem('Edit', None,gtk.STOCK_EDIT)
             c.addMenuItem('Remove', None,gtk.STOCK_REMOVE)
-            c.addMenuItem('Paid', None)
+            c.addMenuItem('Edit', None,gtk.STOCK_EDIT)
+            c.addMenuItem('Paid', None,gtk.STOCK_APPLY,True)
             c.addMenuItem('-', None)
             c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
             c.popup(None, None, None, event.button, event.get_time())
@@ -312,7 +312,7 @@ class ContextMenu(gtk.Menu):
         gtk.Menu.__init__(self)
         self.menuItem = None
     
-    def addMenuItem(self,menuName,actionFunction= None,menuImage = None):
+    def addMenuItem(self,menuName,actionFunction= None,menuImage = None, forceName = False):
         """
             Add itens to menu.
             
@@ -330,9 +330,16 @@ class ContextMenu(gtk.Menu):
                     self.menuItem = gtk.ImageMenuItem(menuName)
                     self.menuItem.set_image(menuImage)
                 else:
-                    self.menuItem = gtk.ImageMenuItem(menuImage)
+                    if not forceName:
+                        self.menuItem = gtk.ImageMenuItem(menuImage)
+                    else:
+                        self.menuItem = gtk.ImageMenuItem(menuName)
+                        img = gtk.Image()
+                        img.set_from_stock(menuImage,gtk.ICON_SIZE_MENU)
+                        self.menuItem.set_image(img)
             else:    
-                self.menuItem = gtk.MenuItem(menuName)
+                self.menuItem = gtk.ImageMenuItem(menuName)
+                
             if actionFunction is not None :
                 self.menuItem.connect("activate", actionFunction)
         self.menuItem.show()
