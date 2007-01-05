@@ -41,7 +41,7 @@ except:
     sys.exit(1)
 
 class BillDialog:
-    """This is the dialog to add/edit bills"""
+    """ This is the dialog to add/edit bills """
 
     def __init__(self):
         #Set the Glade file
@@ -157,6 +157,8 @@ class BillReminder:
         self.btnEdit = self.gladefile.get_widget('btnEdit')
         self.btnPaid = self.gladefile.get_widget('btnPaid')
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
+        self.lblStatusPanel1 = self.gladefile.get_widget('lblStatusPanel1')
+        self.lblStatusPanel2 = self.gladefile.get_widget('lblStatusPanel2')
         
         #set unused buttons to disable mode
         self.btnRemove.set_sensitive(False)
@@ -205,7 +207,7 @@ class BillReminder:
     def on_mnuAbout_activate(self, widget):
         frmAbout = AboutDialog()
         response = frmAbout.run()
-    
+
     def on_billView_double_Click(self, widget, path, view_column):
         """
             This event will be fired when a user double click
@@ -215,13 +217,17 @@ class BillReminder:
         sel = widget.get_selection()
         model, iter = sel.get_selected()
         
-        text = model.get_value(iter, 0)
+        payee = model.get_value(iter, 0)
         date = model.get_value(iter, 1)
         amount = model.get_value(iter,2)
         
-        print 'row activated: %s, %s , %s' % (text,date,amount)
-        pass
-    
+        # Display the status for the selected row
+        self.lblStatusPanel2.set_text('%s, %s , %s' % (payee,date,amount))
+
+    def on_billList_row_inserted(self, treemodel, path, iter):
+        """ Displays the count of records """
+        self.lblStatusPanel1.set_markup('<b>Records:</b> %d' % len(self.billList))
+
     def populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
 
@@ -237,6 +243,9 @@ class BillReminder:
             #paid = rec['paid']
             self.billList.append([payee, dueDate, amountDue])
 
+        # Select the first row
+        self.billView.set_cursor(0)
+
     def formatTreeView(self):
         #Here are some variables that can be reused later
         self.colPayee = 0
@@ -250,25 +259,30 @@ class BillReminder:
         #Get the treeView from the widget Tree
         self.billView = self.gladefile.get_widget("tvBills")
         #Add all of the List Columns to the wineView
-        self.addBillListColumn(self.strPayee, self.colPayee)
+        self.addBillListColumn(self.strPayee, self.colPayee, 160)
         self.addBillListColumn(self.strDueDate, self.colDueDate)
         self.addBillListColumn(self.strAmountDue, self.colAmountDue)
 
         #Create the listStore Model to use with the wineView
         self.billList = gtk.ListStore(str, str, str)
+        self.billList.connect('row-inserted', self.on_billList_row_inserted)
         #Attache the model to the treeView
         self.billView.set_model(self.billList)
-        self.billView.connect('row-activated',self.on_billView_double_Click)
+        self.billView.connect('row-activated', self.on_billView_double_Click)
 
-    def addBillListColumn(self, title, columnId):
+    def addBillListColumn(self, title, columnId, size=100):
         """This function adds a column to the list view.
         First it create the gtk.TreeViewColumn and then sets
         some needed properties"""
 
         column = gtk.TreeViewColumn(title, gtk.CellRendererText()
             , text=columnId)
-        column.set_resizable(True)      
+        column.set_resizable(True)
+        column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        column.set_min_width(size)
+        column.set_clickable(True)
         column.set_sort_column_id(columnId)
+
         self.billView.append_column(column)
 
 
