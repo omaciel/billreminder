@@ -33,6 +33,7 @@ try:
     import gtk
     import gtk.glade
     import datetime
+    import os
     import time
     import gobject
     from bill import Bill
@@ -45,7 +46,7 @@ class BillDialog:
 
     def __init__(self):
         #Set the Glade file
-        self.gladefilename = "billreminder.glade"
+        self.gladefilename = os.path.join(os.path.dirname(__file__),"billreminder.glade")
         self.formName = "frmBillDialog"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
 
@@ -120,7 +121,7 @@ class AboutDialog:
     def __init__(self):
 
         #Set the Glade file
-        self.gladefilename = "billreminder.glade"
+        self.gladefilename = os.path.join(os.path.dirname(__file__),"billreminder.glade")
         self.formName = "frmAbout"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
 
@@ -145,9 +146,10 @@ class BillReminder:
 
     def __init__(self):
         #Set the Glade file
-        self.gladefilename = "billreminder.glade"
+        self.gladefilename = os.path.join(os.path.dirname(__file__),"billreminder.glade") 
         self.formName = "frmMain"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
+        
 
         #get form widgets and map it to objects
         self.frmMain = self.gladefile.get_widget(self.formName)
@@ -161,11 +163,7 @@ class BillReminder:
         self.lblStatusPanel2 = self.gladefile.get_widget('lblStatusPanel2')
         
         #set unused buttons to disable mode
-        self.btnRemove.set_sensitive(False)
-        self.btnEdit.set_sensitive(False)
-        
-        self.btnPaid.set_sensitive(False)
-        
+        self.enable_buttons(False)
         # connect all handled signals to our procedures
         self.frmMain.connect('destroy', self.on_frmMain_destroy)
         self.btnQuit.connect('clicked',self.on_btnQuit_clicked)
@@ -180,7 +178,16 @@ class BillReminder:
 
         # and populate it
         self.populateTreeView(self.dal.get({'paid': 0}))
-
+        
+    def enable_buttons(self,bValue):
+        """
+            Enable/disable buttons.
+            If bValue = True  buttons will be enabled.
+        """
+        self.btnRemove.set_sensitive(bValue)
+        self.btnEdit.set_sensitive(bValue)
+        self.btnPaid.set_sensitive(bValue)
+        
     def on_frmMain_destroy(self, widget):
         """Quit yourself"""
         gtk.main_quit()
@@ -208,18 +215,33 @@ class BillReminder:
         frmAbout = AboutDialog()
         response = frmAbout.run()
 
+    def on_billView_button_press_event(self, widget, event):
+        if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
+            c = ContextMenu(self)
+            c.addMenuItem('Add New', None,gtk.STOCK_NEW)
+            c.addMenuItem('-', None)
+            c.addMenuItem('Edit', None,gtk.STOCK_EDIT)
+            c.addMenuItem('Remove', None,gtk.STOCK_REMOVE)
+            c.addMenuItem('Paid', None)
+            c.addMenuItem('-', None)
+            c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
+            c.popup(None, None, None, event.button, event.get_time())
     #def on_billView_double_clicked(self, widget, path, view_column):
     def on_billView_cursor_changed(self, widget):
         """ Displays the selected record information """
-        sel = widget.get_selection()
-        model, iter = sel.get_selected()
-        
-        payee = model.get_value(iter, 0)
-        date = model.get_value(iter, 1)
-        amount = model.get_value(iter,2)
-        
-        # Display the status for the selected row
-        self.lblStatusPanel2.set_text('%s, %s , %s' % (payee,date,amount))
+        try:
+            sel = widget.get_selection()
+            model, iter = sel.get_selected()
+            
+            payee = model.get_value(iter, 0)
+            date = model.get_value(iter, 1)
+            amount = model.get_value(iter,2)
+            
+            # Display the status for the selected row
+            self.lblStatusPanel2.set_text('%s, %s , %s' % (payee,date,amount))
+            self.enable_buttons(True)
+        except :
+            pass 
 
     def on_billList_row_inserted(self, treemodel, path, iter):
         """ Displays the count of records """
@@ -266,6 +288,7 @@ class BillReminder:
         #Attache the model to the treeView
         self.billView.set_model(self.billList)
         self.billView.connect('cursor_changed', self.on_billView_cursor_changed)
+        self.billView.connect("button_press_event", self.on_billView_button_press_event)
 
     def addBillListColumn(self, title, columnId, size=100):
         """ This function adds a column to the list view.
@@ -282,7 +305,40 @@ class BillReminder:
 
         self.billView.append_column(column)
 
-
+# maybe we should create a file for each class or a package for imports
+class ContextMenu(gtk.Menu):
+    """ Creates context menus accessed by mouse right click. """
+    def __init__(self, *args):
+        gtk.Menu.__init__(self)
+        self.menuItem = None
+    
+    def addMenuItem(self,menuName,actionFunction= None,menuImage = None):
+        """
+            Add itens to menu.
+            
+            @menuName is the text showed in the menu option.
+                    If you pass a - (minus) as parameter value,
+                    it will create a separation menu item.
+            @actionFunction is the procedure called when activate signal is triggered from the menu.
+            
+        """
+        if menuName == "-":
+            self.menuItem = gtk.SeparatorMenuItem()
+        else:
+            if menuImage != None:
+                if isinstance(menuImage, gtk.Image):
+                    self.menuItem = gtk.ImageMenuItem(menuName)
+                    self.menuItem.set_image(menuImage)
+                else:
+                    self.menuItem = gtk.ImageMenuItem(menuImage)
+            else:    
+                self.menuItem = gtk.MenuItem(menuName)
+            if actionFunction is not None :
+                self.menuItem.connect("activate", actionFunction)
+        self.menuItem.show()
+        self.append(self.menuItem)
+        return
+            
 if __name__ == "__main__":
     br = BillReminder()
     gtk.main()
