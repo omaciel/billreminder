@@ -160,6 +160,7 @@ class BillReminder:
         self.btnEdit = self.gladefile.get_widget('btnEdit')
         self.btnPaid = self.gladefile.get_widget('btnPaid')
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
+        self.mnuAdd = self.gladefile.get_widget('mnuAdd')
         self.lblStatusPanel1 = self.gladefile.get_widget('lblStatusPanel1')
         self.lblStatusPanel2 = self.gladefile.get_widget('lblStatusPanel2')
         
@@ -170,6 +171,7 @@ class BillReminder:
         self.btnQuit.connect('clicked',self.on_btnQuit_clicked)
         self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
         self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
+        self.mnuAdd.connect('activate',self.on_mnuAdd_activate)
 
         # Connects to the database
         self.dal = DAL()
@@ -180,7 +182,7 @@ class BillReminder:
         # and populate it
         self.populateTreeView(self.dal.get({'paid': 0}))
         
-    def enable_buttons(self,bValue):
+    def enable_buttons(self, bValue):
         """
             Enable/disable buttons.
             If bValue = True  buttons will be enabled.
@@ -197,6 +199,9 @@ class BillReminder:
         self.on_frmMain_destroy(widget)
 
     def on_btnAdd_clicked(self, widget):
+        self.addBill()
+
+    def addBill(self):
         # Displays the Bill dialog
         frmBillDialog = BillDialog()
         response, bill = frmBillDialog.run()
@@ -211,6 +216,9 @@ class BillReminder:
                 # Format the amount field
                 amountDue = "%0.2f" % float(bill.amountDue)
                 self.billList.append([bill.payee, dueDate, amountDue])
+
+    def on_mnuAdd_activate(self, widget):
+        self.addBill()
 
     def on_mnuAbout_activate(self, widget):
         frmAbout = AboutDialog()
