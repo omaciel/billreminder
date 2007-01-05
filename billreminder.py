@@ -41,12 +41,15 @@ try:
 except:
     sys.exit(1)
 
+# Glade file name
+GLADEFILE = "billreminder.glade"
+
 class BillDialog:
     """ This is the dialog to add/edit bills """
 
     def __init__(self):
         #Set the Glade file
-        self.gladefilename = os.path.join(os.path.dirname(__file__),"billreminder.glade")
+        self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
         self.formName = "frmBillDialog"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
 
@@ -59,14 +62,12 @@ class BillDialog:
         # Populate payees
         self._populatePayee()
 
-        #dic = {"on_cboPayee_changed" : self.on_cboPayee_changed}
-
     def run(self):
-        """This function will show the dialog"""        
+        """ This function will show the dialog """        
         #run the dialog and store the response      
         result = self.frmBillDialog.run()
 
-        #we are done with the dialog, destory it
+        #we are done with the dialog, destroy it
         self.frmBillDialog.destroy()
 
         if (result == gtk.RESPONSE_OK):
@@ -117,11 +118,11 @@ class BillDialog:
             return self.cboPayeeEntry.get_text()
 
 class AboutDialog:
-    """This is the About dialog window"""
+    """ This is the About dialog window """
     def __init__(self):
 
         #Set the Glade file
-        self.gladefilename = os.path.join(os.path.dirname(__file__),"billreminder.glade")
+        self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
         self.formName = "frmAbout"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
 
@@ -146,7 +147,7 @@ class BillReminder:
 
     def __init__(self):
         #Set the Glade file
-        self.gladefilename = os.path.join(os.path.dirname(__file__),"billreminder.glade") 
+        self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE) 
         self.formName = "frmMain"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
         
