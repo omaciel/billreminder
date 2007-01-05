@@ -208,12 +208,9 @@ class BillReminder:
         frmAbout = AboutDialog()
         response = frmAbout.run()
 
-    def on_billView_double_Click(self, widget, path, view_column):
-        """
-            This event will be fired when a user double click
-            a row in the bill treeview.
-            For now we will just print row values.
-        """
+    #def on_billView_double_clicked(self, widget, path, view_column):
+    def on_billView_cursor_changed(self, widget):
+        """ Displays the selected record information """
         sel = widget.get_selection()
         model, iter = sel.get_selected()
         
@@ -268,12 +265,12 @@ class BillReminder:
         self.billList.connect('row-inserted', self.on_billList_row_inserted)
         #Attache the model to the treeView
         self.billView.set_model(self.billList)
-        self.billView.connect('row-activated', self.on_billView_double_Click)
+        self.billView.connect('cursor_changed', self.on_billView_cursor_changed)
 
     def addBillListColumn(self, title, columnId, size=100):
-        """This function adds a column to the list view.
+        """ This function adds a column to the list view.
         First it create the gtk.TreeViewColumn and then sets
-        some needed properties"""
+        some needed properties """
 
         column = gtk.TreeViewColumn(title, gtk.CellRendererText()
             , text=columnId)
