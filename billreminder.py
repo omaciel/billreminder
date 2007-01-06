@@ -47,7 +47,7 @@ GLADEFILE = "billreminder.glade"
 class BillDialog:
     """ This is the dialog to add/edit bills """
 
-    def __init__(self):
+    def __init__(self, bill=None):
         #Set the Glade file
         self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
         self.formName = "frmBillDialog"
@@ -61,6 +61,15 @@ class BillDialog:
 
         # Populate payees
         self._populatePayee()
+
+        self.bill = bill
+
+        # If a bill object was passed, go into edit mode
+        if bill != None:
+            self.bill = bill
+            self.txtAmount.set_text(bill.amountDue)
+            self.cCalendar.set_date(bill.dueDate)
+            self.cboPayee.set_text(bill.payee)
 
     def run(self):
         """ This function will show the dialog """        
@@ -82,10 +91,17 @@ class BillDialog:
 
             # Gets the payee
             payee = self._getPayee()
-            myBill = Bill(payee, selectedDate, self.txtAmount.get_text(), "hi")
+            if self.bill == None:
+                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), "hi")
+            else:
+                self.bill.payee = payee
+                self.bill.amoutDue = self.txtAmount.get_text()
+                self.bill.dueDate = selectedDate
+                #self.bill.notes = self.txtNotes
+
 
             #return the result and bill
-            return result, myBill
+            return result, self.bill
         else:
             #return the result and bill
             return None, None
@@ -161,6 +177,7 @@ class BillReminder:
         self.btnPaid = self.gladefile.get_widget('btnPaid')
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
         self.mnuAdd = self.gladefile.get_widget('mnuAdd')
+        #self.mnuEdit = self.gladefile.get_widget('mnuEdit')
         self.lblStatusPanel1 = self.gladefile.get_widget('lblStatusPanel1')
         self.lblStatusPanel2 = self.gladefile.get_widget('lblStatusPanel2')
         
@@ -172,6 +189,7 @@ class BillReminder:
         self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
         self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
         self.mnuAdd.connect('activate',self.on_mnuAdd_activate)
+        #self.mnuAdd.connect('activate',self.on_mnuEdit_activate)
 
         # Connects to the database
         self.dal = DAL()
@@ -216,6 +234,22 @@ class BillReminder:
                 # Format the amount field
                 amountDue = "%0.2f" % float(bill.amountDue)
                 self.billList.append([bill.payee, dueDate, amountDue])
+
+    def editBill(self):
+        # Displays the Bill dialog
+        frmBillDialog = BillDialog(self.currentBill)
+        response, bill = frmBillDialog.run()
+
+        # Checks if the user did not cancel the action
+        if (response == gtk.RESPONSE_OK):
+            # Edit bill in the database
+             self.dal.edit(id, bill):
+            # Format the dueDate field
+            dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
+            dueDate = dueDate.strftime('%Y/%m/%d')
+            # Format the amount field
+            amountDue = "%0.2f" % float(bill.amountDue)
+            self.billList[] = [bill.payee, dueDate, amountDue]
 
     def on_mnuAdd_activate(self, widget):
         self.addBill()
