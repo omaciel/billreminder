@@ -132,15 +132,12 @@ class DAL(object):
 
     def _executeSQL(self, stmt, args):
         """ Excutes passed SQL and returns the result """
-        # Flag
-        success = True
 
         try:
             self.cur.execute(stmt, args)
+            return self.cur.fetchall()
         except Exception, e:
-            success = False
-
-        return success
+            return None
 
     def _createQueryParams(self, kwargs):
         """

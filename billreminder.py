@@ -177,7 +177,7 @@ class BillReminder:
         self.btnPaid = self.gladefile.get_widget('btnPaid')
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
         self.mnuAdd = self.gladefile.get_widget('mnuAdd')
-        #self.mnuEdit = self.gladefile.get_widget('mnuEdit')
+        self.mnuEdit = self.gladefile.get_widget('mnuEdit')
         self.lblStatusPanel1 = self.gladefile.get_widget('lblStatusPanel1')
         self.lblStatusPanel2 = self.gladefile.get_widget('lblStatusPanel2')
         
@@ -189,7 +189,7 @@ class BillReminder:
         self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
         self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
         self.mnuAdd.connect('activate',self.on_mnuAdd_activate)
-        #self.mnuAdd.connect('activate',self.on_mnuEdit_activate)
+        self.mnuEdit.connect('activate',self.on_mnuEdit_activate)
 
         # Connects to the database
         self.dal = DAL()
@@ -199,7 +199,11 @@ class BillReminder:
 
         # and populate it
         self.populateTreeView(self.dal.get({'paid': 0}))
-        
+
+        # Current record holder
+        self.currentBill = None
+        self.id = None
+
     def enable_buttons(self, bValue):
         """
             Enable/disable buttons.
@@ -233,7 +237,7 @@ class BillReminder:
                 dueDate = dueDate.strftime('%Y/%m/%d')
                 # Format the amount field
                 amountDue = "%0.2f" % float(bill.amountDue)
-                self.billList.append([bill.payee, dueDate, amountDue])
+                self.billList.append(['', bill.payee, dueDate, amountDue, bill.notes, bill.paid])
 
     def editBill(self):
         # Displays the Bill dialog
@@ -243,16 +247,20 @@ class BillReminder:
         # Checks if the user did not cancel the action
         if (response == gtk.RESPONSE_OK):
             # Edit bill in the database
-             self.dal.edit(id, bill):
+            self.dal.edit(self.id, bill)
             # Format the dueDate field
             dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
             dueDate = dueDate.strftime('%Y/%m/%d')
             # Format the amount field
             amountDue = "%0.2f" % float(bill.amountDue)
-            self.billList[] = [bill.payee, dueDate, amountDue]
+            idx = widget.get_cursor()[0][0]
+            self.billList[idx] = [id, bill.payee, dueDate, amountDue, bill.notes, bill.paid]
 
     def on_mnuAdd_activate(self, widget):
         self.addBill()
+
+    def on_mnuEdit_activate(self, widget):
+        self.editBill()
 
     def on_mnuAbout_activate(self, widget):
         frmAbout = AboutDialog()
@@ -269,19 +277,23 @@ class BillReminder:
             c.addMenuItem('-', None)
             c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
             c.popup(None, None, None, event.button, event.get_time())
-    #def on_billView_double_clicked(self, widget, path, view_column):
     def on_billView_cursor_changed(self, widget):
         """ Displays the selected record information """
         try:
             sel = widget.get_selection()
             model, iter = sel.get_selected()
             
-            payee = model.get_value(iter, 0)
-            date = model.get_value(iter, 1)
-            amount = model.get_value(iter,2)
+            id = model.get_value(iter, 0)
+            payee = model.get_value(iter, 1)
+            date = model.get_value(iter, 2)
+            amount = model.get_value(iter,3)
+            notes = model.get_value(iter,4)
+            paid = model.get_value(iter,5)
             
             # Display the status for the selected row
-            self.lblStatusPanel2.set_text('%s, %s , %s' % (payee,date,amount))
+            self.currentBill = Bill(payee, date, amount, notes, paid)
+            self.currentId = id
+            self.lblStatusPanel2.set_text('Notes: %s' % (notes))
             self.enable_buttons(True)
         except :
             pass 
@@ -294,6 +306,7 @@ class BillReminder:
         """ Populates the treeview control with the records passed """
 
         for rec in records:
+            id = rec['Id']
             payee = rec['payee']
             # Format the dueDate field
             dueDate = rec['dueDate']
@@ -301,39 +314,48 @@ class BillReminder:
             dueDate = dueDate.strftime('%Y/%m/%d')
             # Format the amount field
             amountDue = "%0.2f" % float(rec['amountDue'])
-            #notes = rec['notes']
-            #paid = rec['paid']
-            self.billList.append([payee, dueDate, amountDue])
+            notes = rec['notes']
+            paid = rec['paid']
+            self.billList.append([id, payee, dueDate, amountDue, notes, paid])
 
         # Select the first row
         self.billView.set_cursor(0)
 
     def formatTreeView(self):
         #Here are some variables that can be reused later
-        self.colPayee = 0
-        self.colDueDate = 1
-        self.colAmountDue = 2
+        self.colId = 0
+        self.colPayee = 1
+        self.colDueDate = 2
+        self.colAmountDue = 3
+        self.colNotes = 4
+        self.colPaid = 5
 
+        self.strId = "Id"
         self.strPayee = "Payee"
         self.strDueDate = "Due Date"
         self.strAmountDue = "Amount Due"
+        self.strNotes = "Notes"
+        self.strPaid = "Paid"
 
         #Get the treeView from the widget Tree
         self.billView = self.gladefile.get_widget("tvBills")
         #Add all of the List Columns to the wineView
-        self.addBillListColumn(self.strPayee, self.colPayee, 160)
-        self.addBillListColumn(self.strDueDate, self.colDueDate)
-        self.addBillListColumn(self.strAmountDue, self.colAmountDue)
+        self.addBillListColumn(self.strId, self.colId, 100, False)
+        self.addBillListColumn(self.strPayee, self.colPayee, 160, True)
+        self.addBillListColumn(self.strDueDate, self.colDueDate, 100, True)
+        self.addBillListColumn(self.strAmountDue, self.colAmountDue, 100, True)
+        self.addBillListColumn(self.strNotes, self.colNotes, 100, False)
+        self.addBillListColumn(self.strPaid, self.colPaid, 100, False)
 
         #Create the listStore Model to use with the wineView
-        self.billList = gtk.ListStore(str, str, str)
+        self.billList = gtk.ListStore(str, str, str, str, str, str)
         self.billList.connect('row-inserted', self.on_billList_row_inserted)
         #Attache the model to the treeView
         self.billView.set_model(self.billList)
         self.billView.connect('cursor_changed', self.on_billView_cursor_changed)
         self.billView.connect("button_press_event", self.on_billView_button_press_event)
 
-    def addBillListColumn(self, title, columnId, size=100):
+    def addBillListColumn(self, title, columnId, size=100, visible=True):
         """ This function adds a column to the list view.
         First it create the gtk.TreeViewColumn and then sets
         some needed properties """
@@ -344,6 +366,7 @@ class BillReminder:
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_min_width(size)
         column.set_clickable(True)
+        column.set_visible(visible)
         column.set_sort_column_id(columnId)
 
         self.billView.append_column(column)
