@@ -46,17 +46,17 @@ GLADEFILE = "billreminder.glade"
 
 class Message:
     
-    def question(self, msg, cancel=1, parent=None):
-        if not parent: parent = self
-        dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, \
-                                   gtk.MESSAGE_QUESTION, gtk.BUTTONS_NONE, msg)
-        dialog.add_buttons(gtk.STOCK_YES, gtk.RESPONSE_YES, gtk.STOCK_NO, gtk.RESPONSE_NO)
-    
-        if cancel: dialog.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
-        dialog.set_default_response(gtk.RESPONSE_CANCEL)
-        response = dialog.run()
-        dialog.destroy()
-        return response
+    def ShowQuestionOkCancel(self,text, parentWindow= None, title = ''):
+        dlg = gtk.MessageDialog (parentWindow, gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, text)
+        if title == '':
+            dlg.set_title('Question')
+        else:
+            dlg.set_title(title)
+            
+        dlg.set_markup(text)
+        response = dlg.run ()
+        dlg.destroy ()
+        return (response == gtk.RESPONSE_YES)
 
 def select_combo_Text(cb,text):
     i=0
@@ -223,6 +223,7 @@ class BillReminder:
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
         self.mnuAdd = self.gladefile.get_widget('mnuAdd')
         self.mnuEdit = self.gladefile.get_widget('mnuEdit')
+        self.mnuRemove = self.gladefile.get_widget('mnuRemove')
         self.lblStatusPanel1 = self.gladefile.get_widget('lblStatusPanel1')
         self.lblStatusPanel2 = self.gladefile.get_widget('lblStatusPanel2')
         
@@ -233,9 +234,11 @@ class BillReminder:
         self.btnQuit.connect('clicked',self.on_btnQuit_clicked)
         self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
         self.btnEdit.connect('clicked', self.on_btnEdit_clicked)
+        self.btnRemove.connect('clicked', self.on_btn_remove_clicked)
         self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
         self.mnuAdd.connect('activate',self.on_mnuAdd_activate)
         self.mnuEdit.connect('activate',self.on_mnuEdit_activate)
+        self.mnuRemove.connect('activate',self.on_btn_remove_clicked)
 
         # Connects to the database
         self.dal = DAL()
@@ -275,6 +278,11 @@ class BillReminder:
     def on_btnEdit_clicked(self, widget):
         self.editBill()
 
+    def on_btn_remove_clicked(self, *args):
+        id, bill = self.getBill()
+        if Message().ShowQuestionOkCancel('do you really want to remove it?\n\n <b>%s - %0.2f </b>' % (bill.payee,float(bill.amountDue)), self.frmMain):
+            print 'ok'
+        
     def addBill(self, *args):
         # Displays the Bill dialog
         frmBillDialog = BillDialog(parent=self.frmMain)
@@ -330,7 +338,7 @@ class BillReminder:
             c = ContextMenu(self)
             c.addMenuItem('Add New', self.addBill, gtk.STOCK_ADD)
             c.addMenuItem('-', None)
-            c.addMenuItem('Remove',None ,gtk.STOCK_REMOVE)
+            c.addMenuItem('Remove',self.on_btn_remove_clicked ,gtk.STOCK_REMOVE)
             c.addMenuItem('Edit', self.editBill, gtk.STOCK_EDIT)
             c.addMenuItem('Paid', None,gtk.STOCK_APPLY,True)
             c.addMenuItem('-', None)
