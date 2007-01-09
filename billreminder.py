@@ -58,6 +58,8 @@ class BillDialog:
         self.txtAmount = self.gladefile.get_widget("txtAmount")
         self.cCalendar = self.gladefile.get_widget("cCalendar")
         self.cboPayee = self.gladefile.get_widget("cboPayee")
+        self.txtNotes = self.gladefile.get_widget("txtNotes")
+        self.txtBuffer = self.txtNotes.get_buffer()
 
         # Populate payees
         self._populatePayee()
@@ -70,6 +72,7 @@ class BillDialog:
             self.txtAmount.set_text(bill.amountDue)
             self.cCalendar.set_date(bill.dueDate)
             self.cboPayee.set_text(bill.payee)
+            self.txtiBuffer.set_text(bill.notes)
 
     def run(self):
         """ This function will show the dialog """        
@@ -89,15 +92,20 @@ class BillDialog:
             # Turn it into a time object
             selectedDate = time.mktime(selectedDate.timetuple())
 
+            #buffer = self.txtNotes.get_buffer()
+            startiter, enditer = self.txtBuffer.get_bounds()
+            buffer = self.txtBuffer.get_text(startiter, enditer)
+            print buffer
+
             # Gets the payee
             payee = self._getPayee()
             if self.bill == None:
-                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), "hi")
+                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), buffer)
             else:
                 self.bill.payee = payee
                 self.bill.amoutDue = self.txtAmount.get_text()
                 self.bill.dueDate = selectedDate
-                #self.bill.notes = self.txtNotes
+                self.bill.notes = buffer
 
 
             #return the result and bill
@@ -277,19 +285,20 @@ class BillReminder:
             c.addMenuItem('-', None)
             c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
             c.popup(None, None, None, event.button, event.get_time())
+
     def on_billView_cursor_changed(self, widget):
         """ Displays the selected record information """
         try:
             sel = widget.get_selection()
             model, iter = sel.get_selected()
-            
+
             id = model.get_value(iter, 0)
             payee = model.get_value(iter, 1)
             date = model.get_value(iter, 2)
             amount = model.get_value(iter,3)
             notes = model.get_value(iter,4)
             paid = model.get_value(iter,5)
-            
+
             # Display the status for the selected row
             self.currentBill = Bill(payee, date, amount, notes, paid)
             self.currentId = id
@@ -339,7 +348,7 @@ class BillReminder:
 
         #Get the treeView from the widget Tree
         self.billView = self.gladefile.get_widget("tvBills")
-        #Add all of the List Columns to the wineView
+        #Add all of the List Columns to the treeView
         self.addBillListColumn(self.strId, self.colId, 100, False)
         self.addBillListColumn(self.strPayee, self.colPayee, 160, True)
         self.addBillListColumn(self.strDueDate, self.colDueDate, 100, True)
@@ -347,7 +356,7 @@ class BillReminder:
         self.addBillListColumn(self.strNotes, self.colNotes, 100, False)
         self.addBillListColumn(self.strPaid, self.colPaid, 100, False)
 
-        #Create the listStore Model to use with the wineView
+        #Create the listStore Model to use with the treeView
         self.billList = gtk.ListStore(str, str, str, str, str, str)
         self.billList.connect('row-inserted', self.on_billList_row_inserted)
         #Attache the model to the treeView
