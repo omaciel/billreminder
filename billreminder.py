@@ -80,13 +80,16 @@ def str_to_date(strdate):
 class BillDialog:
     """ This is the dialog to add/edit bills """
 
-    def __init__(self, bill=None):
+    def __init__(self, bill=None, parent = None):
         #Set the Glade file
         self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
         self.formName = "frmBillDialog"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
 
         self.frmBillDialog = self.gladefile.get_widget(self.formName)
+        if parent != None:
+            self.frmBillDialog.set_transient_for(parent)
+            self.frmBillDialog.set_icon(parent.get_icon())
 
         self.txtAmount = self.gladefile.get_widget("txtAmount")
         self.cCalendar = self.gladefile.get_widget("cCalendar")
@@ -101,6 +104,7 @@ class BillDialog:
 
         # If a bill object was passed, go into edit mode
         if self.bill != None:
+            self.frmBillDialog.set_title("Editing bill '%s'" % bill.payee )
             self.txtAmount.set_text(bill.amountDue)
             dt = str_to_date(bill.dueDate)
             self.cCalendar.select_day(dt.day)
@@ -271,9 +275,9 @@ class BillReminder:
     def on_btnEdit_clicked(self, widget):
         self.editBill()
 
-    def addBill(self):
+    def addBill(self, *args):
         # Displays the Bill dialog
-        frmBillDialog = BillDialog()
+        frmBillDialog = BillDialog(parent=self.frmMain)
         response, bill = frmBillDialog.run()
 
         # Checks if the user did not cancel the action
@@ -289,11 +293,11 @@ class BillReminder:
                 self.billList.append(['', bill.payee, dueDate, amountDue, bill.notes, bill.paid])
                 self.update_status_bar()
 
-    def editBill(self):
+    def editBill(self,*args):
         # Get currently selected bill and its id
         id, bill = self.getBill()
         # Displays the Bill dialog
-        frmBillDialog = BillDialog(bill)
+        frmBillDialog = BillDialog(bill,parent=self.frmMain)
         response, bill = frmBillDialog.run()
 
         # Checks if the user did not cancel the action
@@ -306,9 +310,9 @@ class BillReminder:
                 dueDate = dueDate.strftime('%Y/%m/%d')
                 # Format the amount field
                 amountDue = "%0.2f" % float(bill.amountDue)
-                idx = widget.get_cursor()[0][0]
+                idx = self.billView.get_cursor()[0][0]
                 self.billList[idx] = [id, bill.payee, dueDate, amountDue, bill.notes, bill.paid]
-            except e:
+            except Exception, e:
                 print str(e)
 
     def on_mnuAdd_activate(self, widget):
@@ -324,10 +328,10 @@ class BillReminder:
     def on_billView_button_press_event(self, widget, event):
         if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
             c = ContextMenu(self)
-            c.addMenuItem('Add New', self.addBill(), gtk.STOCK_ADD)
+            c.addMenuItem('Add New', self.addBill, gtk.STOCK_ADD)
             c.addMenuItem('-', None)
             c.addMenuItem('Remove',None ,gtk.STOCK_REMOVE)
-            c.addMenuItem('Edit', self.editBill(), gtk.STOCK_EDIT)
+            c.addMenuItem('Edit', self.editBill, gtk.STOCK_EDIT)
             c.addMenuItem('Paid', None,gtk.STOCK_APPLY,True)
             c.addMenuItem('-', None)
             c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
