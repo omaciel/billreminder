@@ -134,8 +134,8 @@ class DAL(object):
         """ Excutes passed SQL and returns the result """
 
         try:
-            self.cur.execute(stmt, args)
-            return self.cur.fetchall()
+            return self.cur.execute(stmt, args)
+            #return self.cur.fetchall()
         except Exception, e:
             return None
 

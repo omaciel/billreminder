@@ -239,7 +239,9 @@ class BillReminder:
         # Checks if the user did not cancel the action
         if (response == gtk.RESPONSE_OK):
             # Add new bill to database
-            if self.dal.add(bill):
+            ret = self.dal.add(bill)
+            print ret
+            if ret:
                 # Format the dueDate field
                 dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
                 dueDate = dueDate.strftime('%Y/%m/%d')
