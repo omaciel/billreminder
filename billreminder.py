@@ -212,7 +212,7 @@ class AboutDialog:
         #we are done with the dialog, destroy it
         frmAbout.destroy()
 
-        #return the result and the wine
+        #return the result
         return  result  
 
 class BillReminder:
@@ -233,6 +233,7 @@ class BillReminder:
         self.btnEdit = self.gladefile.get_widget('btnEdit')
         self.btnPaid = self.gladefile.get_widget('btnPaid')
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
+        self.mnuQuit = self.gladefile.get_widget('mnuQuit')
         self.mnuAdd = self.gladefile.get_widget('mnuAdd')
         self.mnuEdit = self.gladefile.get_widget('mnuEdit')
         self.mnuRemove = self.gladefile.get_widget('mnuRemove')
@@ -247,6 +248,7 @@ class BillReminder:
         self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
         self.btnEdit.connect('clicked', self.on_btnEdit_clicked)
         self.btnRemove.connect('clicked', self.on_btn_remove_clicked)
+        self.mnuQuit.connect('activate',self.on_mnuQuit_activate)
         self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
         self.mnuAdd.connect('activate',self.on_mnuAdd_activate)
         self.mnuEdit.connect('activate',self.on_mnuEdit_activate)
@@ -286,6 +288,9 @@ class BillReminder:
 
     def on_btnAdd_clicked(self, widget):
         self.addBill()
+
+    def on_mnuQuit_activate(self, widget):
+        self.on_frmMain_destroy(widget)
 
     def on_btnEdit_clicked(self, widget):
         self.editBill()
