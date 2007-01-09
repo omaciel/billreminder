@@ -89,7 +89,7 @@ class DAL(object):
 
         stmt = "DELETE FROM %s WHERE Id=?" % (self.name)
 
-        return self._executeSQL(stmt,['Id',id])
+        return self._executeSQL(stmt, [id])
 
     def edit(self, id, bill):
         billDict = self._makeBillDict(bill)
@@ -100,7 +100,6 @@ class DAL(object):
 
         args = [ x[1] for x in pairs ] + [id]
 
-        
         return self._executeSQL(stmt, args)
 
     def get(self, kwargs):
