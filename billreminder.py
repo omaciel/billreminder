@@ -57,6 +57,18 @@ class Message:
         response = dlg.run ()
         dlg.destroy ()
         return (response == gtk.RESPONSE_YES)
+    
+    def ShowError(self,text, parentWindow= None, title = ''):
+        dlg= gtk.MessageDialog(parentWindow, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, text)
+        if title == '':
+            dlg.set_title('Error')
+        else:
+            dlg.set_title(title)
+            
+        dlg.set_markup(text)
+        dlg.run()
+        dlg.destroy ()
+        return 
 
 def select_combo_Text(cb,text):
     i=0
@@ -281,7 +293,7 @@ class BillReminder:
     def on_btn_remove_clicked(self, *args):
         id, bill = self.getBill()
         if Message().ShowQuestionOkCancel('do you really want to remove it?\n\n <b>%s - %0.2f </b>' % (bill.payee,float(bill.amountDue)), self.frmMain):
-            print 'ok'
+            self.removeBill()
         
     def addBill(self, *args):
         # Displays the Bill dialog
@@ -301,6 +313,16 @@ class BillReminder:
                 self.billList.append(['', bill.payee, dueDate, amountDue, bill.notes, bill.paid])
                 self.update_status_bar()
 
+    def removeBill(self):
+        id, bill = self.getBill()
+        sel = self.billView.get_selection()
+        model, iter = sel.get_selected()
+        try:
+            self.dal.delete(bill)
+            self.billList.remove(iter)
+        except Exception, e:
+            Message().ShowError(str(e), self.frmMain)
+        
     def editBill(self,*args):
         # Get currently selected bill and its id
         id, bill = self.getBill()
