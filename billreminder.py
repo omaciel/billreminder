@@ -129,7 +129,6 @@ class BillDialog:
             #buffer = self.txtNotes.get_buffer()
             startiter, enditer = self.txtBuffer.get_bounds()
             buffer = self.txtBuffer.get_text(startiter, enditer)
-            print buffer
 
             # Gets the payee
             payee = self._getPayee()
@@ -229,6 +228,7 @@ class BillReminder:
         self.frmMain.connect('destroy', self.on_frmMain_destroy)
         self.btnQuit.connect('clicked',self.on_btnQuit_clicked)
         self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
+        self.btnEdit.connect('clicked', self.on_btnEdit_clicked)
         self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
         self.mnuAdd.connect('activate',self.on_mnuAdd_activate)
         self.mnuEdit.connect('activate',self.on_mnuEdit_activate)
@@ -268,6 +268,9 @@ class BillReminder:
     def on_btnAdd_clicked(self, widget):
         self.addBill()
 
+    def on_btnEdit_clicked(self, widget):
+        self.editBill()
+
     def addBill(self):
         # Displays the Bill dialog
         frmBillDialog = BillDialog()
@@ -277,7 +280,6 @@ class BillReminder:
         if (response == gtk.RESPONSE_OK):
             # Add new bill to database
             ret = self.dal.add(bill)
-            print ret
             if ret:
                 # Format the dueDate field
                 dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
@@ -288,21 +290,26 @@ class BillReminder:
                 self.update_status_bar()
 
     def editBill(self):
+        # Get currently selected bill and its id
+        id, bill = self.getBill()
         # Displays the Bill dialog
-        frmBillDialog = BillDialog(self.currentBill)
+        frmBillDialog = BillDialog(bill)
         response, bill = frmBillDialog.run()
 
         # Checks if the user did not cancel the action
         if (response == gtk.RESPONSE_OK):
-            # Edit bill in the database
-            self.dal.edit(self.id, bill)
-            # Format the dueDate field
-            dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
-            dueDate = dueDate.strftime('%Y/%m/%d')
-            # Format the amount field
-            amountDue = "%0.2f" % float(bill.amountDue)
-            idx = widget.get_cursor()[0][0]
-            self.billList[idx] = [id, bill.payee, dueDate, amountDue, bill.notes, bill.paid]
+            try:
+                # Edit bill in the database
+                self.dal.edit(id, bill)
+                # Format the dueDate field
+                dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
+                dueDate = dueDate.strftime('%Y/%m/%d')
+                # Format the amount field
+                amountDue = "%0.2f" % float(bill.amountDue)
+                idx = widget.get_cursor()[0][0]
+                self.billList[idx] = [id, bill.payee, dueDate, amountDue, bill.notes, bill.paid]
+            except e:
+                print str(e)
 
     def on_mnuAdd_activate(self, widget):
         self.addBill()
@@ -317,10 +324,10 @@ class BillReminder:
     def on_billView_button_press_event(self, widget, event):
         if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
             c = ContextMenu(self)
-            c.addMenuItem('Add New', None,gtk.STOCK_ADD)
+            c.addMenuItem('Add New', self.addBill(), gtk.STOCK_ADD)
             c.addMenuItem('-', None)
-            c.addMenuItem('Remove', None,gtk.STOCK_REMOVE)
-            c.addMenuItem('Edit', None,gtk.STOCK_EDIT)
+            c.addMenuItem('Remove',None ,gtk.STOCK_REMOVE)
+            c.addMenuItem('Edit', self.editBill(), gtk.STOCK_EDIT)
             c.addMenuItem('Paid', None,gtk.STOCK_APPLY,True)
             c.addMenuItem('-', None)
             c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
@@ -333,19 +340,34 @@ class BillReminder:
             model, iter = sel.get_selected()
 
             id = model.get_value(iter, 0)
+            notes = model.get_value(iter,4)
+
+            # Display the status for the selected row
+            self.lblStatusPanel2.set_text('Notes: %s' % (notes))
+            self.enable_buttons(True)
+        except :
+            pass 
+
+    def getBill(self):
+        """ Returns a bill object from the current selected record """
+        try:
+            sel = self.billView.get_selection()
+            model, iter = sel.get_selected()
+
+            id = model.get_value(iter, 0)
             payee = model.get_value(iter, 1)
             date = model.get_value(iter, 2)
             amount = model.get_value(iter,3)
             notes = model.get_value(iter,4)
             paid = model.get_value(iter,5)
 
-            # Display the status for the selected row
-            self.currentBill = Bill(payee, date, amount, notes, paid)
-            self.currentId = id
-            self.lblStatusPanel2.set_text('Notes: %s' % (notes))
-            self.enable_buttons(True)
-        except :
-            pass 
+            # Instantiate new Bill object
+            b = Bill(payee, date, amount, notes, paid)
+            # Return bill and id
+            return id, b
+        except e:
+            print str(e)
+            return None, None
 
     def populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
