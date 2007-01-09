@@ -84,15 +84,12 @@ class DAL(object):
 
         return self._executeSQL(stmt, values)
 
-    def delete(self, bill):
-        billDict = self._makeBillDict(bill)
-        # Generate WHERE clause and separate arguments
-        (stmt, args) = self._createQueryParams(billDict)
-
+    def delete(self,id):
         # Delete statement
-        stmt = "DELETE FROM %(name)s" % dict(name=self.name) + stmt
 
-        return self._executeSQL(stmt, args)
+        stmt = "DELETE FROM %s WHERE Id=?" % (self.name)
+
+        return self._executeSQL(stmt,['Id',id])
 
     def edit(self, id, bill):
         billDict = self._makeBillDict(bill)
