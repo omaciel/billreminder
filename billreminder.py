@@ -318,7 +318,9 @@ class BillReminder:
         sel = self.billView.get_selection()
         model, iter = sel.get_selected()
         try:
-            if self.dal.delete(id) == 1:
+            ret = self.dal.delete(id)
+            
+            if ret.rowcount == 1:
                 self.billList.remove(iter)
             else:
                 Message().ShowError("Bill '%s' not deleted." % bill.payee , self.frmMain)

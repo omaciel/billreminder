@@ -89,7 +89,9 @@ class DAL(object):
 
         stmt = "DELETE FROM %s WHERE Id=?" % (self.name)
 
-        return self._executeSQL(stmt, [id])
+        ret = self._executeSQL(stmt, [id])
+        
+        return ret
 
     def edit(self, id, bill):
         billDict = self._makeBillDict(bill)
@@ -130,8 +132,9 @@ class DAL(object):
         """ Excutes passed SQL and returns the result """
 
         try:
-            self.cur.execute(stmt, args)
+            return self.cur.execute(stmt, args)
         except Exception, e:
+            print e
             return None
 
     def _createQueryParams(self, kwargs):
