@@ -44,6 +44,39 @@ except:
 # Glade file name
 GLADEFILE = "billreminder.glade"
 
+class Message:
+    
+    def question(self, msg, cancel=1, parent=None):
+        if not parent: parent = self
+        dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, \
+                                   gtk.MESSAGE_QUESTION, gtk.BUTTONS_NONE, msg)
+        dialog.add_buttons(gtk.STOCK_YES, gtk.RESPONSE_YES, gtk.STOCK_NO, gtk.RESPONSE_NO)
+    
+        if cancel: dialog.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
+        dialog.set_default_response(gtk.RESPONSE_CANCEL)
+        response = dialog.run()
+        dialog.destroy()
+        return response
+
+def select_combo_Text(cb,text):
+    i=0
+    
+    for n in cb.get_model():
+        if n[0] == text:
+            break
+        i +=1
+    cb.set_active(i)
+    
+def str_to_date(strdate):
+    dt = strdate.split()[0]
+    sep = [c for c in dt if not c.isdigit()][0]
+    dtPieces = [int(p) for p in dt.split(sep)]
+    print dtPieces
+    return datetime.date(dtPieces[0], dtPieces[1], dtPieces[2])
+
+    
+    
+    
 class BillDialog:
     """ This is the dialog to add/edit bills """
 
@@ -67,12 +100,13 @@ class BillDialog:
         self.bill = bill
 
         # If a bill object was passed, go into edit mode
-        if bill != None:
-            self.bill = bill
+        if self.bill != None:
             self.txtAmount.set_text(bill.amountDue)
-            self.cCalendar.set_date(bill.dueDate)
-            self.cboPayee.set_text(bill.payee)
-            self.txtiBuffer.set_text(bill.notes)
+            dt = str_to_date(bill.dueDate)
+            self.cCalendar.select_day(dt.day)
+            self.cCalendar.select_month(dt.month -1,dt.year)
+            select_combo_Text(self.cboPayee,bill.payee)
+            self.txtBuffer.set_text(bill.notes)
 
     def run(self):
         """ This function will show the dialog """        
@@ -212,6 +246,9 @@ class BillReminder:
         self.currentBill = None
         self.id = None
 
+    def update_status_bar(self):
+        self.lblStatusPanel1.set_markup('<b>Records:</b> %d' % len(self.billList))
+        
     def enable_buttons(self, bValue):
         """
             Enable/disable buttons.
@@ -248,6 +285,7 @@ class BillReminder:
                 # Format the amount field
                 amountDue = "%0.2f" % float(bill.amountDue)
                 self.billList.append(['', bill.payee, dueDate, amountDue, bill.notes, bill.paid])
+                self.update_status_bar()
 
     def editBill(self):
         # Displays the Bill dialog
@@ -309,10 +347,6 @@ class BillReminder:
         except :
             pass 
 
-    def on_billList_row_inserted(self, treemodel, path, iter):
-        """ Displays the count of records """
-        self.lblStatusPanel1.set_markup('<b>Records:</b> %d' % len(self.billList))
-
     def populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
 
@@ -330,6 +364,7 @@ class BillReminder:
             self.billList.append([id, payee, dueDate, amountDue, notes, paid])
 
         # Select the first row
+        self.update_status_bar()
         self.billView.set_cursor(0)
 
     def formatTreeView(self):
@@ -360,7 +395,7 @@ class BillReminder:
 
         #Create the listStore Model to use with the treeView
         self.billList = gtk.ListStore(str, str, str, str, str, str)
-        self.billList.connect('row-inserted', self.on_billList_row_inserted)
+        #self.billList.connect('row-inserted', self.on_billList_row_inserted)
         #Attache the model to the treeView
         self.billView.set_model(self.billList)
         self.billView.connect('cursor_changed', self.on_billView_cursor_changed)
