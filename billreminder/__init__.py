@@ -44,14 +44,16 @@ except:
     sys.exit(1)
 
 # Glade file name
-GLADEFILE = "billreminder.glade"
+GLADEFILE = "/usr/share/billreminder/billreminder.glade"
+#GLADEFILE = "billreminder.glade"
 
 class BillDialog:
     """ This is the dialog to add/edit bills """
 
     def __init__(self, bill=None, parent = None):
         #Set the Glade file
-        self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
+        #self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
+        self.gladefilename = GLADEFILE
         self.formName = "frmBillDialog"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
 
@@ -146,7 +148,8 @@ class AboutDialog:
     def __init__(self):
 
         #Set the Glade file
-        self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
+        #self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
+        self.gladefilename = GLADEFILE
         self.formName = "frmAbout"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
 
@@ -171,13 +174,15 @@ class BillReminder:
 
     def __init__(self):
         #Set the Glade file
-        self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE) 
+        #self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE) 
+        self.gladefilename = GLADEFILE
         self.formName = "frmMain"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
         
 
         #get form widgets and map it to objects
         self.frmMain = self.gladefile.get_widget(self.formName)
+        self.frmMain.set_icon_from_file("/usr/share/pixmaps/billreminder.ico")
         self.btnQuit = self.gladefile.get_widget('btnQuit')
         self.btnAdd = self.gladefile.get_widget('btnAdd')
         self.btnRemove = self.gladefile.get_widget('btnRemove')
