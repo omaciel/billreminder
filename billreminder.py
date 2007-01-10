@@ -247,12 +247,12 @@ class BillReminder:
         self.btnQuit.connect('clicked',self.on_btnQuit_clicked)
         self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
         self.btnEdit.connect('clicked', self.on_btnEdit_clicked)
-        self.btnRemove.connect('clicked', self.on_btn_remove_clicked)
+        self.btnRemove.connect('clicked', self.on_btnRemove_clicked)
         self.mnuQuit.connect('activate',self.on_mnuQuit_activate)
         self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
         self.mnuAdd.connect('activate',self.on_mnuAdd_activate)
         self.mnuEdit.connect('activate',self.on_mnuEdit_activate)
-        self.mnuRemove.connect('activate',self.on_btn_remove_clicked)
+        self.mnuRemove.connect('activate',self.on_btnRemove_clicked)
 
         # Connects to the database
         self.dal = DAL()
@@ -289,17 +289,54 @@ class BillReminder:
     def on_btnAdd_clicked(self, widget):
         self.addBill()
 
-    def on_mnuQuit_activate(self, widget):
-        self.on_frmMain_destroy(widget)
-
     def on_btnEdit_clicked(self, widget):
         self.editBill()
 
-    def on_btn_remove_clicked(self, *args):
+    def on_btnRemove_clicked(self, *args):
         id, bill = self.getBill()
         if Message().ShowQuestionOkCancel('do you really want to remove it?\n\n <b>%s - %0.2f </b>' % (bill.payee,float(bill.amountDue)), self.frmMain):
             self.removeBill()
         
+    def on_mnuQuit_activate(self, widget):
+        self.on_frmMain_destroy(widget)
+
+    def on_mnuAdd_activate(self, widget):
+        self.addBill()
+
+    def on_mnuEdit_activate(self, widget):
+        self.editBill()
+
+    def on_mnuAbout_activate(self, widget):
+        frmAbout = AboutDialog()
+        response = frmAbout.run()
+
+    def on_billView_button_press_event(self, widget, event):
+        if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
+            c = ContextMenu(self)
+            c.addMenuItem('Add New', self.addBill, gtk.STOCK_ADD)
+            c.addMenuItem('-', None)
+            c.addMenuItem('Remove',self.on_btnRemove_clicked ,gtk.STOCK_REMOVE)
+            c.addMenuItem('Edit', self.editBill, gtk.STOCK_EDIT)
+            c.addMenuItem('Paid', None,gtk.STOCK_APPLY,True)
+            c.addMenuItem('-', None)
+            c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
+            c.popup(None, None, None, event.button, event.get_time())
+
+    def on_billView_cursor_changed(self, widget):
+        """ Displays the selected record information """
+        try:
+            sel = widget.get_selection()
+            model, iter = sel.get_selected()
+
+            id = model.get_value(iter, 0)
+            notes = model.get_value(iter,4)
+
+            # Display the status for the selected row
+            self.lblStatusPanel2.set_text('Notes: %s' % (notes))
+            self.enable_buttons(True)
+        except :
+            pass 
+
     def addBill(self, *args):
         # Displays the Bill dialog
         frmBillDialog = BillDialog(parent=self.frmMain)
@@ -327,6 +364,7 @@ class BillReminder:
             
             if ret.rowcount == 1:
                 self.billList.remove(iter)
+                self.update_status_bar()
             else:
                 Message().ShowError("Bill '%s' not deleted." % bill.payee , self.frmMain)
         except Exception, e:
@@ -336,7 +374,7 @@ class BillReminder:
         # Get currently selected bill and its id
         id, bill = self.getBill()
         # Displays the Bill dialog
-        frmBillDialog = BillDialog(bill,parent=self.frmMain)
+        frmBillDialog = BillDialog(bill, parent=self.frmMain)
         response, bill = frmBillDialog.run()
 
         # Checks if the user did not cancel the action
@@ -353,43 +391,6 @@ class BillReminder:
                 self.billList[idx] = [id, bill.payee, dueDate, amountDue, bill.notes, bill.paid]
             except Exception, e:
                 print str(e)
-
-    def on_mnuAdd_activate(self, widget):
-        self.addBill()
-
-    def on_mnuEdit_activate(self, widget):
-        self.editBill()
-
-    def on_mnuAbout_activate(self, widget):
-        frmAbout = AboutDialog()
-        response = frmAbout.run()
-
-    def on_billView_button_press_event(self, widget, event):
-        if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
-            c = ContextMenu(self)
-            c.addMenuItem('Add New', self.addBill, gtk.STOCK_ADD)
-            c.addMenuItem('-', None)
-            c.addMenuItem('Remove',self.on_btn_remove_clicked ,gtk.STOCK_REMOVE)
-            c.addMenuItem('Edit', self.editBill, gtk.STOCK_EDIT)
-            c.addMenuItem('Paid', None,gtk.STOCK_APPLY,True)
-            c.addMenuItem('-', None)
-            c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
-            c.popup(None, None, None, event.button, event.get_time())
-
-    def on_billView_cursor_changed(self, widget):
-        """ Displays the selected record information """
-        try:
-            sel = widget.get_selection()
-            model, iter = sel.get_selected()
-
-            id = model.get_value(iter, 0)
-            notes = model.get_value(iter,4)
-
-            # Display the status for the selected row
-            self.lblStatusPanel2.set_text('Notes: %s' % (notes))
-            self.enable_buttons(True)
-        except :
-            pass 
 
     def getBill(self):
         """ Returns a bill object from the current selected record """
@@ -408,7 +409,7 @@ class BillReminder:
             b = Bill(payee, date, amount, notes, paid)
             # Return bill and id
             return id, b
-        except e:
+        except Except, e:
             print str(e)
             return None, None
 
