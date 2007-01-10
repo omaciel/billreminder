@@ -38,57 +38,14 @@ try:
     import gobject
     from bill import Bill
     from dal import DAL
+    import utils
+    from utils import ContextMenu, Message
 except:
     sys.exit(1)
 
 # Glade file name
 GLADEFILE = "billreminder.glade"
 
-class Message:
-    
-    def ShowQuestionOkCancel(self,text, parentWindow= None, title = ''):
-        dlg = gtk.MessageDialog (parentWindow, gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, text)
-        if title == '':
-            dlg.set_title('Question')
-        else:
-            dlg.set_title(title)
-            
-        dlg.set_markup(text)
-        response = dlg.run ()
-        dlg.destroy ()
-        return (response == gtk.RESPONSE_YES)
-    
-    def ShowError(self,text, parentWindow= None, title = ''):
-        dlg= gtk.MessageDialog(parentWindow, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, text)
-        if title == '':
-            dlg.set_title('Error')
-        else:
-            dlg.set_title(title)
-            
-        dlg.set_markup(text)
-        dlg.run()
-        dlg.destroy ()
-        return 
-
-def select_combo_Text(cb,text):
-    i=0
-    
-    for n in cb.get_model():
-        if n[0] == text:
-            break
-        i +=1
-    cb.set_active(i)
-    
-def str_to_date(strdate):
-    dt = strdate.split()[0]
-    sep = [c for c in dt if not c.isdigit()][0]
-    dtPieces = [int(p) for p in dt.split(sep)]
-    print dtPieces
-    return datetime.date(dtPieces[0], dtPieces[1], dtPieces[2])
-
-    
-    
-    
 class BillDialog:
     """ This is the dialog to add/edit bills """
 
@@ -116,12 +73,13 @@ class BillDialog:
 
         # If a bill object was passed, go into edit mode
         if self.bill != None:
+            print "%s - %s - %s - %s" % (bill.payee, bill.amountDue, bill.dueDate, bill.notes)
             self.frmBillDialog.set_title("Editing bill '%s'" % bill.payee )
             self.txtAmount.set_text(bill.amountDue)
-            dt = str_to_date(bill.dueDate)
+            dt = utils.str_to_date(bill.dueDate)
             self.cCalendar.select_day(dt.day)
             self.cCalendar.select_month(dt.month -1,dt.year)
-            select_combo_Text(self.cboPayee,bill.payee)
+            utils.select_combo_Text(self.cboPayee,bill.payee)
             self.txtBuffer.set_text(bill.notes)
 
     def run(self):
@@ -270,15 +228,6 @@ class BillReminder:
     def update_status_bar(self):
         self.lblStatusPanel1.set_markup('<b>Records:</b> %d' % len(self.billList))
         
-    def enable_buttons(self, bValue):
-        """
-            Enable/disable buttons.
-            If bValue = True  buttons will be enabled.
-        """
-        self.btnRemove.set_sensitive(bValue)
-        self.btnEdit.set_sensitive(bValue)
-        self.btnPaid.set_sensitive(bValue)
-        
     def on_frmMain_destroy(self, widget):
         """Quit yourself"""
         gtk.main_quit()
@@ -337,6 +286,15 @@ class BillReminder:
         except :
             pass 
 
+    def enable_buttons(self, bValue):
+        """
+            Enable/disable buttons.
+            If bValue = True  buttons will be enabled.
+        """
+        self.btnRemove.set_sensitive(bValue)
+        self.btnEdit.set_sensitive(bValue)
+        self.btnPaid.set_sensitive(bValue)
+ 
     def addBill(self, *args):
         # Displays the Bill dialog
         frmBillDialog = BillDialog(parent=self.frmMain)
@@ -361,7 +319,7 @@ class BillReminder:
         model, iter = sel.get_selected()
         try:
             ret = self.dal.delete(id)
-            
+ 
             if ret.rowcount == 1:
                 self.billList.remove(iter)
                 self.update_status_bar()
@@ -369,7 +327,7 @@ class BillReminder:
                 Message().ShowError("Bill '%s' not deleted." % bill.payee , self.frmMain)
         except Exception, e:
             Message().ShowError(str(e), self.frmMain)
-        
+
     def editBill(self,*args):
         # Get currently selected bill and its id
         id, bill = self.getBill()
@@ -380,6 +338,7 @@ class BillReminder:
         # Checks if the user did not cancel the action
         if (response == gtk.RESPONSE_OK):
             try:
+                print "%s - %s - %s - %s" % (bill.payee, bill.amountDue, bill.dueDate, bill.notes)
                 # Edit bill in the database
                 self.dal.edit(id, bill)
                 # Format the dueDate field
@@ -389,29 +348,25 @@ class BillReminder:
                 amountDue = "%0.2f" % float(bill.amountDue)
                 idx = self.billView.get_cursor()[0][0]
                 self.billList[idx] = [id, bill.payee, dueDate, amountDue, bill.notes, bill.paid]
-            except Exception, e:
-                print str(e)
+            except:
+                print "Unexpected error:", sys.exc_info()[0]
 
     def getBill(self):
         """ Returns a bill object from the current selected record """
-        try:
-            sel = self.billView.get_selection()
-            model, iter = sel.get_selected()
+        sel = self.billView.get_selection()
+        model, iter = sel.get_selected()
 
-            id = model.get_value(iter, 0)
-            payee = model.get_value(iter, 1)
-            date = model.get_value(iter, 2)
-            amount = model.get_value(iter,3)
-            notes = model.get_value(iter,4)
-            paid = model.get_value(iter,5)
+        id = model.get_value(iter, 0)
+        payee = model.get_value(iter, 1)
+        date = model.get_value(iter, 2)
+        amount = model.get_value(iter,3)
+        notes = model.get_value(iter,4)
+        paid = model.get_value(iter,5)
 
-            # Instantiate new Bill object
-            b = Bill(payee, date, amount, notes, paid)
-            # Return bill and id
-            return id, b
-        except Except, e:
-            print str(e)
-            return None, None
+        # Instantiate new Bill object
+        b = Bill(payee, date, amount, notes, paid)
+        # Return bill and id
+        return id, b
 
     def populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
@@ -483,47 +438,6 @@ class BillReminder:
 
         self.billView.append_column(column)
 
-# maybe we should create a file for each class or a package for imports
-class ContextMenu(gtk.Menu):
-    """ Creates context menus accessed by mouse right click. """
-    def __init__(self, *args):
-        gtk.Menu.__init__(self)
-        self.menuItem = None
-    
-    def addMenuItem(self,menuName,actionFunction= None,menuImage = None, forceName = False):
-        """
-            Add itens to menu.
-            
-            @menuName is the text showed in the menu option.
-                    If you pass a - (minus) as parameter value,
-                    it will create a separation menu item.
-            @actionFunction is the procedure called when activate signal is triggered from the menu.
-            
-        """
-        if menuName == "-":
-            self.menuItem = gtk.SeparatorMenuItem()
-        else:
-            if menuImage != None:
-                if isinstance(menuImage, gtk.Image):
-                    self.menuItem = gtk.ImageMenuItem(menuName)
-                    self.menuItem.set_image(menuImage)
-                else:
-                    if not forceName:
-                        self.menuItem = gtk.ImageMenuItem(menuImage)
-                    else:
-                        self.menuItem = gtk.ImageMenuItem(menuName)
-                        img = gtk.Image()
-                        img.set_from_stock(menuImage,gtk.ICON_SIZE_MENU)
-                        self.menuItem.set_image(img)
-            else:    
-                self.menuItem = gtk.ImageMenuItem(menuName)
-                
-            if actionFunction is not None :
-                self.menuItem.connect("activate", actionFunction)
-        self.menuItem.show()
-        self.append(self.menuItem)
-        return
-            
 if __name__ == "__main__":
     br = BillReminder()
     gtk.main()
