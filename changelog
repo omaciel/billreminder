@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Generating changelog..."
+svn log > CHANGELOG
+echo "Log prepared..."
