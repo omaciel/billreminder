@@ -50,7 +50,7 @@ class BillDialog:
     """ This is the dialog to add/edit bills """
 
     def __init__(self, bill=None, parent = None):
-        self.gladefile = "/usr/share/olive/olive.glade"
+        self.gladefile = "/usr/share/billreminder/billreminder.glade"
 
 
         if not os.path.exists(self.gladefile):
