@@ -403,7 +403,7 @@ class BillReminder:
         self.addBillListColumn(self.strId, self.colId, 100, False)
         self.addBillListColumn(self.strPayee, self.colPayee, 160, True)
         self.addBillListColumn(self.strDueDate, self.colDueDate, 100, True)
-        self.addBillListColumn(self.strAmountDue, self.colAmountDue, 100, True)
+        self.addBillListColumn(self.strAmountDue, self.colAmountDue, 100, True,1.0)
         self.addBillListColumn(self.strNotes, self.colNotes, 100, False)
         self.addBillListColumn(self.strPaid, self.colPaid, 100, False)
 
@@ -411,17 +411,22 @@ class BillReminder:
         self.billList = gtk.ListStore(str, str, str, str, str, str)
         #self.billList.connect('row-inserted', self.on_billList_row_inserted)
         #Attache the model to the treeView
+        
         self.billView.set_model(self.billList)
+        self.billView.set_rules_hint(True)
+        #self.billView.set_grid_lines(gtk.TREE_VIEW_GRID_LINES_HORIZONTAL)
         self.billView.connect('cursor_changed', self.on_billView_cursor_changed)
         self.billView.connect("button_press_event", self.on_billView_button_press_event)
+        
 
-    def addBillListColumn(self, title, columnId, size=100, visible=True):
+    def addBillListColumn(self, title, columnId, size=100, visible=True, xalign = 0.0):
         """ This function adds a column to the list view.
         First it create the gtk.TreeViewColumn and then sets
         some needed properties """
 
-        column = gtk.TreeViewColumn(title, gtk.CellRendererText()
-            , text=columnId)
+        renderer = gtk.CellRendererText()
+        renderer.set_property('xalign', xalign)
+        column = gtk.TreeViewColumn(title, renderer , text=columnId)
         column.set_resizable(True)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_min_width(size)
