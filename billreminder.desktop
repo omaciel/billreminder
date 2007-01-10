@@ -4,6 +4,6 @@ Version=0.1
 Name=BillReminder
 GenericName=Bills manager
 Comment=Never again lose the bill!
-Icon=billreminder.ico
+Icon=/usr/share/pixmaps/billreminder.ico
 Exec=/usr/bin/billReminder
 Categories=Application;Miscellaneous
