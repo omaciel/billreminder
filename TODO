@@ -1,11 +1,3 @@
-Wed Jan  10 05:48:23 GMT+1 2007
-
-*  Test build system
-*  Make a png icon
-*  Change .desktop, setup and billy to fit Og
-*  Check and modify changes some weird person did
-*  Remember to run "changelog" fairly often
 
 Mon Jan  1 21:15:05 EST 2007
-
 *  Turn the class DAL into a singleton.
