@@ -106,14 +106,7 @@ class BillDialog:
 
             # Gets the payee
             payee = self._getPayee()
-            if self.bill == None:
-                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), buffer)
-            else:
-                self.bill.payee = payee
-                self.bill.amoutDue = self.txtAmount.get_text()
-                self.bill.dueDate = selectedDate
-                self.bill.notes = buffer
-
+            self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), buffer)
 
             #return the result and bill
             return result, self.bill
