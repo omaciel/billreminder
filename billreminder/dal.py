@@ -110,7 +110,7 @@ class DAL(object):
 
         stmt = "SELECT %(fields)s FROM %(name)s" \
             % dict(fields=", ".join(self.fields), name=self.name) + stmt
-            
+        print stmt    
         self.cur.execute(stmt, args)
 
         rows = [dict([ (f, row[i]) for i, f in enumerate(self.fields) ]) \
@@ -145,11 +145,17 @@ class DAL(object):
         if None == kwargs or 0 == len(kwargs):
             return ("", [])
 
-        pairs = kwargs.items()
+        
 
-        stmt = " WHERE " + \
-            " AND ".join([ x[0] + (None == x[1] and " IS NULL" or " = ?")
-                for x in pairs ])
-        args = [ x[1] for x in filter(lambda x: None != x[1], pairs) ]
-
+        if not isinstance(kwargs,str):
+            pairs = kwargs.items()
+            stmt = " WHERE " + \
+                " AND ".join([ x[0] + (None == x[1] and " IS NULL" or " = ?")
+                    for x in pairs ])
+            
+            args = [ x[1] for x in filter(lambda x: None != x[1], pairs) ]
+        else:
+            stmt = " WHERE " + kwargs
+            args = []
+        print kwargs,    stmt , args
         return (stmt, args)

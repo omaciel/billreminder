@@ -45,7 +45,7 @@ except:
 
 # Glade file name
 GLADEFILE = "/usr/share/billreminder/billreminder.glade"
-#GLADEFILE = "billreminder.glade"
+#GLADEFILE = "/root/billreminder/trunk/billreminder.glade"
 
 class BillDialog:
     """ This is the dialog to add/edit bills """
@@ -216,7 +216,7 @@ class BillReminder:
         self.formatTreeView()
 
         # and populate it
-        self.populateTreeView(self.dal.get({'paid': 0}))
+        self.populateTreeView(self.dal.get('paid IN (0,1)'))
 
         # Current record holder
         self.currentBill = None
