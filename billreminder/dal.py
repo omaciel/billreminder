@@ -74,9 +74,9 @@ class DAL(object):
     def add(self, bill):
         """ Adds a bill to the database """
         # Separate columns and values
-        billDict = self._makeBillDict(bill)
-        values = billDict.values()
-        cols = billDict.keys()
+        #billDict = self._makeBillDict(bill)
+        values = bill.values()
+        cols = bill.keys()
 
         # Insert statement
         stmt = "INSERT INTO %s (%s) VALUES (%s)" %\
@@ -89,23 +89,26 @@ class DAL(object):
 
         stmt = "DELETE FROM %s WHERE Id=?" % (self.name)
 
-        ret = self._executeSQL(stmt, [id])
+        rowsAffected = self._executeSQL(stmt, [id])
         
-        return ret
+        return rowsAffected
 
     def edit(self, id, bill):
-        billDict = self._makeBillDict(bill)
-        pairs = billDict.items()
+        #billDict = self._makeBillDict(bill)
+        pairs = bill.items()
 
         params = "=?, ".join([ x[0] for x in pairs ]) + "=?"
         stmt = "UPDATE %s SET %s WHERE %s=?" % (self.name, params, self.key)
 
         args = [ x[1] for x in pairs ] + [id]
 
-        return self._executeSQL(stmt, args)
+        rowsAffected = self._executeSQL(stmt, args)
+        return rowsAffected
 
     def get(self, kwargs):
         """ Returns one or more records that meet the criteria passed """
+        bills = []
+
         (stmt, args) = self._createQueryParams(kwargs)
 
         stmt = "SELECT %(fields)s FROM %(name)s" \
@@ -113,10 +116,15 @@ class DAL(object):
         print stmt    
         self.cur.execute(stmt, args)
 
-        rows = [dict([ (f, row[i]) for i, f in enumerate(self.fields) ]) \
-            for row in self.cur.fetchall()]
+        rows = cur.fetchall()
+        for row in rows:
+            b = Bill(row[1], row[2], row[3], row[4], row[5])
+            bills.append(b)
 
-        return rows
+        #rows = [dict([ (f, row[i]) for i, f in enumerate(self.fields) ]) \
+            #for row in self.cur.fetchall()]
+
+        return bills
 
     def Payees(self):
         """ Returns a list of distinct payees """
