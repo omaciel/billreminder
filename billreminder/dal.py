@@ -64,10 +64,10 @@ class DAL(object):
 
     def _makeBillDict(self, bill):
         billDict = {}
-        billDict['payee'] = bill.payee
-        billDict['dueDate'] = bill.dueDate
-        billDict['amountDue'] = bill.amountDue
-        billDict['notes'] = bill.notes
+        billDict['payee'] = bill.Payee
+        billDict['dueDate'] = bill.DueDate
+        billDict['amountDue'] = bill.AmountDue
+        billDict['notes'] = bill.Notes
 
         return billDict
 
@@ -153,14 +153,3 @@ class DAL(object):
         args = [ x[1] for x in filter(lambda x: None != x[1], pairs) ]
 
         return (stmt, args)
-
-if __name__ == 'main':
-    import time
-
-    d = DAL()
-    values = {"Id":1, "payee":'Verizon', "dueDate":time.time(), "amountDue":round(56.25, 2), "notes":'', "paid":0}
-    # parameters using ** must be a dictionary :)
-    d.add(values)
-    print 'getting bills'
-    print d.get({'Id':10})
-    print "Done"

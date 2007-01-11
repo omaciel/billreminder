@@ -28,14 +28,34 @@ import time
 
 class Bill(object):
     def __init__(self, payee, dueDate, amountDue, notes=None, paid=0):
-        self.payee = payee
+        self.__payee = payee
         if not dueDate:
-            self.dueDate = time.time()
+            self.__dueDate = time.time()
         else:
-            self.dueDate = dueDate
-        self.amountDue = amountDue
-        self.notes = notes
-        self.paid = paid
+            self.__dueDate = dueDate
+        self.__amountDue = amountDue
+        self.__notes = notes
+        self.__paid = paid
+
+    def __get_payee (self): return self.__payee 
+    def __set_payee (self,value): self.__payee  = value
+    Payee = property(fget=__get_payee, fset=__set_payee, doc='Get/Set the payee.')
+
+    def __get_dueDate(self): return self.__dueDate
+    def __set_dueDate(self,value): self.__dueDate = value
+    DueDate = property(fget=__get_dueDate, fset=__set_dueDate, doc='Get/Set the due date.')
+
+    def __get_amountDue (self): return self.__amountDue 
+    def __set_amountDue (self,value): self.__amountDue  = value
+    AmountDue = property(fget=__get_amountDue, fset=__set_amountDue, doc='Get/Set the amount for the bill.')
+
+    def __get_notes(self): return self.__notes
+    def __set_notes(self,value): self.__notes = value
+    Notes = property(fget=__get_notes, fset=__set_notes, doc='Get/Set notes.')
+
+    def __get_paid(self): return self.__paid
+    def __set_paid(self,value): self.__paid = value
+    Paid = property(fget=__get_paid, fset=__set_paid, doc='Get/Set if package was paid.')
 
     def __repr__(self):
         return self.payee
