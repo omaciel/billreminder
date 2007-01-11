@@ -202,6 +202,7 @@ class BillReminder:
         self.btnAdd.connect('clicked', self.on_btnAdd_clicked)
         self.btnEdit.connect('clicked', self.on_btnEdit_clicked)
         self.btnRemove.connect('clicked', self.on_btnRemove_clicked)
+        self.btnPaid.connect('clicked', self.on_btnPaid_clicked)
         self.mnuQuit.connect('activate',self.on_mnuQuit_activate)
         self.mnuAbout.connect('activate',self.on_mnuAbout_activate)
         self.mnuAdd.connect('activate',self.on_mnuAdd_activate)
@@ -233,6 +234,9 @@ class BillReminder:
 
     def on_btnEdit_clicked(self, widget):
         self.editBill()
+
+    def on_btnPaid_clicked(self, widget):
+        self.payBill()
 
     def on_btnRemove_clicked(self, *args):
         id, bill = self.getBill()
@@ -343,6 +347,28 @@ class BillReminder:
             except:
                 print "Unexpected error:", sys.exc_info()[0]
 
+    def payBill(self):
+        """ Toggles bill as paid/unpaid """
+        # Get currently selected bill and its id
+        id, bill = self.getBill()
+
+        # Toggle paid field
+        if int(bill.Paid):
+            bill.Paid = 0
+        else:
+            bill.Paid = 1
+
+        print bill.Paid
+        # Format the dueDate field
+        selectedDate = utils.str_to_date(bill.DueDate)
+        bill.DueDate = time.mktime(selectedDate.timetuple())
+        # Format the amount field
+        bill.AmountDue = float(bill.AmountDue)
+        # Edit bill in the database
+        self.dal.edit(id, bill)
+        idx = self.billView.get_cursor()[0][0]
+        self.billList[idx] = [id, bill.Payee, bill.DueDate, bill.AmountDue, bill.Notes, bill.Paid]
+
     def getBill(self):
         """ Returns a bill object from the current selected record """
         sel = self.billView.get_selection()
@@ -364,17 +390,20 @@ class BillReminder:
         """ Populates the treeview control with the records passed """
 
         for rec in records:
-            id = rec['Id']
-            payee = rec['payee']
-            # Format the dueDate field
-            dueDate = rec['dueDate']
-            dueDate = datetime.datetime.fromtimestamp(rec['dueDate'])
-            dueDate = dueDate.strftime('%Y/%m/%d')
-            # Format the amount field
-            amountDue = "%0.2f" % float(rec['amountDue'])
-            notes = rec['notes']
-            paid = rec['paid']
-            self.billList.append([id, payee, dueDate, amountDue, notes, paid])
+            try:
+                id = rec['Id']
+                payee = rec['payee']
+                # Format the dueDate field
+                dueDate = rec['dueDate']
+                dueDate = datetime.datetime.fromtimestamp(rec['dueDate'])
+                dueDate = dueDate.strftime('%Y/%m/%d')
+                # Format the amount field
+                amountDue = "%0.2f" % float(rec['amountDue'])
+                notes = rec['notes']
+                paid = rec['paid']
+                self.billList.append([id, payee, dueDate, amountDue, notes, paid])
+            except:
+                pass
 
         # Select the first row
         self.updateStatusBar()
