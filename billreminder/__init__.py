@@ -52,7 +52,6 @@ class BillDialog:
 
     def __init__(self, bill=None, parent = None):
         #Set the Glade file
-        #self.gladefilename = os.path.join(os.path.dirname(__file__), GLADEFILE)
         self.gladefilename = GLADEFILE
         self.formName = "frmBillDialog"
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
@@ -75,14 +74,13 @@ class BillDialog:
 
         # If a bill object was passed, go into edit mode
         if self.bill != None:
-            print "%s - %s - %s - %s" % (bill.payee, bill.amountDue, bill.dueDate, bill.notes)
-            self.frmBillDialog.set_title("Editing bill '%s'" % bill.payee )
-            self.txtAmount.set_text(bill.amountDue)
-            dt = utils.str_to_date(bill.dueDate)
+            self.frmBillDialog.set_title("Editing bill '%s'" % bill.Payee )
+            self.txtAmount.set_text(bill.AmountDue)
+            dt = utils.str_to_date(bill.DueDate)
             self.cCalendar.select_day(dt.day)
             self.cCalendar.select_month(dt.month -1,dt.year)
-            utils.select_combo_Text(self.cboPayee,bill.payee)
-            self.txtBuffer.set_text(bill.notes)
+            utils.select_combo_Text(self.cboPayee,bill.Payee)
+            self.txtBuffer.set_text(bill.Notes)
 
     def run(self):
         """ This function will show the dialog """        
@@ -222,9 +220,6 @@ class BillReminder:
         # Current record holder
         self.currentBill = None
         self.id = None
-
-    def update_status_bar(self):
-        self.lblStatusPanel1.set_markup('<b>Records:</b> %d' % len(self.billList))
         
     def on_frmMain_destroy(self, widget):
         """Quit yourself"""
@@ -241,9 +236,9 @@ class BillReminder:
 
     def on_btnRemove_clicked(self, *args):
         id, bill = self.getBill()
-        if Message().ShowQuestionOkCancel('do you really want to remove it?\n\n <b>%s - %0.2f </b>' % (bill.payee,float(bill.amountDue)), self.frmMain):
+        if Message().ShowQuestionOkCancel('do you really want to remove it?\n\n <b>%s - %0.2f </b>' % (bill.Payee,float(bill.AmountDue)), self.frmMain):
             self.removeBill()
-        
+ 
     def on_mnuQuit_activate(self, widget):
         self.on_frmMain_destroy(widget)
 
@@ -304,12 +299,12 @@ class BillReminder:
             ret = self.dal.add(bill)
             if ret:
                 # Format the dueDate field
-                dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
+                dueDate = datetime.datetime.fromtimestamp(bill.DueDate)
                 dueDate = dueDate.strftime('%Y/%m/%d')
                 # Format the amount field
-                amountDue = "%0.2f" % float(bill.amountDue)
-                self.billList.append(['', bill.payee, dueDate, amountDue, bill.notes, bill.paid])
-                self.update_status_bar()
+                amountDue = "%0.2f" % float(bill.AmountDue)
+                self.billList.append(['', bill.Payee, dueDate, amountDue, bill.Notes, bill.Paid])
+                self.updateStatusBar()
 
     def removeBill(self):
         id, bill = self.getBill()
@@ -320,9 +315,9 @@ class BillReminder:
  
             if ret.rowcount == 1:
                 self.billList.remove(iter)
-                self.update_status_bar()
+                self.updateStatusBar()
             else:
-                Message().ShowError("Bill '%s' not deleted." % bill.payee , self.frmMain)
+                Message().ShowError("Bill '%s' not deleted." % bill.Payee , self.frmMain)
         except Exception, e:
             Message().ShowError(str(e), self.frmMain)
 
@@ -336,16 +331,15 @@ class BillReminder:
         # Checks if the user did not cancel the action
         if (response == gtk.RESPONSE_OK):
             try:
-                print "%s - %s - %s - %s" % (bill.payee, bill.amountDue, bill.dueDate, bill.notes)
                 # Edit bill in the database
                 self.dal.edit(id, bill)
                 # Format the dueDate field
-                dueDate = datetime.datetime.fromtimestamp(bill.dueDate)
+                dueDate = datetime.datetime.fromtimestamp(bill.DueDate)
                 dueDate = dueDate.strftime('%Y/%m/%d')
                 # Format the amount field
-                amountDue = "%0.2f" % float(bill.amountDue)
+                amountDue = "%0.2f" % float(bill.AmountDue)
                 idx = self.billView.get_cursor()[0][0]
-                self.billList[idx] = [id, bill.payee, dueDate, amountDue, bill.notes, bill.paid]
+                self.billList[idx] = [id, bill.Payee, dueDate, amountDue, bill.Notes, bill.Paid]
             except:
                 print "Unexpected error:", sys.exc_info()[0]
 
@@ -383,8 +377,7 @@ class BillReminder:
             self.billList.append([id, payee, dueDate, amountDue, notes, paid])
 
         # Select the first row
-        self.update_status_bar()
-        self.billView.set_cursor(0)
+        self.updateStatusBar()
 
     def formatTreeView(self):
         #Here are some variables that can be reused later
@@ -414,15 +407,12 @@ class BillReminder:
 
         #Create the listStore Model to use with the treeView
         self.billList = gtk.ListStore(str, str, str, str, str, str)
-        #self.billList.connect('row-inserted', self.on_billList_row_inserted)
         #Attache the model to the treeView
-        
         self.billView.set_model(self.billList)
         self.billView.set_rules_hint(True)
         #self.billView.set_grid_lines(gtk.TREE_VIEW_GRID_LINES_HORIZONTAL)
         self.billView.connect('cursor_changed', self.on_billView_cursor_changed)
         self.billView.connect("button_press_event", self.on_billView_button_press_event)
-        
 
     def addBillListColumn(self, title, columnId, size=100, visible=True, xalign = 0.0):
         """ This function adds a column to the list view.
@@ -440,6 +430,11 @@ class BillReminder:
         column.set_sort_column_id(columnId)
 
         self.billView.append_column(column)
+
+    def updateStatusBar(self, index=0):
+        self.lblStatusPanel1.set_markup('<b>Records:</b> %d' % len(self.billList))
+        if len(self.billList) > 0:
+            self.billView.set_cursor(index)
 
 if __name__ == "__main__":
     br = BillReminder()
