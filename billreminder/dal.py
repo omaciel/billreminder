@@ -83,7 +83,12 @@ class DAL(object):
         stmt = "INSERT INTO %s (%s) VALUES (%s)" %\
             (self.name, ",".join(cols), ",".join('?' * len(values)))
 
-        return self._executeSQL(stmt, values)
+        self.cur.execute(stmt, values)
+        id = self.cur.lastrowid
+        print id
+        if id:
+            rows = self.get({'Id': id})
+            return rows[0]
 
     def delete(self,id):
         # Delete statement
@@ -96,7 +101,7 @@ class DAL(object):
 
     def edit(self, id, bill):
         # Removes the Id field
-        del bill.Dictionary['Id']
+        #del bill.Dictionary['Id']
         # Split up into pais
         pairs = bill.Dictionary.items()
 
@@ -122,7 +127,7 @@ class DAL(object):
             for row in self.cur.fetchall()]
         #rows = self.cur.fetchall()
         for row in rows:
-            b = Bill(row['payee'].encode("utf-8"), row['dueDate'], row['amountDue'], row['notes'].encode("utf-8"), row['paid'], row['Id'])
+            b = Bill(row['payee'].encode("utf-8"), row['dueDate'], row['amountDue'], row['notes'], row['paid'], row['Id'])
             bills.append(b)
 
 

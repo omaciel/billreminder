@@ -74,12 +74,11 @@ class BillDialog:
         # If a bill object was passed, go into edit mode
         if self.bill != None:
             self.frmBillDialog.set_title("Editing bill '%s'" % bill.Payee )
-        # Format the dueDate field
-        dueDate = datetime.datetime.fromtimestamp(row['DueDate'])
-        row['DueDate'] = dueDate.strftime('%Y/%m/%d')
             # Format the amount field
             self.txtAmount.set_text("%0.2f" % bill.AmountDue)
-            dt = utils.str_to_date(bill.DueDate)
+            # Format the dueDate field
+            dt = datetime.datetime.fromtimestamp(bill.DueDate)
+            #dt = utils.str_to_date(bill.DueDate)
             self.cCalendar.select_day(dt.day)
             self.cCalendar.select_month(dt.month -1,dt.year)
             utils.select_combo_Text(self.cboPayee,bill.Payee)
@@ -109,7 +108,16 @@ class BillDialog:
 
             # Gets the payee
             payee = self._getPayee()
-            self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), buffer)
+
+            if self.bill == None:
+                # Create a new object
+                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), buffer)
+            else:
+                # Edit existing bill
+                self.bill.Payee = payee
+                self.bill.DueDate = selectedDate
+                self.bill.AmountDue = self.txtAmount.get_text()
+                self.bill.Notes = buffer
 
             #return the result and bill
             return result, self.bill
@@ -283,7 +291,7 @@ class BillReminder:
             # Display the status for the selected row
             self.lblStatusPanel2.set_text('Notes: %s' % (notes))
             self.enable_buttons(True)
-        except :
+        except:
             pass 
 
     def enable_buttons(self, bValue):
@@ -303,14 +311,16 @@ class BillReminder:
         # Checks if the user did not cancel the action
         if (response == gtk.RESPONSE_OK):
             # Add new bill to database
-            ret = self.dal.add(bill)
-            if ret:
+            bill = self.dal.add(bill)
+            print bill.Dictionary
+            if bill:
                 # Format the dueDate field
-                dueDate = datetime.datetime.fromtimestamp(bill.DueDate)
-                dueDate = dueDate.strftime('%Y/%m/%d')
+                #dueDate = datetime.datetime.fromtimestamp(bill.DueDate)
+                #dueDate = dueDate.strftime('%Y/%m/%d')
                 # Format the amount field
-                amountDue = "%0.2f" % float(bill.AmountDue)
-                self.billList.append(['', bill.Payee, dueDate, amountDue, bill.Notes, bill.Paid])
+                #amountDue = "%0.2f" % float(bill.AmountDue)
+                #self.billList.append([id, bill.Payee, dueDate, amountDue, bill.Notes, bill.Paid])
+                self.billList.append(self.formatedRow(bill.Dictionary))
                 self.updateStatusBar()
 
     def removeBill(self):
@@ -414,7 +424,6 @@ class BillReminder:
         row['AmountDue'] = amountDue
 
         formated = [row['Id'], row['Payee'], row['DueDate'], row['AmountDue'], row['Notes'], row['Paid']]
-        print formated
         return formated
 
     def formatTreeView(self):
