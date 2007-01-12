@@ -91,12 +91,12 @@ class DAL(object):
             rows = self.get({'Id': b_id})
             return rows[0]
 
-    def delete(self,id):
+    def delete(self,b_id):
         # Delete statement
 
         stmt = "DELETE FROM %s WHERE Id=?" % (self.name)
 
-        rowsAffected = self._executeSQL(stmt, [id])
+        rowsAffected = self._executeSQL(stmt, [b_id])
         
         return rowsAffected
 

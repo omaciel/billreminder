@@ -328,7 +328,7 @@ class BillReminder:
         sel = self.billView.get_selection()
         model, iteration = sel.get_selected()
         try:
-            ret = self.dal.delete(id)
+            ret = self.dal.delete(b_id)
  
             if ret.rowcount == 1:
                 self.billList.remove(iteration)
@@ -397,7 +397,7 @@ class BillReminder:
 
         # Instantiate new Bill object
         #b = Bill(payee, date, amount, notes, paid)
-        records = self.dal.get({'Id': id})
+        records = self.dal.get({'Id': b_id})
         # Return bill and id
         return b_id, records[0]
 
