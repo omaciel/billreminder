@@ -45,7 +45,6 @@ except:
 
 # Glade file name
 GLADEFILE = "/usr/share/billreminder/billreminder.glade"
-#GLADEFILE = "/root/billreminder/trunk/billreminder.glade"
 
 class BillDialog:
     """ This is the dialog to add/edit bills """
@@ -75,7 +74,11 @@ class BillDialog:
         # If a bill object was passed, go into edit mode
         if self.bill != None:
             self.frmBillDialog.set_title("Editing bill '%s'" % bill.Payee )
-            self.txtAmount.set_text(bill.AmountDue)
+        # Format the dueDate field
+        dueDate = datetime.datetime.fromtimestamp(row['DueDate'])
+        row['DueDate'] = dueDate.strftime('%Y/%m/%d')
+            # Format the amount field
+            self.txtAmount.set_text("%0.2f" % bill.AmountDue)
             dt = utils.str_to_date(bill.DueDate)
             self.cCalendar.select_day(dt.day)
             self.cCalendar.select_month(dt.month -1,dt.year)
@@ -322,8 +325,8 @@ class BillReminder:
                 self.updateStatusBar()
             else:
                 Message().ShowError("Bill '%s' not deleted." % bill.Payee , self.frmMain)
-        except Exception, e:
-            Message().ShowError(str(e), self.frmMain)
+        except:
+            Message().ShowError(sys.exc_info()[0], self.frmMain)
 
     def editBill(self,*args):
         # Get currently selected bill and its id
@@ -375,38 +378,44 @@ class BillReminder:
         model, iter = sel.get_selected()
 
         id = model.get_value(iter, 0)
-        payee = model.get_value(iter, 1)
-        date = model.get_value(iter, 2)
-        amount = model.get_value(iter,3)
-        notes = model.get_value(iter,4)
-        paid = model.get_value(iter,5)
+
+        #payee = model.get_value(iter, 1)
+        #date = model.get_value(iter, 2)
+        #amount = model.get_value(iter,3)
+        #notes = model.get_value(iter,4)
+        #paid = model.get_value(iter,5)
 
         # Instantiate new Bill object
-        b = Bill(payee, date, amount, notes, paid)
+        #b = Bill(payee, date, amount, notes, paid)
+        records = self.dal.get({'Id': id})
         # Return bill and id
-        return id, b
+        return id, records[0]
 
     def populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
-
+        # Loops through bills collection
         for rec in records:
             try:
-                id = rec['Id']
-                payee = rec['payee']
-                # Format the dueDate field
-                dueDate = rec['dueDate']
-                dueDate = datetime.datetime.fromtimestamp(rec['dueDate'])
-                dueDate = dueDate.strftime('%Y/%m/%d')
-                # Format the amount field
-                amountDue = "%0.2f" % float(rec['amountDue'])
-                notes = rec['notes']
-                paid = rec['paid']
-                self.billList.append([id, payee, dueDate, amountDue, notes, paid])
+                self.billList.append(self.formatedRow(rec.Dictionary))
             except:
+                print "Unexpected error:", sys.exc_info()[0]
                 pass
 
         # Select the first row
         self.updateStatusBar()
+
+    def formatedRow(self, row):
+        """ Formats a bill to be displayed as a row. """
+        # Format the dueDate field
+        dueDate = datetime.datetime.fromtimestamp(row['DueDate'])
+        row['DueDate'] = dueDate.strftime('%Y/%m/%d')
+        # Format the amount field
+        amountDue = "%0.2f" % float(row['AmountDue'])
+        row['AmountDue'] = amountDue
+
+        formated = [row['Id'], row['Payee'], row['DueDate'], row['AmountDue'], row['Notes'], row['Paid']]
+        print formated
+        return formated
 
     def formatTreeView(self):
         #Here are some variables that can be reused later

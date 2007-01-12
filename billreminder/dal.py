@@ -23,7 +23,7 @@
 #
 # -*- coding: utf-8 -*-
 
-import os
+import os, sys
 from pysqlite2 import dbapi2 as sqlite
 from bill import Bill
 
@@ -73,10 +73,11 @@ class DAL(object):
 
     def add(self, bill):
         """ Adds a bill to the database """
+        # Removes the Id field
+        del bill.Dictionary['Id']
         # Separate columns and values
-        #billDict = self._makeBillDict(bill)
-        values = bill.values()
-        cols = bill.keys()
+        values = bill.Dictionary.values()
+        cols = bill.Dictionary.keys()
 
         # Insert statement
         stmt = "INSERT INTO %s (%s) VALUES (%s)" %\
@@ -94,8 +95,10 @@ class DAL(object):
         return rowsAffected
 
     def edit(self, id, bill):
-        #billDict = self._makeBillDict(bill)
-        pairs = bill.items()
+        # Removes the Id field
+        del bill.Dictionary['Id']
+        # Split up into pais
+        pairs = bill.Dictionary.items()
 
         params = "=?, ".join([ x[0] for x in pairs ]) + "=?"
         stmt = "UPDATE %s SET %s WHERE %s=?" % (self.name, params, self.key)
@@ -113,16 +116,15 @@ class DAL(object):
 
         stmt = "SELECT %(fields)s FROM %(name)s" \
             % dict(fields=", ".join(self.fields), name=self.name) + stmt
-        print stmt    
         self.cur.execute(stmt, args)
 
-        rows = cur.fetchall()
+        rows = [dict([ (f, row[i]) for i, f in enumerate(self.fields) ]) \
+            for row in self.cur.fetchall()]
+        #rows = self.cur.fetchall()
         for row in rows:
-            b = Bill(row[1], row[2], row[3], row[4], row[5])
+            b = Bill(row['payee'].encode("utf-8"), row['dueDate'], row['amountDue'], row['notes'].encode("utf-8"), row['paid'], row['Id'])
             bills.append(b)
 
-        #rows = [dict([ (f, row[i]) for i, f in enumerate(self.fields) ]) \
-            #for row in self.cur.fetchall()]
 
         return bills
 
@@ -142,7 +144,7 @@ class DAL(object):
         try:
             return self.cur.execute(stmt, args)
         except Exception, e:
-            print e
+            print "Unexpected error:", sys.exc_info()[0]
             return None
 
     def _createQueryParams(self, kwargs):
@@ -165,5 +167,4 @@ class DAL(object):
         else:
             stmt = " WHERE " + kwargs
             args = []
-        print kwargs,    stmt , args
         return (stmt, args)
