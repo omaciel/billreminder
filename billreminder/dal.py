@@ -74,20 +74,21 @@ class DAL(object):
     def add(self, bill):
         """ Adds a bill to the database """
         # Removes the Id field
-        del bill.Dictionary['Id']
+        dic = bill.Dictionary
+        del dic['Id']
         # Separate columns and values
-        values = bill.Dictionary.values()
-        cols = bill.Dictionary.keys()
+        values = dic.values()
+        cols = dic.keys()
 
         # Insert statement
         stmt = "INSERT INTO %s (%s) VALUES (%s)" %\
             (self.name, ",".join(cols), ",".join('?' * len(values)))
 
         self.cur.execute(stmt, values)
-        id = self.cur.lastrowid
-        print id
-        if id:
-            rows = self.get({'Id': id})
+        b_id = self.cur.lastrowid
+
+        if b_id:
+            rows = self.get({'Id': b_id})
             return rows[0]
 
     def delete(self,id):
@@ -101,7 +102,7 @@ class DAL(object):
 
     def edit(self, id, bill):
         # Removes the Id field
-        #del bill.Dictionary['Id']
+        #
         # Split up into pais
         pairs = bill.Dictionary.items()
 
@@ -149,7 +150,7 @@ class DAL(object):
         try:
             return self.cur.execute(stmt, args)
         except Exception, e:
-            print "Unexpected error:", sys.exc_info()[0]
+            print "Unexpected error:", sys.exc_info()[0], e
             return None
 
     def _createQueryParams(self, kwargs):

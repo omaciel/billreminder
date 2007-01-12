@@ -104,20 +104,20 @@ class BillDialog:
 
             #buffer = self.txtNotes.get_buffer()
             startiter, enditer = self.txtBuffer.get_bounds()
-            buffer = self.txtBuffer.get_text(startiter, enditer)
+            sbuffer = self.txtBuffer.get_text(startiter, enditer)
 
             # Gets the payee
             payee = self._getPayee()
 
             if self.bill == None:
                 # Create a new object
-                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), buffer)
+                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), sbuffer)
             else:
                 # Edit existing bill
                 self.bill.Payee = payee
                 self.bill.DueDate = selectedDate
                 self.bill.AmountDue = self.txtAmount.get_text()
-                self.bill.Notes = buffer
+                self.bill.Notes = sbuffer
 
             #return the result and bill
             return result, self.bill
@@ -146,9 +146,9 @@ class BillDialog:
         """ Extracts information typed into comboboxentry """
         if self.cboPayee.get_active_iter() != None:
             model = self.cboPayee.get_model()
-            iter = self.cboPayee.get_active_iter()
-            if iter:
-                return model.get_value(iter, 0)
+            iteration = self.cboPayee.get_active_iter()
+            if iteration:
+                return model.get_value(iteration, 0)
         else:
             return self.cboPayeeEntry.get_text()
 
@@ -250,7 +250,7 @@ class BillReminder:
         self.payBill()
 
     def on_btnRemove_clicked(self, *args):
-        id, bill = self.getBill()
+        b_id, bill = self.getBill()
         if Message().ShowQuestionOkCancel('do you really want to remove it?\n\n <b>%s - %0.2f </b>' % (bill.Payee,float(bill.AmountDue)), self.frmMain):
             self.removeBill()
  
@@ -265,7 +265,7 @@ class BillReminder:
 
     def on_mnuAbout_activate(self, widget):
         frmAbout = AboutDialog()
-        response = frmAbout.run()
+        frmAbout.run()
 
     def on_billView_button_press_event(self, widget, event):
         if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
@@ -283,10 +283,10 @@ class BillReminder:
         """ Displays the selected record information """
         try:
             sel = widget.get_selection()
-            model, iter = sel.get_selected()
+            model, iteration = sel.get_selected()
 
-            id = model.get_value(iter, 0)
-            notes = model.get_value(iter,4)
+            #b_id = model.get_value(iteration, 0)
+            notes = model.get_value(iteration,4)
 
             # Display the status for the selected row
             self.lblStatusPanel2.set_text('Notes: %s' % (notes))
@@ -324,14 +324,14 @@ class BillReminder:
                 self.updateStatusBar()
 
     def removeBill(self):
-        id, bill = self.getBill()
+        b_id, bill = self.getBill()
         sel = self.billView.get_selection()
-        model, iter = sel.get_selected()
+        model, iteration = sel.get_selected()
         try:
             ret = self.dal.delete(id)
  
             if ret.rowcount == 1:
-                self.billList.remove(iter)
+                self.billList.remove(iteration)
                 self.updateStatusBar()
             else:
                 Message().ShowError("Bill '%s' not deleted." % bill.Payee , self.frmMain)
@@ -340,7 +340,7 @@ class BillReminder:
 
     def editBill(self,*args):
         # Get currently selected bill and its id
-        id, bill = self.getBill()
+        b_id, bill = self.getBill()
         # Displays the Bill dialog
         frmBillDialog = BillDialog(bill, parent=self.frmMain)
         response, bill = frmBillDialog.run()
@@ -349,21 +349,21 @@ class BillReminder:
         if (response == gtk.RESPONSE_OK):
             try:
                 # Edit bill in the database
-                self.dal.edit(id, bill)
+                self.dal.edit(b_id, bill)
                 # Format the dueDate field
                 dueDate = datetime.datetime.fromtimestamp(bill.DueDate)
                 dueDate = dueDate.strftime('%Y/%m/%d')
                 # Format the amount field
                 amountDue = "%0.2f" % float(bill.AmountDue)
                 idx = self.billView.get_cursor()[0][0]
-                self.billList[idx] = [id, bill.Payee, dueDate, amountDue, bill.Notes, bill.Paid]
+                self.billList[idx] = [b_id, bill.Payee, dueDate, amountDue, bill.Notes, bill.Paid]
             except:
                 print "Unexpected error:", sys.exc_info()[0]
 
     def payBill(self):
         """ Toggles bill as paid/unpaid """
         # Get currently selected bill and its id
-        id, bill = self.getBill()
+        b_id, bill = self.getBill()
 
         # Toggle paid field
         if int(bill.Paid):
@@ -380,14 +380,14 @@ class BillReminder:
         # Edit bill in the database
         self.dal.edit(id, bill)
         idx = self.billView.get_cursor()[0][0]
-        self.billList[idx] = [id, bill.Payee, bill.DueDate, bill.AmountDue, bill.Notes, bill.Paid]
+        self.billList[idx] = [b_id, bill.Payee, bill.DueDate, bill.AmountDue, bill.Notes, bill.Paid]
 
     def getBill(self):
         """ Returns a bill object from the current selected record """
         sel = self.billView.get_selection()
-        model, iter = sel.get_selected()
+        model, iteration = sel.get_selected()
 
-        id = model.get_value(iter, 0)
+        b_id = model.get_value(iteration, 0)
 
         #payee = model.get_value(iter, 1)
         #date = model.get_value(iter, 2)
@@ -399,7 +399,7 @@ class BillReminder:
         #b = Bill(payee, date, amount, notes, paid)
         records = self.dal.get({'Id': id})
         # Return bill and id
-        return id, records[0]
+        return b_id, records[0]
 
     def populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
