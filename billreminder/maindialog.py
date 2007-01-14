@@ -181,31 +181,9 @@ class BillReminder:
         if (response == gtk.RESPONSE_OK):
             # Add new bill to database
             bill = self.dal.add(bill)
-            print bill.Dictionary
             if bill:
-                # Format the dueDate field
-                #dueDate = datetime.datetime.fromtimestamp(bill.DueDate)
-                #dueDate = dueDate.strftime('%Y/%m/%d')
-                # Format the amount field
-                #amountDue = "%0.2f" % float(bill.AmountDue)
-                #self.billList.append([id, bill.Payee, dueDate, amountDue, bill.Notes, bill.Paid])
                 self.billList.append(self.formatedRow(bill.Dictionary))
                 self.updateStatusBar()
-
-    def removeBill(self):
-        b_id, bill = self.getBill()
-        sel = self.billView.get_selection()
-        model, iteration = sel.get_selected()
-        try:
-            ret = self.dal.delete(b_id)
- 
-            if ret.rowcount == 1:
-                self.billList.remove(iteration)
-                self.updateStatusBar()
-            else:
-                Message().ShowError("Bill '%s' not deleted." % bill.Payee , self.frmMain)
-        except:
-            Message().ShowError(sys.exc_info()[0], self.frmMain)
 
     def editBill(self,*args):
         # Get currently selected bill and its id
@@ -219,13 +197,9 @@ class BillReminder:
             try:
                 # Edit bill in the database
                 self.dal.edit(b_id, bill)
-                # Format the dueDate field
-                dueDate = datetime.datetime.fromtimestamp(bill.DueDate)
-                dueDate = dueDate.strftime('%Y/%m/%d')
-                # Format the amount field
-                amountDue = "%0.2f" % float(bill.AmountDue)
+                # Update list with modified record
                 idx = self.billView.get_cursor()[0][0]
-                self.billList[idx] = [b_id, bill.Payee, dueDate, amountDue, bill.Notes, bill.Paid]
+                self.billList[idx] = self.formatedRow(bill.Dictionary)
                 self.updateStatusBar()
             except:
                 print "Unexpected error:", sys.exc_info()[0]
@@ -241,16 +215,30 @@ class BillReminder:
         else:
             bill.Paid = 1
 
-        print bill.Paid
-        # Format the dueDate field
-        selectedDate = utils.str_to_date(bill.DueDate)
-        bill.DueDate = time.mktime(selectedDate.timetuple())
-        # Format the amount field
-        bill.AmountDue = float(bill.AmountDue)
-        # Edit bill in the database
-        self.dal.edit(id, bill)
-        idx = self.billView.get_cursor()[0][0]
-        self.billList[idx] = [b_id, bill.Payee, bill.DueDate, bill.AmountDue, bill.Notes, bill.Paid]
+        try:
+            # Edit bill in the database
+            self.dal.edit(b_id, bill)
+            # Update list with modified record
+            idx = self.billView.get_cursor()[0][0]
+            self.billList[idx] = self.formatedRow(bill.Dictionary)
+            self.updateStatusBar()
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+    def removeBill(self):
+        b_id, bill = self.getBill()
+        sel = self.billView.get_selection()
+        model, iteration = sel.get_selected()
+        try:
+            ret = self.dal.delete(b_id)
+ 
+            if ret.rowcount == 1:
+                self.billList.remove(iteration)
+                self.updateStatusBar()
+            else:
+                Message().ShowError("Bill '%s' not deleted." % bill.Payee , self.frmMain)
+        except:
+            Message().ShowError(sys.exc_info()[0], self.frmMain)
 
     def getBill(self):
         """ Returns a bill object from the current selected record """
