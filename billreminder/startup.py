@@ -20,7 +20,19 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 # BillReminder - Copyright (c) 2006, 2007 Og Maciel
-#
 # -*- coding: utf-8 -*-
 
-__all__ = ['maindialog', 'billdialog', 'aboutdialog', 'bill','dal','common','utils']
+import sys
+try:
+    import pygtk
+    pygtk.require("2.0")
+except:
+      pass
+try:
+    import gtk
+    from maindialog import BillReminder
+except:
+    sys.exit(1)
+
+br = BillReminder()
+gtk.main()

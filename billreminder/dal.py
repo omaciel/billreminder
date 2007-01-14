@@ -102,9 +102,10 @@ class DAL(object):
 
     def edit(self, id, bill):
         # Removes the Id field
-        #
+        dic = bill.Dictionary
+        del dic['Id']
         # Split up into pais
-        pairs = bill.Dictionary.items()
+        pairs = dic.items()
 
         params = "=?, ".join([ x[0] for x in pairs ]) + "=?"
         stmt = "UPDATE %s SET %s WHERE %s=?" % (self.name, params, self.key)
@@ -112,7 +113,7 @@ class DAL(object):
         args = [ x[1] for x in pairs ] + [id]
 
         rowsAffected = self._executeSQL(stmt, args)
-        return rowsAffected
+        return rowsAffected.rowcount
 
     def get(self, kwargs):
         """ Returns one or more records that meet the criteria passed """

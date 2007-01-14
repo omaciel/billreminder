@@ -20,52 +20,61 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 # BillReminder - Copyright (c) 2006, 2007 Og Maciel
-#
 # -*- coding: utf-8 -*-
 
+#default python imports
 import sys
-try:
-    import pygtk
-    pygtk.require("2.0")
-except:
-      pass
-try:
-    import gtk
-    import gtk.glade
-    import os
-    import gobject
-    import time
-    import datetime
-    from bill import Bill
-    from dal import DAL
-    import utils
-except:
-    sys.exit(1)
+import pygtk
+pygtk.require("2.0")
+import gtk
+import gtk.glade
+import os
+import gobject
+import time
+import datetime
+
+#custom imports
+from bill import Bill
+import common
+from dal import DAL
+import utils
 
 class BillDialog:
     """ This is the dialog to add/edit bills """
 
-    def __init__(self, gladefile, bill=None, parent=None):
+    def __init__(self, bill=None, parent=None):
+        """
+            Bill Dialog Constructor
+        """
+        
         #Set the Glade file
-        self.gladefilename = gladefile
-        self.formName = "frmBillDialog"
-        self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
+        self.gladefile = gtk.glade.XML(common.BILLGLADEFILE, common.BILLDIALOG_NAME)
 
-        self.frmBillDialog = self.gladefile.get_widget(self.formName)
+        #get form widgets and map it to objects
+        self.frmBillDialog = self.gladefile.get_widget(common.BILLDIALOG_NAME)
+        self.frmBillDialog.set_icon_from_file(common.IMAGE_PATH + 'billreminder.ico')
+        
+        # if the dialog has a parent form
+        # disable the parent form
+        self.parent = parent
         if parent != None:
             self.frmBillDialog.set_transient_for(parent)
-            self.frmBillDialog.set_icon(parent.get_icon())
-
-        self.txtAmount = self.gladefile.get_widget("txtAmount")
-        self.cCalendar = self.gladefile.get_widget("cCalendar")
-        self.cboPayee = self.gladefile.get_widget("cboPayee")
-        self.txtNotes = self.gladefile.get_widget("txtNotes")
+            self.parent.set_sensitive(False)
+            
+        #Field controls
+        self.txtAmount = self.gladefile.get_widget('txtAmount')
+        self.cCalendar = self.gladefile.get_widget('cCalendar')
+        self.cboPayee = self.gladefile.get_widget('cboPayee')
+        self.txtNotes = self.gladefile.get_widget('txtNotes')
+        self.chkPaid = self.gladefile.get_widget('chkPaid')
         self.txtBuffer = self.txtNotes.get_buffer()
 
-        # Populate payees
-        self._populatePayee()
-
+        #setup the GUI
+        
         self.bill = bill
+         
+       # fill the combo with saved payee's names
+        self._populatePayee()
 
         # If a bill object was passed, go into edit mode
         if self.bill != None:
@@ -86,7 +95,9 @@ class BillDialog:
 
         #we are done with the dialog, destroy it
         self.frmBillDialog.destroy()
-
+        
+        if self.parent != None:
+            self.parent.set_sensitive(True) 
         if (result == gtk.RESPONSE_OK):
             # Extracts the date off the calendar widget
             day = self.cCalendar.get_date()[2]

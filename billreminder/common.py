@@ -23,4 +23,13 @@
 #
 # -*- coding: utf-8 -*-
 
-__all__ = ['maindialog', 'billdialog', 'aboutdialog', 'bill','dal','common','utils']
+#Main window constants
+MAINGLADEFILE = '/usr/share/billreminder/billreminder.glade'
+MAINFORM_NAME = 'frmMain'
+
+# Bills Dialog constants
+BILLGLADEFILE = '/usr/share/billreminder/billdialog.glade'
+BILLDIALOG_NAME = 'frmBillDialog'
+
+#media path
+IMAGE_PATH = '/usr/share/billreminder/pixmap/'
