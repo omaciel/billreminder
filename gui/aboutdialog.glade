@@ -1,0 +1,54 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
+
+<glade-interface>
+
+<widget class="GtkAboutDialog" id="frmAboutDialog">
+  <property name="destroy_with_parent">False</property>
+  <property name="name" translatable="yes">Billreminder</property>
+  <property name="copyright" translatable="yes">BillReminder - Copyright (c) 2006, 2007
+Og Maciel &lt;ogmaciel@ubuntu.com&gt;</property>
+  <property name="license" translatable="yes">The MIT License
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the &quot;Software&quot;), to deal in the
+Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions of the
+Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY
+OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
+OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+OR OTHER DEALINGS IN THE SOFTWARE.
+
+BillReminder - Copyright (c) 2006, 2007
+Og Maciel &lt;ogmaciel@ubuntu.com&gt;</property>
+  <property name="wrap_license">False</property>
+  <property name="website">http://billreminder.sourceforge.net</property>
+  <property name="website_label" translatable="yes">BillReminder</property>
+  <property name="authors">Developers:
+Og Maciel &lt;OgMaciel@ubuntu.com&gt;
+Laudeci Oliveira &lt;laudeci@gmail.com&gt;
+
+Contributors:
+Giovanni Deganni &lt;tiefox@gmail.com&gt;
+Ruivaldo &lt;ruivaldo@gmail.com&gt;</property>
+  <property name="artists">Led Style &lt;ledstyle@gmail.com&gt;</property>
+  <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
+  <property name="logo">header.jpg</property>
+</widget>
+
+</glade-interface>
