@@ -19,19 +19,20 @@ class InstallData(install_data):
 
 setup(name='BillReminder',
       version='0.1',
-      description='BillReminder - And bills-hell is history',
+      description='BillReminder - A desktop bill reminder for Gnu/Linux.',
       author='Og Maciel',
       author_email='og.maciel@gmail.com',
       url='http://billreminder.sourceforge.net/',
       packages=['billreminder'],
       scripts=['billReminder'],
-      data_files=[('share/billreminder', 
-        ['billreminder.glade',
-         'billreminder.ico',
-         'billreminder.gladep',
-		 'header.jpg']),
-         ('share/applications', ['billreminder.desktop']),
-         ('share/pixmaps', ['billreminder.ico'])
+      data_files=[('/usr/share/billreminder', 
+        ['gui/billdialog.glade',
+         'gui/maindialog.glade',
+         'gui/aboutdialog.glade']),
+         ('/usr/share/applications', ['billreminder.desktop']),
+         ('/usr/share/billreminder/pixmaps',
+         ['images/billreminder.ico',
+         'images/header.jpg'])
         ],
       cmdclass={'install_data': InstallData}
       )
