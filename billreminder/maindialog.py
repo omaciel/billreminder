@@ -57,7 +57,7 @@ class BillReminder:
         
         #get form widgets and map it to objects
         self.frmMain = self.gladefile.get_widget(self.formName)
-        self.frmMain.set_icon_from_file(common.IMAGE_PATH + 'billreminder.ico')
+        self.frmMain.set_icon_from_file(common.APP_ICON)
         
         #Toolbar button widgets
         self.btnQuit = self.gladefile.get_widget('btnQuit')
@@ -65,7 +65,7 @@ class BillReminder:
         self.btnRemove = self.gladefile.get_widget('btnRemove')
         self.btnEdit = self.gladefile.get_widget('btnEdit')
         self.btnPaid = self.gladefile.get_widget('btnPaid')
-        self.btnUnpaid = self.gladefile.get_widget('btnPaid')
+        self.btnUnpaid = self.gladefile.get_widget('btnUnpaid')
         
         #menu widgets
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
@@ -130,7 +130,7 @@ class BillReminder:
         # prepare the environment
         
         #set unused buttons to disable mode
-        self.enable_buttons(False)
+        self.toggleButtons()
 
         #Formats the tree view
         self.formatTreeView()
@@ -138,31 +138,33 @@ class BillReminder:
         # and populate it
         self.populateTreeView(self.dal.get('paid IN (0,1)'))
 
-    # GUI setup codes
-    
-    def enable_buttons(self, bValue):
-        """
-            Enable/disable buttons.
-            If bValue = True  buttons will be enabled.
-        """
-        #set toolbar buttons
-        self.btnRemove.set_sensitive(bValue)
-        self.btnEdit.set_sensitive(bValue)
-        self.btnPaid.set_sensitive(bValue)
-        #self.btnRemove.set_sensitive(bValue)
-        self.btnUnpaid.set_sensitive(bValue)
-        
-        # set menu options
-        self.mnuRemove.set_sensitive(bValue)
-        self.mnuEdit.set_sensitive(bValue)
-        self.mnuRemove.set_sensitive(bValue)
-        self.mnuPaid.set_sensitive(bValue)
-        self.mnuUnpaid.set_sensitive(bValue)
- 
- 
+    def toggleButtons(self, paid=None):
+        """ Toggles all buttons conform number of records present and their state """
+        if len(self.billList) > 0:
+            self.btnEdit.set_sensitive(True)
+            self.btnRemove.set_sensitive(True)
+            """
+            Enable/disable paid and unpiad buttons.
+            If paid = True, paid button and menu will be enabled.
+            """
+            if paid:
+                self.btnPaid.set_sensitive(False)
+                self.btnUnpaid.set_sensitive(True)
+                self.mnuPaid.set_sensitive(False)
+                self.mnuUnpaid.set_sensitive(True)
+            else:
+                self.btnPaid.set_sensitive(True)
+                self.btnUnpaid.set_sensitive(False)
+                self.mnuPaid.set_sensitive(True)
+                self.mnuUnpaid.set_sensitive(False)
+        else:
+            self.btnEdit.set_sensitive(False)
+            self.btnRemove.set_sensitive(False)
+            self.btnPaid.set_sensitive(False)
+            self.btnUnpaid.set_sensitive(False)
+
     def formatTreeView(self):
         """ This functions prepares all the visual treeview issues used by the application. """
-
         #Add all of the List Columns to the treeView
         self.addBillListColumn(self.strId, self.COL_ID , 100, False)
         self.addBillListColumn(self.strPayee, self.COL_PAYEE, 160, True)
@@ -303,14 +305,14 @@ class BillReminder:
             model, iteration = sel.get_selected()
 
             #b_id = model.get_value(iteration, 0)
-            notes = model.get_value(iteration,4)
+            notes = model.get_value(iteration, 4)
+            paid = model.get_value(iteration, 5)
 
             # Display the status for the selected row
             self.lblInfoPanel.set_text('%s' % (notes))
-            self.enable_buttons(True)
-        except e:
+            self.toggleButtons(int(paid))
+        except:
             # better show a dialog box here if erro is critical
-            print str(e)
             pass 
         
     def on_frmMain_destroy(self, *event):

@@ -34,6 +34,7 @@ try:
     import gtk.glade
     import os
     import gobject
+    import common
 except:
     sys.exit(1)
 
@@ -42,17 +43,23 @@ class AboutDialog:
     def __init__(self, gladefile):
 
         #Set the Glade file
-        self.gladefilename = gladefile
-        self.formName = "frmAbout"
-        self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
+        self.gladefile = gtk.glade.XML(common.ABOUTGLADEFILE, common.ABOUTDIALOG_NAME)
+
+        # Header image
+        image = gtk.Image()
+        image.set_from_file(common.APP_HEADER)
+        logo =  gtk.gdk.Pixbuf()
+
+        #get form widgets and map it to objects
+        #Get the actual dialog widget
+        frmAbout = self.gladefile.get_widget(common.ABOUTDIALOG_NAME)
+        frmAbout.set_position(gtk.WIN_POS_CENTER)
+        frmAbout.set_modal(True)
+        frmAbout.set_logo =  logo.get_from_image(image)
 
     def run(self):
         """This function will show the aboutDialog"""
 
-        #Get the actual dialog widget
-        frmAbout = self.gladefile.get_widget(self.formName)
-        frmAbout.set_position(gtk.WIN_POS_CENTER)
-        frmAbout.set_modal(True)
         #run the dialog and store the response      
         result = frmAbout.run()
 

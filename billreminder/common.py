@@ -24,12 +24,18 @@
 # -*- coding: utf-8 -*-
 
 #Main window constants
-MAINGLADEFILE = '/usr/share/billreminder/billreminder.glade'
+MAINGLADEFILE = '/usr/share/billreminder/maindialog.glade'
 MAINFORM_NAME = 'frmMain'
 
 # Bills Dialog constants
 BILLGLADEFILE = '/usr/share/billreminder/billdialog.glade'
 BILLDIALOG_NAME = 'frmBillDialog'
 
+# About Dialog constants
+ABOUTGLADEFILE = '/usr/share/billreminder/aboutdialog.glade'
+ABOUTDIALOG_NAME = 'frmAboutDialog'
+
 #media path
-IMAGE_PATH = '/usr/share/billreminder/pixmap/'
+IMAGE_PATH = '/usr/share/billreminder/pixmaps/'
+APP_ICON = IMAGE_PATH + 'billreminder.ico'
+APP_HEADER = IMAGE_PATH + 'header.jpg'
