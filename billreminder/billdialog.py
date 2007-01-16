@@ -87,6 +87,8 @@ class BillDialog:
             self.cCalendar.select_month(dt.month -1,dt.year)
             utils.select_combo_Text(self.cboPayee,bill.Payee)
             self.txtBuffer.set_text(bill.Notes)
+            self.chkPaid.set_active(bill.Paid)
+                
 
     def run(self):
         """ This function will show the dialog """        
@@ -117,7 +119,7 @@ class BillDialog:
 
             if self.bill == None:
                 # Create a new object
-                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), sbuffer)
+                self.bill = Bill(payee, selectedDate, self.txtAmount.get_text(), sbuffer,self.chkPaid.get_active())
             else:
                 # Edit existing bill
                 self.bill.Payee = payee

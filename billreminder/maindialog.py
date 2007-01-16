@@ -137,6 +137,9 @@ class BillReminder:
 
         # and populate it
         self.populateTreeView(self.dal.get('paid IN (0,1)'))
+        
+        if len(self.billList) >0:
+            self.billView.set_cursor(0)
 
     def toggleButtons(self, paid=None):
         """ Toggles all buttons conform number of records present and their state """
@@ -180,7 +183,7 @@ class BillReminder:
         self.billView.connect('cursor_changed', self.on_billView_cursor_changed)
         self.billView.connect('button_press_event', self.on_billView_button_press_event)
         self.billList.connect('row-deleted', self.on_billview_row_deleted)
-        #self.billView.connect('row-inserted', self.on_billview_row_inserted)
+        self.billList.connect('row-inserted', self.on_billview_row_inserted)
         # add double click and on insert event handles
         #self.billView.connect()
 
@@ -219,8 +222,8 @@ class BillReminder:
         """ This function is used to update status bar informations about the list"""
         self.lblInfoPanel.set_text('')
         self.lblCountPanel.set_text('%d' % len(self.billList))
-        if len(self.billList) > 0:
-            self.billView.set_cursor(index)
+        #if len(self.billList) > 0:
+        #    self.billView.set_cursor(index)
 
     def populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
@@ -246,7 +249,10 @@ class BillReminder:
     def on_billview_row_inserted(self, model, path, iter):
         """ 
             This function will handle the signal to update buttons and menus depending of list content.
-         """
+        """
+        self.billView.get_selection().select_iter(iter)
+        self.billView.scroll_to_cell(path,self.billView.get_column(0))
+        #self.billView.row_activated(path,self.billView.get_column(0) )
         self.toggleButtons()
     
     def on_btnQuit_clicked(self, widget):
@@ -262,6 +268,7 @@ class BillReminder:
             bntAdd and mnuAdd widgets.
          """
         self.addBill()
+        self.updateStatusBar()
 
     def on_btnEdit_clicked(self, widget):
         """ 
