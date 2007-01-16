@@ -308,12 +308,30 @@ class BillReminder:
             a right click on tvBill widget.
         """
         if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS and len(self.billList) > 0:
+            
+            path = self.billView.get_path_at_pos(int(event.x),int(event.y))
+            
+            selection = self.billView.get_selection()
+            
+            # Get the selected path(s)
+            rows = selection.get_selected_rows()[0]
+            if path[0] not in rows[1]:
+                selection.unselect_all()
+                selection.select_path(path[0])
+            
+            model, iteration = selection.get_selected()
+            paid = (model.get_value(iteration, 5) == str(1))
+
             c = ContextMenu(self)
             c.addMenuItem('Add New', self.on_btnAdd_clicked, gtk.STOCK_ADD)
             c.addMenuItem('-', None)
             c.addMenuItem('Remove',self.on_btnRemove_clicked ,gtk.STOCK_REMOVE)
             c.addMenuItem('Edit', self.on_btnEdit_clicked, gtk.STOCK_EDIT)
-            c.addMenuItem('Paid', self.on_btnPaid_clicked ,gtk.STOCK_APPLY,True)
+            c.addMenuItem('-', None)
+            if not paid:
+                c.addMenuItem('Paid', self.on_btnPaid_clicked ,gtk.STOCK_APPLY,True)
+            else:
+                c.addMenuItem('set Open', self.on_btnPaid_clicked ,gtk.STOCK_UNDO,True)
             c.addMenuItem('-', None)
             c.addMenuItem('Cancel', None,gtk.STOCK_CANCEL)
             c.popup(None, None, None, event.button, event.get_time())
