@@ -45,26 +45,22 @@ class AboutDialog:
         #Set the Glade file
         self.gladefile = gtk.glade.XML(common.ABOUTGLADEFILE, common.ABOUTDIALOG_NAME)
 
-        # Header image
-        image = gtk.Image()
-        image.set_from_file(common.APP_HEADER)
-        logo =  gtk.gdk.Pixbuf()
-
         #get form widgets and map it to objects
         #Get the actual dialog widget
-        frmAbout = self.gladefile.get_widget(common.ABOUTDIALOG_NAME)
-        frmAbout.set_position(gtk.WIN_POS_CENTER)
-        frmAbout.set_modal(True)
-        frmAbout.set_logo =  logo.get_from_image(image)
+        self.frmAbout = self.gladefile.get_widget(common.ABOUTDIALOG_NAME)
+        self.frmAbout.set_position(gtk.WIN_POS_CENTER)
+        self.frmAbout.set_modal(True)
+        self.frmAbout.set_icon(gtk.gdk.pixbuf_new_from_file(common.APP_ICON))
+        self.frmAbout.set_logo(gtk.gdk.pixbuf_new_from_file(common.APP_HEADER))
 
     def run(self):
         """This function will show the aboutDialog"""
 
         #run the dialog and store the response      
-        result = frmAbout.run()
+        result = self.frmAbout.run()
 
         #we are done with the dialog, destroy it
-        frmAbout.destroy()
+        self.frmAbout.destroy()
 
         #return the result
         return  result  

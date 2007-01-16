@@ -179,9 +179,12 @@ class BillReminder:
         
         self.billView.connect('cursor_changed', self.on_billView_cursor_changed)
         self.billView.connect('button_press_event', self.on_billView_button_press_event)
+        self.billList.connect('row-deleted', self.on_billview_row_deleted)
+        #self.billView.connect('row-inserted', self.on_billview_row_inserted)
         # add double click and on insert event handles
         #self.billView.connect()
 
+        
     def addBillListColumn(self, title, columnId, size=100, visible=True, xalign = 0.0):
         """ This function adds a column to the list view.
         First it creates the gtk.TreeViewColumn and then sets
@@ -233,6 +236,19 @@ class BillReminder:
         return
 
     # Event handlers
+    
+    def on_billview_row_deleted(self, model, path):
+        """ 
+            This function will handle the signal to update buttons and menus depending of list content.
+         """
+        self.toggleButtons()
+    
+    def on_billview_row_inserted(self, model, path, iter):
+        """ 
+            This function will handle the signal to update buttons and menus depending of list content.
+         """
+        self.toggleButtons()
+    
     def on_btnQuit_clicked(self, widget):
         """ 
             This function will handle the signal to close window sent by 

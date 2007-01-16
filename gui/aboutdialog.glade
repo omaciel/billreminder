@@ -48,7 +48,6 @@ Giovanni Deganni &lt;tiefox@gmail.com&gt;
 Ruivaldo &lt;ruivaldo@gmail.com&gt;</property>
   <property name="artists">Led Style &lt;ledstyle@gmail.com&gt;</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
-  <property name="logo">header.jpg</property>
 </widget>
 
 </glade-interface>
