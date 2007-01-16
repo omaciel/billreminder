@@ -1,3 +1,8 @@
+Mon Jan 15 20:52:37 EST 2007
+
+*  Add a method of payment to database and UI, so user can select the method of payment for any given record.  For exemple, credit card, cash, check, etc.  In case of payment by check, allow user to enter the check number;  This should be good enough for this iteration;
+*  Add a mechanism for updating (drop and create) the database layer;
+
 Wed Jan  10 05:48:23 GMT+1 2007
 
 *  Test build system

@@ -1,4 +1,134 @@
 ------------------------------------------------------------------------
+r114 | laudeci | 2007-01-15 20:17:38 -0500 (Mon, 15 Jan 2007) | 4 lines
+
+* Code to show image in about dialog added
+* image for about removed from glade
+* code to correct the bug on add remove rows from billList done.
+
+------------------------------------------------------------------------
+r113 | gnukemist | 2007-01-15 19:03:59 -0500 (Mon, 15 Jan 2007) | 2 lines
+
+*  Deleted old glade file;
+
+------------------------------------------------------------------------
+r112 | gnukemist | 2007-01-15 19:02:58 -0500 (Mon, 15 Jan 2007) | 2 lines
+
+*  Deleted old image files;
+
+------------------------------------------------------------------------
+r111 | gnukemist | 2007-01-15 19:02:18 -0500 (Mon, 15 Jan 2007) | 2 lines
+
+*  Deleted old glade files;
+
+------------------------------------------------------------------------
+r110 | gnukemist | 2007-01-15 18:58:37 -0500 (Mon, 15 Jan 2007) | 2 lines
+
+*  The aboutdialog class now has its own glade file;
+
+------------------------------------------------------------------------
+r109 | gnukemist | 2007-01-15 18:57:06 -0500 (Mon, 15 Jan 2007) | 2 lines
+
+*  Renamed billreminder.glade to maindialog.glade;
+
+------------------------------------------------------------------------
+r108 | gnukemist | 2007-01-15 18:54:53 -0500 (Mon, 15 Jan 2007) | 2 lines
+
+*  Images will now reside in the images folder;
+
+------------------------------------------------------------------------
+r107 | gnukemist | 2007-01-15 18:38:34 -0500 (Mon, 15 Jan 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r106 | gnukemist | 2007-01-15 18:31:23 -0500 (Mon, 15 Jan 2007) | 5 lines
+
+*  Created an image folder and moved all graphic files to it;
+*  Updated common.py to conform with changes above;
+*  Added Laudeci Oliveira to AUTHORS;
+*  Starting mocking around with setup.py but it doesn't really work;
+
+------------------------------------------------------------------------
+r105 | gnukemist | 2007-01-14 10:17:24 -0500 (Sun, 14 Jan 2007) | 4 lines
+
+*  New glade layout by Laudeci, separating each class into their own glade;
+*  Using code documentation created by Laudeci but not all of it yet;
+*  Found bug when marking a record as paid (I believe it is related to mnuUnpaid);
+
+------------------------------------------------------------------------
+r104 | gnukemist | 2007-01-13 22:24:20 -0500 (Sat, 13 Jan 2007) | 3 lines
+
+*  Rearranged a few methods;
+*  editBill and payBill use formatedRow to update list;
+
+------------------------------------------------------------------------
+r103 | gnukemist | 2007-01-12 19:48:45 -0500 (Fri, 12 Jan 2007) | 2 lines
+
+*  These are the new classes, one for every window/form of the application.
+
+------------------------------------------------------------------------
+r102 | gnukemist | 2007-01-12 19:47:53 -0500 (Fri, 12 Jan 2007) | 2 lines
+
+*  Removed all code, as every window has now been transformed into separate classes.
+
+------------------------------------------------------------------------
+r101 | laudeci | 2007-01-12 13:47:54 -0500 (Fri, 12 Jan 2007) | 2 lines
+
+Some errors fixed, split classes will be the next step
+
+------------------------------------------------------------------------
+r100 | laudeci | 2007-01-12 12:48:48 -0500 (Fri, 12 Jan 2007) | 2 lines
+
+A lot of changes made using pycheck advises
+
+------------------------------------------------------------------------
+r99 | gnukemist | 2007-01-11 22:00:54 -0500 (Thu, 11 Jan 2007) | 1 line
+
+*  Almost finished with re-write.  Adding bills will set Id to -1, which is clearly not correct.  Getting the lastrowid (check dal.addBill) works when running from the cosole, but not from inside dal.
+------------------------------------------------------------------------
+r98 | gnukemist | 2007-01-11 20:16:42 -0500 (Thu, 11 Jan 2007) | 1 line
+
+*  Almost done with re-write...  More to follow.
+------------------------------------------------------------------------
+r97 | gnukemist | 2007-01-11 13:43:30 -0500 (Thu, 11 Jan 2007) | 1 line
+
+*  Partial re-write of dal.py and bill.py.  More to follow with explanation.
+------------------------------------------------------------------------
+r96 | gnukemist | 2007-01-11 11:41:01 -0500 (Thu, 11 Jan 2007) | 1 line
+
+*  Minor tweaks to the billreminder.desktop file.
+------------------------------------------------------------------------
+r95 | laudeci | 2007-01-11 10:36:20 -0500 (Thu, 11 Jan 2007) | 2 lines
+
+Now the get method accepts strings and collections as parameters
+
+------------------------------------------------------------------------
+r94 | gnukemist | 2007-01-10 22:05:13 -0500 (Wed, 10 Jan 2007) | 1 line
+
+*  Started code to mark bills as paid.  Not completely working yet.
+------------------------------------------------------------------------
+r93 | gnukemist | 2007-01-10 21:00:59 -0500 (Wed, 10 Jan 2007) | 2 lines
+
+*  Updated CHANGELOG.
+
+------------------------------------------------------------------------
+r92 | gnukemist | 2007-01-10 20:44:15 -0500 (Wed, 10 Jan 2007) | 4 lines
+
+*  Modified calls to bill methods to comply with changes to bill.py;
+*  Modified self.updateStatusBar() to selecte the first row, if row count is greater than zero;
+*  Removing a bill will now automatically select the first row and update status (it was displaying the note from the deleted bill).
+
+------------------------------------------------------------------------
+r91 | gnukemist | 2007-01-10 20:39:36 -0500 (Wed, 10 Jan 2007) | 3 lines
+
+*  Re-wrote bill.py to use new class style;
+*  Renamed bill method calls to comply with changes to bill.py.
+
+------------------------------------------------------------------------
+r90 | gnukemist | 2007-01-10 20:37:45 -0500 (Wed, 10 Jan 2007) | 2 lines
+
+*  Removed "hard-coded" icon for the main window.  It is set in code upon loading.
+
+------------------------------------------------------------------------
 r89 | gnukemist | 2007-01-10 18:51:51 -0500 (Wed, 10 Jan 2007) | 1 line
 
 *  Fixed path for icon on desktop file.
