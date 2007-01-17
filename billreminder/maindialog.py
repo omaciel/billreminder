@@ -37,6 +37,8 @@ from aboutdialog import AboutDialog
 from bill import Bill
 from billdialog import BillDialog
 import common
+from trayicon import NotifyIcon
+
 from dal import DAL
 import utils
 from utils import ContextMenu, Message
@@ -140,7 +142,13 @@ class BillReminder:
         
         if len(self.billList) >0:
             self.billView.set_cursor(0)
-
+        self.notify = NotifyIcon(self)
+    
+    def ShowHideWindow(self):
+        if self.frmMain.get_property("visible"):
+            self.frmMain.hide()
+        else:
+            self.frmMain.show()
     def toggleButtons(self, paid=None):
         """ Toggles all buttons conform number of records present and their state """
         if len(self.billList) > 0:
@@ -453,6 +461,8 @@ class BillReminder:
  
             if ret.rowcount == 1:
                 self.billList.remove(iteration)
+                msg = ('The following bill was removed:\n' + bill.Payee)
+                self.notify.show_message('Item deleted.',msg)
                 self.updateStatusBar()
             else:
                 Message().ShowError("Bill '%s' not deleted." % bill.Payee , self.frmMain)
