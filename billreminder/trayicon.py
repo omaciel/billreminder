@@ -52,9 +52,66 @@ class NotifyIcon:
         return True
     def show_message(self,title, msg):
         """ Show a message in notification area using gnome dbus objects. """
-        if not pynotify.init("Images Test"):
-            return
-        uri = "file://" + common.IMAGE_PATH + "applet-critical.png"
-        n = pynotify.Notification(title,msg,uri)
-        n.show()
+        print 'showing message'
+        notif = NotifyMessage()
+        notif.AppName('BillReminder')
+        notif.Title(title)
+        notif.Body(msg)
+        notif.Icon("/usr/share/pixmaps/esc.png")
+        notif.Timeout(7)
+        print 'got here'
+        notif.Notify() 
+        print 'message showed'
  
+class NotifyMessage:
+    """ This classes handle a way to show messagens 
+        using a baloon style in notification area.
+    """
+    
+    def __init__(self):
+        """Constructor """
+        self.__app_name = "BillReminder"
+        self.__replaces_id = 0
+        self.__app_icon = ""
+        self.__summary = ""
+        self.__body = ""
+        self.__actions = []
+        self.__hints = {}
+        self.__expire_timeout = 1000
+        
+        try:
+            __session_bus = dbus.SessionBus()
+            __obj = __session_bus.get_object("org.freedesktop.Notifications","/org/freedesktop/Notifications")
+            self.__interface = dbus.Interface(__obj, "org.freedesktop.Notifications")
+        except Exception:
+            self.__interface = None
+        
+    def AppName(self, app_name):
+        self.__app_name = app_name
+ 
+    def Ids(self, replaces_id):
+        self.__replaces_id = replaces_id
+ 
+    def Icon(self, app_icon):
+        self.__app_icon = app_icon
+ 
+    def Title(self, summary):
+        self.__summary = summary
+ 
+    def Body(self, body):
+        self.__body = body
+ 
+    def AddAction(self, action):
+        t.append(action)
+ 
+    def Timeout(self, expire_timeout):
+        self.__expire_timeout = expire_timeout * 1000
+ 
+    def MSTimeout(self, expire_timeout):
+        self.__expire_timeout = expire_timeout
+ 
+    def Notify(self):
+        if self.__interface:
+            self.__interface.Notify(self.__app_name, self.__replaces_id, self.__app_icon, self.__summary, self.__body, self.__actions, self.__hints, self.__expire_timeout)
+         
+        
