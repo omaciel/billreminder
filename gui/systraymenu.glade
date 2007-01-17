@@ -2,12 +2,13 @@
 <!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
 
 <glade-interface>
+
 <widget class="GtkMenu" id="TrayMenu">
 
   <child>
     <widget class="GtkMenuItem" id="mnuShow">
       <property name="visible">True</property>
-      <property name="label" translatable="yes">Mostrar Janela</property>
+      <property name="label" translatable="yes">Show Window</property>
       <property name="use_underline">True</property>
       <signal name="activate" handler="on_mnuShow_activate" last_modification_time="Wed, 17 Jan 2007 12:46:28 GMT"/>
     </widget>
@@ -28,4 +29,5 @@
     </widget>
   </child>
 </widget>
+
 </glade-interface>
