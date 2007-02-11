@@ -20,5 +20,5 @@ TRAY_NAME = 'TrayMenu'
 
 #media path
 IMAGE_PATH = DEFAULT_PATH + 'pixmaps/'
-APP_ICON = IMAGE_PATH + 'billreminder.ico'
-APP_HEADER = IMAGE_PATH + 'header.jpg'
+APP_ICON = IMAGE_PATH + 'billreminder.png'
+APP_HEADER = IMAGE_PATH + 'header.png'
