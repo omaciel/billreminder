@@ -24,22 +24,22 @@ from utils import ContextMenu, Message
 
 class BillReminder:
     """ This is the main window of the application """
-    
+
     # set global columns ids for bills tree constants 
     (COL_ID, COL_PAYEE, COL_DUEDATE, COL_AMOUNTDUE, COL_NOTES, COL_PAID) = range(6)
-    
+
     def __init__(self):
         """ BillReminder constructor. """
-        
+
         # Set the Glade file
         self.gladefilename = common.MAINGLADEFILE
         self.formName = common.MAINFORM_NAME
         self.gladefile = gtk.glade.XML(self.gladefilename, self.formName)
-        
+
         #get form widgets and map it to objects
         self.frmMain = self.gladefile.get_widget(self.formName)
         self.frmMain.set_icon_from_file(common.APP_ICON)
-        
+
         #Toolbar button widgets
         self.btnQuit = self.gladefile.get_widget('btnQuit')
         self.btnAdd = self.gladefile.get_widget('btnAdd')
@@ -47,7 +47,7 @@ class BillReminder:
         self.btnEdit = self.gladefile.get_widget('btnEdit')
         self.btnPaid = self.gladefile.get_widget('btnPaid')
         self.btnUnpaid = self.gladefile.get_widget('btnUnpaid')
-        
+
         #menu widgets
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
         self.mnuQuit = self.gladefile.get_widget('mnuQuit')
@@ -56,16 +56,16 @@ class BillReminder:
         self.mnuPaid = self.gladefile.get_widget('mnuPaid')
         self.mnuUnpaid = self.gladefile.get_widget('mnuUnpaid')
         self.mnuRemove = self.gladefile.get_widget('mnuRemove')
-        
+
         #status panel widgets
         self.lblCountPanel = self.gladefile.get_widget('lblCountPanel')
         self.lblInfoPanel = self.gladefile.get_widget('lblInfoPanel')
-        
+
         #Get the treeView from the widget Tree
         self.billView = self.gladefile.get_widget("tvBills")
-        
+
         # connect all handled signals to our procedures
-        
+
         #form events
         self.frmMain.connect('delete_event', self.on_frmMain_destroy)
         self.frmMain.connect('destroy',gtk.main_quit)
@@ -86,14 +86,14 @@ class BillReminder:
         self.mnuUnpaid.connect('activate', self.on_btnPaid_clicked)
 
         #set default variables values
-        
+
         # Current record holder
         self.currentBill = None 
         #Bill ID holder
         self.bill_id = None 
         #Create the listStore Model to use with the treeView
         self.billList = gtk.ListStore(str, str, str, str, str, str) 
-        
+
         #Here are some variables that can be reused later
         self.strId = 'Id'
         self.strPayee = 'Payee'
@@ -101,15 +101,14 @@ class BillReminder:
         self.strAmountDue = 'Amount Due'
         self.strNotes = 'Notes'
         self.strPaid = 'Paid'
-        
-        
+
         #create objects variables
-        
+
         # Connects to the database
         self.dal = DAL()
-        
+
         # prepare the environment
-        
+
         #set unused buttons to disable mode
         self.toggleButtons()
 
@@ -128,6 +127,7 @@ class BillReminder:
             self.frmMain.hide()
         else:
             self.frmMain.show()
+
     def toggleButtons(self, paid=None):
         """ Toggles all buttons conform number of records present and their state """
         if len(self.billList) > 0:

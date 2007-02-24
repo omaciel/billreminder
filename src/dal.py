@@ -11,19 +11,9 @@ class DAL(object):
     dbName = 'billreminder.db'
     dbPath = '%s/.config/billreminder/data/' % os.environ['HOME']
 
-    name = "bills"
-    createSQL = """
-        CREATE TABLE %s (
-            Id INTEGER PRIMARY KEY AUTOINCREMENT,
-            payee TEXT NOT NULL,
-            dueDate INTEGER NOT NULL,
-            amountDue INTEGER NOT NULL,
-            notes TEXT,
-            paid INTEGER DEFAULT 0)
-    """ % name
-
-    fields = ["Id", "payee", "dueDate", "amountDue", "notes", "paid"]
-    key = 'Id'
+    # Tables used by applications and corrsponding versions
+    tables = {'tblversions': VersionsTable(),
+              'tblbills': BillsTable()}
 
     def __init__(self):
 
@@ -40,6 +30,11 @@ class DAL(object):
             self.cur.execute (self.createSQL)
             self.conn.commit()
 
+    def validateTables(self):
+        """ Validates that all tables are up to date. """
+        stmt = "select tbl_name from sqlite_master where type = 'table' and tbl_name like 'br_%'"
+        self.cur.execute(stmt)
+        
     def _makeBillDict(self, bill):
         billDict = {}
         billDict['payee'] = bill.Payee
@@ -49,14 +44,11 @@ class DAL(object):
 
         return billDict
 
-    def add(self, bill):
-        """ Adds a bill to the database """
-        # Removes the Id field
-        dic = bill.Dictionary
-        del dic['Id']
+    def add(self, record, kwargs):
+        """ Adds a record to the database """
         # Separate columns and values
-        values = dic.values()
-        cols = dic.keys()
+        values = kwargs.values()
+        cols = kwargs.keys()
 
         # Insert statement
         stmt = "INSERT INTO %s (%s) VALUES (%s)" %\
