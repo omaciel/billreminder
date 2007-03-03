@@ -1,0 +1,12 @@
+char *s = N_("0");
+char *s = N_("<b>Info:</b>");
+char *s = N_("<b>Records:</b>");
+char *s = N_("BillReminder");
+char *s = N_("Mostrar Janela");
+char *s = N_("N_ot Paid");
+char *s = N_("Not Paid");
+char *s = N_("Paid");
+char *s = N_("_Edit");
+char *s = N_("_File");
+char *s = N_("_Help");
+char *s = N_("_Paid");

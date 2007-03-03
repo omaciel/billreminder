@@ -5,13 +5,15 @@ import sys
 try:
     import pygtk
     pygtk.require("2.0")
-except:
-      pass
+except ImportError:
+    pass
 try:
     import gtk
-    from maindialog import BillReminder
-except:
+    from controller.maindialog import BillReminder
+    from view.maindialog import BillReminderView
+except ImportError:
     sys.exit(1)
 
-br = BillReminder()
+view = BillReminderView()
+controller = BillReminder(view)
 gtk.main()
