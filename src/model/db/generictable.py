@@ -7,6 +7,7 @@ class GenericTable(object):
     """ A very generic database table class."""
     __tableVersion = 1
     __key = ""
+    __keyAuto = False
     __name = ""
     __createSQL = ""
     __fields = []
@@ -23,6 +24,11 @@ class GenericTable(object):
     def __get_key(self): return self.__key
     def __set_key(self, value): self.__key = value
     Key = property(fget=__get_key, fset=__set_key, doc='Get/Set the table key.')
+    
+    # KeyAuto
+    def __get_key_auto(self): return self.__keyAuto
+    def __set_key_auto(self, value): self.__keyAuto = value
+    KeyAuto = property(fget=__get_key_auto, fset=__set_key_auto, doc='Get/Set if the table key autoincrement.')
 
     # Name
     def __get_name(self): return self.__name
