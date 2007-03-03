@@ -11,6 +11,7 @@ class BillsTable(GenericTable):
         GenericTable.__init__(self)
         self.Version = 1
         self.Key = "Id"
+        self.KeyAuto = True
         self.Name = "br_BillsTable"
         self.CreateSQL = """
             CREATE TABLE %s (
