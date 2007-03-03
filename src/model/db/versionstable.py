@@ -10,7 +10,8 @@ class VersionsTable(GenericTable):
     def __init__(self):
         GenericTable.__init__(self)
         self.Version = 1
-        self.Key = "version"
+        self.Key = "tablename"
+        self.KeyAuto = False
         self.Name = "VersionsTable"
         self.CreateSQL = """
             CREATE TABLE %s (
