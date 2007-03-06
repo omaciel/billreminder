@@ -3,10 +3,17 @@
 
 import os
 
+#ui path
 if os.path.exists('../gui/'):
     DEFAULT_PATH = '../gui/'
 else:
-    DEFAULT_PATH = '/usr/share/billreminder/'
+    DEFAULT_PATH = '/usr/share/billreminder/gui'
+
+#media path
+if os.path.exists('../images/'):
+    IMAGE_PATH = '../images/'
+else:
+    IMAGE_PATH = '/usr/share/billreminder/images'
 
 #Main window constants
 MAINGLADEFILE = os.path.join(DEFAULT_PATH, 'maindialog.glade')
@@ -24,7 +31,6 @@ ABOUTDIALOG_NAME = 'frmAboutDialog'
 TRAYGLADEFILE = os.path.join(DEFAULT_PATH, 'systraymenu.glade')
 TRAY_NAME = 'TrayMenu'
 
-#media path
-IMAGE_PATH = os.path.join(DEFAULT_PATH, '../images/')
+# Images
 APP_ICON = os.path.join(IMAGE_PATH, 'billreminder.png')
 APP_HEADER = os.path.join(IMAGE_PATH, 'header.png')
