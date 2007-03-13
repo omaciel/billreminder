@@ -1,0 +1,16 @@
+Mon Jan 15 20:52:37 EST 2007
+
+*  Add a mechanism for updating (drop and create) the database layer;
+   Partially implemented by larmesto (r.134)
+
+Wed Jan  10 05:48:23 GMT+1 2007
+
+*  Make a png icon.
+   Created by vdpizzol
+
+*  Change .desktop, setup and billy (done)
+
+Mon Jan  1 21:15:05 EST 2007
+
+*  Turn the class DAL into a singleton.
+   Changed my mind on this one.

@@ -174,7 +174,7 @@ class BillReminder:
         # Format the dueDate field
         dueDate = datetime.datetime.fromtimestamp(row['dueDate'])
         # TRANSLATORS: This is a date format. You can change the order.
-        row['dueDate'] = dueDate.strftime(_('%Y/%m/%d').encode('ASCII')) #teste
+        row['dueDate'] = dueDate.strftime(_('%Y/%m/%d').encode('ASCII'))
         # Format the amount field
         amountDue = "%0.2f" % float(row['amountDue'])
         row['amountDue'] = amountDue
@@ -356,9 +356,10 @@ class BillReminder:
                 self.billList[idx] = self.formatedRow(bill.Dictionary)
                 self.updateStatusBar(idx)
                 self.toggleButtons(int(bill.Dictionary['paid']))
-            except:
+            except Exception, e:
                 #better show a dialog window to this error
                 print "Unexpected error:", sys.exc_info()[0]
+                print str(e)
 
     def payBill(self):
         """ Toggles bill as paid/unpaid """

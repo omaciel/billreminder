@@ -1,16 +1,14 @@
+Tue Mar 13 13:09:01 EDT 2007
+
+*  Test and strengthen the updatetables method in DAL;
+*  Table validation should take the version into account when making decisions.  If version in code is less than existing (in the db), we should not update;
+*  Use all icons created by vdpizzol and add them to the setup script.
+*  Add vdpizzol and pygi to the list of contributors.
+
 Mon Jan 15 20:52:37 EST 2007
 
 *  Add a method of payment to database and UI, so user can select the method of payment for any given record.  For exemple, credit card, cash, check, etc.  In case of payment by check, allow user to enter the check number;  This should be good enough for this iteration;
-*  Add a mechanism for updating (drop and create) the database layer;
 
 Wed Jan  10 05:48:23 GMT+1 2007
 
 *  Test build system
-*  Make a png icon
-*  Change .desktop, setup and billy to fit Og
-*  Check and modify changes some weird person did
-*  Remember to run "changelog" fairly often
-
-Mon Jan  1 21:15:05 EST 2007
-
-*  Turn the class DAL into a singleton.
