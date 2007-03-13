@@ -31,16 +31,50 @@ class DAL(object):
             
         self.conn = sqlite.connect(os.path.join(self.dbPath, self.dbName), isolation_level=None)
         self.cur = self.conn.cursor()
+        self.cur.execute("PRAGMA count_changes=0")
         
         if os.path.isfile(os.path.join(self.dbPath, self.dbName)):
             self.validateTables()
         else:
             self._createDb()
         
+    def _createDb(self):
+        """ All tables get created here."""
+        # First, we create them
+        for table in self.tables.values():
+            self._createTable(table.Name)
+
+        # Now save their field info
+        for table in self.tables.values():
+            self._updateFieldsInformation(table.Name)
+
+        # Now save their version info
+        for table in self.tables.values():
+            self._updateTableVersion(table.Name)
+
+    
+    def _createTable(self, tblname):        
+        # Create the table
+        self.cur.execute(self._tables[tblname].CreateSQL)
+        self.conn.commit()
+        print tblname
+
+    def _updateFieldsInformation(self, tblname):
+        """ Adds field information for every table."""
+        # Saves fields information for every table except tblfields
+        self.add('tblfields', {'tablename': tblname, 'fields': ", ".join(self._tables[tblname].Fields)})
+
+    def _updateTableVersion(self, tblname):
+        """ Adds table verison information."""
+        # Save version information for every table
+        self.add('tblversions', {'tablename': tblname, 'version': self._tables[tblname].Version})
+        print 'version saved (%s - %i)' % (tblname, self._tables[tblname].Version)
+    
     def validateTables(self):
         """ Validates that all tables are up to date. """
         stmt = "select tbl_name from sqlite_master where type = 'table' and tbl_name like 'br_%'"
         self.cur.execute(stmt)
+        # List of all tables with names that start with "br_"
         tbllist = self.cur.fetchall()
         print tbllist
         
@@ -50,14 +84,19 @@ class DAL(object):
             return True
             
         unvalidated = self._tables.copy()
-        unvalidated.pop(self.tables['tblversions'].Name)
-        unvalidated.pop(self.tables['tblfields'].Name)
+        #unvalidated.pop(self.tables['tblversions'].Name)
+        #unvalidated.pop(self.tables['tblfields'].Name)
         for tblname in tbllist:
-            tblname = tblname[0]
-            ver = self.get('tblversions', {'tablename': tblname})[0]['version']
+            tblname = str(tblname[0])
+            try:
+                ver = self.get('tblversions', {'tablename': tblname})[0]['version']
+            except sqlite.OperationalError:
+                ver = -1
+            print ver
             # Table is obsolete and will be deleted 
             if tblname not in self._tables:
-                print  '%s is a obsolete table' % tblname
+                # We should revisit this logic
+                print  '%s is an obsolete table and it will be deleted' % tblname
                 self._deleteTable(tblname)
                 continue
             if self._tables[tblname].Version == int(ver) :
@@ -72,22 +111,6 @@ class DAL(object):
         for table in unvalidated:
             self._createTable(table)
      
-    def _createDb(self):
-        self._createTable(self.tables['tblversions'].Name)
-        self._createTable(self.tables['tblfields'].Name)
-        for table in self.tables.values():
-            if table != self.tables['tblversions'] and table != self.tables['tblfields']:
-                self._createTable(table.Name)
-    
-    def _createTable(self, tblname):        
-        self.cur.execute(self._tables[tblname].CreateSQL)
-        self.conn.commit()
-        print tblname
-        if tblname != self.tables['tblversions'].Name:
-            self.add('tblfields', {'tablename': tblname, 'fields': ", ".join(self._tables[tblname].Fields)})
-        self.add('tblversions', {'tablename': tblname, 'version': self._tables[tblname].Version})
-        print 'version saved (%s - %i)' % (tblname, self._tables[tblname].Version)
-    
     def _deleteTable(self, tblname):
         stmt = "DROP TABLE %s" % tblname
         self.cur.execute(stmt)
@@ -135,7 +158,11 @@ class DAL(object):
         
         stmt = "SELECT %(fields)s FROM %(name)s" \
             % dict(fields=", ".join(self.tables[tblnick].Fields), name=self.tables[tblnick].Name) + stmt
-        self.cur.execute(stmt, args)
+        try:
+            self.cur.execute(stmt, args)
+        except sqlite.OperationalError:
+            return None
+
         
         rows = [dict([ (f, row[i]) for i, f in enumerate(self.tables[tblnick].Fields) ]) \
             for row in self.cur.fetchall()]
@@ -166,7 +193,7 @@ class DAL(object):
         if self.tables[tblnick].KeyAuto:
             del dic[self.tables[tblnick].Key]
         
-        # Split up into pais
+        # Split up into pairs
         pairs = dic.items()
         
         params = "=?, ".join([ x[0] for x in pairs ]) + "=?"
@@ -176,7 +203,7 @@ class DAL(object):
         args = [x[1] for x in pairs] + [key]
         
         rowsAffected = self._executeSQL(stmt, args)
-        return rowsAffected.rowcount
+        return rowsAffected
     
     def delete(self, tblnick, key):
         """ Delete a record in the database """
