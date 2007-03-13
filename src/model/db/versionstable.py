@@ -12,7 +12,7 @@ class VersionsTable(GenericTable):
         self.Version = 1
         self.Key = "tablename"
         self.KeyAuto = False
-        self.Name = "VersionsTable"
+        self.Name = "br_VersionsTable"
         self.CreateSQL = """
             CREATE TABLE %s (
             tablename   VARCHAR(255) NOT NULL,

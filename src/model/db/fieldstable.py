@@ -12,7 +12,7 @@ class FieldsTable(GenericTable):
         self.Version = 1
         self.Key = "tablename"
         self.KeyAuto = False
-        self.Name = "FieldsTable"
+        self.Name = "br_FieldsTable"
         self.CreateSQL = """
             CREATE TABLE %s (
             tablename   VARCHAR(255) NOT NULL,
