@@ -1,4 +1,134 @@
 ------------------------------------------------------------------------
+r142 | gnukemist | 2007-03-06 00:34:50 -0500 (Tue, 06 Mar 2007) | 1 line
+
+*  Tweaked the directory location detection during runtime.
+------------------------------------------------------------------------
+r141 | gnukemist | 2007-03-05 11:01:47 -0500 (Mon, 05 Mar 2007) | 1 line
+
+*  Allows to "test run" the application without having to copy files over to final directory destination.
+------------------------------------------------------------------------
+r140 | larmesto | 2007-03-03 18:34:39 -0500 (Sat, 03 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r139 | larmesto | 2007-03-03 18:29:53 -0500 (Sat, 03 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r138 | larmesto | 2007-03-03 18:28:20 -0500 (Sat, 03 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r137 | larmesto | 2007-03-03 18:27:34 -0500 (Sat, 03 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r136 | larmesto | 2007-03-03 18:27:17 -0500 (Sat, 03 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r135 | larmesto | 2007-03-03 18:25:43 -0500 (Sat, 03 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r134 | larmesto | 2007-03-03 12:26:39 -0500 (Sat, 03 Mar 2007) | 4 lines
+
+* i18n support added;
+* Starting migration to MVC model;
+* Updated dal.py to provide generic DataBase functions (unfinished);
+* Some files updated to conform with changes above.
+------------------------------------------------------------------------
+r133 | larmesto | 2007-03-03 12:17:24 -0500 (Sat, 03 Mar 2007) | 4 lines
+
+* i18n support added;
+* Starting migration to MVC model;
+* Updated dal.py to provide generic DataBase functions (unfinished);
+* Some files updated to conform with changes above.
+------------------------------------------------------------------------
+r132 | gnukemist | 2007-02-24 13:37:37 -0500 (Sat, 24 Feb 2007) | 1 line
+
+*  This breaks the code!  I'm commiting so someone else can pick up where I left off.
+------------------------------------------------------------------------
+r131 | gnukemist | 2007-02-11 19:58:24 -0500 (Sun, 11 Feb 2007) | 2 lines
+
+*  Break up database layer into separate modules to facilitate database maintenance.
+
+------------------------------------------------------------------------
+r130 | gnukemist | 2007-02-11 14:53:59 -0500 (Sun, 11 Feb 2007) | 2 lines
+
+*  New art by Vinicius Depizzol.
+
+------------------------------------------------------------------------
+r129 | gnukemist | 2007-01-27 11:23:03 -0500 (Sat, 27 Jan 2007) | 1 line
+
+* Removed license text from source into its own file;\n*  Added some glade deps to svn;
+------------------------------------------------------------------------
+r128 | gnukemist | 2007-01-27 11:11:10 -0500 (Sat, 27 Jan 2007) | 1 line
+
+*  Renamed the (future) executable.
+------------------------------------------------------------------------
+r127 | gnukemist | 2007-01-27 11:09:05 -0500 (Sat, 27 Jan 2007) | 1 line
+
+*  Deleted the (future) executable.
+------------------------------------------------------------------------
+r126 | gnukemist | 2007-01-27 11:06:00 -0500 (Sat, 27 Jan 2007) | 1 line
+
+*  Removed old billreminder folder.
+------------------------------------------------------------------------
+r125 | gnukemist | 2007-01-27 11:01:26 -0500 (Sat, 27 Jan 2007) | 1 line
+
+*  Source code will reside here.
+------------------------------------------------------------------------
+r124 | gnukemist | 2007-01-27 11:00:45 -0500 (Sat, 27 Jan 2007) | 2 lines
+
+*  Renamed the source folder.
+
+------------------------------------------------------------------------
+r123 | laudeci | 2007-01-17 11:54:50 -0500 (Wed, 17 Jan 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r122 | gnukemist | 2007-01-17 11:00:55 -0500 (Wed, 17 Jan 2007) | 1 line
+
+*  Fixed label with text in pt_BR.
+------------------------------------------------------------------------
+r121 | laudeci | 2007-01-17 10:10:48 -0500 (Wed, 17 Jan 2007) | 2 lines
+
+comments added in class file
+
+------------------------------------------------------------------------
+r120 | laudeci | 2007-01-17 08:39:10 -0500 (Wed, 17 Jan 2007) | 2 lines
+
+* class to control icon in notification area
+
+------------------------------------------------------------------------
+r119 | laudeci | 2007-01-17 08:35:12 -0500 (Wed, 17 Jan 2007) | 2 lines
+
+some files added
+
+------------------------------------------------------------------------
+r118 | laudeci | 2007-01-17 08:33:09 -0500 (Wed, 17 Jan 2007) | 3 lines
+
+* Class to handle the icon and messages in notification area added
+* Some minor changes
+
+------------------------------------------------------------------------
+r117 | laudeci | 2007-01-16 11:33:08 -0500 (Tue, 16 Jan 2007) | 2 lines
+
+* context menu now reflects bill state
+
+------------------------------------------------------------------------
+r116 | laudeci | 2007-01-15 21:08:35 -0500 (Mon, 15 Jan 2007) | 3 lines
+
+* Added code to handle insert and deleted item
+* Added code to select an item when it is inserted
+
+------------------------------------------------------------------------
+r115 | gnukemist | 2007-01-15 20:56:15 -0500 (Mon, 15 Jan 2007) | 2 lines
+
+*  Updated CHANGELOG and TODO lists.
+
+------------------------------------------------------------------------
 r114 | laudeci | 2007-01-15 20:17:38 -0500 (Mon, 15 Jan 2007) | 4 lines
 
 * Code to show image in about dialog added
