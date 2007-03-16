@@ -44,8 +44,8 @@ class Daemon:
         # Redirect STDIN, STDOUT and STDERR  
         # TODO: Create a log system
         sys.stdin.close()
-        sys.stdout = NullDevice()
-        sys.stderr = NullDevice()
+        #sys.stdout = NullDevice()
+        #sys.stderr = NullDevice()
         self.dal = DAL()
         self.config = Config()
         
