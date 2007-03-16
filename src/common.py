@@ -5,13 +5,13 @@ import os
 
 #ui path
 if os.path.exists('../gui/'):
-    DEFAULT_PATH = '../gui/'
+    DEFAULT_PATH = os.path.abspath('../gui/')
 else:
     DEFAULT_PATH = '/usr/share/billreminder/gui'
 
 #media path
 if os.path.exists('../images/'):
-    IMAGE_PATH = '../images/'
+    IMAGE_PATH = os.path.abspath('../images/')
 else:
     IMAGE_PATH = '/usr/share/billreminder/images'
 
