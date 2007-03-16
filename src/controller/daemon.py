@@ -51,8 +51,8 @@ class Daemon(model.daemon.Daemon):
             if date != i['dueDate']:
                 msg = '%(msg)s\n<i>%(date)s</i>\n' % \
                     dict(msg=msg, date=datetime.datetime.fromtimestamp(i['dueDate']).strftime(_('%Y/%m/%d').encode('ASCII')))
-            item = '%(payee)s - %(amountDue)s' % \
-                dict(payee=i['payee'], amountDue=locale.currency(i['amountDue']))
+            item = '%(payee)s - %(currency)s %(amountDue)0.2f' % \
+                dict(payee=i['payee'], currency=locale.localeconv()['currency_symbol'], amountDue=i['amountDue'])
             msg = '%(msg)s%(item)s\n' % dict(msg=msg, item=item)
             date = i['dueDate']
         return msg
