@@ -29,7 +29,7 @@ class BillDBus(dbus.service.Object):
         
     @dbus.service.method("org.gnome.Billreminder")
     def show_message(self, title, msg):
-        self.window.notify.show_message(title, msg, 12, os.path.abspath(common.APP_HEADER))
+        self.window.notify.show_message(title, msg, 12, common.APP_HEADER)
         return "Successful command"
     
         
