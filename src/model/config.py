@@ -8,9 +8,9 @@ from model.dal import DAL
 class Config:
     
     __default = {
-        'Notification.Days': '7', #days
+        'Notification.Days': '14', #days
         'Notification.Interval': '43200', #seconds
-        'Notification.Alarm': '16:00' # hh:mm
+        'Notification.Alarm': '12:00' # hh:mm
         }
     __dic = {}
 
