@@ -11,11 +11,14 @@ import gtk
 import gtk.glade
 import datetime
 import os
-import time
 import gobject
+import dbus
+import time
+
 #custom imports
 import common
 import model.i18n
+from model.dbus_manager import BillDBus
 from model.dal import DAL
 from model.bill import Bill
 from controller.aboutdialog import AboutDialog
@@ -33,6 +36,7 @@ class BillReminder:
     def __init__(self, view):
         
         self.view = view
+                
         # connect all handled signals to our procedures
 
         #form events
@@ -92,6 +96,10 @@ class BillReminder:
         if len(self.billList) > 0:
             self.view.billView.set_cursor(0)
         self.notify = NotifyIcon(self)
+        
+        self.dbus_service = BillDBus(self)
+        # Launch Daemon
+        gobject.timeout_add(10, os.system, 'python -OO notifier.py')
     
     def ShowHideWindow(self):
         if self.view.frmMain.get_property("visible"):
@@ -395,7 +403,8 @@ class BillReminder:
  
             if ret.rowcount == 1:
                 self.billList.remove(iteration)
-                msg = (_('The following bill was removed:\n') + bill.Payee)
+                msg = (_('The following bill was removed:\n') + '<b>%(payee)s</b> - <i>%(amountDue)0.2f</i>' \
+                    % dict(payee=bill.Payee, amountDue=bill.AmountDue))
                 self.notify.show_message(_('Item deleted.'), msg)
                 self.updateStatusBar()
             else:
