@@ -99,7 +99,7 @@ class BillReminder:
         
         self.dbus_service = BillDBus(self)
         # Launch Daemon
-        gobject.timeout_add(10, os.system, 'python -OO notifier.py')
+        gobject.timeout_add(1000, os.system, 'python -OO notifier.py')
     
     def ShowHideWindow(self):
         if self.view.frmMain.get_property("visible"):
