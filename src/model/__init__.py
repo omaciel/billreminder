@@ -1,4 +1,4 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-__all__ = ['db', 'bill', 'dal', 'i18n']
+__all__ = ['db', 'bill', 'config', 'daemon', 'dal', 'dbus_manager', 'i18n']
