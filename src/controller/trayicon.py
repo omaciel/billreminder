@@ -55,15 +55,16 @@ class NotifyIcon:
         """ Do nothing here, only returns that the class was instantiated."""
         return True
         
-    def show_message(self,title, msg):
+    def show_message(self, title, msg, timeout=7, icon="/usr/share/pixmaps/esc.png"): # TODO: Change image
         """ Show a message in notification area using gnome dbus objects. """
         print 'showing message'
         notif = NotifyMessage()
         notif.AppName('BillReminder')
         notif.Title(title)
         notif.Body(msg)
-        notif.Icon("/usr/share/pixmaps/esc.png") # TODO: Change image
-        notif.Timeout(7)
+        notif.Icon(icon)
+        notif.Timeout(timeout)
+        notif.getHints(self.tray)
         print 'got here'
         notif.Notify() 
         print 'message showed'
@@ -113,6 +114,26 @@ class NotifyMessage:
  
     def MSTimeout(self, expire_timeout):
         self.__expire_timeout = expire_timeout
+    
+    def getHints(self, tray):
+        hints = {}
+        if tray:
+           x = tray.get_geometry()[1].x
+           y = tray.get_geometry()[1].y
+           w = tray.get_geometry()[1].width
+           h = tray.get_geometry()[1].height
+           x += w/2
+           if y < 100:
+              # top-panel
+              y += h/2
+           else:
+              # bottom-panel
+              y -= h/2
+           hints['x'] = x
+           hints['y'] = y
+        hints['desktop-entry'] = "billreminder"
+        self.__hints = hints
+        return hints
  
     def Notify(self):
         if self.__interface:
