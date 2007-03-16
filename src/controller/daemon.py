@@ -114,6 +114,6 @@ class Daemon(model.daemon.Daemon):
             notif.Title(title)
             notif.Body(msg)
             notif.Icon(os.path.abspath(common.APP_HEADER))
-            notif.Timeout(10)
+            notif.Timeout(20)
             notif.Notify() 
         
