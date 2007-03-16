@@ -8,6 +8,7 @@ from pysqlite2 import dbapi2 as sqlite
 
 from model.bill import Bill
 from model.db.versionstable import VersionsTable
+from model.db.configtable import ConfigTable
 from model.db.fieldstable import FieldsTable
 from model.db.billstable import BillsTable
 
@@ -19,6 +20,7 @@ class DAL(object):
 
     # Tables used by applications and corresponding versions
     tables = {'tblversions': VersionsTable(),
+        'tblconfig': ConfigTable(),
         'tblfields': FieldsTable(),
         'tblbills': BillsTable()}
     # Same dict, but with real table name 
