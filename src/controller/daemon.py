@@ -100,9 +100,14 @@ class Daemon(model.daemon.Daemon):
     def showMessage(self, title, msg):
         try:
             session_bus = dbus.SessionBus()
-            obj = session_bus.get_object("org.gnome.Billreminder", "/org/gnome/Billreminder")
-            interface = dbus.Interface(obj, "org.gnome.Billreminder")
-            interface.show_message(title, msg)
+            obj = session_bus.get_object("org.freedesktop.DBus", "/org/freedesktop/DBus")
+            iface = dbus.Interface(obj, 'org.freedesktop.DBus')
+            if "org.gnome.Billreminder" in iface.ListNames():        
+                obj = session_bus.get_object("org.gnome.Billreminder", "/org/gnome/Billreminder")
+                interface = dbus.Interface(obj, "org.gnome.Billreminder")
+                interface.show_message(title, msg)
+            else: 
+                raise Exception()
         except:
     	    notif = controller.trayicon.NotifyMessage()
             notif.AppName('BillReminder')
