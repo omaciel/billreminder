@@ -194,8 +194,8 @@ class BillReminder:
         """ This function is used to update status bar informations about the list """
         self.view.lblInfoPanel.set_text('')
         self.view.lblCountPanel.set_text('%d' % len(self.billList))
-        #if len(self.billList) > 0:
-        #    self.billView.set_cursor(index)
+        if len(self.billList) > 0:
+            self.view.billView.set_cursor(index)
 
     def populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
@@ -234,7 +234,6 @@ class BillReminder:
         """ This function will handle the signal to add a new bill sent by 
             bntAdd and mnuAdd widgets. """
         self.addBill()
-        self.updateStatusBar()
 
     def on_btnEdit_clicked(self, widget):
         """ This function will handle the signal to edit the selected bill sent by 
@@ -362,6 +361,7 @@ class BillReminder:
                 # Update list with updated record
                 idx = self.view.billView.get_cursor()[0][0]
                 self.billList[idx] = self.formatedRow(bill.Dictionary)
+                print idx
                 self.updateStatusBar(idx)
                 self.toggleButtons(int(bill.Dictionary['paid']))
             except Exception, e:
