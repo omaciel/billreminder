@@ -34,7 +34,8 @@ class BillDialog:
 
         #get form widgets and map it to objects
         self.frmBillDialog = self.gladefile.get_widget(common.BILLDIALOG_NAME)
-        self.frmBillDialog.set_icon_from_file(common.IMAGE_PATH + 'billreminder.ico')
+        self.frmBillDialog.set_icon_from_file(common.APP_ICON)
+        #self.frmBillDialog.set_icon_from_file(common.IMAGE_PATH + 'billreminder.ico')
         
         # if the dialog has a parent form
         # disable the parent form
