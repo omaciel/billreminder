@@ -12,7 +12,7 @@ try:
     from dbus.mainloop.glib import DBusGMainLoop
     DBusGMainLoop(set_as_default=True)
 except:
-    pass
+    import dbus.glib
 
 import common
 
