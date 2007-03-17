@@ -31,7 +31,7 @@ class BillReminder:
     """ This is the main window of the application """
 
     # set global columns ids for bills tree constants 
-    (COL_ID, COL_PAYEE, COL_DUEDATE, COL_AMOUNTDUE, COL_NOTES, COL_PAID) = range(6)
+    (COL_ICON, COL_ID, COL_PAYEE, COL_DUEDATE, COL_AMOUNTDUE, COL_NOTES, COL_PAID) = range(7) 
 
     def __init__(self, view):
         
@@ -65,7 +65,7 @@ class BillReminder:
         #Bill ID holder
         self.bill_id = None 
         #Create the listStore Model to use with the treeView
-        self.billList = gtk.ListStore(str, str, str, str, str, str) 
+        self.billList = gtk.ListStore(gtk.gdk.Pixbuf, str, str, str, str, str, str) 
 
         #Here are some variables that can be reused later
         self.strId = _('Id')
@@ -99,7 +99,7 @@ class BillReminder:
         
         self.dbus_service = BillDBus(self)
         # Launch Daemon
-        gobject.timeout_add(1000, os.system, 'python -OO notifier.py')
+        gobject.timeout_add(10, os.system, 'python -OO notifier.py')
     
     def ShowHideWindow(self):
         if self.view.frmMain.get_property("visible"):
@@ -141,8 +141,9 @@ class BillReminder:
     def formatTreeView(self):
         """ This functions prepares all the visual treeview issues used by the application. """
         #Add all of the List Columns to the treeView
+        self.addBillListColumn(self.strPaid, self.COL_ICON, 20, True) 
         self.addBillListColumn(self.strId, self.COL_ID , 100, False)
-        self.addBillListColumn(self.strPayee, self.COL_PAYEE, 160, True)
+        self.addBillListColumn(self.strPayee, self.COL_PAYEE, 260, True)
         self.addBillListColumn(self.strDueDate, self.COL_DUEDATE, 100, True)
         self.addBillListColumn(self.strAmountDue, self.COL_AMOUNTDUE, 100, True, 1.0)
         self.addBillListColumn(self.strNotes, self.COL_NOTES, 100, False)
@@ -164,8 +165,11 @@ class BillReminder:
         """ This function adds a column to the list view.
         First it creates the gtk.TreeViewColumn and then sets
         some needed properties """
-
-        renderer = gtk.CellRendererText()
+        
+        if columnId == self.COL_ICON: 
+            renderer = gtk.CellRendererPixbuf() 
+        else: 
+            renderer = gtk.CellRendererText()
         renderer.set_property('xalign', xalign)
         column = gtk.TreeViewColumn(title, renderer, text=columnId)
         column.set_resizable(True)
@@ -173,9 +177,13 @@ class BillReminder:
         column.set_min_width(size)
         column.set_clickable(True)
         column.set_visible(visible)
+        column.set_alignment(xalign)
         column.set_sort_column_id(columnId)
-
-        self.view.billView.append_column(column)
+        
+        if columnId == self.COL_ICON: 
+            self.view.billView.insert_column_with_data_func(-1, '', renderer, self.pixbufCellDataFunc) 
+        else: 
+            self.view.billView.append_column(column)
     
     def formatedRow(self, row):
         """ Formats a bill to be displayed as a row. """
@@ -186,8 +194,8 @@ class BillReminder:
         # Format the amount field
         amountDue = "%0.2f" % float(row['amountDue'])
         row['amountDue'] = amountDue
-
-        formated = [row['Id'], row['payee'], row['dueDate'], row['amountDue'], row['notes'], row['paid']]
+        
+        formated = [None, row['Id'], row['payee'], row['dueDate'], row['amountDue'], row['notes'], row['paid']] 
         return formated
     
     def updateStatusBar(self, index=0):
@@ -211,6 +219,14 @@ class BillReminder:
         # update statusbar information
         self.updateStatusBar()
         return
+
+    def pixbufCellDataFunc(self, tree_column, cell, model, tree_iter):
+        """ Draw icon """
+        if model.get_value(tree_iter, self.COL_PAID) == '1':
+            stock_id = 'gtk-apply'
+        else:
+            stock_id = ''
+        cell.set_property('stock-id', stock_id)
 
     # Event handlers
     
@@ -279,7 +295,7 @@ class BillReminder:
                     selection.select_path(path[0])
                 
                 model, iteration = selection.get_selected()
-                paid = (model.get_value(iteration, 5) == str(1))
+                paid = (model.get_value(iteration, self.COL_PAID) == str(1))
                 error = False
             except:
                 error = True
@@ -308,8 +324,8 @@ class BillReminder:
             model, iteration = sel.get_selected()
 
             #b_id = model.get_value(iteration, 0)
-            notes = model.get_value(iteration, 4)
-            paid = model.get_value(iteration, 5)
+            notes = model.get_value(iteration, self.COL_NOTES)
+            paid = model.get_value(iteration, self.COL_PAID)
 
             # Display the status for the selected row
             self.view.lblInfoPanel.set_text('%s' % (notes))
@@ -417,7 +433,7 @@ class BillReminder:
         sel = self.view.billView.get_selection()
         _model, iteration = sel.get_selected()
         
-        b_id = _model.get_value(iteration, 0)
+        b_id = _model.get_value(iteration, self.COL_ID)
         
         records = self.dal.get(self.table, {'Id': b_id})
         rec = records[0]
