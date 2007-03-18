@@ -1,176 +1,322 @@
 ------------------------------------------------------------------------
-r142 | gnukemist | 2007-03-06 00:34:50 -0500 (Tue, 06 Mar 2007) | 1 line
+r176 | larmesto | 2007-03-17 17:47:59 -0400 (Sáb, 17 Mar 2007) | 1 line
+
+* D-Bus connection timeout error fixed.
+------------------------------------------------------------------------
+r175 | larmesto | 2007-03-17 17:40:01 -0400 (Sáb, 17 Mar 2007) | 2 lines
+
+* Added new column to indicate bill status;
+* Some minor fixes.
+------------------------------------------------------------------------
+r174 | larmesto | 2007-03-17 17:16:09 -0400 (Sáb, 17 Mar 2007) | 1 line
+
+* Minor fix
+------------------------------------------------------------------------
+r173 | larmesto | 2007-03-17 17:10:51 -0400 (Sáb, 17 Mar 2007) | 1 line
+
+*  Tweaked the directory location detection
+------------------------------------------------------------------------
+r172 | gnukemist | 2007-03-16 23:50:55 -0400 (Sex, 16 Mar 2007) | 1 line
+
+*  Fixed minor problem that prevented the TreeView from updating the comments status bar when editing a record.
+------------------------------------------------------------------------
+r171 | gnukemist | 2007-03-16 23:49:48 -0400 (Sex, 16 Mar 2007) | 1 line
+
+*  Fixed minor mistake related to the application icon.
+------------------------------------------------------------------------
+r170 | larmesto | 2007-03-16 19:52:22 -0400 (Sex, 16 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r169 | larmesto | 2007-03-16 19:51:43 -0400 (Sex, 16 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r168 | larmesto | 2007-03-16 19:50:51 -0400 (Sex, 16 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r167 | larmesto | 2007-03-16 19:50:27 -0400 (Sex, 16 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r166 | larmesto | 2007-03-16 19:50:00 -0400 (Sex, 16 Mar 2007) | 1 line
+
+
+------------------------------------------------------------------------
+r165 | larmesto | 2007-03-16 18:42:15 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Updated default values
+------------------------------------------------------------------------
+r164 | larmesto | 2007-03-16 18:40:37 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Updated D-Bus verification
+------------------------------------------------------------------------
+r163 | larmesto | 2007-03-16 18:38:34 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Added delay before launch daemon
+------------------------------------------------------------------------
+r162 | gnukemist | 2007-03-16 18:13:04 -0400 (Sex, 16 Mar 2007) | 3 lines
+
+*  Fixed the comments widget to wrap around text instead of displaying it in one line;
+*  Added a gap between the buttons and the rest of the form for frmBillDialog;
+
+------------------------------------------------------------------------
+r161 | larmesto | 2007-03-16 17:50:14 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Updated
+------------------------------------------------------------------------
+r160 | larmesto | 2007-03-16 17:38:07 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Re-enabled stdout and stderr;
+------------------------------------------------------------------------
+r159 | larmesto | 2007-03-16 17:14:44 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Launch notification daemon
+------------------------------------------------------------------------
+r158 | larmesto | 2007-03-16 17:13:33 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Updated.
+------------------------------------------------------------------------
+r157 | larmesto | 2007-03-16 17:06:45 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* D-Bus support;
+------------------------------------------------------------------------
+r156 | larmesto | 2007-03-16 17:04:55 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Notification daemon;
+------------------------------------------------------------------------
+r155 | larmesto | 2007-03-16 17:03:20 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Notification daemon;
+------------------------------------------------------------------------
+r154 | larmesto | 2007-03-16 17:01:50 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Configuration Table definitions;
+------------------------------------------------------------------------
+r153 | larmesto | 2007-03-16 16:59:18 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Created configuration module;
+------------------------------------------------------------------------
+r152 | larmesto | 2007-03-16 16:54:51 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Notification position now is relative to icon;
+------------------------------------------------------------------------
+r151 | larmesto | 2007-03-16 16:49:13 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Launch notification daemon
+------------------------------------------------------------------------
+r150 | larmesto | 2007-03-16 16:35:15 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* Included "br_ConfigTable" support
+------------------------------------------------------------------------
+r149 | larmesto | 2007-03-16 16:25:13 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* __all__ updated
+------------------------------------------------------------------------
+r148 | larmesto | 2007-03-16 16:24:24 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* __all__ updated
+------------------------------------------------------------------------
+r147 | larmesto | 2007-03-16 16:22:41 -0400 (Sex, 16 Mar 2007) | 1 line
+
+* __all__ updated
+------------------------------------------------------------------------
+r146 | gnukemist | 2007-03-13 13:26:25 -0400 (Ter, 13 Mar 2007) | 2 lines
+
+*  Updated CHANGELOG file.
+
+------------------------------------------------------------------------
+r145 | gnukemist | 2007-03-13 13:25:50 -0400 (Ter, 13 Mar 2007) | 4 lines
+
+*  Updated AUTHORS;
+*  Created DONE and moved completed tasks to it;
+*  Updated TODO
+
+------------------------------------------------------------------------
+r144 | gnukemist | 2007-03-13 13:24:32 -0400 (Ter, 13 Mar 2007) | 3 lines
+
+*  Modified original code by larmesto to properly handle database creation and to take all tables into consideration when validating them;
+*  Added PRAGMA count_changes statement to allow sqlite to return rows affected value;
+
+------------------------------------------------------------------------
+r143 | gnukemist | 2007-03-13 13:22:07 -0400 (Ter, 13 Mar 2007) | 2 lines
+
+Changed table names to use the same prefix.
+
+------------------------------------------------------------------------
+r142 | gnukemist | 2007-03-06 00:34:50 -0500 (Ter, 06 Mar 2007) | 1 line
 
 *  Tweaked the directory location detection during runtime.
 ------------------------------------------------------------------------
-r141 | gnukemist | 2007-03-05 11:01:47 -0500 (Mon, 05 Mar 2007) | 1 line
+r141 | gnukemist | 2007-03-05 11:01:47 -0500 (Seg, 05 Mar 2007) | 1 line
 
 *  Allows to "test run" the application without having to copy files over to final directory destination.
 ------------------------------------------------------------------------
-r140 | larmesto | 2007-03-03 18:34:39 -0500 (Sat, 03 Mar 2007) | 1 line
+r140 | larmesto | 2007-03-03 18:34:39 -0500 (Sáb, 03 Mar 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r139 | larmesto | 2007-03-03 18:29:53 -0500 (Sat, 03 Mar 2007) | 1 line
+r139 | larmesto | 2007-03-03 18:29:53 -0500 (Sáb, 03 Mar 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r138 | larmesto | 2007-03-03 18:28:20 -0500 (Sat, 03 Mar 2007) | 1 line
+r138 | larmesto | 2007-03-03 18:28:20 -0500 (Sáb, 03 Mar 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r137 | larmesto | 2007-03-03 18:27:34 -0500 (Sat, 03 Mar 2007) | 1 line
+r137 | larmesto | 2007-03-03 18:27:34 -0500 (Sáb, 03 Mar 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r136 | larmesto | 2007-03-03 18:27:17 -0500 (Sat, 03 Mar 2007) | 1 line
+r136 | larmesto | 2007-03-03 18:27:17 -0500 (Sáb, 03 Mar 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r135 | larmesto | 2007-03-03 18:25:43 -0500 (Sat, 03 Mar 2007) | 1 line
+r135 | larmesto | 2007-03-03 18:25:43 -0500 (Sáb, 03 Mar 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r134 | larmesto | 2007-03-03 12:26:39 -0500 (Sat, 03 Mar 2007) | 4 lines
+r134 | larmesto | 2007-03-03 12:26:39 -0500 (Sáb, 03 Mar 2007) | 4 lines
 
 * i18n support added;
 * Starting migration to MVC model;
 * Updated dal.py to provide generic DataBase functions (unfinished);
 * Some files updated to conform with changes above.
 ------------------------------------------------------------------------
-r133 | larmesto | 2007-03-03 12:17:24 -0500 (Sat, 03 Mar 2007) | 4 lines
+r133 | larmesto | 2007-03-03 12:17:24 -0500 (Sáb, 03 Mar 2007) | 4 lines
 
 * i18n support added;
 * Starting migration to MVC model;
 * Updated dal.py to provide generic DataBase functions (unfinished);
 * Some files updated to conform with changes above.
 ------------------------------------------------------------------------
-r132 | gnukemist | 2007-02-24 13:37:37 -0500 (Sat, 24 Feb 2007) | 1 line
+r132 | gnukemist | 2007-02-24 13:37:37 -0500 (Sáb, 24 Fev 2007) | 1 line
 
 *  This breaks the code!  I'm commiting so someone else can pick up where I left off.
 ------------------------------------------------------------------------
-r131 | gnukemist | 2007-02-11 19:58:24 -0500 (Sun, 11 Feb 2007) | 2 lines
+r131 | gnukemist | 2007-02-11 19:58:24 -0500 (Dom, 11 Fev 2007) | 2 lines
 
 *  Break up database layer into separate modules to facilitate database maintenance.
 
 ------------------------------------------------------------------------
-r130 | gnukemist | 2007-02-11 14:53:59 -0500 (Sun, 11 Feb 2007) | 2 lines
+r130 | gnukemist | 2007-02-11 14:53:59 -0500 (Dom, 11 Fev 2007) | 2 lines
 
 *  New art by Vinicius Depizzol.
 
 ------------------------------------------------------------------------
-r129 | gnukemist | 2007-01-27 11:23:03 -0500 (Sat, 27 Jan 2007) | 1 line
+r129 | gnukemist | 2007-01-27 11:23:03 -0500 (Sáb, 27 Jan 2007) | 1 line
 
 * Removed license text from source into its own file;\n*  Added some glade deps to svn;
 ------------------------------------------------------------------------
-r128 | gnukemist | 2007-01-27 11:11:10 -0500 (Sat, 27 Jan 2007) | 1 line
+r128 | gnukemist | 2007-01-27 11:11:10 -0500 (Sáb, 27 Jan 2007) | 1 line
 
 *  Renamed the (future) executable.
 ------------------------------------------------------------------------
-r127 | gnukemist | 2007-01-27 11:09:05 -0500 (Sat, 27 Jan 2007) | 1 line
+r127 | gnukemist | 2007-01-27 11:09:05 -0500 (Sáb, 27 Jan 2007) | 1 line
 
 *  Deleted the (future) executable.
 ------------------------------------------------------------------------
-r126 | gnukemist | 2007-01-27 11:06:00 -0500 (Sat, 27 Jan 2007) | 1 line
+r126 | gnukemist | 2007-01-27 11:06:00 -0500 (Sáb, 27 Jan 2007) | 1 line
 
 *  Removed old billreminder folder.
 ------------------------------------------------------------------------
-r125 | gnukemist | 2007-01-27 11:01:26 -0500 (Sat, 27 Jan 2007) | 1 line
+r125 | gnukemist | 2007-01-27 11:01:26 -0500 (Sáb, 27 Jan 2007) | 1 line
 
 *  Source code will reside here.
 ------------------------------------------------------------------------
-r124 | gnukemist | 2007-01-27 11:00:45 -0500 (Sat, 27 Jan 2007) | 2 lines
+r124 | gnukemist | 2007-01-27 11:00:45 -0500 (Sáb, 27 Jan 2007) | 2 lines
 
 *  Renamed the source folder.
 
 ------------------------------------------------------------------------
-r123 | laudeci | 2007-01-17 11:54:50 -0500 (Wed, 17 Jan 2007) | 1 line
+r123 | laudeci | 2007-01-17 11:54:50 -0500 (Qua, 17 Jan 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r122 | gnukemist | 2007-01-17 11:00:55 -0500 (Wed, 17 Jan 2007) | 1 line
+r122 | gnukemist | 2007-01-17 11:00:55 -0500 (Qua, 17 Jan 2007) | 1 line
 
 *  Fixed label with text in pt_BR.
 ------------------------------------------------------------------------
-r121 | laudeci | 2007-01-17 10:10:48 -0500 (Wed, 17 Jan 2007) | 2 lines
+r121 | laudeci | 2007-01-17 10:10:48 -0500 (Qua, 17 Jan 2007) | 2 lines
 
 comments added in class file
 
 ------------------------------------------------------------------------
-r120 | laudeci | 2007-01-17 08:39:10 -0500 (Wed, 17 Jan 2007) | 2 lines
+r120 | laudeci | 2007-01-17 08:39:10 -0500 (Qua, 17 Jan 2007) | 2 lines
 
 * class to control icon in notification area
 
 ------------------------------------------------------------------------
-r119 | laudeci | 2007-01-17 08:35:12 -0500 (Wed, 17 Jan 2007) | 2 lines
+r119 | laudeci | 2007-01-17 08:35:12 -0500 (Qua, 17 Jan 2007) | 2 lines
 
 some files added
 
 ------------------------------------------------------------------------
-r118 | laudeci | 2007-01-17 08:33:09 -0500 (Wed, 17 Jan 2007) | 3 lines
+r118 | laudeci | 2007-01-17 08:33:09 -0500 (Qua, 17 Jan 2007) | 3 lines
 
 * Class to handle the icon and messages in notification area added
 * Some minor changes
 
 ------------------------------------------------------------------------
-r117 | laudeci | 2007-01-16 11:33:08 -0500 (Tue, 16 Jan 2007) | 2 lines
+r117 | laudeci | 2007-01-16 11:33:08 -0500 (Ter, 16 Jan 2007) | 2 lines
 
 * context menu now reflects bill state
 
 ------------------------------------------------------------------------
-r116 | laudeci | 2007-01-15 21:08:35 -0500 (Mon, 15 Jan 2007) | 3 lines
+r116 | laudeci | 2007-01-15 21:08:35 -0500 (Seg, 15 Jan 2007) | 3 lines
 
 * Added code to handle insert and deleted item
 * Added code to select an item when it is inserted
 
 ------------------------------------------------------------------------
-r115 | gnukemist | 2007-01-15 20:56:15 -0500 (Mon, 15 Jan 2007) | 2 lines
+r115 | gnukemist | 2007-01-15 20:56:15 -0500 (Seg, 15 Jan 2007) | 2 lines
 
 *  Updated CHANGELOG and TODO lists.
 
 ------------------------------------------------------------------------
-r114 | laudeci | 2007-01-15 20:17:38 -0500 (Mon, 15 Jan 2007) | 4 lines
+r114 | laudeci | 2007-01-15 20:17:38 -0500 (Seg, 15 Jan 2007) | 4 lines
 
 * Code to show image in about dialog added
 * image for about removed from glade
 * code to correct the bug on add remove rows from billList done.
 
 ------------------------------------------------------------------------
-r113 | gnukemist | 2007-01-15 19:03:59 -0500 (Mon, 15 Jan 2007) | 2 lines
+r113 | gnukemist | 2007-01-15 19:03:59 -0500 (Seg, 15 Jan 2007) | 2 lines
 
 *  Deleted old glade file;
 
 ------------------------------------------------------------------------
-r112 | gnukemist | 2007-01-15 19:02:58 -0500 (Mon, 15 Jan 2007) | 2 lines
+r112 | gnukemist | 2007-01-15 19:02:58 -0500 (Seg, 15 Jan 2007) | 2 lines
 
 *  Deleted old image files;
 
 ------------------------------------------------------------------------
-r111 | gnukemist | 2007-01-15 19:02:18 -0500 (Mon, 15 Jan 2007) | 2 lines
+r111 | gnukemist | 2007-01-15 19:02:18 -0500 (Seg, 15 Jan 2007) | 2 lines
 
 *  Deleted old glade files;
 
 ------------------------------------------------------------------------
-r110 | gnukemist | 2007-01-15 18:58:37 -0500 (Mon, 15 Jan 2007) | 2 lines
+r110 | gnukemist | 2007-01-15 18:58:37 -0500 (Seg, 15 Jan 2007) | 2 lines
 
 *  The aboutdialog class now has its own glade file;
 
 ------------------------------------------------------------------------
-r109 | gnukemist | 2007-01-15 18:57:06 -0500 (Mon, 15 Jan 2007) | 2 lines
+r109 | gnukemist | 2007-01-15 18:57:06 -0500 (Seg, 15 Jan 2007) | 2 lines
 
 *  Renamed billreminder.glade to maindialog.glade;
 
 ------------------------------------------------------------------------
-r108 | gnukemist | 2007-01-15 18:54:53 -0500 (Mon, 15 Jan 2007) | 2 lines
+r108 | gnukemist | 2007-01-15 18:54:53 -0500 (Seg, 15 Jan 2007) | 2 lines
 
 *  Images will now reside in the images folder;
 
 ------------------------------------------------------------------------
-r107 | gnukemist | 2007-01-15 18:38:34 -0500 (Mon, 15 Jan 2007) | 1 line
+r107 | gnukemist | 2007-01-15 18:38:34 -0500 (Seg, 15 Jan 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r106 | gnukemist | 2007-01-15 18:31:23 -0500 (Mon, 15 Jan 2007) | 5 lines
+r106 | gnukemist | 2007-01-15 18:31:23 -0500 (Seg, 15 Jan 2007) | 5 lines
 
 *  Created an image folder and moved all graphic files to it;
 *  Updated common.py to conform with changes above;
@@ -178,240 +324,240 @@ r106 | gnukemist | 2007-01-15 18:31:23 -0500 (Mon, 15 Jan 2007) | 5 lines
 *  Starting mocking around with setup.py but it doesn't really work;
 
 ------------------------------------------------------------------------
-r105 | gnukemist | 2007-01-14 10:17:24 -0500 (Sun, 14 Jan 2007) | 4 lines
+r105 | gnukemist | 2007-01-14 10:17:24 -0500 (Dom, 14 Jan 2007) | 4 lines
 
 *  New glade layout by Laudeci, separating each class into their own glade;
 *  Using code documentation created by Laudeci but not all of it yet;
 *  Found bug when marking a record as paid (I believe it is related to mnuUnpaid);
 
 ------------------------------------------------------------------------
-r104 | gnukemist | 2007-01-13 22:24:20 -0500 (Sat, 13 Jan 2007) | 3 lines
+r104 | gnukemist | 2007-01-13 22:24:20 -0500 (Sáb, 13 Jan 2007) | 3 lines
 
 *  Rearranged a few methods;
 *  editBill and payBill use formatedRow to update list;
 
 ------------------------------------------------------------------------
-r103 | gnukemist | 2007-01-12 19:48:45 -0500 (Fri, 12 Jan 2007) | 2 lines
+r103 | gnukemist | 2007-01-12 19:48:45 -0500 (Sex, 12 Jan 2007) | 2 lines
 
 *  These are the new classes, one for every window/form of the application.
 
 ------------------------------------------------------------------------
-r102 | gnukemist | 2007-01-12 19:47:53 -0500 (Fri, 12 Jan 2007) | 2 lines
+r102 | gnukemist | 2007-01-12 19:47:53 -0500 (Sex, 12 Jan 2007) | 2 lines
 
 *  Removed all code, as every window has now been transformed into separate classes.
 
 ------------------------------------------------------------------------
-r101 | laudeci | 2007-01-12 13:47:54 -0500 (Fri, 12 Jan 2007) | 2 lines
+r101 | laudeci | 2007-01-12 13:47:54 -0500 (Sex, 12 Jan 2007) | 2 lines
 
 Some errors fixed, split classes will be the next step
 
 ------------------------------------------------------------------------
-r100 | laudeci | 2007-01-12 12:48:48 -0500 (Fri, 12 Jan 2007) | 2 lines
+r100 | laudeci | 2007-01-12 12:48:48 -0500 (Sex, 12 Jan 2007) | 2 lines
 
 A lot of changes made using pycheck advises
 
 ------------------------------------------------------------------------
-r99 | gnukemist | 2007-01-11 22:00:54 -0500 (Thu, 11 Jan 2007) | 1 line
+r99 | gnukemist | 2007-01-11 22:00:54 -0500 (Qui, 11 Jan 2007) | 1 line
 
 *  Almost finished with re-write.  Adding bills will set Id to -1, which is clearly not correct.  Getting the lastrowid (check dal.addBill) works when running from the cosole, but not from inside dal.
 ------------------------------------------------------------------------
-r98 | gnukemist | 2007-01-11 20:16:42 -0500 (Thu, 11 Jan 2007) | 1 line
+r98 | gnukemist | 2007-01-11 20:16:42 -0500 (Qui, 11 Jan 2007) | 1 line
 
 *  Almost done with re-write...  More to follow.
 ------------------------------------------------------------------------
-r97 | gnukemist | 2007-01-11 13:43:30 -0500 (Thu, 11 Jan 2007) | 1 line
+r97 | gnukemist | 2007-01-11 13:43:30 -0500 (Qui, 11 Jan 2007) | 1 line
 
 *  Partial re-write of dal.py and bill.py.  More to follow with explanation.
 ------------------------------------------------------------------------
-r96 | gnukemist | 2007-01-11 11:41:01 -0500 (Thu, 11 Jan 2007) | 1 line
+r96 | gnukemist | 2007-01-11 11:41:01 -0500 (Qui, 11 Jan 2007) | 1 line
 
 *  Minor tweaks to the billreminder.desktop file.
 ------------------------------------------------------------------------
-r95 | laudeci | 2007-01-11 10:36:20 -0500 (Thu, 11 Jan 2007) | 2 lines
+r95 | laudeci | 2007-01-11 10:36:20 -0500 (Qui, 11 Jan 2007) | 2 lines
 
 Now the get method accepts strings and collections as parameters
 
 ------------------------------------------------------------------------
-r94 | gnukemist | 2007-01-10 22:05:13 -0500 (Wed, 10 Jan 2007) | 1 line
+r94 | gnukemist | 2007-01-10 22:05:13 -0500 (Qua, 10 Jan 2007) | 1 line
 
 *  Started code to mark bills as paid.  Not completely working yet.
 ------------------------------------------------------------------------
-r93 | gnukemist | 2007-01-10 21:00:59 -0500 (Wed, 10 Jan 2007) | 2 lines
+r93 | gnukemist | 2007-01-10 21:00:59 -0500 (Qua, 10 Jan 2007) | 2 lines
 
 *  Updated CHANGELOG.
 
 ------------------------------------------------------------------------
-r92 | gnukemist | 2007-01-10 20:44:15 -0500 (Wed, 10 Jan 2007) | 4 lines
+r92 | gnukemist | 2007-01-10 20:44:15 -0500 (Qua, 10 Jan 2007) | 4 lines
 
 *  Modified calls to bill methods to comply with changes to bill.py;
 *  Modified self.updateStatusBar() to selecte the first row, if row count is greater than zero;
 *  Removing a bill will now automatically select the first row and update status (it was displaying the note from the deleted bill).
 
 ------------------------------------------------------------------------
-r91 | gnukemist | 2007-01-10 20:39:36 -0500 (Wed, 10 Jan 2007) | 3 lines
+r91 | gnukemist | 2007-01-10 20:39:36 -0500 (Qua, 10 Jan 2007) | 3 lines
 
 *  Re-wrote bill.py to use new class style;
 *  Renamed bill method calls to comply with changes to bill.py.
 
 ------------------------------------------------------------------------
-r90 | gnukemist | 2007-01-10 20:37:45 -0500 (Wed, 10 Jan 2007) | 2 lines
+r90 | gnukemist | 2007-01-10 20:37:45 -0500 (Qua, 10 Jan 2007) | 2 lines
 
 *  Removed "hard-coded" icon for the main window.  It is set in code upon loading.
 
 ------------------------------------------------------------------------
-r89 | gnukemist | 2007-01-10 18:51:51 -0500 (Wed, 10 Jan 2007) | 1 line
+r89 | gnukemist | 2007-01-10 18:51:51 -0500 (Qua, 10 Jan 2007) | 1 line
 
 *  Fixed path for icon on desktop file.
 ------------------------------------------------------------------------
-r88 | gnukemist | 2007-01-10 16:21:37 -0500 (Wed, 10 Jan 2007) | 1 line
+r88 | gnukemist | 2007-01-10 16:21:37 -0500 (Qua, 10 Jan 2007) | 1 line
 
 *  Major overhaul, including a setup system (thanks to pygi).
 ------------------------------------------------------------------------
-r87 | pygi | 2007-01-10 15:09:49 -0500 (Wed, 10 Jan 2007) | 1 line
+r87 | pygi | 2007-01-10 15:09:49 -0500 (Qua, 10 Jan 2007) | 1 line
 
 Reverted to revision82
 ------------------------------------------------------------------------
-r86 | pygi | 2007-01-10 14:29:13 -0500 (Wed, 10 Jan 2007) | 1 line
+r86 | pygi | 2007-01-10 14:29:13 -0500 (Qua, 10 Jan 2007) | 1 line
 
 Fixed my own mess
 ------------------------------------------------------------------------
-r85 | gnukemist | 2007-01-10 14:14:27 -0500 (Wed, 10 Jan 2007) | 1 line
+r85 | gnukemist | 2007-01-10 14:14:27 -0500 (Qua, 10 Jan 2007) | 1 line
 
 *  Reverting stupid mistake when trying to rename file billy.
 ------------------------------------------------------------------------
-r84 | pygi | 2007-01-10 14:00:59 -0500 (Wed, 10 Jan 2007) | 1 line
+r84 | pygi | 2007-01-10 14:00:59 -0500 (Qua, 10 Jan 2007) | 1 line
 
 The dir should be under control now :P
 ------------------------------------------------------------------------
-r83 | pygi | 2007-01-10 13:58:45 -0500 (Wed, 10 Jan 2007) | 1 line
+r83 | pygi | 2007-01-10 13:58:45 -0500 (Qua, 10 Jan 2007) | 1 line
 
 Testing my commit rights
 ------------------------------------------------------------------------
-r82 | laudeci | 2007-01-10 12:50:41 -0500 (Wed, 10 Jan 2007) | 2 lines
+r82 | laudeci | 2007-01-10 12:50:41 -0500 (Qua, 10 Jan 2007) | 2 lines
 
 Changed colAmountDue alignment
 
 ------------------------------------------------------------------------
-r81 | laudeci | 2007-01-10 10:29:35 -0500 (Wed, 10 Jan 2007) | 2 lines
+r81 | laudeci | 2007-01-10 10:29:35 -0500 (Qua, 10 Jan 2007) | 2 lines
 
 Edig bug solved
 
 ------------------------------------------------------------------------
-r80 | gnukemist | 2007-01-09 22:44:57 -0500 (Tue, 09 Jan 2007) | 2 lines
+r80 | gnukemist | 2007-01-09 22:44:57 -0500 (Ter, 09 Jan 2007) | 2 lines
 
 *  Separated out possible utilities methods and classes into a new module.
 
 ------------------------------------------------------------------------
-r79 | gnukemist | 2007-01-09 20:25:02 -0500 (Tue, 09 Jan 2007) | 4 lines
+r79 | gnukemist | 2007-01-09 20:25:02 -0500 (Ter, 09 Jan 2007) | 4 lines
 
 *  Added missing code to update status bar upon removing a bill;
 *  Changed on_btn_remove_clicked to on_btnRemove_clicked to conform with nomenclature;
 *  Separated events from methos;
 
 ------------------------------------------------------------------------
-r78 | gnukemist | 2007-01-09 18:13:56 -0500 (Tue, 09 Jan 2007) | 1 line
+r78 | gnukemist | 2007-01-09 18:13:56 -0500 (Ter, 09 Jan 2007) | 1 line
 
 *  Added event handler for mnuQuit.
 ------------------------------------------------------------------------
-r77 | laudeci | 2007-01-09 16:26:02 -0500 (Tue, 09 Jan 2007) | 2 lines
+r77 | laudeci | 2007-01-09 16:26:02 -0500 (Ter, 09 Jan 2007) | 2 lines
 
 delete fixed
 
 ------------------------------------------------------------------------
-r76 | gnukemist | 2007-01-09 15:46:25 -0500 (Tue, 09 Jan 2007) | 1 line
+r76 | gnukemist | 2007-01-09 15:46:25 -0500 (Ter, 09 Jan 2007) | 1 line
 
 Fixed dal.delete method.
 ------------------------------------------------------------------------
-r75 | laudeci | 2007-01-09 15:23:18 -0500 (Tue, 09 Jan 2007) | 1 line
+r75 | laudeci | 2007-01-09 15:23:18 -0500 (Ter, 09 Jan 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r74 | laudeci | 2007-01-09 15:02:27 -0500 (Tue, 09 Jan 2007) | 2 lines
+r74 | laudeci | 2007-01-09 15:02:27 -0500 (Ter, 09 Jan 2007) | 2 lines
 
 Now you can remove bills from list
 
 ------------------------------------------------------------------------
-r73 | laudeci | 2007-01-09 14:46:07 -0500 (Tue, 09 Jan 2007) | 2 lines
+r73 | laudeci | 2007-01-09 14:46:07 -0500 (Ter, 09 Jan 2007) | 2 lines
 
 Added code to handle Remove operations ( need more work )
 
 ------------------------------------------------------------------------
-r72 | laudeci | 2007-01-09 14:19:31 -0500 (Tue, 09 Jan 2007) | 2 lines
+r72 | laudeci | 2007-01-09 14:19:31 -0500 (Ter, 09 Jan 2007) | 2 lines
 
 change some code to better appearence and control 
 
 ------------------------------------------------------------------------
-r71 | gnukemist | 2007-01-09 13:30:17 -0500 (Tue, 09 Jan 2007) | 3 lines
+r71 | gnukemist | 2007-01-09 13:30:17 -0500 (Ter, 09 Jan 2007) | 3 lines
 
 *  More work on the editBill method.  It is almost done, but when bringing record back from editing window, the treeView won't refresh.
 *  Separated code that turns selected recordo into a bill object.
 
 ------------------------------------------------------------------------
-r70 | laudeci | 2007-01-09 12:49:53 -0500 (Tue, 09 Jan 2007) | 1 line
+r70 | laudeci | 2007-01-09 12:49:53 -0500 (Ter, 09 Jan 2007) | 1 line
 
 
 ------------------------------------------------------------------------
-r69 | laudeci | 2007-01-09 09:52:17 -0500 (Tue, 09 Jan 2007) | 2 lines
+r69 | laudeci | 2007-01-09 09:52:17 -0500 (Ter, 09 Jan 2007) | 2 lines
 
 Changed the way _executeSQL returns a cursor
 
 ------------------------------------------------------------------------
-r68 | gnukemist | 2007-01-08 19:56:06 -0500 (Mon, 08 Jan 2007) | 2 lines
+r68 | gnukemist | 2007-01-08 19:56:06 -0500 (Seg, 08 Jan 2007) | 2 lines
 
 *  Save the notes with bills.  Somehow, the TreeView doesn't refresh anymore...
 
 ------------------------------------------------------------------------
-r67 | gnukemist | 2007-01-07 01:11:09 -0500 (Sun, 07 Jan 2007) | 2 lines
+r67 | gnukemist | 2007-01-07 01:11:09 -0500 (Dom, 07 Jan 2007) | 2 lines
 
 *  More changes to support editing of bill records.
 
 ------------------------------------------------------------------------
-r66 | gnukemist | 2007-01-05 22:23:17 -0500 (Fri, 05 Jan 2007) | 2 lines
+r66 | gnukemist | 2007-01-05 22:23:17 -0500 (Sex, 05 Jan 2007) | 2 lines
 
 *  Initial work to support editing of bills.  Some parts have not been implemented yet.
 
 ------------------------------------------------------------------------
-r65 | gnukemist | 2007-01-05 18:56:11 -0500 (Fri, 05 Jan 2007) | 3 lines
+r65 | gnukemist | 2007-01-05 18:56:11 -0500 (Sex, 05 Jan 2007) | 3 lines
 
 *  Moved code for adding a bill to its own method;
 *  Added event handler for mnuAdd;
 
 ------------------------------------------------------------------------
-r64 | gnukemist | 2007-01-05 18:40:14 -0500 (Fri, 05 Jan 2007) | 2 lines
+r64 | gnukemist | 2007-01-05 18:40:14 -0500 (Sex, 05 Jan 2007) | 2 lines
 
 *  Turned glade file name into a constant.
 
 ------------------------------------------------------------------------
-r63 | laudeci | 2007-01-05 13:37:37 -0500 (Fri, 05 Jan 2007) | 2 lines
+r63 | laudeci | 2007-01-05 13:37:37 -0500 (Sex, 05 Jan 2007) | 2 lines
 
 Added code to show images in context menu.
 
 ------------------------------------------------------------------------
-r62 | laudeci | 2007-01-05 13:11:00 -0500 (Fri, 05 Jan 2007) | 4 lines
+r62 | laudeci | 2007-01-05 13:11:00 -0500 (Sex, 05 Jan 2007) | 4 lines
 
 Added context menu code for right click operations.
 Path to glade file bug fixed.
 
 
 ------------------------------------------------------------------------
-r61 | gnukemist | 2007-01-05 11:59:26 -0500 (Fri, 05 Jan 2007) | 2 lines
+r61 | gnukemist | 2007-01-05 11:59:26 -0500 (Sex, 05 Jan 2007) | 2 lines
 
 *  Fixed string word wrapping in license text of About dialog.
 
 ------------------------------------------------------------------------
-r60 | gnukemist | 2007-01-05 11:45:44 -0500 (Fri, 05 Jan 2007) | 2 lines
+r60 | gnukemist | 2007-01-05 11:45:44 -0500 (Sex, 05 Jan 2007) | 2 lines
 
 *  Finally got the behaviour I wanted by exposing the cursor_changed event.
 
 ------------------------------------------------------------------------
-r59 | gnukemist | 2007-01-04 22:42:09 -0500 (Thu, 04 Jan 2007) | 4 lines
+r59 | gnukemist | 2007-01-04 22:42:09 -0500 (Qui, 04 Jan 2007) | 4 lines
 
 *  Double-clicking on GtkTreeView row will display information for the selected row in the pseudo StatusPanel2 label;
 *  Added callback for GtkTreeView row-inserted event to display total records in the pseudo StatusPanel1 label;
 
 
 ------------------------------------------------------------------------
-r58 | gnukemist | 2007-01-04 22:38:08 -0500 (Thu, 04 Jan 2007) | 5 lines
+r58 | gnukemist | 2007-01-04 22:38:08 -0500 (Qui, 04 Jan 2007) | 5 lines
 
 *  Removed GtkStatusBar and added a HBox with 2 columns:
    *  Added 1 label into each column, to be used as StatusPanels
@@ -419,235 +565,235 @@ r58 | gnukemist | 2007-01-04 22:38:08 -0500 (Thu, 04 Jan 2007) | 5 lines
 *  Formatted the MIT license.
 
 ------------------------------------------------------------------------
-r57 | laudeci | 2007-01-04 13:55:00 -0500 (Thu, 04 Jan 2007) | 2 lines
+r57 | laudeci | 2007-01-04 13:55:00 -0500 (Qui, 04 Jan 2007) | 2 lines
 
 All signals will be added throug code now, and not using glade definitions for events.
 
 ------------------------------------------------------------------------
-r56 | laudeci | 2007-01-04 13:53:55 -0500 (Thu, 04 Jan 2007) | 2 lines
+r56 | laudeci | 2007-01-04 13:53:55 -0500 (Qui, 04 Jan 2007) | 2 lines
 
 Button spaces fixed, now they look better.
 
 ------------------------------------------------------------------------
-r55 | laudeci | 2007-01-04 13:16:43 -0500 (Thu, 04 Jan 2007) | 2 lines
+r55 | laudeci | 2007-01-04 13:16:43 -0500 (Qui, 04 Jan 2007) | 2 lines
 
 Added code to handle double click event in each row of the treeview.
 
 ------------------------------------------------------------------------
-r54 | laudeci | 2007-01-04 12:49:50 -0500 (Thu, 04 Jan 2007) | 2 lines
+r54 | laudeci | 2007-01-04 12:49:50 -0500 (Qui, 04 Jan 2007) | 2 lines
 
 Modified glade file to remove the default srolling bar from View control
 
 ------------------------------------------------------------------------
-r53 | gnukemist | 2007-01-02 16:28:47 -0500 (Tue, 02 Jan 2007) | 2 lines
+r53 | gnukemist | 2007-01-02 16:28:47 -0500 (Ter, 02 Jan 2007) | 2 lines
 
 *  Somehow an import line had been commented out.
 
 ------------------------------------------------------------------------
-r52 | gnukemist | 2007-01-02 15:31:05 -0500 (Tue, 02 Jan 2007) | 2 lines
+r52 | gnukemist | 2007-01-02 15:31:05 -0500 (Ter, 02 Jan 2007) | 2 lines
 
 *  More tweaks to display decimals with the amountDue.
 
 ------------------------------------------------------------------------
-r51 | gnukemist | 2007-01-02 15:04:09 -0500 (Tue, 02 Jan 2007) | 2 lines
+r51 | gnukemist | 2007-01-02 15:04:09 -0500 (Ter, 02 Jan 2007) | 2 lines
 
 *  Formats the amountDue to display 2 decimals.
 
 ------------------------------------------------------------------------
-r50 | gnukemist | 2007-01-02 15:02:35 -0500 (Tue, 02 Jan 2007) | 2 lines
+r50 | gnukemist | 2007-01-02 15:02:35 -0500 (Ter, 02 Jan 2007) | 2 lines
 
 *  Payees() now encodes the payee list to take care of unicode.
 
 ------------------------------------------------------------------------
-r49 | gnukemist | 2007-01-01 21:19:10 -0500 (Mon, 01 Jan 2007) | 2 lines
+r49 | gnukemist | 2007-01-01 21:19:10 -0500 (Seg, 01 Jan 2007) | 2 lines
 
 Generic TODO list.
 
 ------------------------------------------------------------------------
-r48 | gnukemist | 2007-01-01 21:10:50 -0500 (Mon, 01 Jan 2007) | 2 lines
+r48 | gnukemist | 2007-01-01 21:10:50 -0500 (Seg, 01 Jan 2007) | 2 lines
 
 * Added method to return list of distinct payees.
 
 ------------------------------------------------------------------------
-r47 | gnukemist | 2007-01-01 21:09:59 -0500 (Mon, 01 Jan 2007) | 4 lines
+r47 | gnukemist | 2007-01-01 21:09:59 -0500 (Seg, 01 Jan 2007) | 4 lines
 
 * BillDialog now populates the payee comboboxentry with a distinct list of payees from the database;
   * Need to convert encoding for strings returned from query.
 * Added separate method for populating the comboboxentry.
 
 ------------------------------------------------------------------------
-r46 | gnukemist | 2007-01-01 15:38:23 -0500 (Mon, 01 Jan 2007) | 2 lines
+r46 | gnukemist | 2007-01-01 15:38:23 -0500 (Seg, 01 Jan 2007) | 2 lines
 
 Use the Dabase Abstract Layer (DAL) for record keeping.
 
 ------------------------------------------------------------------------
-r45 | gnukemist | 2007-01-01 15:37:25 -0500 (Mon, 01 Jan 2007) | 2 lines
+r45 | gnukemist | 2007-01-01 15:37:25 -0500 (Seg, 01 Jan 2007) | 2 lines
 
 Methods will take a Bill object now.
 
 ------------------------------------------------------------------------
-r44 | gnukemist | 2007-01-01 15:36:50 -0500 (Mon, 01 Jan 2007) | 2 lines
+r44 | gnukemist | 2007-01-01 15:36:50 -0500 (Seg, 01 Jan 2007) | 2 lines
 
 Removed redundant method calls
 
 ------------------------------------------------------------------------
-r43 | gnukemist | 2006-12-29 16:00:22 -0500 (Fri, 29 Dec 2006) | 3 lines
+r43 | gnukemist | 2006-12-29 16:00:22 -0500 (Sex, 29 Dez 2006) | 3 lines
 
 * Added license to bill.py and dal.py.
 * Also modified copyright note to include 2007.
 
 ------------------------------------------------------------------------
-r42 | gnukemist | 2006-12-29 15:30:57 -0500 (Fri, 29 Dec 2006) | 2 lines
+r42 | gnukemist | 2006-12-29 15:30:57 -0500 (Sex, 29 Dez 2006) | 2 lines
 
 Removed this binary.
 
 ------------------------------------------------------------------------
-r41 | gnukemist | 2006-12-29 15:30:19 -0500 (Fri, 29 Dec 2006) | 2 lines
+r41 | gnukemist | 2006-12-29 15:30:19 -0500 (Sex, 29 Dez 2006) | 2 lines
 
 Added fix for GtkEntry in GtkCoboBoxEntry by Laudeci Oliveira <laudeci@gmail.com>.
 
 ------------------------------------------------------------------------
-r40 | gnukemist | 2006-12-28 23:23:27 -0500 (Thu, 28 Dec 2006) | 2 lines
+r40 | gnukemist | 2006-12-28 23:23:27 -0500 (Qui, 28 Dez 2006) | 2 lines
 
 New pygtk code to be used from now on.
 
 ------------------------------------------------------------------------
-r39 | gnukemist | 2006-12-28 23:20:57 -0500 (Thu, 28 Dec 2006) | 2 lines
+r39 | gnukemist | 2006-12-28 23:20:57 -0500 (Qui, 28 Dez 2006) | 2 lines
 
 Removing all previous code and leaving only the pygtk code.
 
 ------------------------------------------------------------------------
-r38 | gnukemist | 2006-08-28 12:12:47 -0400 (Mon, 28 Aug 2006) | 4 lines
+r38 | gnukemist | 2006-08-28 12:12:47 -0400 (Seg, 28 Ago 2006) | 4 lines
 
 Added new serialization objects, one using CPickle by Rui and a possible replacemente using xml.
 
 .
 
 ------------------------------------------------------------------------
-r37 | gnukemist | 2006-08-26 11:55:41 -0400 (Sat, 26 Aug 2006) | 1 line
+r37 | gnukemist | 2006-08-26 11:55:41 -0400 (Sáb, 26 Ago 2006) | 1 line
 
 Added CPickle(d) database layer by Rui; Changed comobobox for comboboxentry in BillDialog
 ------------------------------------------------------------------------
-r36 | gnukemist | 2006-05-16 21:44:08 -0400 (Tue, 16 May 2006) | 1 line
+r36 | gnukemist | 2006-05-16 21:44:08 -0400 (Ter, 16 Mai 2006) | 1 line
 
 Fixed path problems for resources files.
 ------------------------------------------------------------------------
-r35 | gnukemist | 2006-05-15 15:09:51 -0400 (Mon, 15 May 2006) | 1 line
+r35 | gnukemist | 2006-05-15 15:09:51 -0400 (Seg, 15 Mai 2006) | 1 line
 
 New solution to be used with MonoDevelop.
 ------------------------------------------------------------------------
-r34 | gnukemist | 2006-03-31 13:52:58 -0500 (Fri, 31 Mar 2006) | 1 line
+r34 | gnukemist | 2006-03-31 13:52:58 -0500 (Sex, 31 Mar 2006) | 1 line
 
 Better, revised README file.
 ------------------------------------------------------------------------
-r33 | gnukemist | 2006-03-31 13:51:27 -0500 (Fri, 31 Mar 2006) | 1 line
+r33 | gnukemist | 2006-03-31 13:51:27 -0500 (Sex, 31 Mar 2006) | 1 line
 
 Removed old classes and fixed nasty bug with Timer control.
 ------------------------------------------------------------------------
-r32 | gnukemist | 2006-03-23 21:39:48 -0500 (Thu, 23 Mar 2006) | 1 line
+r32 | gnukemist | 2006-03-23 21:39:48 -0500 (Qui, 23 Mar 2006) | 1 line
 
 Quick fix to glade file.
 ------------------------------------------------------------------------
-r31 | gnukemist | 2006-03-22 16:17:44 -0500 (Wed, 22 Mar 2006) | 1 line
+r31 | gnukemist | 2006-03-22 16:17:44 -0500 (Qua, 22 Mar 2006) | 1 line
 
 Added validation for amount field.  Needs to be tested for globalization.  Added frmBillDialog interface (glade) for Gtk# version.
 ------------------------------------------------------------------------
-r30 | gnukemist | 2006-03-22 16:17:06 -0500 (Wed, 22 Mar 2006) | 1 line
+r30 | gnukemist | 2006-03-22 16:17:06 -0500 (Qua, 22 Mar 2006) | 1 line
 
 Added validation for amount field.  Needs to be tested for globalization.  Added frmBillDialog interface (glade) for Gtk# version.
 ------------------------------------------------------------------------
-r29 | gnukemist | 2006-03-22 07:30:26 -0500 (Wed, 22 Mar 2006) | 1 line
+r29 | gnukemist | 2006-03-22 07:30:26 -0500 (Qua, 22 Mar 2006) | 1 line
 
 A very rough draft of BillReminder using Gtk# and Mono.
 ------------------------------------------------------------------------
-r28 | gnukemist | 2006-03-20 20:56:26 -0500 (Mon, 20 Mar 2006) | 1 line
+r28 | gnukemist | 2006-03-20 20:56:26 -0500 (Seg, 20 Mar 2006) | 1 line
 
 Finally fixed the bug that would crash application when editing or removing bills.
 ------------------------------------------------------------------------
-r27 | gnukemist | 2006-03-20 20:25:21 -0500 (Mon, 20 Mar 2006) | 1 line
+r27 | gnukemist | 2006-03-20 20:25:21 -0500 (Seg, 20 Mar 2006) | 1 line
 
 One more try at fixing the bug that would crash application when editing or removing bills.
 ------------------------------------------------------------------------
-r26 | gnukemist | 2006-03-20 16:03:12 -0500 (Mon, 20 Mar 2006) | 1 line
+r26 | gnukemist | 2006-03-20 16:03:12 -0500 (Seg, 20 Mar 2006) | 1 line
 
 Trying to fix the error that crashes the application when editing a record.
 ------------------------------------------------------------------------
-r25 | gnukemist | 2006-03-19 18:35:28 -0500 (Sun, 19 Mar 2006) | 1 line
+r25 | gnukemist | 2006-03-19 18:35:28 -0500 (Dom, 19 Mar 2006) | 1 line
 
 Fixed bug that would crash application when editing or removing bills.
 ------------------------------------------------------------------------
-r24 | gnukemist | 2006-03-17 17:12:59 -0500 (Fri, 17 Mar 2006) | 1 line
+r24 | gnukemist | 2006-03-17 17:12:59 -0500 (Sex, 17 Mar 2006) | 1 line
 
 Trying to fix the error that crashes the application when editing a record.
 ------------------------------------------------------------------------
-r23 | gnukemist | 2006-03-17 16:10:39 -0500 (Fri, 17 Mar 2006) | 1 line
+r23 | gnukemist | 2006-03-17 16:10:39 -0500 (Sex, 17 Mar 2006) | 1 line
 
 Configuration.cs will now create any necessary files in the user's $HOME directory under .config/billreminder.  I have also cleaned up Configuration.cs to contain simpler procedures and so far only one BillCollection.
 ------------------------------------------------------------------------
-r22 | gnukemist | 2006-03-16 21:49:23 -0500 (Thu, 16 Mar 2006) | 1 line
+r22 | gnukemist | 2006-03-16 21:49:23 -0500 (Qui, 16 Mar 2006) | 1 line
 
 Added the README file
 ------------------------------------------------------------------------
-r21 | gnukemist | 2006-03-16 13:50:29 -0500 (Thu, 16 Mar 2006) | 1 line
+r21 | gnukemist | 2006-03-16 13:50:29 -0500 (Qui, 16 Mar 2006) | 1 line
 
 Added frmAlert.cs,frmAlert.resources, and frmAlert.resx to conform with new architecture;  Modifed configure to accomodate these changes;  Added statusbar which will be used to inform user of bill situation;  Added title to frmMain.cs.
 ------------------------------------------------------------------------
-r20 | gnukemist | 2006-03-15 16:24:26 -0500 (Wed, 15 Mar 2006) | 1 line
+r20 | gnukemist | 2006-03-15 16:24:26 -0500 (Qua, 15 Mar 2006) | 1 line
 
 Major changes...  Now, only 3 forms are being used: frmAbout, frmMain, and frmBillDialog.
 ------------------------------------------------------------------------
-r19 | gnukemist | 2006-03-15 09:54:55 -0500 (Wed, 15 Mar 2006) | 1 line
+r19 | gnukemist | 2006-03-15 09:54:55 -0500 (Qua, 15 Mar 2006) | 1 line
 
 Using a resource file for images...  Still won't get the icon to show though...  Casting error
 ------------------------------------------------------------------------
-r18 | gnukemist | 2006-03-14 14:57:05 -0500 (Tue, 14 Mar 2006) | 1 line
+r18 | gnukemist | 2006-03-14 14:57:05 -0500 (Ter, 14 Mar 2006) | 1 line
 
 Fixed problems with adding bills via the Display.cs form
 ------------------------------------------------------------------------
-r17 | gnukemist | 2006-03-13 20:41:06 -0500 (Mon, 13 Mar 2006) | 1 line
+r17 | gnukemist | 2006-03-13 20:41:06 -0500 (Seg, 13 Mar 2006) | 1 line
 
 Created the PyGtk branch
 ------------------------------------------------------------------------
-r16 | gnukemist | 2006-03-13 20:25:53 -0500 (Mon, 13 Mar 2006) | 2 lines
+r16 | gnukemist | 2006-03-13 20:25:53 -0500 (Seg, 13 Mar 2006) | 2 lines
 
 Removing the #
 
 ------------------------------------------------------------------------
-r15 | gnukemist | 2006-03-13 20:16:09 -0500 (Mon, 13 Mar 2006) | 1 line
+r15 | gnukemist | 2006-03-13 20:16:09 -0500 (Seg, 13 Mar 2006) | 1 line
 
 Added pysqlite functionality and changed the logo
 ------------------------------------------------------------------------
-r14 | gnukemist | 2006-03-13 17:21:55 -0500 (Mon, 13 Mar 2006) | 1 line
+r14 | gnukemist | 2006-03-13 17:21:55 -0500 (Seg, 13 Mar 2006) | 1 line
 
 Added pysqlite functionality and changed the logo
 ------------------------------------------------------------------------
-r13 | gnukemist | 2006-03-13 13:50:22 -0500 (Mon, 13 Mar 2006) | 1 line
+r13 | gnukemist | 2006-03-13 13:50:22 -0500 (Seg, 13 Mar 2006) | 1 line
 
 Adding pyGtk# version
 ------------------------------------------------------------------------
-r12 | gnukemist | 2006-03-13 12:34:37 -0500 (Mon, 13 Mar 2006) | 1 line
+r12 | gnukemist | 2006-03-13 12:34:37 -0500 (Seg, 13 Mar 2006) | 1 line
 
 Created WinForms directory
 ------------------------------------------------------------------------
-r11 | gnukemist | 2006-03-13 12:21:53 -0500 (Mon, 13 Mar 2006) | 1 line
+r11 | gnukemist | 2006-03-13 12:21:53 -0500 (Seg, 13 Mar 2006) | 1 line
 
 I think I've gotten it now.
 ------------------------------------------------------------------------
-r10 | gnukemist | 2006-03-13 12:20:25 -0500 (Mon, 13 Mar 2006) | 1 line
+r10 | gnukemist | 2006-03-13 12:20:25 -0500 (Seg, 13 Mar 2006) | 1 line
 
 I think I've gotten it now.
 ------------------------------------------------------------------------
-r9 | gnukemist | 2006-03-13 12:18:36 -0500 (Mon, 13 Mar 2006) | 3 lines
+r9 | gnukemist | 2006-03-13 12:18:36 -0500 (Seg, 13 Mar 2006) | 3 lines
 
 Moving things around
 
 
 ------------------------------------------------------------------------
-r8 | gnukemist | 2006-03-13 10:32:33 -0500 (Mon, 13 Mar 2006) | 1 line
+r8 | gnukemist | 2006-03-13 10:32:33 -0500 (Seg, 13 Mar 2006) | 1 line
 
 Added new header.jpg picture as well as added some new arguments to the configuration file
 ------------------------------------------------------------------------
-r3 | gnukemist | 2006-03-08 21:33:16 -0500 (Wed, 08 Mar 2006) | 2 lines
+r3 | gnukemist | 2006-03-08 21:33:16 -0500 (Qua, 08 Mar 2006) | 2 lines
 
 Initial revision
 

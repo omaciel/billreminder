@@ -3,7 +3,6 @@ Tue Mar 13 13:09:01 EDT 2007
 *  Test and strengthen the updatetables method in DAL;
 *  Table validation should take the version into account when making decisions.  If version in code is less than existing (in the db), we should not update;
 *  Use all icons created by vdpizzol and add them to the setup script.
-*  Add vdpizzol and pygi to the list of contributors.
 
 Mon Jan 15 20:52:37 EST 2007
 

@@ -3,7 +3,6 @@
 <!--*- mode: xml -*-->
 <glade-interface>
   <widget class="GtkAboutDialog" id="frmAboutDialog">
-    <property name="name">Billreminder</property>
     <property name="copyright">BillReminder - Copyright (c) 2006, 2007
 Og Maciel &lt;ogmaciel@ubuntu.com&gt;</property>
     <property name="website">http://billreminder.sourceforge.net/</property>
@@ -39,12 +38,15 @@ Og Maciel &lt;ogmaciel@ubuntu.com&gt;</property>
     <property name="authors">Developers:
 Og Maciel &lt;OgMaciel@ubuntu.com&gt;
 Laudeci Oliveira &lt;laudeci@gmail.com&gt;
+Luiz Armesto &lt;luiz.armesto@gmail.com&gt;
 
 Contributors:
 Giovanni Deganni &lt;tiefox@gmail.com&gt;
-Ruivaldo &lt;ruivaldo@gmail.com&gt;</property>
+Ruivaldo &lt;ruivaldo@gmail.com&gt;
+Mario Danic &lt;pygi@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
-    <property name="artists">Led Style &lt;ledstyle@gmail.com&gt;</property>
+    <property name="artists">Led Style &lt;ledstyle@gmail.com&gt;
+Vinicius Depizzol &lt;vdepizzol@gmail.com&gt;</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>
