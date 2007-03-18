@@ -275,7 +275,7 @@ class BillReminder:
 
     def on_mnuAbout_activate(self, widget):
         """ This function will handle the signal to show an about window sent by mnuAbout widget. """
-        frmAbout = AboutDialog(self.view.gladefilename)
+        frmAbout = AboutDialog()
         frmAbout.run()
 
     def on_billView_button_press_event(self, widget, event):
