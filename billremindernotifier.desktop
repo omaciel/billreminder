@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=BillReminder Notifier
+Exec=billreminder --notifier
+X-GNOME-Autostart-enabled=true
