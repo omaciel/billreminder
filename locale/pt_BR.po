@@ -70,7 +70,7 @@ msgstr ""
 
 #: ../src/controller/maindialog.py:286
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: ../src/controller/maindialog.py:291
 msgid "set Open"
@@ -78,7 +78,7 @@ msgstr ""
 
 #: ../src/controller/maindialog.py:293
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: ../src/controller/maindialog.py:316
 msgid "<big><b>Are you sure you want to quit?</b></big>"
