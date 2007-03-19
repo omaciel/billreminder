@@ -33,7 +33,7 @@ class AboutDialog:
         self.frmAbout.set_modal(True)
         self.frmAbout.set_icon(gtk.gdk.pixbuf_new_from_file(common.APP_ICON))
         self.frmAbout.set_logo(gtk.gdk.pixbuf_new_from_file(common.APP_HEADER))
-        self.frmAbout.set_name("BillReminder")
+        self.frmAbout.set_name(_("BillReminder"))
 
     def run(self):
         """This function will show the aboutDialog"""
