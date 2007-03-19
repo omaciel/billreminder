@@ -101,6 +101,9 @@ class BillReminder:
         # Launch Daemon
         gobject.timeout_add(10, os.system, 'python -OO notifier.py')
     
+    def get_window_visibility(self):
+        return self.view.frmMain.get_property("visible")
+    
     def ShowHideWindow(self):
         if self.view.frmMain.get_property("visible"):
             self.view.frmMain.hide()
@@ -211,7 +214,7 @@ class BillReminder:
         # Loops through bills collection
         for rec in records:
             try:
-                bill = Bill(rec['payee'], rec['dueDate'], rec['amountDue'], rec['notes'], rec['paid'], rec['Id'])
+                bill = Bill(rec)
                 self.billList.append(self.formatedRow(bill.Dictionary))
             except:
                 #better show a DialogBox here if  the error is something crucial
@@ -302,16 +305,16 @@ class BillReminder:
                 pass
 
             c = ContextMenu(self)
-            c.addMenuItem(_('Add New'), self.on_btnAdd_clicked, gtk.STOCK_ADD)
+            c.addMenuItem(_('Add New'), self.on_btnAdd_clicked, gtk.STOCK_NEW)
             c.addMenuItem('-', None)
             if not error:
-                c.addMenuItem(_('Remove'), self.on_btnRemove_clicked, gtk.STOCK_REMOVE)
+                c.addMenuItem(_('Remove'), self.on_btnRemove_clicked, gtk.STOCK_DELETE)
                 c.addMenuItem(_('Edit'), self.on_btnEdit_clicked, gtk.STOCK_EDIT)
                 c.addMenuItem('-', None)
                 if not paid:
                     c.addMenuItem(_('Paid'), self.on_btnPaid_clicked, gtk.STOCK_APPLY, True)
                 else:
-                    c.addMenuItem(_('set Open'), self.on_btnPaid_clicked, gtk.STOCK_UNDO, True)
+                    c.addMenuItem(_('Not Paid'), self.on_btnPaid_clicked, gtk.STOCK_UNDO, True)
                 c.addMenuItem('-', None)
             c.addMenuItem(_('Cancel'), None, gtk.STOCK_CANCEL)
             c.popup(None, None, None, event.button, event.get_time())
@@ -439,5 +442,6 @@ class BillReminder:
         rec = records[0]
         
         # Return bill and id
-        return b_id, Bill(rec['payee'], rec['dueDate'], rec['amountDue'], rec['notes'], rec['paid'], rec['Id'])
+        Bill(rec)
+        return b_id, Bill(rec)
         

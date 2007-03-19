@@ -8,16 +8,29 @@ import time
 
 class Bill(object):
 
-    def __init__(self, payee, dueDate, amountDue, notes=None, paid=0, id=-1):
-        self.__set_id(id)
-        self.__set_payee(payee)
-        if not dueDate:
-            self.__set_dueDate(time.time())
+    def __init__(self, payee, dueDate = '', amountDue = ' ', notes=None, paid=0, id=-1):
+
+        if isinstance(payee,dict):
+            self.__set_id(payee['Id'])
+            self.__set_payee(payee['payee'])
+            if not payee['dueDate']:
+                self.__set_dueDate(time.time())
+            else:
+                self.__set_dueDate(payee['dueDate'])
+                
+            self.__set_amountDue(payee['amountDue'])
+            self.__set_notes(payee['notes'])
+            self.__set_paid(payee['paid'])
         else:
-            self.__set_dueDate(dueDate)
-        self.__set_amountDue(amountDue)
-        self.__set_notes(notes)
-        self.__set_paid(paid)
+            self.__set_id(id)
+            self.__set_payee(payee)
+            if not dueDate:
+                self.__set_dueDate(time.time())
+            else:
+                self.__set_dueDate(dueDate)
+            self.__set_amountDue(amountDue)
+            self.__set_notes(notes)
+            self.__set_paid(paid)
 
     # Id
     def __get_id (self): return self.__id 

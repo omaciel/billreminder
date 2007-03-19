@@ -11,6 +11,7 @@ import sys
 import time
 import pynotify
 import common
+from controller.utils import ContextMenu
 
 class NotifyIcon:
     """ This class creates the tray icon notification - GTK 2.10 or above """
@@ -19,13 +20,6 @@ class NotifyIcon:
         """ Constructor """
         
         self.parent = parent
-        self.wTree = gtk.glade.XML(common.TRAYGLADEFILE, domain='billreminder')
-        self.menu = self.wTree.get_widget("TrayMenu")
-       
-        #connecting signals
-        dic = {"on_mnuShow_activate": self.show_hide,
-        	"on_mnuQuit_activate": self.parent.on_btnQuit_clicked}
-        self.wTree.signal_autoconnect(dic)
         
         #show the icon
         self.start()
@@ -45,7 +39,19 @@ class NotifyIcon:
         
     def show_menu(self, status_icon, button, activate_time, arg0=None):
         """ Show a popup menu when an user right clicks notification area icon."""
-        self.menu.popup(None, None, None, button, activate_time)
+        c = ContextMenu(self)
+        if self.parent.get_window_visibility():
+            c.addMenuItem(_('Hide Window'), self.show_hide)
+        else:
+            c.addMenuItem(_('Show Window'), self.show_hide)
+        
+        c.addMenuItem('-', None)
+        c.addMenuItem(_('Quit'), self.parent.on_btnQuit_clicked,gtk.STOCK_QUIT)
+        
+        print type(activate_time)
+        c.popup(None, None, None, button, activate_time)
+        del c    
+        #self.menu.popup(None, None, None, button, activate_time)
         
     def destroy(self):
         """ Hide the systray icon. """
