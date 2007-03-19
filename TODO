@@ -1,3 +1,9 @@
+Seg Mar 19 15:21:45 EDT 2007
+
+*  Add regex to validate for numeric values only for billdialog's value field.  Take localization into account;
+*  Feature to allow user to choose when to be reminded for a given bill;
+*  Add a label to the billdialog's calendar stating what it is for (i.e. Choose due date);
+
 Tue Mar 13 13:09:01 EDT 2007
 
 *  Test and strengthen the updatetables method in DAL;
