@@ -1,10 +1,10 @@
 #!/bin/bash
-cd locale/
-intltool-extract --type=gettext/glade ../gui/aboutdialog.glade
-intltool-extract --type=gettext/glade ../gui/billdialog.glade
-intltool-extract --type=gettext/glade ../gui/maindialog.glade
-intltool-extract --type=gettext/glade ../gui/systraymenu.glade
+cd locale/po
+intltool-extract --type=gettext/glade ../../gui/aboutdialog.glade
+intltool-extract --type=gettext/glade ../../gui/billdialog.glade
+intltool-extract --type=gettext/glade ../../gui/maindialog.glade
+intltool-extract --type=gettext/glade ../../gui/systraymenu.glade
 echo "Generating pot file."
-xgettext --keyword=_ --keyword=N_ --add-comments=TRANSLATORS --language=Python --copyright-holder="Og Maciel" --output=billreminder.pot ../src/*.py ../src/view/*.py ../src/controller/*.py ../src/model/*.py ../src/model/db/*.py
-xgettext --keyword=_ --keyword=N_ --add-comments --language=C --join-existing --copyright-holder="Og Maciel" --output=billreminder.pot ../gui/*.h
+xgettext --keyword=_ --keyword=N_ --add-comments=TRANSLATORS --language=Python --copyright-holder="Og Maciel" --output=billreminder.pot ../../src/*.py ../../src/view/*.py ../../src/controller/*.py ../../src/model/*.py ../../src/model/db/*.py
+xgettext --keyword=_ --keyword=N_ --add-comments --language=C --join-existing --copyright-holder="Og Maciel" --output=billreminder.pot ../../gui/*.h
 echo "done."
