@@ -1,16 +1,16 @@
-# Portuguese translations for PACKAGE package.
+# Portuguese translations for BillReminder package.
 # Copyright (C) 2007 Og Maciel
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the BillReminder package.
 # Automatically generated, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-03 12:48-0300\n"
-"PO-Revision-Date: 2007-03-03 12:48-0300\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2007-03-19 21:12-0500\n"
+"Last-Translator: Og Maciel <ogmaciel@ubuntu.com>\n"
+"Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,161 +19,181 @@ msgstr ""
 #: ../src/controller/billdialog.py:63
 #, python-format
 msgid "Editing bill '%s'"
-msgstr ""
-
-#: ../src/controller/maindialog.py:67
-msgid "Id"
-msgstr ""
-
-#: ../src/controller/maindialog.py:68
-msgid "Payee"
-msgstr ""
-
-#: ../src/controller/maindialog.py:69
-msgid "Due Date"
-msgstr ""
-
-#: ../src/controller/maindialog.py:70
-msgid "Amount Due"
-msgstr ""
-
-#: ../src/controller/maindialog.py:71
-msgid "Notes"
-msgstr ""
-
-#: ../src/controller/maindialog.py:72 ../src/controller/maindialog.py:289
-#: ../gui/maindialog.glade.h:8
-msgid "Paid"
-msgstr ""
+msgstr "Editando conta \"%s\""
 
 #. TRANSLATORS: This is a date format. You can change the order.
-#: ../src/controller/maindialog.py:177
+#: ../src/controller/daemon.py:53
+#: ../src/controller/maindialog.py:185
 msgid "%Y/%m/%d"
-msgstr ""
+msgstr "%d/%m/%Y"
+
+#: ../src/controller/daemon.py:69
+msgid "<b><big>Bills Due Today</big></b>"
+msgstr "<b><big>Contas Que Vencem Hoje</big></b>"
+
+#: ../src/controller/daemon.py:72
+msgid "<b><big>Bills Due</big></b>"
+msgstr "<b><big>Contas Vencidas</big></b>"
+
+#: ../src/controller/daemon.py:75
+msgid "<b><big>Bills Not Due</big></b>"
+msgstr "<b><big>Contas Em Dia</big></b>"
+
+#: ../src/controller/daemon.py:78
+#: ../gui/aboutdialog.glade.h:1
+#: ../gui/maindialog.glade.h:4
+msgid "BillReminder"
+msgstr "BillReminder"
+
+#: ../src/controller/maindialog.py:71
+msgid "Id"
+msgstr "Id"
+
+#: ../src/controller/maindialog.py:72
+msgid "Payee"
+msgstr "Titular"
+
+#: ../src/controller/maindialog.py:73
+msgid "Due Date"
+msgstr "Data de Vencimento"
+
+#: ../src/controller/maindialog.py:74
+msgid "Amount Due"
+msgstr "Valor"
+
+#: ../src/controller/maindialog.py:75
+msgid "Notes"
+msgstr "Anotações"
+
+#: ../src/controller/maindialog.py:76
+#: ../src/controller/maindialog.py:297
+#: ../gui/maindialog.glade.h:8
+msgid "Paid"
+msgstr "Pago"
 
 #. TRANSLATORS: Don't translate words inside parentheses!
-#: ../src/controller/maindialog.py:246
+#: ../src/controller/maindialog.py:254
 #, python-format
 msgid ""
 "do you really want to remove it?\n"
 "\n"
 " <b>%(payee)s - %(amount)0.2f </b>"
 msgstr ""
+"você realmente deseja excluí-lo?\n"
+"\n"
+" <b>%(payee)s - %(amount)0.2f </b>"
 
-#: ../src/controller/maindialog.py:282
+#: ../src/controller/maindialog.py:290
 msgid "Add New"
-msgstr ""
+msgstr "Adicionar Nova"
 
-#: ../src/controller/maindialog.py:285
+#: ../src/controller/maindialog.py:293
 msgid "Remove"
-msgstr ""
+msgstr "Excluir"
 
-#: ../src/controller/maindialog.py:286
+#: ../src/controller/maindialog.py:294
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/controller/maindialog.py:291
+#: ../src/controller/maindialog.py:299
 msgid "set Open"
-msgstr ""
+msgstr "definir Aberto"
 
-#: ../src/controller/maindialog.py:293
+#: ../src/controller/maindialog.py:301
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../src/controller/maindialog.py:316
+#: ../src/controller/maindialog.py:324
 msgid "<big><b>Are you sure you want to quit?</b></big>"
-msgstr ""
+msgstr "<big><b>Você tem certeza que deseja sair?</b></big>"
 
-#: ../src/controller/maindialog.py:397
+#: ../src/controller/maindialog.py:406
 msgid "The following bill was removed:\n"
-msgstr ""
+msgstr "A seguinte conta foi removida:\n"
 
-#: ../src/controller/maindialog.py:398
+#: ../src/controller/maindialog.py:408
 msgid "Item deleted."
-msgstr ""
+msgstr "Item excluído."
 
-#: ../src/controller/maindialog.py:401
+#: ../src/controller/maindialog.py:411
 #, python-format
 msgid "Bill '%s' not deleted."
-msgstr ""
+msgstr "Conta \"%s\" não foi excluída."
 
 #: ../src/controller/utils.py:62
 msgid "Question"
-msgstr ""
+msgstr "Pergunta"
 
 #: ../src/controller/utils.py:74
 msgid "Error"
-msgstr ""
-
-#: ../gui/aboutdialog.glade.h:1 ../gui/maindialog.glade.h:4
-msgid "BillReminder"
-msgstr ""
+msgstr "Erro"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../gui/aboutdialog.glade.h:3
 msgid "translator-credits"
-msgstr ""
+msgstr "Og Maciel <ogmaciel@ubuntu.com>"
 
 #: ../gui/billdialog.glade.h:1
 msgid "<b>Amount:</b>"
-msgstr ""
+msgstr "<b>Quantia:</b>"
 
 #: ../gui/billdialog.glade.h:2
 msgid "<b>Note:</b>"
-msgstr ""
+msgstr "<b>Anotação:</b>"
 
 #: ../gui/billdialog.glade.h:3
 msgid "<b>Payee:</b>"
-msgstr ""
+msgstr "<b>Titular:</b>"
 
 #: ../gui/billdialog.glade.h:4
 msgid "Bill"
-msgstr ""
+msgstr "Conta"
 
 #: ../gui/billdialog.glade.h:5
 msgid "Save as Paid"
-msgstr ""
+msgstr "Salvar como Pago"
 
 #: ../gui/maindialog.glade.h:1
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../gui/maindialog.glade.h:2
 msgid "<b>Info:</b>"
-msgstr ""
+msgstr "<b>Info:</b>"
 
 #: ../gui/maindialog.glade.h:3
 msgid "<b>Records:</b>"
-msgstr ""
+msgstr "<b>Registros:</b>"
 
 #: ../gui/maindialog.glade.h:5
 msgid "Mostrar Janela"
-msgstr ""
+msgstr "Mostrar Janela"
 
 #: ../gui/maindialog.glade.h:6
 msgid "N_ot Paid"
-msgstr ""
+msgstr "Nã_o Pago"
 
 #: ../gui/maindialog.glade.h:7
 msgid "Not Paid"
-msgstr ""
+msgstr "Não Pago"
 
 #: ../gui/maindialog.glade.h:9
 msgid "_Edit"
-msgstr ""
+msgstr "_Editar"
 
 #: ../gui/maindialog.glade.h:10
 msgid "_File"
-msgstr ""
+msgstr "_Arquivo"
 
 #: ../gui/maindialog.glade.h:11
 msgid "_Help"
-msgstr ""
+msgstr "Aj_uda"
 
 #: ../gui/maindialog.glade.h:12
 msgid "_Paid"
-msgstr ""
+msgstr "_Pago"
 
 #: ../gui/systraymenu.glade.h:1
 msgid "Show Window"
-msgstr ""
+msgstr "Exibir Janela"
+
