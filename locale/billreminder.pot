@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-16 18:09-0300\n"
+"POT-Creation-Date: 2007-03-20 00:29-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,60 +16,60 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/controller/billdialog.py:63
+#: ../../src/controller/aboutdialog.py:36 ../../src/controller/daemon.py:78
+#: ../../gui/aboutdialog.glade.h:1 ../../gui/maindialog.glade.h:4
+msgid "BillReminder"
+msgstr ""
+
+#: ../../src/controller/billdialog.py:64
 #, python-format
 msgid "Editing bill '%s'"
 msgstr ""
 
 #. TRANSLATORS: This is a date format. You can change the order.
-#: ../src/controller/daemon.py:53 ../src/controller/maindialog.py:185
+#: ../../src/controller/daemon.py:53 ../../src/controller/maindialog.py:196
 msgid "%Y/%m/%d"
 msgstr ""
 
-#: ../src/controller/daemon.py:69
+#: ../../src/controller/daemon.py:69
 msgid "<b><big>Bills Due Today</big></b>"
 msgstr ""
 
-#: ../src/controller/daemon.py:72
+#: ../../src/controller/daemon.py:72
 msgid "<b><big>Bills Due</big></b>"
 msgstr ""
 
-#: ../src/controller/daemon.py:75
+#: ../../src/controller/daemon.py:75
 msgid "<b><big>Bills Not Due</big></b>"
 msgstr ""
 
-#: ../src/controller/daemon.py:78 ../gui/aboutdialog.glade.h:1
-#: ../gui/maindialog.glade.h:4
-msgid "BillReminder"
-msgstr ""
-
-#: ../src/controller/maindialog.py:71
+#: ../../src/controller/maindialog.py:71
 msgid "Id"
 msgstr ""
 
-#: ../src/controller/maindialog.py:72
+#: ../../src/controller/maindialog.py:72
 msgid "Payee"
 msgstr ""
 
-#: ../src/controller/maindialog.py:73
+#: ../../src/controller/maindialog.py:73
 msgid "Due Date"
 msgstr ""
 
-#: ../src/controller/maindialog.py:74
+#: ../../src/controller/maindialog.py:74
 msgid "Amount Due"
 msgstr ""
 
-#: ../src/controller/maindialog.py:75
+#: ../../src/controller/maindialog.py:75
 msgid "Notes"
 msgstr ""
 
-#: ../src/controller/maindialog.py:76 ../src/controller/maindialog.py:297
-#: ../gui/maindialog.glade.h:8
+#: ../../src/controller/maindialog.py:76
+#: ../../src/controller/maindialog.py:315 ../../gui/maindialog.glade.h:8
 msgid "Paid"
 msgstr ""
 
 #. TRANSLATORS: Don't translate words inside parentheses!
-#: ../src/controller/maindialog.py:254
+#: ../../src/controller/maindialog.py:272
 #, python-format
 msgid ""
 "do you really want to remove it?\n"
@@ -77,116 +77,120 @@ msgid ""
 " <b>%(payee)s - %(amount)0.2f </b>"
 msgstr ""
 
-#: ../src/controller/maindialog.py:290
+#: ../../src/controller/maindialog.py:308
 msgid "Add New"
 msgstr ""
 
-#: ../src/controller/maindialog.py:293
+#: ../../src/controller/maindialog.py:311
 msgid "Remove"
 msgstr ""
 
-#: ../src/controller/maindialog.py:294
+#: ../../src/controller/maindialog.py:312
 msgid "Edit"
 msgstr ""
 
-#: ../src/controller/maindialog.py:299
-msgid "set Open"
+#: ../../src/controller/maindialog.py:317 ../../gui/maindialog.glade.h:7
+msgid "Not Paid"
 msgstr ""
 
-#: ../src/controller/maindialog.py:301
+#: ../../src/controller/maindialog.py:319
 msgid "Cancel"
 msgstr ""
 
-#: ../src/controller/maindialog.py:324
+#: ../../src/controller/maindialog.py:342
 msgid "<big><b>Are you sure you want to quit?</b></big>"
 msgstr ""
 
-#: ../src/controller/maindialog.py:406
+#: ../../src/controller/maindialog.py:425
 msgid "The following bill was removed:\n"
 msgstr ""
 
-#: ../src/controller/maindialog.py:408
+#: ../../src/controller/maindialog.py:427
 msgid "Item deleted."
 msgstr ""
 
-#: ../src/controller/maindialog.py:411
+#: ../../src/controller/maindialog.py:430
 #, python-format
 msgid "Bill '%s' not deleted."
 msgstr ""
 
-#: ../src/controller/utils.py:62
+#: ../../src/controller/trayicon.py:44
+msgid "Hide Window"
+msgstr ""
+
+#: ../../src/controller/trayicon.py:46 ../../gui/systraymenu.glade.h:1
+msgid "Show Window"
+msgstr ""
+
+#: ../../src/controller/trayicon.py:49
+msgid "Quit"
+msgstr ""
+
+#: ../../src/controller/utils.py:62
 msgid "Question"
 msgstr ""
 
-#: ../src/controller/utils.py:74
+#: ../../src/controller/utils.py:74
 msgid "Error"
 msgstr ""
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../gui/aboutdialog.glade.h:3
+#: ../../gui/aboutdialog.glade.h:3
 msgid "translator-credits"
 msgstr ""
 
-#: ../gui/billdialog.glade.h:1
+#: ../../gui/billdialog.glade.h:1
 msgid "<b>Amount:</b>"
 msgstr ""
 
-#: ../gui/billdialog.glade.h:2
+#: ../../gui/billdialog.glade.h:2
 msgid "<b>Note:</b>"
 msgstr ""
 
-#: ../gui/billdialog.glade.h:3
+#: ../../gui/billdialog.glade.h:3
 msgid "<b>Payee:</b>"
 msgstr ""
 
-#: ../gui/billdialog.glade.h:4
+#: ../../gui/billdialog.glade.h:4
 msgid "Bill"
 msgstr ""
 
-#: ../gui/billdialog.glade.h:5
+#: ../../gui/billdialog.glade.h:5
 msgid "Save as Paid"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:1
+#: ../../gui/maindialog.glade.h:1
 msgid "0"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:2
+#: ../../gui/maindialog.glade.h:2
 msgid "<b>Info:</b>"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:3
+#: ../../gui/maindialog.glade.h:3
 msgid "<b>Records:</b>"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:5
+#: ../../gui/maindialog.glade.h:5
 msgid "Mostrar Janela"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:6
+#: ../../gui/maindialog.glade.h:6
 msgid "N_ot Paid"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:7
-msgid "Not Paid"
-msgstr ""
-
-#: ../gui/maindialog.glade.h:9
+#: ../../gui/maindialog.glade.h:9
 msgid "_Edit"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:10
+#: ../../gui/maindialog.glade.h:10
 msgid "_File"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:11
+#: ../../gui/maindialog.glade.h:11
 msgid "_Help"
 msgstr ""
 
-#: ../gui/maindialog.glade.h:12
+#: ../../gui/maindialog.glade.h:12
 msgid "_Paid"
-msgstr ""
-
-#: ../gui/systraymenu.glade.h:1
-msgid "Show Window"
 msgstr ""
