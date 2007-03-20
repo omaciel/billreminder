@@ -420,15 +420,17 @@ class BillReminder:
         try:
             ret = self.dal.delete(self.table, b_id)
  
-            if ret.rowcount == 1:
+            if ret:
                 self.billList.remove(iteration)
                 msg = (_('The following bill was removed:\n') + '<b>%(payee)s</b> - <i>%(amountDue)0.2f</i>' \
                     % dict(payee=bill.Payee, amountDue=bill.AmountDue))
                 self.notify.show_message(_('Item deleted.'), msg)
                 self.updateStatusBar()
             else:
-                Message().ShowError(_("Bill '%s' not deleted.") % bill.Payee, self.frmMain)
-        except:
+                Message().ShowError(_("Bill '%s' not deleted.") % bill.Payee, self.view.frmMain)
+        except Exception, e:
+            # Debug message error
+            print str(e)
             Message().ShowError(str(sys.exc_info()[0]), self.view.frmMain)
 
     def getBill(self):

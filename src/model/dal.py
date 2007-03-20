@@ -211,8 +211,13 @@ class DAL(object):
         """ Delete a record in the database """
         # Delete statement
         stmt = "DELETE FROM %s WHERE %s=?" % (self.tables[tblnick].Name, self.tables[tblnick].Key)
-        rowsAffected = self._executeSQL(stmt, [key])
-        return rowsAffected
+        try:
+            self._executeSQL(stmt, [key])
+            return True
+        except Exception, e:
+            # Dump error to the screen; may be helpfull when debugging
+            print str(e)
+            return False
 
     def _executeSQL(self, stmt, args):
         """ Excutes passed SQL and returns the result """
