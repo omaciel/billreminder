@@ -4,7 +4,12 @@
 __all__ = ['DAL']
 
 import os, sys
-from pysqlite2 import dbapi2 as sqlite
+
+try:
+    from pysqlite2 import dbapi2 as sqlite
+except ImportError:
+    print "Please install pysqlite2"
+    sys.exit(1)
 
 from model.bill import Bill
 from model.db.versionstable import VersionsTable

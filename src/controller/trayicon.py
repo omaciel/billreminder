@@ -3,13 +3,18 @@
 
 __all__ = ['NotifyIcon', 'NotifyMessage']
 
+try:
+    import pynotify
+except ImportError:
+    print "Please install pynotify"
+    sys.exit(1)
+
 import os
 import gtk
 import gobject
 import dbus
 import sys
 import time
-import pynotify
 import common
 from controller.utils import ContextMenu
 
