@@ -118,7 +118,7 @@ class NotifyMessage:
         self.__body = body
  
     def AddAction(self, action):
-        t.append(action)
+        self.__actions.append(action)
  
     def Timeout(self, expire_timeout):
         self.__expire_timeout = expire_timeout * 1000
@@ -149,5 +149,3 @@ class NotifyMessage:
     def Notify(self):
         if self.__interface:
             self.__interface.Notify(self.__app_name, self.__replaces_id, self.__app_icon, self.__summary, self.__body, self.__actions, self.__hints, self.__expire_timeout)
-         
-        

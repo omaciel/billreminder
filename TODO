@@ -1,4 +1,8 @@
-Seg Mar 19 15:21:45 EDT 2007
+Sat Mar 24 12:30:03 EDT 2007
+
+*  Add an "action" to the notification message, allowing the user to open/start BillReminder to work on his bills.  This has to detect if an instance of BillReminder is already running or not.  If running, display it; else, launch it.
+
+Mon Mar 19 15:21:45 EDT 2007
 
 *  Add regex to validate for numeric values only for billdialog's value field.  Take localization into account;
 *  Feature to allow user to choose when to be reminded for a given bill;
