@@ -1,20 +1,24 @@
-Dom Mar 18 18:27:21 EDT 2007
+Mar 24 12:30:03 EDT 2007
+
+*  Add a label to the billdialog's calendar stating what it is for (i.e. Choose due date);
+
+Mar 18 18:27:21 EDT 2007
 
 *  Add vdpizzol and pygi to the list of contributors.
 
-Mon Jan 15 20:52:37 EST 2007
+Jan 15 20:52:37 EST 2007
 
 *  Add a mechanism for updating (drop and create) the database layer;
    Partially implemented by larmesto (r.134)
 
-Wed Jan  10 05:48:23 GMT+1 2007
+Jan  10 05:48:23 GMT+1 2007
 
 *  Make a png icon.
    Created by vdpizzol
 
 *  Change .desktop, setup and billy (done)
 
-Mon Jan  1 21:15:05 EST 2007
+Jan  1 21:15:05 EST 2007
 
 *  Turn the class DAL into a singleton.
    Changed my mind on this one.
