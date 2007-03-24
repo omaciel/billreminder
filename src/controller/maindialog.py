@@ -173,8 +173,9 @@ class BillReminder:
             renderer = gtk.CellRendererPixbuf() 
         else: 
             renderer = gtk.CellRendererText()
+
         renderer.set_property('xalign', xalign)
-        column = gtk.TreeViewColumn(title, renderer, text=columnId)
+        column = gtk.TreeViewColumn(title, renderer, markup=columnId)
         column.set_resizable(True)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_min_width(size)
@@ -190,6 +191,19 @@ class BillReminder:
     
     def formatedRow(self, row):
         """ Formats a bill to be displayed as a row. """
+        # Determine today's date
+        today = time.mktime(datetime.date.today().timetuple())
+
+        # Determines whether bill is due today...
+        if row['dueDate'] == today:
+            color = "blue"
+        # ... late...
+        elif row['dueDate'] < today:
+            color = "red"
+        # ... or current, and color code it accordingly.
+        else:
+            color = "black"
+
         # Format the dueDate field
         dueDate = datetime.datetime.fromtimestamp(row['dueDate'])
         # TRANSLATORS: This is a date format. You can change the order.
@@ -197,8 +211,15 @@ class BillReminder:
         # Format the amount field
         amountDue = "%0.2f" % float(row['amountDue'])
         row['amountDue'] = amountDue
-        
-        formated = [None, row['Id'], row['payee'], row['dueDate'], row['amountDue'], row['notes'], row['paid']] 
+
+        # Make sure the row is created using fields in proper order
+        fields = ['payee', 'dueDate', 'amountDue', 'notes', 'paid']
+        # Initial list; Include Id field so it doesn't get mark-up text
+        formated = [None, row['Id']]
+        # Loop through 'fields' and color code them
+        for key in fields:
+            formated.append('<span foreground="%s">%s</span>' % (color, row[key]))
+
         return formated
     
     def updateStatusBar(self, index=0):
@@ -331,7 +352,7 @@ class BillReminder:
             paid = model.get_value(iteration, self.COL_PAID)
 
             # Display the status for the selected row
-            self.view.lblInfoPanel.set_text('%s' % (notes))
+            self.view.lblInfoPanel.set_markup('%s' % (notes))
             self.toggleButtons(int(paid))
         except:
             # better show a dialog box here if erro is critical
