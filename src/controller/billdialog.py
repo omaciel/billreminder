@@ -36,14 +36,14 @@ class BillDialog:
         self.frmBillDialog = self.gladefile.get_widget(common.BILLDIALOG_NAME)
         self.frmBillDialog.set_icon_from_file(common.APP_ICON)
         #self.frmBillDialog.set_icon_from_file(common.IMAGE_PATH + 'billreminder.ico')
-        
+
         # if the dialog has a parent form
         # disable the parent form
         self.parent = parent
         if parent != None:
             self.frmBillDialog.set_transient_for(parent)
             self.parent.set_sensitive(False)
-            
+ 
         #Field controls
         self.txtAmount = self.gladefile.get_widget('txtAmount')
         self.cCalendar = self.gladefile.get_widget('cCalendar')
@@ -52,8 +52,13 @@ class BillDialog:
         self.chkPaid = self.gladefile.get_widget('chkPaid')
         self.txtBuffer = self.txtNotes.get_buffer()
 
+        # Event handlers
+        self.txtAmount.connect('insert-text', self.on_insert_text)
+
         #setup the GUI
-        
+        # Mark the current day in the calendar
+        self.cCalendar.mark_day(datetime.datetime.today().day) 
+
         self.bill = bill
          
        # fill the combo with saved payee's names
@@ -71,7 +76,6 @@ class BillDialog:
             controller.utils.select_combo_Text(self.cboPayee, bill.Payee)
             self.txtBuffer.set_text(bill.Notes)
             self.chkPaid.set_active(bill.Paid)
-                
 
     def run(self):
         """ This function will show the dialog """        
@@ -80,7 +84,7 @@ class BillDialog:
 
         #we are done with the dialog, destroy it
         self.frmBillDialog.destroy()
-        
+
         if self.parent is not None:
             self.parent.set_sensitive(True) 
         if result == gtk.RESPONSE_OK:
@@ -99,6 +103,10 @@ class BillDialog:
 
             # Gets the payee
             payee = self._getPayee()
+
+            # Validate form
+            if len(payee.strip()) == 0 or len(self.txtAmount.get_text().strip()) == 0:
+                return None, None
 
             if self.bill is None:
                 # Create a new object
@@ -147,3 +155,9 @@ class BillDialog:
                 return model.get_value(iteration, 0)
         else:
             return self.cboPayeeEntry.get_text()
+
+    def on_insert_text (self, entry, text, length, position):
+        """Stop garbage input."""
+        for c in text[:length]:
+            if c.lower() in r"(){}[]<>?*&%$#@!';:|\/^ abcdefghijklmnopqrstuvxywz":
+                entry.emit_stop_by_name ('insert-text')

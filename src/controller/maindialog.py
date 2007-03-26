@@ -91,7 +91,7 @@ class BillReminder:
         self.formatTreeView()
 
         # and populate it
-        self.populateTreeView(self.dal.get(self.table, 'paid IN (0,1)'))
+        self.populateTreeView(self.dal.get(self.table, 'paid = 0'))
         
         if len(self.billList) > 0:
             self.view.billView.set_cursor(0)
@@ -344,18 +344,18 @@ class BillReminder:
         """ This function will handle the signal sent by tvBill widget
             when a row is selected and displays the selected record information """
         try:
-            sel = widget.get_selection()
-            model, iteration = sel.get_selected()
+	    # Get currently selected bill
+	    b_id, bill = self.getBill()
 
-            #b_id = model.get_value(iteration, 0)
-            notes = model.get_value(iteration, self.COL_NOTES)
-            paid = model.get_value(iteration, self.COL_PAID)
+            notes = bill.Notes
+            paid = bill.Paid
 
             # Display the status for the selected row
             self.view.lblInfoPanel.set_markup('%s' % (notes))
-            self.toggleButtons(int(paid))
-        except:
+            self.toggleButtons(paid)
+        except Exception, e:
             # better show a dialog box here if erro is critical
+            print str(e)
             pass 
         
     def on_frmMain_destroy(self, *event):
@@ -465,6 +465,5 @@ class BillReminder:
         rec = records[0]
         
         # Return bill and id
-        Bill(rec)
         return b_id, Bill(rec)
         
