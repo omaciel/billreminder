@@ -13,6 +13,8 @@ import os
 import gobject
 import time
 import datetime
+import locale
+import re
 
 #custom imports
 import common
@@ -32,6 +34,8 @@ class BillDialog:
         #Set the Glade file
         self.gladefile = gtk.glade.XML(common.BILLGLADEFILE, common.BILLDIALOG_NAME, domain='billreminder')
 
+        self.digits = re.compile(r'[0-9]')
+        
         #get form widgets and map it to objects
         self.frmBillDialog = self.gladefile.get_widget(common.BILLDIALOG_NAME)
         self.frmBillDialog.set_icon_from_file(common.APP_ICON)
@@ -50,10 +54,12 @@ class BillDialog:
         self.cboPayee = self.gladefile.get_widget('cboPayee')
         self.txtNotes = self.gladefile.get_widget('txtNotes')
         self.chkPaid = self.gladefile.get_widget('chkPaid')
+        self.btnSave = self.gladefile.get_widget('btnSave')
         self.txtBuffer = self.txtNotes.get_buffer()
 
         # Event handlers
         self.txtAmount.connect('insert-text', self.on_insert_text)
+        self.txtAmount.connect('focus-out-event', self.on_lost_focus)
 
         #setup the GUI
         # Mark the current day in the calendar
@@ -63,7 +69,11 @@ class BillDialog:
          
        # fill the combo with saved payee's names
         self._populatePayee()
-
+        
+        self.decimal_sep = locale.localeconv()['mon_decimal_point']
+        self.thousands_sep = locale.localeconv()['mon_thousands_sep']
+        
+        self.allowed_digts = [self.decimal_sep , self.thousands_sep]
         # If a bill object was passed, go into edit mode
         if self.bill is not None:
             self.frmBillDialog.set_title(_("Editing bill '%s'") % bill.Payee)
@@ -156,8 +166,94 @@ class BillDialog:
         else:
             return self.cboPayeeEntry.get_text()
 
+    def on_lost_focus(self, entry, event):
+        try:
+            a = float(entry.get_text())
+        except:
+            if len(entry.get_text()) > 0:
+                entry.grab_focus()
+                self.btnSave.set_sensitive(False)
+                #show a message here
+                return True
+            
+
+        
     def on_insert_text (self, entry, text, length, position):
-        """Stop garbage input."""
+        """Stop garbage input.
+           What It must do
+           1. Allows Numeric (0-9) Digits
+           2. Only Allows 1 Decimal "." or any locale
+           3. Only Allows 2 digits after decimal "
+           4. Does Not Allow decimal as first digit (If you need it comment out that line)
+       """
+        self.btnSave.set_sensitive(True)
         for c in text[:length]:
-            if c.lower() in r"(){}[]<>?*&%$#@!';:|\/^ abcdefghijklmnopqrstuvxywz":
+            if self.digits.match(c) ==None:
+                if not c.lower() in self.allowed_digts:
+                    entry.emit_stop_by_name ('insert-text')
+                    return
+        
+        # as event out is checking correct values for this 
+        # check if this procedure is really necessary
+        """
+        #Get atual widget text
+        strText = entry.get_text()
+        len_txt = len(strText)
+        sep_index = strText.find(self.decimal_sep)
+        thousand_index = strText.find(self.thousands_sep)
+        
+        # if digit sent is a number
+        if self.digits.match(text):
+            #Making sure there is only 2 digits entered after the 
+            #decimal separator
+        
+            if sep_index >0 and len(strText) >=4:
+                if strText[-3] == self.decimal_sep:
+                    entry.emit_stop_by_name ('insert-text')
+                    return
+                
+        elif text == self.decimal_sep:
+           #Not Allowing decimal separator as first character
+            #and not Allowing more than one decimal separator
+            if len(strText) == 0 or sep_index >0:
                 entry.emit_stop_by_name ('insert-text')
+                return
+            
+            if strText[-1] == self.thousands_sep or strText[-2] == self.thousands_sep:
+                # not allowing a decial sep aftter a thousand sep
+                entry.emit_stop_by_name ('insert-text')
+                return
+            if len_txt>2 and strText[-3] == self.thousands_sep:
+                entry.emit_stop_by_name ('insert-text')
+                retur
+
+        #Get atual widget text
+        strText = entry.get_text()
+        len_txt = len(strText)
+        sep_index = strText.find(self.decimal_sep)
+        thousand_index = strText.find(self.thousands_sep)
+        
+        # if digit sent is a number
+        if self.digits.match(text):
+            #Making sure there is only 2 digits entered after the 
+            #decimal separator
+        
+            if sep_index >0 and len(strText) >=4:n
+        elif text ==  self.thousands_sep:
+            #Not Allowing thousand separator as first character
+            if len(strText) == 0 :
+                entry.emit_stop_by_name ('insert-text')
+            #will not allow two thousand separator next
+            elif strText[-1] == self.thousands_sep:
+                entry.emit_stop_by_name ('insert-text')
+            
+            elif thousand_index  > 0 :
+                # just allow a thousand separator after 3 digits if a first separator  was set before
+                if (len(strText) -4) <1:
+                    entry.emit_stop_by_name ('insert-text')
+                elif strText[-4] != self.thousands_sep:
+                    entry.emit_stop_by_name ('insert-text')
+                 
+        else:
+            print 'passou'
+        """

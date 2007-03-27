@@ -6,6 +6,7 @@ program = 'billreminder'
 import locale
 LC_ALL = locale.setlocale(locale.LC_ALL, '') 
 
+print LC_ALL
 try:
     import gettext
     from gettext import gettext as _
