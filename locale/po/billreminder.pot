@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-25 21:28-0400\n"
+"POT-Creation-Date: 2007-04-03 12:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "BillReminder"
 msgstr ""
 
-#: ../../src/controller/billdialog.py:69
+#: ../../src/controller/billdialog.py:79
 #, python-format
 msgid "Editing bill '%s'"
 msgstr ""
@@ -111,15 +111,15 @@ msgstr ""
 msgid "Bill '%s' not deleted."
 msgstr ""
 
-#: ../../src/controller/trayicon.py:49
+#: ../../src/controller/trayicon.py:82
 msgid "Hide Window"
 msgstr ""
 
-#: ../../src/controller/trayicon.py:51 ../../gui/systraymenu.glade.h:1
+#: ../../src/controller/trayicon.py:84 ../../gui/systraymenu.glade.h:1
 msgid "Show Window"
 msgstr ""
 
-#: ../../src/controller/trayicon.py:54
+#: ../../src/controller/trayicon.py:87
 msgid "Quit"
 msgstr ""
 
