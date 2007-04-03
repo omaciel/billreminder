@@ -152,7 +152,7 @@ class BillReminder:
         self.addBillListColumn(self.strNotes, self.COL_NOTES, 100, False)
         self.addBillListColumn(self.strPaid, self.COL_PAID, 100, False)
 
-        #Attache the model to the treeView
+        #Attach the model to the treeView
         self.view.billView.set_model(self.billList)
         self.view.billView.set_rules_hint(True)
         
@@ -213,15 +213,18 @@ class BillReminder:
         row['amountDue'] = amountDue
 
         # Make sure the row is created using fields in proper order
-        fields = ['payee', 'dueDate', 'amountDue', 'notes', 'paid']
+        fields = ['Id', 'payee', 'dueDate', 'amountDue', 'notes', 'paid']
         # Initial list; Include Id field so it doesn't get mark-up text
-        formated = [None, row['Id']]
+        formated = [None]
         # Loop through 'fields' and color code them
         for key in fields:
-            formated.append('<span foreground="%s">%s</span>' % (color, row[key]))
+            if key == 'amountDue':
+                formated.append('<span foreground="%s">%s</span>' % (color, row[key]))
+            else:
+                formated.append(row[key])
 
         return formated
-    
+
     def updateStatusBar(self, index=0):
         """ This function is used to update status bar informations about the list """
         self.view.lblInfoPanel.set_text('')
