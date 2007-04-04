@@ -24,6 +24,10 @@ try:
 except ImportError:
     sys.exit(1)
 
+if "--from_daemon" in sys.argv:
+    from model.daemon import Daemon
+    Daemon()
+
 view = BillReminderView()
 controller = BillReminder(view)
 gtk.main()
