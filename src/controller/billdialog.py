@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-__all__ = ['BillDialog']
+__all__ = ['BillDialog', 'PopupCalendar']
 
 #default python imports
 import sys
@@ -56,10 +56,27 @@ class BillDialog:
         self.chkPaid = self.gladefile.get_widget('chkPaid')
         self.btnSave = self.gladefile.get_widget('btnSave')
         self.txtBuffer = self.txtNotes.get_buffer()
+        
+        self.chkAlarm = self.gladefile.get_widget('chkAlarm')
+        self.txtAlarmDate = self.gladefile.get_widget('txtAlarmDate')
+        self.bttAlarmDate = self.gladefile.get_widget('bttAlarmDate')
+        self.txtAlarmTime = self.gladefile.get_widget('txtAlarmTime')
+        self.bttAlarmTime = self.gladefile.get_widget('bttAlarmTime')
+        self.chkCustomMsg = self.gladefile.get_widget('chkCustomMsg')
+        self.txtCustomMsg = self.gladefile.get_widget('txtCustomMsg')
+        
 
         # Event handlers
         self.txtAmount.connect('insert-text', self.on_insert_text)
         self.txtAmount.connect('focus-out-event', self.on_lost_focus)
+        
+        self.chkAlarm.connect('toggled', self.on_chkAlarm_toggled)
+        self.chkCustomMsg.connect('toggled', self.on_chkCustomMsg_toggled)
+        self.bttAlarmDate.connect('clicked', self.on_bttAlarmDate_clicked)
+        #self.txtAlarmTime.connect('toggled', self.on_txtAlarmTime_toggled)
+        
+        self.chkAlarm.set_active(False)
+        self.PopupCalendar = PopupCalendar()
 
         #setup the GUI
         # Mark the current day in the calendar
@@ -177,7 +194,23 @@ class BillDialog:
                 return True
             
 
+
+    def on_chkAlarm_toggled(self, widget):
+        active = widget.get_active()
+        self.txtAlarmDate.set_sensitive(active)
+        self.bttAlarmDate.set_sensitive(active)
+        self.txtAlarmTime.set_sensitive(active)
+        self.bttAlarmTime.set_sensitive(active)
+        self.chkCustomMsg.set_sensitive(active)
+        self.txtCustomMsg.set_sensitive(active and self.chkCustomMsg.get_active())
         
+    def on_chkCustomMsg_toggled(self, widget):
+        active = widget.get_active()
+        self.txtCustomMsg.set_sensitive(active)
+    
+    def on_bttAlarmDate_clicked(self, widget):
+        self.PopupCalendar.run(self.txtAlarmDate)
+           
     def on_insert_text (self, entry, text, length, position):
         """Stop garbage input.
            What It must do
@@ -257,3 +290,31 @@ class BillDialog:
         else:
             print 'passou'
         """
+
+class PopupCalendar:
+    
+    def __init__(self):
+        self.gladefile = gtk.glade.XML(common.BILLGLADEFILE, 'frmPopupCalendar', domain='billreminder')
+        self.frmPopupCalendar = self.gladefile.get_widget('frmPopupCalendar')
+        self.calendar = self.gladefile.get_widget('calendar')
+        
+        self.calendar.connect('day-selected', self.on_calendar_day_selected)
+    
+    def run(self, entry):
+        x, y = self.frmPopupCalendar.get_position()
+        w, h = self.frmPopupCalendar.get_size()
+        self.frmPopupCalendar.move(x, y + h/2)
+        self.frmPopupCalendar.show()
+        self.entry = entry
+    
+    def on_calendar_day_selected(self, calendar):
+        # Extracts the date off the calendar widget
+        day = calendar.get_date()[2]
+        month = calendar.get_date()[1] + 1
+        year = calendar.get_date()[0]
+        # Create datetime object
+        selectedDate = datetime.datetime(year, month, day)
+        self.entry.set_text(selectedDate.strftime(_('%Y/%m/%d').encode('ASCII')))
+        gobject.timeout_add(300,self.frmPopupCalendar.hide)
+
+    
