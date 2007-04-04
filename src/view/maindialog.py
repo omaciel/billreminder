@@ -33,6 +33,7 @@ class BillReminderView:
         self.btnEdit = self.gladefile.get_widget('btnEdit')
         self.btnPaid = self.gladefile.get_widget('btnPaid')
         self.btnUnpaid = self.gladefile.get_widget('btnUnpaid')
+        self.mnubPanel = self.gladefile.get_widget('mnubPanel')
 
         #menu widgets
         self.mnuAbout = self.gladefile.get_widget('mnuAbout')
@@ -42,10 +43,23 @@ class BillReminderView:
         self.mnuPaid = self.gladefile.get_widget('mnuPaid')
         self.mnuUnpaid = self.gladefile.get_widget('mnuUnpaid')
         self.mnuRemove = self.gladefile.get_widget('mnuRemove')
+        self.mnuViewPaid = self.gladefile.get_widget('mnuViewPaid')
+        self.mnubPanel = self.gladefile.get_widget('mnubPanel')
 
         #status panel widgets
         self.lblCountPanel = self.gladefile.get_widget('lblCountPanel')
         self.lblInfoPanel = self.gladefile.get_widget('lblInfoPanel')
+        
+        #bottom panel widgets
+        self.bPanel = self.gladefile.get_widget('bPanel')
+        self.lblbPanelPayee = self.gladefile.get_widget('lblbPanelPayee')
+        self.lblbPanelAmount = self.gladefile.get_widget('lblbPanelAmount')
+        self.lblbPanelDuedate = self.gladefile.get_widget('lblbPanelDuedate')
+        self.lblbPanelNote = self.gladefile.get_widget('lblbPanelNote')
+        self.lblbPanelPaid = self.gladefile.get_widget('lblbPanelPaid')
+        self.imgbPanelIcon = self.gladefile.get_widget('imgbPanelIcon')
+        self.imgbPanelIconPlus = self.gladefile.get_widget('imgbPanelIconPlus')
+
 
         #Get the treeView from the widget Tree
         self.billView = self.gladefile.get_widget("tvBills")
