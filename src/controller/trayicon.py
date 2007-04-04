@@ -4,11 +4,11 @@
 __all__ = ['NotifyIcon', 'NotifyMessage']
 
 import sys
-try:
-    import pynotify
-except ImportError:
-    print "Please install pynotify"
-    sys.exit(1)
+#try:
+#    import pynotify
+#except ImportError:
+#    print "Please install pynotify"
+#    sys.exit(1)
 
 import os
 import gtk
@@ -51,6 +51,8 @@ class NotifyIcon:
             c.addMenuItem(_('Show Window'), self.show_hide)
         
         c.addMenuItem('-', None)
+        c.addMenuItem(_('About'), self.parent.on_mnuAbout_activate,gtk.STOCK_ABOUT)
+        c.addMenuItem('-', None)
         c.addMenuItem(_('Quit'), self.parent.on_btnQuit_clicked,gtk.STOCK_QUIT)
         
         print type(activate_time)
@@ -65,6 +67,9 @@ class NotifyIcon:
     def exists(self):
         """ Do nothing here, only returns that the class was instantiated."""
         return True
+    
+    def show_window(self, *arg):
+        self.parent.view.frmMain.show()
         
     def show_message(self, title, msg, timeout=7, icon="/usr/share/pixmaps/esc.png"): # TODO: Change image
         """ Show a message in notification area using gnome dbus objects. """
@@ -76,6 +81,7 @@ class NotifyIcon:
         notif.Icon(icon)
         notif.Timeout(timeout)
         notif.getHints(self.tray)
+        notif.Action(self.show_window)
         print 'got here'
         notif.Notify() 
         print 'message showed'
@@ -94,11 +100,13 @@ class NotifyMessage:
         self.__actions = []
         self.__hints = {}
         self.__expire_timeout = 1000
+        self.__action_func = None
         
         try:
             __session_bus = dbus.SessionBus()
             __obj = __session_bus.get_object("org.freedesktop.Notifications", "/org/freedesktop/Notifications")
             self.__interface = dbus.Interface(__obj, "org.freedesktop.Notifications")
+            self.__interface.connect_to_signal('ActionInvoked', self.on_action_invoked)
         except Exception:
             self.__interface = None
         
@@ -145,7 +153,26 @@ class NotifyMessage:
         hints['desktop-entry'] = "billreminder"
         self.__hints = hints
         return hints
+    
+    def Action(self, func):
+        self.__action_func = func
+    
+    def on_action_invoked(self, *arg):
+        if arg[0] != self.__id:
+            return
+            
+        print self.__action_func
+        if self.__action_func:
+            self.__action_func(arg)
+        elif self.__parent:
+            self.__parent.frmMain.show()
+            
+    def _set_id(self, id):
+        self.__id = id
+        
+    def _notify_error(self, e):
+        print str(e)
  
     def Notify(self):
         if self.__interface:
-            self.__interface.Notify(self.__app_name, self.__replaces_id, self.__app_icon, self.__summary, self.__body, self.__actions, self.__hints, self.__expire_timeout)
+            self.__interface.Notify(self.__app_name, self.__replaces_id, self.__app_icon, self.__summary, self.__body, self.__actions, self.__hints, self.__expire_timeout, reply_handler=self._set_id, error_handler=self._notify_error)
