@@ -16,6 +16,17 @@ except:
 
 import common
 
+def verify_service(domain):
+    """ Verify if DBus service is running """
+    try:
+        session_bus = dbus.SessionBus()
+        obj = session_bus.get_object('org.freedesktop.DBus', 
+                                     '/org/freedesktop/DBus')
+        interface = dbus.Interface(obj, 'org.freedesktop.DBus')
+        return domain in interface.ListNames()
+    except:
+        return False
+
 class BillDBus(dbus.service.Object):
     def __init__(self, window, object_path="/org/gnome/Billreminder"):
         self.window = window
@@ -50,6 +61,10 @@ class DaemonDBus(dbus.service.Object):
         return "Successful command"
     
     @dbus.service.method("org.gnome.Billreminder.Daemon")
-    def show_notifications(self):
-        self.daemon.createNotification()
+    def get_notification_message(self):
+        return self.daemon.create_message()
+    
+    @dbus.service.method("org.gnome.Billreminder.Daemon")
+    def show_message(self, title, msg):
+        self.daemon.notify.show_message(title, msg, 12, common.APP_HEADER)
         return "Successful command"
