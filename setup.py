@@ -42,6 +42,8 @@ setup(name='BillReminder',
          'images/header.png'],
          ['/usr/bin', 'billreminder']),
          ('/usr/share/locale/sv/LC_MESSAGES', ['locale/sv/LC_MESSAGES/billreminder.mo']),
+         ('/usr/share/locale/no/LC_MESSAGES', ['locale/no/LC_MESSAGES/billreminder.mo']),
+         ('/usr/share/locale/no_NB/LC_MESSAGES', ['locale/no_NB/LC_MESSAGES/billreminder.mo']),
          ('/usr/share/locale/pt_BR/LC_MESSAGES', ['locale/pt_BR/LC_MESSAGES/billreminder.mo'])
         ],
       cmdclass={'install_data': InstallData}
