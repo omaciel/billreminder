@@ -16,6 +16,7 @@ import common
 import model.i18n
 import model.daemon
 import controller.trayicon
+import model.dbus_manager
 from model.dbus_manager import DaemonDBus
 
 class Daemon(model.daemon.Daemon):
@@ -56,28 +57,30 @@ class Daemon(model.daemon.Daemon):
             date = i['dueDate']
         return msg
 
-    def createNotification(self):
-        today = time.mktime(datetime.date.today().timetuple())
-        limit = today + (86400 * float(self.config.get('Notification.Days')))
-        due = self.dal.get('tblbills', 'dueDate <= %s AND paid == 0' % today)
+    def create_message(self, msg='', show=False):
+        if not msg:
+            today = time.mktime(datetime.date.today().timetuple())
+            limit = today + (float(self.config.get('Notification.Days')) 
+                             * 86400.0)
+            due = self.dal.get('tblbills', 'dueDate <= %s AND paid == 0' 
+                               % today)
 
-        msg = ''
+            if len(due) == 1:
+                msg += '\n' + _('You have 1 outstanding bill to pay!')
+            elif len(due) > 1:
+                msg += '\n' + (_('You have %s outstanding bills to pay!') 
+                               % len(due))
 
-        if len(due) == 1:
-            msg += '\n' + _('You have 1 outstanding bill to pay!')
-        elif len(due) > 1:
-            msg += '\n' + _('You have %s outstanding bills to pay!' % len(due))
-
-        #msg += self.__getBills(due)
-
-        if msg != '': self.showMessage(_('BillReminder'), msg)
+        if msg and show:
+            self.show_message(_('BillReminder'), msg)
+        return msg
 
     def __loop(self):
-        self.createNotification()
+        self.create_message(show=True)
         gobject.timeout_add(int(self.config.get('Notification.Interval')) * 1000, self.__loop)
 
     def __alarm(self):
-        self.createNotification()
+        self.create_message(show=True)
         self.__set_alarm()
 
     def __set_alarm(self):
@@ -90,15 +93,29 @@ class Daemon(model.daemon.Daemon):
         if _time <= 0: _time += 86400
         print _time
         gobject.timeout_add(_time * 1000, self.__alarm)
+    
+    def __launchBR(self, *arg):
+        gobject.timeout_add(10, os.system, 'python -OO startup.py --from_daemon')
+        
+    def __notify_action(self, *arg):
+        print arg
+        if model.dbus_manager.verify_service('org.gnome.Billreminder'):
+            print 'Show UI'
+            session_bus = dbusus.SessionBus()
+            obj = session_bus.get_object('org.gnome.Billreminder', '/org/gnome/Billreminder')
+            interface = DBus.Interface(obj, 'org.gnome.Billreminder')
+            interface.show_window()
+            
+        else:
+            print 'Launch UI'
+            self.__launchBR(arg)
 
-    def showMessage(self, title, msg):
+    def show_message(self, title, msg):
         try:
-            session_bus = dbus.SessionBus()
-            obj = session_bus.get_object("org.freedesktop.DBus", "/org/freedesktop/DBus")
-            iface = dbus.Interface(obj, 'org.freedesktop.DBus')
-            if "org.gnome.Billreminder" in iface.ListNames():        
-                obj = session_bus.get_object("org.gnome.Billreminder", "/org/gnome/Billreminder")
-                interface = dbus.Interface(obj, "org.gnome.Billreminder")
+            if model.dbus_manager.verify_service('org.gnome.Billreminder'):
+                session_bus = dbus.SessionBus()  
+                obj = session_bus.get_object('org.gnome.Billreminder', '/org/gnome/Billreminder')
+                interface = dbus.Interface(obj, 'org.gnome.Billreminder')
                 interface.show_message(title, msg)
             else: 
                 raise Exception()
@@ -109,4 +126,6 @@ class Daemon(model.daemon.Daemon):
             notif.Body(msg)
             notif.Icon(os.path.abspath(common.APP_HEADER))
             notif.Timeout(20)
+            notif.Action(self.__notify_action)
             notif.Notify() 
+            
