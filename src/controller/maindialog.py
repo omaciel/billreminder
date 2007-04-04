@@ -18,6 +18,7 @@ import time
 #custom imports
 import common
 import model.i18n
+import model.dbus_manager
 from model.dbus_manager import BillDBus
 from model.dal import DAL
 from model.bill import Bill
@@ -57,7 +58,18 @@ class BillReminder:
         self.view.mnuRemove.connect('activate', self.on_btnRemove_clicked)
         self.view.mnuPaid.connect('activate', self.on_btnPaid_clicked)
         self.view.mnuUnpaid.connect('activate', self.on_btnPaid_clicked)
+        self.view.mnuViewPaid.connect('activate', self.on_mnuViewPaid_activate)
+        self.view.mnubPanel.connect('activate', self.on_mnubPanel_activate)
 
+        self.view.bPanel.set_property("visible", False)
+        self.view.lblbPanelPayee.set_text('')
+        self.view.lblbPanelAmount.set_text('')
+        self.view.lblbPanelDuedate.set_text('')
+        self.view.lblbPanelNote.set_text('')
+        self.view.lblbPanelPaid.set_text('')
+        self.view.imgbPanelIcon.set_from_file(os.path.abspath(common.APP_HEADER))
+        self.view.imgbPanelIconPlus.clear()
+        
         #set default variables values
 
         # Current record holder
@@ -91,7 +103,8 @@ class BillReminder:
         self.formatTreeView()
 
         # and populate it
-        self.populateTreeView(self.dal.get(self.table, 'paid = 0'))
+        self._listView = 'unpaid'
+        self.populateTreeView(self.dal.get(self.table, 'paid = 0 ORDER BY dueDate DESC'))
         
         if len(self.billList) > 0:
             self.view.billView.set_cursor(0)
@@ -99,7 +112,14 @@ class BillReminder:
         
         self.dbus_service = BillDBus(self)
         # Launch Daemon
-        gobject.timeout_add(10, os.system, 'python -OO notifier.py')
+        if model.dbus_manager.verify_service('org.gnome.Billreminder.Daemon'):
+            session_bus = dbus.SessionBus()
+            obj = session_bus.get_object('org.gnome.Billreminder.Daemon', '/org/gnome/Billreminder/Daemon')
+            interface = dbus.Interface(obj, 'org.gnome.Billreminder.Daemon')
+            msg = interface.get_notification_message()
+            gobject.timeout_add(100, self.notify.show_message, _('BillReminder'), msg, 20, os.path.abspath(common.APP_HEADER))
+        else:
+            gobject.timeout_add(100, os.system, 'python -OO notifier.py')
     
     def get_window_visibility(self):
         return self.view.frmMain.get_property("visible")
@@ -147,11 +167,11 @@ class BillReminder:
         self.addBillListColumn(self.strPaid, self.COL_ICON, 20, True) 
         self.addBillListColumn(self.strId, self.COL_ID , 100, False)
         self.addBillListColumn(self.strPayee, self.COL_PAYEE, 260, True)
-        self.addBillListColumn(self.strDueDate, self.COL_DUEDATE, 100, True)
+        self.addBillListColumn(self.strDueDate, self.COL_DUEDATE, 150, True)
         self.addBillListColumn(self.strAmountDue, self.COL_AMOUNTDUE, 100, True, 1.0)
         self.addBillListColumn(self.strNotes, self.COL_NOTES, 100, False)
         self.addBillListColumn(self.strPaid, self.COL_PAID, 100, False)
-
+        
         #Attach the model to the treeView
         self.view.billView.set_model(self.billList)
         self.view.billView.set_rules_hint(True)
@@ -188,6 +208,7 @@ class BillReminder:
             self.view.billView.insert_column_with_data_func(-1, '', renderer, self.pixbufCellDataFunc) 
         else: 
             self.view.billView.append_column(column)
+
     
     def formatedRow(self, row):
         """ Formats a bill to be displayed as a row. """
@@ -195,11 +216,13 @@ class BillReminder:
         today = time.mktime(datetime.date.today().timetuple())
 
         # Determines whether bill is due today...
-        if row['dueDate'] == today:
+        if row['dueDate'] == today and row['paid'] != 1:
             color = "blue"
         # ... late...
-        elif row['dueDate'] < today:
+        elif row['dueDate'] < today and row['paid'] != 1:
             color = "red"
+        elif row['paid'] == 1: 
+            color = "gray"
         # ... or current, and color code it accordingly.
         else:
             color = "black"
@@ -236,16 +259,29 @@ class BillReminder:
         """ Populates the treeview control with the records passed """
         
         # Loops through bills collection
+        path = 0
         for rec in records:
             try:
-                bill = Bill(rec)
-                self.billList.append(self.formatedRow(bill.Dictionary))
+                if (self._listView == 'unpaid' and rec['paid'] == 0) or self._listView == 'all':
+                    iter_ = self.billList.append(self.formatedRow(rec))
+                    if self.bill_id and int(rec['Id']) == int(self.bill_id):
+                        path = self.billList.get_path(iter_)
             except:
                 #better show a DialogBox here if  the error is something crucial
                 print "Unexpected error:", sys.exc_info()[0]
         # update statusbar information
         self.updateStatusBar()
+        self.view.billView.set_cursor(path)
         return
+        
+    def refreshBillList(self, get_bill=True):
+        if get_bill:
+            self.bill_id, self.current_bill = self.getBill()
+        self.billList.clear()
+        if self._listView == 'unpaid':
+            self.populateTreeView(self.dal.get(self.table, 'paid = 0 ORDER BY dueDate DESC'))
+        else:
+            self.populateTreeView(self.dal.get(self.table, 'paid IN (0,1) ORDER BY dueDate DESC'))
 
     def pixbufCellDataFunc(self, tree_column, cell, model, tree_iter):
         """ Draw icon """
@@ -305,6 +341,17 @@ class BillReminder:
         frmAbout = AboutDialog()
         frmAbout.run()
 
+    def on_mnuViewPaid_activate(self, widget):
+        if widget.get_active():
+            self._listView = 'all'
+            self.refreshBillList()
+        else:
+            self._listView = 'unpaid'
+            self.refreshBillList()
+    
+    def on_mnubPanel_activate(self, widget):
+        self.view.bPanel.set_property('visible', widget.get_active())
+
     def on_billView_button_press_event(self, widget, event):
         """ This function will handle the signal to show a popup menu sent by 
             a right click on tvBill widget. """
@@ -350,12 +397,43 @@ class BillReminder:
 	    # Get currently selected bill
 	    b_id, bill = self.getBill()
 
+            payee = bill.Payee
             notes = bill.Notes
             paid = bill.Paid
+            dueDate = datetime.datetime.fromtimestamp(bill.DueDate)
+            date = dueDate.strftime(_('%Y/%m/%d').encode('ASCII'))
+            
+            # Determine today's date
+            today = time.mktime(datetime.date.today().timetuple())
+            
+            if paid:
+                paidstatus = '<span foreground="gray">' + _('Paid') + '</span>'
+                self.view.imgbPanelIconPlus.set_from_stock(gtk.STOCK_APPLY, 4)
+                date = '<s>' + date + '</s>'
+            elif bill.DueDate < today:
+                paidstatus = '<span foreground="red">' + _('Bill Due') + '</span>'
+                date = '<span foreground="red"><b>' + date + '</b></span>'
+                self.view.imgbPanelIconPlus.set_from_stock(gtk.STOCK_DIALOG_ERROR, 4)
+            elif  bill.DueDate == today:
+                paidstatus = '<span foreground="blue">' + _('Bill Due Today') + '</span>'
+                date = '<span foreground="blue"><b>' + date + '</b></span>'
+                self.view.imgbPanelIconPlus.set_from_stock(gtk.STOCK_DIALOG_WARNING, 4)
+            else:
+                paidstatus = '<span foreground="black">' + _('Not Paid') + '</span>'
+                self.view.imgbPanelIconPlus.set_from_stock(gtk.STOCK_UNDO, 4)
+            
+            paidstatus = '<big><b>' + paidstatus + '</b></big>'
 
             # Display the status for the selected row
-            self.view.lblInfoPanel.set_markup('%s' % (notes))
+            self.view.lblInfoPanel.set_markup('%s' % (notes.replace('\n', ' ')))
             self.toggleButtons(paid)
+            
+            #Display Info
+            self.view.lblbPanelPayee.set_text(payee)
+            self.view.lblbPanelAmount.set_text('%0.2f' % bill.AmountDue)
+            self.view.lblbPanelDuedate.set_markup(date)
+            self.view.lblbPanelNote.set_text(notes)
+            self.view.lblbPanelPaid.set_markup(paidstatus)
         except Exception, e:
             # better show a dialog box here if erro is critical
             print str(e)
@@ -385,9 +463,12 @@ class BillReminder:
         if response == gtk.RESPONSE_OK:
             # Add new bill to database
             bill = self.dal.add(self.table, bill.Dictionary)
+            id_ = bill['Id']
             if bill:
                 self.billList.append(self.formatedRow(bill))
                 self.updateStatusBar()
+                self.bill_id = id_
+                self.refreshBillList(False)
 
     def editBill(self):
         """ Function used to persist changes made to the bill """
@@ -411,6 +492,7 @@ class BillReminder:
                 #better show a dialog window to this error
                 print "Unexpected error:", sys.exc_info()[0]
                 print str(e)
+            self.refreshBillList()
 
     def payBill(self):
         """ Toggles bill as paid/unpaid """
