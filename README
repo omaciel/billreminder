@@ -1,1 +1,24 @@
-Well, write your own readme xD
+README for BillReminder 0.1.1
+
+BillReminder is a small and quick accounting application
+designed to allow for easy tracking of bills.
+
+Dependencies:
+============
+
+pynotify
+pysqlite2
+
+Many thanks to the following people who directly and indirectly helped with this project:
+
+    * Laudeci Oliveira
+    * Luiz Armesto
+    * Giovanni Deganni
+    * Ruivaldo
+    * Mario Danic
+    * Led Style
+    * Vinicius Depizzol
+    * Mat Davey
+    * Rolando Espinoza La Fuente
+    * Gilberto Miralla
+    * Reinout van Schouwen
