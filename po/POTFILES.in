@@ -1,0 +1,36 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+[encoding: UTF-8]
+data/billreminderd.desktop.in
+data/billreminder.desktop.in
+src/billreminder.py
+src/billreminderd.py
+src/daemon/alarm.py
+src/daemon/dbus_manager.py
+src/daemon/device.py
+src/daemon/main.py
+src/db/billstable.py
+src/db/categoriestable.py
+src/db/fieldstable.py
+src/db/generictable.py
+src/db/versionstable.py
+src/gui/aboutdialog.py
+src/gui/adddialog.py
+src/gui/maindialog.py
+src/gui/prefdialog.py
+src/gui/widgets/datebutton.py
+src/gui/widgets/genericlistview.py
+src/gui/widgets/statusbar.py
+src/gui/widgets/toolbar.py
+src/gui/widgets/trayicon.py
+src/gui/widgets/viewbill.py
+src/lib/actions.py
+src/lib/bill.py
+src/lib/bubble.py
+src/lib/common.py
+src/lib/config.py
+src/lib/dal.py
+src/lib/dbus_actions.py
+src/lib/dialogs.py
+src/lib/utils.py
+

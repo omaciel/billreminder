@@ -1,6 +1,13 @@
-Mar 24 12:30:03 EDT 2007
+Sun Dec 30 19:14:16 EST 2007
 
-*  Add an "action" to the notification message, allowing the user to open/start BillReminder to work on his bills.  This has to detect if an instance of BillReminder is already running or not.  If running, display it; else, launch it.
+Road to a 0.3 release:
+
+* Make sure to update categorie combobox in adddialog with category selected from categorydialog or original value if user clicked on cancel button in categorydialog.
+* Finish categoriesdialog so that it allows the user to associate a color (use gtk.ColorButton?) to a category.
+  * Create a categoriesview class (inherit genericview) to display a colored square (pixbuf) and the name of the category (string).
+* Make sure that maindialog also displays the category name and the colored image.
+* Finish alarm dialog so that user can select date and time for individual record.
+* Add verification routine to adddialog so that amount and category are validated prior to saving/updating a record.
 
 Mar 19 15:21:45 EDT 2007
 
@@ -11,7 +18,6 @@ Mar 13 13:09:01 EDT 2007
 
 *  Test and strengthen the updatetables method in DAL;
 *  Table validation should take the version into account when making decisions.  If version in code is less than existing (in the db), we should not update;
-*  Use all icons created by vdpizzol and add them to the setup script.
 
 Jan 15 20:52:37 EST 2007
 

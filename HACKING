@@ -1,0 +1,13 @@
+In order to keep the code nice and clean we have a few requirements you'll
+need to stick to in order to get your patch accepted:
+
+- Use 4 spaces per indentation level
+- Limit all lines to a maximum of 79 characters
+- all files have to be encoded in UTF-8
+
+See http://www.python.org/dev/peps/pep-0008/ for style recommendations.
+
+See ChangeLog.README for SVN checkin rules.
+
+Do NOT commit to this module without permission from a maintainer.
+See the MAINTAINERS file for who they are.

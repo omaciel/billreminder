@@ -1,0 +1,52 @@
+.TH BILREMINDERD 1 "Dec 04, 2007
+
+.SH NAME
+billreminderd \- BillReminder Notifier
+
+.SH SYNOPSIS
+.B billreminderd [OPTIONS]
+
+.SH DESCRIPTION
+BillReminder is a small and quick accounting application
+designed to allow for easy tracking of bills.
+
+.SH OPTIONS
+BillReminder accept the following command-line call methods:
+.TP
+.B \-h, \-?, --help
+Show a short usage summary.
+.TP
+.B --verbose
+Print output messages.
+.TP
+.B --no-daemon
+Don't run as a daemon.
+.TP
+.B --open-gui
+Start daemon and launch GUI.
+.TP
+.B --stop
+Stop daemon.
+.TP
+.B \-v, --version
+Show the program version.
+
+.SH NOTES
+.B billreminderd
+needs a
+.BR dbus-daemon(1)
+to be running within your current session.
+
+.SH AUTHORS
+Written by Og Maciel <ogmaciel@ubuntu.com>,
+Laudeci Oliveira <laudeci@gmail.com> and
+Luiz Armesto <luiz.armesto@gmail.com>
+with some contributors that can be found on the project page.
+
+.SH HOMEPAGE
+http://billreminder.sourceforge.net/
+
+.SH COPYRIGHT
+Copyright \(co 2006, 2007 Og Maciel
+.SH "SEE ALSO"
+.BR billreminder (1)

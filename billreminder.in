@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+
+#######################################
+#         BillReminder @VERSION@          #
+#                                     #
+# Copyright (C) 2006-2007 Og Maciel   #
+# http://billreminder.sourceforge.net #
+#                                     #
+#######################################
+
+from billreminder import billreminder
+billreminder.main()

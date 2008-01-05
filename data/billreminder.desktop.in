@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+_Name=BillReminder
+_Comment=Never forget to pay a bill again!
+_GenericName=Bills manager
+Type=Application
+Terminal=false
+StartupNotify=true
+Icon=billreminder
+Exec=billreminder
+Categories=GNOME;Application;Office;Miscellaneous
