@@ -168,6 +168,7 @@ class AddDialog(gtk.Dialog):
         self.thousands_sep = locale.localeconv()['mon_thousands_sep']
 
         self.allowed_digts = [self.decimal_sep , self.thousands_sep]
+        self.allowed_digts += [str(i) for i in range(10)]
         # Format the amount field
         self.amount.set_text(utils.float_to_currency(self.currentrecord.AmountDue))
         # Format the dueDate field
@@ -369,4 +370,9 @@ class AddDialog(gtk.Dialog):
         self.category_index_before = index
 
     def _on_amount_insert(self, entry, string, len, position):
-        print string
+        for char in string:
+            if char not in self.allowed_digts:
+                print "Invalid Character: %s" % char
+                entry.emit_stop_by_name("insert-text")
+                gtk.gdk.beep()
+                return
