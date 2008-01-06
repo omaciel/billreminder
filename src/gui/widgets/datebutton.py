@@ -7,6 +7,7 @@ import gtk
 import gobject
 import time
 import datetime
+from timewidget import TimeWidget
 
 from lib import i18n
 
@@ -56,7 +57,7 @@ class DateButton(gtk.Button):
             month = self.calendar.get_date()[1] + 1
             year = self.calendar.get_date()[0]
             # TODO: Add verification routine
-            hour ,minute = self.time.child.get_text().split(_('%H:%M')[2])
+            hour ,minute = self.time.getTime()
             self.date = datetime.datetime(year, month, day, int(hour), int(minute))
             self.set_label(self.date.strftime(_('%Y/%m/%d %H:%M').encode('ASCII')))
 
@@ -81,37 +82,20 @@ class DateButton(gtk.Button):
         self.timelabel.set_markup("<b>%s </b>" % _("Time:"))
         self.timelabel.set_alignment(0.00, 0.50)
 
-        self.nothing = gtk.Label()
-
-        self.table = gtk.Table(rows=3, columns=3, homogeneous=False)
+        self.vbox = gtk.VBox(False, 0)
         self.calendar = gtk.Calendar()
 
-        self.time = gtk.ComboBoxEntry()
-        self.time.child.set_width_chars(6)
+        self.time = TimeWidget(self.date)
 
-        self.table.attach(self.calendarlabel, 0, 3, 0, 1, gtk.FILL, gtk.FILL)
-        self.table.attach(self.timelabel, 0, 1, 2, 3, gtk.FILL, gtk.FILL)
-        self.table.attach(self.calendar, 0, 3, 1, 2, gtk.FILL, gtk.FILL)
-        self.table.attach(self.time, 1, 2, 2, 3, gtk.FILL, gtk.FILL)
-        self.table.attach(self.nothing, 2, 3, 2, 3, gtk.FILL | gtk.EXPAND, gtk.FILL)
-        self.dialog.vbox.pack_start(self.table, expand=False, fill=True, padding=10)
+        self.vbox.pack_start(self.calendarlabel, False, True, 0)
+        self.vbox.pack_start(self.calendar, False, True, 0)
+        self.vbox.pack_start(self.time, False, True, 0)
+        self.dialog.vbox.pack_start(self.vbox, expand=False, fill=True, padding=10)
 
         self.dialog.show_all()
 
 
     def _populate_fields(self):
-        store = gtk.ListStore(gobject.TYPE_STRING)
-        for i in range(24):
-            store.append([_('%H:%M').replace('%H',
-                        "%02d" % i).replace('%M', '00')])
-            store.append([_('%H:%M').replace('%H',
-                        "%02d" % i).replace('%M', '30')])
-
-        self.time.set_model(store)
-        self.time.set_text_column(0)
-        self.time.child.set_text(datetime.time().strftime(_('%H:%M').encode('ASCII')))
-
         if self.date:
             self.calendar.select_day(self.date.day)
             self.calendar.select_month(self.date.month - 1, self.date.year)
-            self.time.child.set_text(self.date.strftime(_('%H:%M').encode('ASCII')))

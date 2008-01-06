@@ -39,6 +39,9 @@ class AddDialog(gtk.Dialog):
 
         self.alarm = [None, None]
 
+        # TODO: This needs to be run BEFORE connecting the widgets
+        self._set_currency()
+
         # Set up the UI
         self._initialize_dialog_widgets()
         self._connect_fields()
@@ -47,6 +50,13 @@ class AddDialog(gtk.Dialog):
         # If a record was passed, we're in edit mode
         if record:
             self._populate_fields()
+
+    def _set_currency(self):
+        self.decimal_sep = locale.localeconv()['mon_decimal_point']
+        self.thousands_sep = locale.localeconv()['mon_thousands_sep']
+
+        self.allowed_digts = [self.decimal_sep , self.thousands_sep]
+        self.allowed_digts += [str(i) for i in range(10)]
 
     def _initialize_dialog_widgets(self):
         self.vbox.set_spacing(8)
@@ -164,11 +174,6 @@ class AddDialog(gtk.Dialog):
         return model.get_value(iter, 0) == "---"
 
     def _populate_fields(self):
-        self.decimal_sep = locale.localeconv()['mon_decimal_point']
-        self.thousands_sep = locale.localeconv()['mon_thousands_sep']
-
-        self.allowed_digts = [self.decimal_sep , self.thousands_sep]
-        self.allowed_digts += [str(i) for i in range(10)]
         # Format the amount field
         self.amount.set_text(utils.float_to_currency(self.currentrecord.AmountDue))
         # Format the dueDate field
