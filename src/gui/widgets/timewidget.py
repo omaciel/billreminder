@@ -50,6 +50,7 @@ class TimeWidget(gtk.Frame):
         spinner.set_numeric(True)
         spinner.set_update_policy(gtk.UPDATE_IF_VALID)
         spinner.set_snap_to_ticks(True)
+        spinner.connect("output", self.__on_output)
 
         return spinner
 
@@ -63,6 +64,11 @@ class TimeWidget(gtk.Frame):
         minute = dt.minute
         self.hourSpinner.set_value(float(hour))
         self.minuteSpinner.set_value(float(minute))
+
+    def __on_output(self, spinbutton):
+        spinbutton.set_text("%02d" % spinbutton.get_adjustment().get_value())
+        return True
+
 
     def getTime(self):
         return (self.hourSpinner.get_value_as_int(), self.minuteSpinner.get_value_as_int())
