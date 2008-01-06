@@ -58,4 +58,4 @@ class ViewCategory(GenericListView):
         color = self.get_column(3)
         color.set_cell_data_func(color.get_cell_renderers()[0],
                               self.color_cell_data_function)
-        color.set_visible(False)
+        color.set_visible(True)

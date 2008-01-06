@@ -17,5 +17,5 @@ class CategoriesTable(GenericTable):
         categoryname VARCHAR(50) NOT NULL,
         color VARCHAR(14) NOT NULL)
     """ % Name
-    Fields = ['id', 'categoryname', 'color']
+    Fields = ['id', 'color', 'categoryname']
 
