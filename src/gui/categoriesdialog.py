@@ -148,8 +148,11 @@ class CategoriesDialog(gtk.Dialog):
         # Loop through 'fields' and color code them
         for key in fields:
             if key == 'color':
-                #TODO: rgb should get its value from row['color']
-                rgb = (255, 155, 134)
+                color = gtk.gdk.color_parse(row['color'])
+                red = color.red * 255 / 65535
+                green = color.green * 255 / 65535
+                blue = color.blue * 255 / 65535
+                rgb = (red, green, blue)
                 formated.append(create_pixbuf(rgb))
             else:
                 formated.append(row[key])
