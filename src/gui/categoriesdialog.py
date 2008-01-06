@@ -11,6 +11,7 @@ import gobject
 from lib.actions import Actions
 from lib import common
 from lib import i18n
+from lib.utils import create_pixbuf
 from gui.widgets.viewcategory import ViewCategory
 from db.categoriestable import CategoriesTable
 
@@ -146,9 +147,12 @@ class CategoriesDialog(gtk.Dialog):
         formated = []
         # Loop through 'fields' and color code them
         for key in fields:
-            if len(formated) == 1:
-                formated.append(None)
-            formated.append(row[key])
+            if key == 'color':
+                rgb = (255, 155, 134)
+                formated.append(create_pixbuf(rgb))
+            else:
+                formated.append(row[key])
+        formated.append(row['color'])
         print formated
         return formated
 
