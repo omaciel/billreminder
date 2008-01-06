@@ -5,8 +5,11 @@ __all__ = ['ContextMenu', 'Message']
 
 import sys
 import os
+import tempfile
 import datetime
 import locale
+import Image
+
 try:
     import pygtk
     pygtk.require("2.0")
@@ -14,6 +17,7 @@ try:
     import dbus.service
 except:
       pass
+
 try:
     import gtk
 except ImportError, e:
@@ -229,3 +233,21 @@ def float_to_currency(number):
 
 def check_date_format(string):
     pass
+
+def create_pixbuf(rgb):
+    # Our image
+    square = Image.new("RGB", (16, 16), rgb)
+
+    try:
+        # Temp storage file
+        fd,sqfile = tempfile.mkstemp()
+        # Store the image into a file
+        square.save(sqfile, "png")
+        # Create the pixbug object
+        pixbuf = gtk.gdk.pixbuf_new_from_file(sqfile)
+    finally:
+        # clean up
+        os.remove(sqfile)
+
+    return pixbuf
+
