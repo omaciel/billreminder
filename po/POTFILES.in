@@ -21,6 +21,7 @@ src/gui/prefdialog.py
 src/gui/widgets/datebutton.py
 src/gui/widgets/genericlistview.py
 src/gui/widgets/statusbar.py
+src/gui/widgets/timewidget.py
 src/gui/widgets/toolbar.py
 src/gui/widgets/trayicon.py
 src/gui/widgets/viewbill.py
