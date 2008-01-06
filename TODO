@@ -2,11 +2,8 @@ Sun Dec 30 19:14:16 EST 2007
 
 Road to a 0.3 release:
 
-* Make sure to update categorie combobox in adddialog with category selected from categorydialog or original value if user clicked on cancel button in categorydialog.
-* Finish categoriesdialog so that it allows the user to associate a color (use gtk.ColorButton?) to a category.
-  * Create a categoriesview class (inherit genericview) to display a colored square (pixbuf) and the name of the category (string).
+* Currently the categoriesdialog displays a colored square next to the category name, but it doesn't match the corresponding color yet. The create_pixbuf method expects a rgb (tuple) value but the record stores the hex value of the color.
 * Make sure that maindialog also displays the category name and the colored image.
-* Finish alarm dialog so that user can select date and time for individual record.
 * Add verification routine to adddialog so that amount and category are validated prior to saving/updating a record.
 
 Mar 19 15:21:45 EDT 2007

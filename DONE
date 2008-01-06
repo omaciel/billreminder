@@ -1,4 +1,13 @@
-Dez 04 01:05:35 EDT 2007
+Jan 06 13:04:22 EDT 2007
+
+Road to a 0.3 release:
+
+* Make sure to update categorie combobox in adddialog with category selected from categorydialog or original value if user clicked on cancel button in categorydialog.
+* Finish categoriesdialog so that it allows the user to associate a color (use gtk.ColorButton?) to a category.
+  * Create a categoriesview class (inherit genericview) to display a colored square (pixbuf) and the name of the category (string).
+* Finish alarm dialog so that user can select date and time for individual record.
+
+Dec 04 01:05:35 EDT 2007
 
 *  Add an "action" to the notification message, allowing the user to open/start BillReminder to work on his bills.  This has to detect if an instance of BillReminder is already running or not.  If running, display it; else, launch it.
 *  Use all icons created by vdpizzol and add them to the setup script.
