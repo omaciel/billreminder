@@ -2,6 +2,7 @@ Sun Dec 30 19:14:16 EST 2007
 
 Road to a 0.3 release:
 
+* Fully implement the View menu entry so that records can be displayed based on selection.
 * Currently the categoriesdialog displays a colored square next to the category name, but it doesn't match the corresponding color yet. The create_pixbuf method expects a rgb (tuple) value but the record stores the hex value of the color.
 * Make sure that maindialog also displays the category name and the colored image.
 * Add verification routine to adddialog so that amount and category are validated prior to saving/updating a record.
