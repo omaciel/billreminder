@@ -32,6 +32,32 @@ from lib.config import Config
 
 class MainDialog:
 
+    menu_ui = '''
+        <ui>
+            <menubar name="MenuBar">
+              <menu action="File">
+                <menuitem action="New"/>
+                <menuitem action="Edit"/>
+                <menuitem action="Delete"/>
+                <separator/>
+                <menuitem action="Paid"/>
+                <menuitem action="NotPaid"/>
+                <separator/>
+                <menuitem action="Preferences"/>
+                <separator/>
+                <menuitem action="Quit"/>
+              </menu>
+              <menu action="View">
+                <menuitem action="PaidRecords"/>
+                <menuitem action="NotPaidRecords"/>
+                <menuitem action="AllRecords"/>
+              </menu>
+              <menu action="Help">
+                <menuitem action="About"/>
+              </menu>
+            </menubar>
+        </ui>'''
+
     def __init__(self):
         self.config = Config()
 
@@ -65,13 +91,56 @@ class MainDialog:
         # Statusbar
         self.statusbar = Statusbar()
 
+        # Create a UIManager instance
+        uimanager = gtk.UIManager()
+
+        # Add the accelerator group to the toplevel window
+        accelgroup = uimanager.get_accel_group()
+        self.window.add_accel_group(accelgroup)
+
+        # Create an ActionGroup
+        actiongroup = gtk.ActionGroup('UIManagerExample')
+        self.actiongroup = actiongroup
+
+        # Create actions
+        actiongroup.add_actions([
+            ('File', None, '_File'),
+            ('New', gtk.STOCK_NEW, _("New"), '<Control>n', _("Add a new record"), self.on_btnNew_clicked),
+            ('Edit', gtk.STOCK_EDIT, _("Edit"), '<Control>e', _("Edit a record"), self.on_btnEdit_clicked),
+            ('Delete', gtk.STOCK_DELETE, _("Delete"), '<Control>d', _("Delete selected record"), self.on_btnDelete_clicked),
+            ('Paid', gtk.STOCK_APPLY, _("Paid"), '<Control>p', _("Mark as paid"), self.on_btnPaid_clicked),
+            ('NotPaid', gtk.STOCK_UNDO, _("Not Paid"), '<Control>u', _("Mark as not paid"), self.on_btnPaid_clicked),
+            ('Preferences', gtk.STOCK_PREFERENCES, _("Preferences"), None, _("Edit preferences"), self.on_btnPref_clicked),
+            ('Quit', gtk.STOCK_QUIT, _("_Quit"), '<Control>q', _("Quit the Program"), self.on_btnQuit_clicked),
+            ('View', None, _("_View")),
+            ('Help', None, _("_Help")),
+            ('About', gtk.STOCK_ABOUT, _("About"), None, _("About the application"), self.on_btnAbout_clicked),
+            ])
+
+        actiongroup.add_radio_actions([
+            ('PaidRecords', None, _("_Paid only"), None, _("Display all paid records only.")),
+            ('NotPaidRecords', None, _("_Not paid only"), None, _("Display all unpaid records only.")),
+            ('AllRecords', None, _("_All records"), None, _("Display all records.")),
+        ], 0, self._change_view)
+
+        # Add the actiongroup to the uimanager
+        uimanager.insert_action_group(actiongroup, 0)
+
+        # Add a UI description
+        uimanager.add_ui_from_string(self.menu_ui)
+
+        # Create a MenuBar
+        menubar = uimanager.get_widget('/MenuBar')
+
         # Pack it all up
+        self.box.pack_start(menubar,
+            expand=False, fill=True, padding=2)
         self.box.pack_start(self.toolbar,
-                            expand=False, fill=True, padding=2)
+            expand=False, fill=True, padding=2)
         self.box.pack_start(self.scrolledwindow,
-                            expand=True, fill=True, padding=2)
+            expand=True, fill=True, padding=2)
         self.box.pack_start(self.statusbar,
-                            expand=False, fill=True, padding=2)
+            expand=False, fill=True, padding=2)
 
         self.window.add(self.box)
 
@@ -124,6 +193,11 @@ class MainDialog:
             self.window.hide()
         else:
             self.window.show()
+
+    def _change_view(self, action, current):
+        #TODO: Change the records selection based on option chose
+        print action.get_current_value()
+        return True
 
     def _get_selected_record(self):
         """ Returns a bill object from the current selected record """
@@ -188,44 +262,23 @@ class MainDialog:
 
     def _populate_toolbar(self):
         self.btnNew = self.toolbar.add_button(gtk.STOCK_NEW,
-                                              _("New"),
-                                              # Tooltip message
-                                              _("Add a new record"),
-                                              self.on_btnNew_clicked)
+            _("New"), _("Add a new record"), self.on_btnNew_clicked)
         self.btnEdit = self.toolbar.add_button(gtk.STOCK_EDIT,
-                                               _("Edit"),
-                                               # Tooltip message
-                                               _("Edit a record"),
-                                               self.on_btnEdit_clicked)
+            _("Edit"), _("Edit a record"), self.on_btnEdit_clicked)
         self.btnRemove = self.toolbar.add_button(gtk.STOCK_DELETE,
-                                                 _("Delete"),
-                                                 # Tooltip message
-                                                 _("Delete selected record"),
-                                                 self.on_btnDelete_clicked)
+            _("Delete"), _("Delete selected record"), self.on_btnDelete_clicked)
         self.toolbar.add_space()
         self.btnPaid = self.toolbar.add_button(gtk.STOCK_APPLY,
-                                               _("Paid"),
-                                               # Tooltip message
-                                               _("Mark as paid"),
-                                               self.on_btnPaid_clicked)
+            _("Paid"), _("Mark as paid"), self.on_btnPaid_clicked)
         self.btnPaid.set_is_important(True)
         self.btnUnpaid = self.toolbar.add_button(gtk.STOCK_UNDO,
-                                                 _("Not Paid"),
-                                                 # Tooltip message
-                                                 _("Mark as not paid"),
-                                                 self.on_btnPaid_clicked)
+            _("Not Paid"), _("Mark as not paid"), self.on_btnPaid_clicked)
         self.btnUnpaid.set_is_important(True)
         self.toolbar.add_space()
         self.btnPref = self.toolbar.add_button(gtk.STOCK_PREFERENCES,
-                                               _("Preferences"),
-                                               # Tooltip message
-                                               _("Edit preferences"),
-                                               self.on_btnPref_clicked)
+            _("Preferences"), _("Edit preferences"), self.on_btnPref_clicked)
         self.btnAbout = self.toolbar.add_button(gtk.STOCK_ABOUT,
-                                                _("About"),
-                                                # Tooltip message
-                                                _("About the application"),
-                                                self.on_btnAbout_clicked)
+            _("About"), _("About the application"), self.on_btnAbout_clicked)
 
     def add_bill(self):
         record = dialogs.add_dialog(parent=self.window)
