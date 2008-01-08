@@ -12,7 +12,7 @@ except ImportError:
 # Application info
 APPNAME = _("BillReminder")
 APPVERSION = "0.3"
-COPYRIGHTS = "%s - Copyright (c) 2006, 2007\n" \
+COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
              "Og Maciel <omaciel@foresightlinux.org>" % APPNAME
 WEBSITE = "http://billreminder.sourceforge.net"
 AUTHORS = [
