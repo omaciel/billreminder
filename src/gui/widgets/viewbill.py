@@ -130,3 +130,8 @@ class ViewBill(GenericListView):
         alarm.set_cell_data_func(alarm.get_cell_renderers()[0],
                                 self.alarm_cell_data_function)
         alarm.set_visible(False)
+
+        # Searching capability
+        self.set_enable_search(True)
+        #TODO: Add searching set_visible_func function and automatically select records
+        # based on user search.
