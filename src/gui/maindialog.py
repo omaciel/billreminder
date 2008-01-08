@@ -78,6 +78,9 @@ class MainDialog:
                           self._on_list_button_press_event)
 
         # Menubar
+        self._populate_menubar()
+
+        # Toolbar
         self.toolbar = Toolbar()
         self._populate_toolbar()
 
@@ -91,50 +94,7 @@ class MainDialog:
         # Statusbar
         self.statusbar = Statusbar()
 
-        # Create a UIManager instance
-        uimanager = gtk.UIManager()
-
-        # Add the accelerator group to the toplevel window
-        accelgroup = uimanager.get_accel_group()
-        self.window.add_accel_group(accelgroup)
-
-        # Create an ActionGroup
-        actiongroup = gtk.ActionGroup('UIManagerExample')
-        self.actiongroup = actiongroup
-
-        # Create actions
-        actiongroup.add_actions([
-            ('File', None, '_File'),
-            ('New', gtk.STOCK_NEW, _("New"), '<Control>n', _("Add a new record"), self.on_btnNew_clicked),
-            ('Edit', gtk.STOCK_EDIT, _("Edit"), '<Control>e', _("Edit a record"), self.on_btnEdit_clicked),
-            ('Delete', gtk.STOCK_DELETE, _("Delete"), '<Control>d', _("Delete selected record"), self.on_btnDelete_clicked),
-            ('Paid', gtk.STOCK_APPLY, _("Paid"), '<Control>p', _("Mark as paid"), self.on_btnPaid_clicked),
-            ('NotPaid', gtk.STOCK_UNDO, _("Not Paid"), '<Control>u', _("Mark as not paid"), self.on_btnPaid_clicked),
-            ('Preferences', gtk.STOCK_PREFERENCES, _("Preferences"), None, _("Edit preferences"), self.on_btnPref_clicked),
-            ('Quit', gtk.STOCK_QUIT, _("_Quit"), '<Control>q', _("Quit the Program"), self.on_btnQuit_clicked),
-            ('View', None, _("_View")),
-            ('Help', None, _("_Help")),
-            ('About', gtk.STOCK_ABOUT, _("About"), None, _("About the application"), self.on_btnAbout_clicked),
-            ])
-
-        actiongroup.add_radio_actions([
-            ('PaidRecords', None, _("_Paid only"), None, _("Display all paid records only.")),
-            ('NotPaidRecords', None, _("_Not paid only"), None, _("Display all unpaid records only.")),
-            ('AllRecords', None, _("_All records"), None, _("Display all records.")),
-        ], 0, self._change_view)
-
-        # Add the actiongroup to the uimanager
-        uimanager.insert_action_group(actiongroup, 0)
-
-        # Add a UI description
-        uimanager.add_ui_from_string(self.menu_ui)
-
-        # Create a MenuBar
-        menubar = uimanager.get_widget('/MenuBar')
-
         # Pack it all up
-        self.box.pack_start(menubar,
-            expand=False, fill=True, padding=2)
         self.box.pack_start(self.toolbar,
             expand=False, fill=True, padding=2)
         self.box.pack_start(self.scrolledwindow,
@@ -163,12 +123,15 @@ class MainDialog:
 
         # Connects to the database
         self.actions = Actions()
-        if self.config.getboolean('GUI', 'show_paid_bills'):
+        if self.config.getint('GUI', 'show_paid_bills') == 0:
             self._populateTreeView(self.actions.get_bills( \
-                                   'paid IN (0,1) ORDER BY dueDate DESC'))
-        else:
+                                   'paid = 1 ORDER BY dueDate DESC'))
+        elif self.config.getint('GUI', 'show_paid_bills') == 1:
             self._populateTreeView(self.actions.get_bills( \
                                    'paid = 0 ORDER BY dueDate DESC'))
+        else:
+            self._populateTreeView(self.actions.get_bills( \
+                                   'paid IN (0,1) ORDER BY dueDate DESC'))
         self.notify = NotifyIcon(self)
 
         # Connects to the Daemon
@@ -196,7 +159,10 @@ class MainDialog:
 
     def _change_view(self, action, current):
         #TODO: Change the records selection based on option chose
-        print action.get_current_value()
+        print current.get_current_value()
+        self.config.set("GUI", "show_paid_bills", str(current.get_current_value()))
+        self.config.save()
+        self.reloadTreeView()
         return True
 
     def _get_selected_record(self):
@@ -225,19 +191,27 @@ class MainDialog:
             self.list.add(self._formated_row(rec))
 
         self.list.set_cursor(path)
-        return
+        return len(records)
 
     def reloadTreeView(self, *arg):
         # Update list with updated record
         path = self.list.get_cursor()[0]
         self.list.listStore.clear()
-        if self.config.getboolean('GUI', 'show_paid_bills'):
-            self._populateTreeView(self.actions.get_bills( \
-                                   'paid IN (0,1) ORDER BY dueDate DESC'))
-        else:
-            self._populateTreeView(self.actions.get_bills( \
+        self.currentrecord = None
+        if self.config.getint('GUI', 'show_paid_bills') == 0:
+            length = self._populateTreeView(self.actions.get_bills( \
+                                   'paid = 1 ORDER BY dueDate DESC'))
+        elif self.config.getint('GUI', 'show_paid_bills') == 1:
+            length = self._populateTreeView(self.actions.get_bills( \
                                    'paid = 0 ORDER BY dueDate DESC'))
-        self.list.set_cursor(path)
+        else:
+            length = self._populateTreeView(self.actions.get_bills( \
+                                   'paid IN (0,1) ORDER BY dueDate DESC'))
+
+        if path and length:
+            self.list.set_cursor(path)
+        self._update_statusbar()
+        return length
 
     def _formated_row(self, row):
         """ Formats a bill to be displayed as a row. """
@@ -279,6 +253,65 @@ class MainDialog:
             _("Preferences"), _("Edit preferences"), self.on_btnPref_clicked)
         self.btnAbout = self.toolbar.add_button(gtk.STOCK_ABOUT,
             _("About"), _("About the application"), self.on_btnAbout_clicked)
+
+    def _populate_menubar(self):
+        # Create a UIManager instance
+        uimanager = gtk.UIManager()
+
+        # Add the accelerator group to the toplevel window
+        accelgroup = uimanager.get_accel_group()
+        self.window.add_accel_group(accelgroup)
+
+        # Create an ActionGroup
+        actiongroup = gtk.ActionGroup('UIManagerExample')
+        self.actiongroup = actiongroup
+
+        # Create actions
+        actiongroup.add_actions([
+            ('File', None, '_File'),
+            ('New', gtk.STOCK_NEW, None, '<Control>n', _("Add a new record"), self.on_btnNew_clicked),
+            ('Edit', gtk.STOCK_EDIT, None, '<Control>e', _("Edit a record"), self.on_btnEdit_clicked),
+            ('Delete', gtk.STOCK_DELETE, None, '<Control>d', _("Delete selected record"), self.on_btnDelete_clicked),
+            ('Paid', gtk.STOCK_APPLY, _("Paid"), '<Control>p', _("Mark as paid"), self.on_btnPaid_clicked),
+            ('NotPaid', gtk.STOCK_UNDO, _("Not Paid"), '<Control>u', _("Mark as not paid"), self.on_btnPaid_clicked),
+            ('Preferences', gtk.STOCK_PREFERENCES, None, None, _("Edit preferences"), self.on_btnPref_clicked),
+            ('Quit', gtk.STOCK_QUIT, None, '<Control>q', _("Quit the Program"), self.on_btnQuit_clicked),
+            ('View', None, _("_View")),
+            ('Help', None, _("_Help")),
+            ('About', gtk.STOCK_ABOUT, None, None, _("About the application"), self.on_btnAbout_clicked),
+            ])
+
+        # Prevent crash when using old config file
+        try:
+            saved_view = self.config.getint('GUI', 'show_paid_bills')
+        except:
+            saved_view = 1
+            self.config.set("GUI", "show_paid_bills", str(saved_view))
+            self.config.save()
+
+        actiongroup.add_radio_actions([
+            ('PaidRecords', None, _("_Paid only"), None, _("Display all paid records only."), 0),
+            ('NotPaidRecords', None, _("_Not paid only"), None, _("Display all unpaid records only."), 1),
+            ('AllRecords', None, _("_All records"), None, _("Display all records."), 2),
+        ], saved_view , self._change_view)
+
+        # Add the actiongroup to the uimanager
+        uimanager.insert_action_group(actiongroup, 0)
+
+        # Add a UI description
+        uimanager.add_ui_from_string(self.menu_ui)
+
+        # Create a MenuBar
+        menubar = uimanager.get_widget('/MenuBar')
+
+        self.menuNew = uimanager.get_widget('/MenuBar/File/New')
+        self.menuEdit = uimanager.get_widget('/MenuBar/File/Edit')
+        self.menuRemove = uimanager.get_widget('/MenuBar/File/Delete')
+        self.menuPaid = uimanager.get_widget('/MenuBar/File/Paid')
+        self.menuUnpaid = uimanager.get_widget('/MenuBar/File/NotPaid')
+
+        # Pack it
+        self.box.pack_start(menubar, expand=False, fill=True, padding=2)
 
     def add_bill(self):
         record = dialogs.add_dialog(parent=self.window)
@@ -366,22 +399,32 @@ class MainDialog:
             their state """
         if len(self.list.listStore) > 0:
             self.btnEdit.set_sensitive(True)
+            self.menuEdit.set_sensitive(True)
             self.btnRemove.set_sensitive(True)
+            self.menuRemove.set_sensitive(True)
             """
             Enable/disable paid and unpiad buttons.
             If paid = True, paid button and menu will be enabled.
             """
             if paid:
                 self.btnPaid.set_sensitive(False)
+                self.menuPaid.set_sensitive(False)
                 self.btnUnpaid.set_sensitive(True)
+                self.menuUnpaid.set_sensitive(True)
             else:
                 self.btnPaid.set_sensitive(True)
+                self.menuPaid.set_sensitive(True)
                 self.btnUnpaid.set_sensitive(False)
+                self.menuUnpaid.set_sensitive(False)
         else:
             self.btnEdit.set_sensitive(False)
+            self.menuEdit.set_sensitive(False)
             self.btnRemove.set_sensitive(False)
+            self.menuRemove.set_sensitive(False)
             self.btnPaid.set_sensitive(False)
+            self.menuPaid.set_sensitive(False)
             self.btnUnpaid.set_sensitive(False)
+            self.menuUnpaid.set_sensitive(False)
 
     def _update_statusbar(self, index=0):
         """ This function is used to update status bar informations
@@ -391,10 +434,15 @@ class MainDialog:
         # Record count
         self.statusbar.Records(records)
         if self.currentrecord:
-            # Display the status for the selected row
+            # Display the status
             self.statusbar.Notes(self.currentrecord.Notes)
             # Toggles toolbar buttons on/off
             self.toggle_buttons(self.currentrecord.Paid)
+        else:
+            # Clear the status for the selected row
+            self.statusbar.Notes("")
+            # Toggles toolbar buttons on/off
+            self.toggle_buttons()
 
     # Event handlers
     def _on_list_button_press_event(self, widget, event):
@@ -422,10 +470,6 @@ class MainDialog:
                 c.addMenuItem(_('Not Paid'),
                           self.on_btnPaid_clicked, gtk.STOCK_UNDO, True)
         c.addMenuItem('-', None)
-        showitem = c.addMenuItem(_('Show paid bills'),
-                                 self.on_btnShow_toggle, None, isCheck=True)
-        showitem.set_active(self.config.getboolean("GUI", "show_paid_bills"))
-        c.addMenuItem('-', None)
         c.addMenuItem(_('Cancel'), None, gtk.STOCK_CANCEL)
         c.popup(None, None, None, 3, event.get_time())
 
@@ -436,26 +480,20 @@ class MainDialog:
         # Update statusbar
         self._update_statusbar()
 
-    def on_btnShow_toggle(self, checkmenuitem):
-        if self.config.getboolean("GUI", "show_paid_bills") \
-                                        == checkmenuitem.get_active():
-            return
-        self.config.set("GUI", "show_paid_bills",
-                        str(checkmenuitem.get_active()))
-        self.config.save()
-        self.reloadTreeView()
-
     def on_btnNew_clicked(self, toolbutton):
         self.add_bill()
 
     def on_btnEdit_clicked(self, toolbutton):
-        self.edit_bill()
+        if self.currentrecord:
+            self.edit_bill()
 
     def on_btnDelete_clicked(self, toolbutton):
-        self.remove_bill()
+        if self.currentrecord:
+            self.remove_bill()
 
     def on_btnPaid_clicked(self, toolbutton):
-        self.toggle_bill_paid()
+        if self.currentrecord:
+            self.toggle_bill_paid()
 
     def on_btnAbout_clicked(self, toolbutton):
         self.about()
