@@ -24,7 +24,9 @@ class ViewBill(GenericListView):
 
     def category_cell_data_function(self, column, cell, model, iter):
         category = model.get_value(iter, 1)
+        color = model.get_value(iter, 8)
         cell.set_property('text', category)
+        cell.set_property('foreground', color)
         column.set_visible(True)
 
     def payee_cell_data_function(self, column, cell, model, iter):
@@ -89,11 +91,17 @@ class ViewBill(GenericListView):
         6: [_('Paid'),
             gtk.CellRendererText(), paid_cell_data_function],
         7: [_('Alarm'),
-            gtk.CellRendererText(), alarm_cell_data_function]
+            gtk.CellRendererText(), alarm_cell_data_function],
+        8: ['CategoryColor',
+            gtk.CellRendererText(), None]
+
     }
 
     def __init__(self):
         GenericListView.__init__(self, self.columns)
+
+        self.set_search_column(2)
+
         # Set the following columns to invisible
         id = self.get_column(0)
         id.set_cell_data_func(id.get_cell_renderers()[0],
@@ -130,6 +138,9 @@ class ViewBill(GenericListView):
         alarm.set_cell_data_func(alarm.get_cell_renderers()[0],
                                 self.alarm_cell_data_function)
         alarm.set_visible(False)
+
+        categorycolor = self.get_column(8)
+        categorycolor.set_visible(False)
 
         # Searching capability
         self.set_enable_search(True)

@@ -64,7 +64,7 @@ class MainDialog:
         # Create a new window
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_title("%s" % common.APPNAME)
-        self.window.set_border_width(3)
+        self.window.set_border_width(0)
         self.window.set_size_request(500, 300)
         self.window.set_icon_from_file(common.APP_ICON)
         self.window.connect("delete_event", self.on_delete_event)
@@ -159,7 +159,6 @@ class MainDialog:
 
     def _change_view(self, action, current):
         #TODO: Change the records selection based on option chose
-        print current.get_current_value()
         self.config.set("GUI", "show_paid_bills", str(current.get_current_value()))
         self.config.save()
         self.reloadTreeView()
@@ -168,10 +167,10 @@ class MainDialog:
     def _get_selected_record(self):
         """ Returns a bill object from the current selected record """
         if len(self.list.listStore) > 0:
-            selection = self.list.get_selection()
-            _model, iteration = selection.get_selected()
+            model_ = self.list.get_model()
+            index = self.list.get_cursor()[0][0]
 
-            b_id = _model.get_value(iteration, 0)
+            b_id = model_[index][0]
 
             try:
                 records = self.actions.get_bills({'Id': b_id})
@@ -226,11 +225,14 @@ class MainDialog:
                 records = actions.get_categories({'id': row[key]})
                 if records:
                     name = records[0]['categoryname']
+                    color = records[0]['color']
                 else:
                     name = _("None")
+                    color = "#000"
                 formated.append(name)
             else:
                 formated.append(row[key])
+        formated.append(color)
 
         return formated
 
@@ -311,7 +313,7 @@ class MainDialog:
         self.menuUnpaid = uimanager.get_widget('/MenuBar/File/NotPaid')
 
         # Pack it
-        self.box.pack_start(menubar, expand=False, fill=True, padding=2)
+        self.box.pack_start(menubar, expand=False, fill=True, padding=0)
 
     def add_bill(self):
         record = dialogs.add_dialog(parent=self.window)
