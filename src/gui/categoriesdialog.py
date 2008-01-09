@@ -23,8 +23,8 @@ class CategoriesDialog(gtk.Dialog):
         gtk.Dialog.__init__(self, title=_("Categories Manager"),
                             parent=parent, flags=gtk.DIALOG_MODAL)
 
-        self.okbutton = self.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
         self.closebutton = self.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+        self.okbutton = self.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
         self.set_icon_from_file(common.APP_ICON)
 
         self.new = new
