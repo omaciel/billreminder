@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-04 16:29-0200\n"
-"PO-Revision-Date: 2008-01-03 17:30-0300\n"
+"PO-Revision-Date: 2008-01-08 21:56-0300\n"
 "Last-Translator: Luiz Armesto <luiz.armesto@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "Nunca mais esqueça de pagar uma conta!"
 #: ../data/billreminder.desktop.in.h:1
 #: ../src/gui/widgets/trayicon.py:30
 #: ../src/lib/common.py:13
-#: ../src/lib/utils.py:134
+#: ../src/lib/utils.py:139
 msgid "BillReminder"
 msgstr "BillReminder"
 
@@ -103,7 +103,6 @@ msgstr "Exibir BillReminder"
 
 #: ../src/daemon/alarm.py:69
 #: ../src/daemon/alarm.py:124
-#: ../src/gui/maindialog.py:376
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -116,7 +115,7 @@ msgstr "A conta %(bill)s estará vencida dia %(day)s."
 #. TRANSLATORS: This is a date format. You can change the order.
 #: ../src/daemon/alarm.py:100
 #: ../src/daemon/alarm.py:187
-#: ../src/gui/widgets/viewbill.py:43
+#: ../src/gui/widgets/viewbill.py:46
 msgid "%Y/%m/%d"
 msgstr "%d/%m/%Y"
 
@@ -125,18 +124,16 @@ msgstr "%d/%m/%Y"
 msgid "The bill %s is due."
 msgstr "A conta %s está vencida."
 
-#. Tooltip message
 #. Button Title
 #: ../src/daemon/alarm.py:121
-#: ../src/gui/maindialog.py:209
-#: ../src/lib/utils.py:131
+#: ../src/gui/maindialog.py:248
+#: ../src/gui/maindialog.py:277
+#: ../src/lib/utils.py:136
 msgid "Mark as paid"
 msgstr "Marca como Pago"
 
 #: ../src/daemon/alarm.py:123
-#: ../src/gui/maindialog.py:196
-#: ../src/gui/maindialog.py:362
-#: ../src/lib/utils.py:132
+#: ../src/lib/utils.py:137
 msgid "Edit"
 msgstr "Editar"
 
@@ -175,124 +172,162 @@ msgstr ""
 msgid "BillReminder Website"
 msgstr "Website do BillReminder"
 
-#: ../src/gui/adddialog.py:58
+#: ../src/gui/adddialog.py:69
 msgid "Due Date:"
 msgstr "Data de Vencimento:"
 
-#: ../src/gui/adddialog.py:80
+#: ../src/gui/adddialog.py:91
 msgid "Payee:"
 msgstr "Titular:"
 
-#: ../src/gui/adddialog.py:83
+#: ../src/gui/adddialog.py:94
 msgid "Amount:"
 msgstr "Valor:"
 
-#: ../src/gui/adddialog.py:86
+#: ../src/gui/adddialog.py:97
 msgid "Category:"
 msgstr "Categoria:"
 
-#: ../src/gui/adddialog.py:89
+#: ../src/gui/adddialog.py:100
 #: ../src/gui/widgets/statusbar.py:27
 msgid "Notes:"
 msgstr "Anotações:"
 
-#: ../src/gui/adddialog.py:92
+#: ../src/gui/adddialog.py:103
 msgid "Alarm:"
 msgstr "Alarme:"
 
-#: ../src/gui/adddialog.py:107
+#: ../src/gui/adddialog.py:119
 msgid "Manage Categories"
 msgstr "Gerencia as Categorias"
 
-#: ../src/gui/adddialog.py:127
+#: ../src/gui/adddialog.py:139
+#: ../src/gui/widgets/datebutton.py:41
 msgid "Select Date and Time"
 msgstr "Selecione a Data e Hora"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:242
-#: ../src/gui/adddialog.py:266
-#: ../src/gui/maindialog.py:182
+#: ../src/gui/adddialog.py:250
+#: ../src/gui/adddialog.py:274
+#: ../src/gui/maindialog.py:230
 #: ../src/gui/prefdialog.py:246
 #: ../src/gui/prefdialog.py:335
-#: ../src/gui/widgets/datebutton.py:18
-#: ../src/gui/widgets/datebutton.py:26
-#: ../src/gui/widgets/datebutton.py:43
-#: ../src/gui/widgets/datebutton.py:69
+#: ../src/gui/widgets/datebutton.py:19
+#: ../src/gui/widgets/datebutton.py:27
+#: ../src/gui/widgets/datebutton.py:44
+#: ../src/gui/widgets/datebutton.py:70
 msgid "None"
 msgstr "Nenhum"
 
-#: ../src/gui/adddialog.py:249
+#: ../src/gui/adddialog.py:257
 msgid "New Category"
 msgstr "Nova Categoria"
 
-#: ../src/gui/maindialog.py:191
+#: ../src/gui/maindialog.py:241
 msgid "New"
 msgstr "Nova"
 
-#. Tooltip message
-#: ../src/gui/maindialog.py:193
+#: ../src/gui/maindialog.py:241
+#: ../src/gui/maindialog.py:274
 msgid "Add a new record"
 msgstr "Adiciona um novo registro"
 
-#. Tooltip message
-#: ../src/gui/maindialog.py:198
+#: ../src/gui/maindialog.py:243
+#: ../src/gui/maindialog.py:275
 msgid "Edit a record"
 msgstr "Edita um registro"
 
-#: ../src/gui/maindialog.py:201
-#: ../src/gui/maindialog.py:360
-msgid "Delete"
-msgstr "Excluir"
-
-#. Tooltip message
-#: ../src/gui/maindialog.py:203
+#: ../src/gui/maindialog.py:245
+#: ../src/gui/maindialog.py:276
 msgid "Delete selected record"
 msgstr "Exclui o registro selecionado"
 
-#: ../src/gui/maindialog.py:207
-#: ../src/gui/maindialog.py:366
-#: ../src/gui/widgets/viewbill.py:88
+#: ../src/gui/maindialog.py:248
+#: ../src/gui/widgets/viewbill.py:91
 msgid "Paid"
 msgstr "Pago"
 
-#: ../src/gui/maindialog.py:213
-#: ../src/gui/maindialog.py:369
+#: ../src/gui/maindialog.py:251
 msgid "Not Paid"
 msgstr "Não Pago"
 
-#. Tooltip message
-#: ../src/gui/maindialog.py:215
+#: ../src/gui/maindialog.py:251
+#: ../src/gui/maindialog.py:278
 msgid "Mark as not paid"
 msgstr "Marca como não pago"
 
-#: ../src/gui/maindialog.py:220
+#: ../src/gui/maindialog.py:255
+#: ../src/gui/maindialog.py:279
+msgid "Edit preferences"
+msgstr "Edita as preferências"
+
+#: ../src/gui/maindialog.py:257
+#: ../src/gui/maindialog.py:283
+msgid "About the application"
+msgstr "Sobre a aplicação"
+
+#: ../src/gui/maindialog.py:273
+msgid "_File"
+msgstr "_Arquivo"
+
+#: ../src/gui/maindialog.py:274
+#: ../src/gui/maindialog.py:459
+msgid "_Add New"
+msgstr "_Adicionar Nova"
+
+#: ../src/gui/maindialog.py:277
+#: ../src/gui/maindialog.py:469
+msgid "_Paid"
+msgstr "_Pago"
+
+#: ../src/gui/maindialog.py:278
+msgid "_Not Paid"
+msgstr "_Não Pago"
+
+#: ../src/gui/maindialog.py:280
+msgid "Quit the Program"
+msgstr "Fecha o Programa"
+
+#: ../src/gui/maindialog.py:281
+msgid "_View"
+msgstr "_Ver"
+
+#: ../src/gui/maindialog.py:282
+msgid "_Help"
+msgstr "Aj_uda"
+
+#: ../src/gui/maindialog.py:295
+msgid "_Paid Only"
+msgstr "Apenas as _Pagas"
+
+#: ../src/gui/maindialog.py:295
+msgid "Display all paid records only"
+msgstr "Exibe apenas as contas pagas"
+
+#: ../src/gui/maindialog.py:296
+msgid "_Not Paid Only"
+msgstr "Apenas as _Não Pagas"
+
+#: ../src/gui/maindialog.py:296
+msgid "Display all unpaid records only"
+msgstr "Exibe apenas as contas não pagas"
+
+#: ../src/gui/maindialog.py:297
+msgid "_All Records"
+msgstr "_Todas as Contas"
+
+#: ../src/gui/maindialog.py:297
+msgid "Display all records"
+msgstr "Exibe todas as contas"
+
+#: ../src/gui/maindialog.py:472
+msgid "Not _Paid"
+msgstr "Não _Pago"
+
 #: ../src/gui/prefdialog.py:26
 #: ../src/gui/widgets/trayicon.py:48
 msgid "Preferences"
 msgstr "Preferências"
-
-#. Tooltip message
-#: ../src/gui/maindialog.py:222
-msgid "Edit preferences"
-msgstr "Edita as preferências"
-
-#: ../src/gui/maindialog.py:225
-#: ../src/gui/widgets/trayicon.py:51
-msgid "About"
-msgstr "Sobre"
-
-#. Tooltip message
-#: ../src/gui/maindialog.py:227
-msgid "About the application"
-msgstr "Sobre a aplicação"
-
-#: ../src/gui/maindialog.py:356
-msgid "Add New"
-msgstr "Adicionar Nova"
-
-#: ../src/gui/maindialog.py:372
-msgid "Show paid bills"
-msgstr "Exibir contas pagas"
 
 #. Startup Group
 #: ../src/gui/prefdialog.py:54
@@ -369,14 +404,8 @@ msgstr "_Iniciar o Notificador do BillReminder"
 msgid "1 hour"
 msgstr "1 hora"
 
-#. TODO: Add verification routine
 #: ../src/gui/prefdialog.py:277
 #: ../src/gui/prefdialog.py:279
-#: ../src/gui/widgets/datebutton.py:59
-#: ../src/gui/widgets/datebutton.py:105
-#: ../src/gui/widgets/datebutton.py:107
-#: ../src/gui/widgets/datebutton.py:112
-#: ../src/gui/widgets/datebutton.py:117
 msgid "%H:%M"
 msgstr "%H:%M"
 
@@ -388,27 +417,35 @@ msgstr ""
 "<b>Nota:</b>O Notificador do BillReminder agora está sendo executado.\n"
 "Ele é necessário para exibir as notificações."
 
-#: ../src/gui/widgets/datebutton.py:32
-#: ../src/gui/widgets/datebutton.py:61
+#: ../src/gui/widgets/datebutton.py:33
+#: ../src/gui/widgets/datebutton.py:62
 msgid "%Y/%m/%d %H:%M"
 msgstr "%d/%m/%Y %H:%M"
 
-#: ../src/gui/widgets/datebutton.py:40
-#: ../src/gui/widgets/datebutton.py:66
+#: ../src/gui/widgets/datebutton.py:67
 msgid "Select date and time"
 msgstr "Selecione a data e hora"
 
-#: ../src/gui/widgets/datebutton.py:77
+#: ../src/gui/widgets/datebutton.py:78
 msgid "Date:"
 msgstr "Data:"
 
-#: ../src/gui/widgets/datebutton.py:81
+#: ../src/gui/widgets/datebutton.py:82
+#: ../src/gui/widgets/timewidget.py:14
 msgid "Time:"
 msgstr "Hora:"
 
 #: ../src/gui/widgets/statusbar.py:17
 msgid "Records:"
 msgstr "Registros:"
+
+#: ../src/gui/widgets/timewidget.py:29
+msgid "Hour :"
+msgstr "Hora:"
+
+#: ../src/gui/widgets/timewidget.py:38
+msgid "Minute :"
+msgstr "Minuto:"
 
 #: ../src/gui/widgets/trayicon.py:43
 msgid "Hide Window"
@@ -418,31 +455,35 @@ msgstr "Esconder Janela"
 msgid "Show Window"
 msgstr "Mostrar Janela"
 
+#: ../src/gui/widgets/trayicon.py:51
+msgid "About"
+msgstr "Sobre"
+
 #: ../src/gui/widgets/trayicon.py:55
 msgid "Quit"
 msgstr "Sair"
 
-#: ../src/gui/widgets/viewbill.py:78
+#: ../src/gui/widgets/viewbill.py:81
 msgid "Category"
 msgstr "Categoria"
 
-#: ../src/gui/widgets/viewbill.py:80
+#: ../src/gui/widgets/viewbill.py:83
 msgid "Payee"
 msgstr "Titular"
 
-#: ../src/gui/widgets/viewbill.py:82
+#: ../src/gui/widgets/viewbill.py:85
 msgid "Due Date"
 msgstr "Data de Vencimento"
 
-#: ../src/gui/widgets/viewbill.py:84
+#: ../src/gui/widgets/viewbill.py:87
 msgid "Amount Due"
 msgstr "Valor"
 
-#: ../src/gui/widgets/viewbill.py:86
+#: ../src/gui/widgets/viewbill.py:89
 msgid "Notes"
 msgstr "Anotações"
 
-#: ../src/gui/widgets/viewbill.py:90
+#: ../src/gui/widgets/viewbill.py:93
 msgid "Alarm"
 msgstr "Alarme"
 
@@ -473,30 +514,30 @@ msgid "Edit a Record"
 msgstr "Editar um Registro"
 
 #. Dialog Title
-#: ../src/lib/utils.py:79
+#: ../src/lib/utils.py:84
 msgid "Question"
 msgstr "Pergunta"
 
 #. Dialog Title
-#: ../src/lib/utils.py:92
-#: ../src/lib/utils.py:105
+#: ../src/lib/utils.py:97
+#: ../src/lib/utils.py:110
 msgid "Error"
 msgstr "Erro"
 
 #. Dialog Title
-#: ../src/lib/utils.py:118
+#: ../src/lib/utils.py:123
 msgid "Information"
 msgstr "Informação"
 
-#: ../src/lib/utils.py:146
+#: ../src/lib/utils.py:151
 msgid "Close _Without Saving"
 msgstr "Fechar _Sem Salvar"
 
-#: ../src/lib/utils.py:152
+#: ../src/lib/utils.py:157
 msgid "Save changes before closing?"
 msgstr "Salvar alterações antes de fechar?"
 
-#: ../src/lib/utils.py:153
+#: ../src/lib/utils.py:158
 msgid "If you close without saving, your changes will be discarded."
 msgstr "Se você fechar sem salvar, as alterações serão descartadas."
 
