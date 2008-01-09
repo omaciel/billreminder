@@ -153,7 +153,7 @@ class CategoriesDialog(gtk.Dialog):
                 green = color.green * 255 / 65535
                 blue = color.blue * 255 / 65535
                 rgb = (red, green, blue)
-                formated.append(create_pixbuf(rgb))
+                formated.append(create_pixbuf(rgb=rgb))
             else:
                 formated.append(row[key])
         formated.append(row['color'])

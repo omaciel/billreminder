@@ -239,7 +239,7 @@ class MainDialog:
                     name = _("None")
                     color = "#000"
                     rgb = (255, 255, 255)
-                formated.append(create_pixbuf(rgb))
+                formated.append(create_pixbuf((8, 16), rgb))
                 formated.append(name)
             else:
                 formated.append(row[key])
