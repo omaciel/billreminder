@@ -23,15 +23,15 @@ class ViewBill(GenericListView):
         column.set_visible(False)
 
     def category_cell_data_function(self, column, cell, model, iter):
-        category = model.get_value(iter, 1)
-        color = model.get_value(iter, 8)
+        category = model.get_value(iter, 2)
+        #color = model.get_value(iter, 8)
         cell.set_property('text', category)
-        cell.set_property('foreground', color)
+        #cell.set_property('foreground', color)
         column.set_visible(True)
 
     def payee_cell_data_function(self, column, cell, model, iter):
-        payee = model.get_value(iter, 2)
-        paid = int(model.get_value(iter, 6))
+        payee = model.get_value(iter, 3)
+        paid = int(model.get_value(iter, 7))
         if not paid:
             text = '<b>%(payee)s</b>'
         else:
@@ -39,7 +39,7 @@ class ViewBill(GenericListView):
         cell.set_property('markup', text % {'payee': payee})
 
     def duedate_cell_data_function(self, column, cell, model, iter):
-        dueDate = float(model.get_value (iter, 3))
+        dueDate = float(model.get_value (iter, 4))
         # Format the dueDate field
         dueDate = datetime.datetime.fromtimestamp(dueDate)
         # TRANSLATORS: This is a date format. You can change the order.
@@ -48,8 +48,8 @@ class ViewBill(GenericListView):
         cell.set_property('xalign', 0.5)
 
     def amountdue_cell_data_function(self, column, cell, model, iter):
-        amountDue = model.get_value(iter, 4).replace(',', '.')
-        paid = int(model.get_value(iter, 6))
+        amountDue = model.get_value(iter, 5).replace(',', '.')
+        paid = int(model.get_value(iter, 7))
         amountDue = len(amountDue) > 0 and amountDue or 0
         amountDue = utils.float_to_currency(float(amountDue))
         if paid:
@@ -58,17 +58,17 @@ class ViewBill(GenericListView):
         cell.set_property('xalign', 1.0)
 
     def notes_cell_data_function(self, column, cell, model, iter):
-        notes = model.get_value (iter, 5)
+        notes = model.get_value (iter, 6)
         cell.set_property('text', notes)
         column.set_visible(False)
 
     def paid_cell_data_function(self, column, cell, model, iter):
-        paid = model.get_value (iter, 6)
+        paid = model.get_value (iter, 7)
         cell.set_property('text', paid)
         column.set_visible(False)
 
     def alarm_cell_data_function(self, column, cell, model, iter):
-        alarm = model.get_value (iter, 7)
+        alarm = model.get_value (iter, 8)
         cell.set_property('text', alarm)
         column.set_visible(False)
 
@@ -78,69 +78,69 @@ class ViewBill(GenericListView):
     columns = {
         0: ['Id',
             gtk.CellRendererText(), id_cell_data_function],
-        1: [_('Category'),
+        1: [None,
+            gtk.CellRendererPixbuf(), None],
+        2: [_('Category'),
             gtk.CellRendererText(), category_cell_data_function],
-        2: [_('Payee'),
+        3: [_('Payee'),
             gtk.CellRendererText(), payee_cell_data_function],
-        3: [_('Due Date'),
+        4: [_('Due Date'),
             gtk.CellRendererText(), duedate_cell_data_function],
-        4: [_('Amount Due'),
+        5: [_('Amount Due'),
             gtk.CellRendererText(), amountdue_cell_data_function],
-        5: [_('Notes'),
+        6: [_('Notes'),
             gtk.CellRendererText(), notes_cell_data_function],
-        6: [_('Paid'),
+        7: [_('Paid'),
             gtk.CellRendererText(), paid_cell_data_function],
-        7: [_('Alarm'),
+        8: [_('Alarm'),
             gtk.CellRendererText(), alarm_cell_data_function],
-        8: ['CategoryColor',
-            gtk.CellRendererText(), None]
 
     }
 
     def __init__(self):
         GenericListView.__init__(self, self.columns)
 
-        self.set_search_column(2)
+        self.set_search_column(3)
 
         # Set the following columns to invisible
         id = self.get_column(0)
         id.set_cell_data_func(id.get_cell_renderers()[0],
-                              self.id_cell_data_function)
+            self.id_cell_data_function)
         id.set_visible(False)
 
-        category = self.get_column(1)
+        categorycolor = self.get_column(1)
+        categorycolor.set_visible(True)
+
+        category = self.get_column(2)
         category.set_cell_data_func(category.get_cell_renderers()[0],
-                                    self.category_cell_data_function)
+            self.category_cell_data_function)
 
-        payee = self.get_column(2)
+        payee = self.get_column(3)
         payee.set_cell_data_func(payee.get_cell_renderers()[0],
-                                 self.payee_cell_data_function)
+            self.payee_cell_data_function)
 
-        duedate = self.get_column(3)
+        duedate = self.get_column(4)
         duedate.set_cell_data_func(duedate.get_cell_renderers()[0],
-                                   self.duedate_cell_data_function)
+            self.duedate_cell_data_function)
 
-        amountdue = self.get_column(4)
+        amountdue = self.get_column(5)
         amountdue.set_cell_data_func(amountdue.get_cell_renderers()[0],
-                                     self.amountdue_cell_data_function)
+            self.amountdue_cell_data_function)
 
-        notes = self.get_column(5)
+        notes = self.get_column(6)
         notes.set_cell_data_func(notes.get_cell_renderers()[0],
-                                 self.notes_cell_data_function)
+            self.notes_cell_data_function)
         notes.set_visible(False)
 
-        paid = self.get_column(6)
+        paid = self.get_column(7)
         paid.set_cell_data_func(paid.get_cell_renderers()[0],
-                                self.paid_cell_data_function)
+            self.paid_cell_data_function)
         paid.set_visible(False)
 
-        alarm = self.get_column(7)
+        alarm = self.get_column(8)
         alarm.set_cell_data_func(alarm.get_cell_renderers()[0],
-                                self.alarm_cell_data_function)
+            self.alarm_cell_data_function)
         alarm.set_visible(False)
-
-        categorycolor = self.get_column(8)
-        categorycolor.set_visible(False)
 
         # Searching capability
         self.set_enable_search(True)

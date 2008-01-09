@@ -26,6 +26,7 @@ from lib import dialogs
 from lib.utils import ContextMenu
 from lib.utils import get_dbus_interface
 from lib.utils import force_string
+from lib.utils import create_pixbuf
 from lib import i18n
 from lib.config import Config
 
@@ -229,13 +230,20 @@ class MainDialog:
                 if records:
                     name = records[0]['categoryname']
                     color = records[0]['color']
+                    color = gtk.gdk.color_parse(color)
+                    red = color.red * 255 / 65535
+                    green = color.green * 255 / 65535
+                    blue = color.blue * 255 / 65535
+                    rgb = (red, green, blue)
                 else:
                     name = _("None")
                     color = "#000"
+                    rgb = (255, 255, 255)
+                formated.append(create_pixbuf(rgb))
                 formated.append(name)
             else:
                 formated.append(row[key])
-        formated.append(color)
+        #formated.append(color)
 
         return formated
 
