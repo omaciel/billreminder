@@ -168,7 +168,10 @@ class MainDialog:
         """ Returns a bill object from the current selected record """
         if len(self.list.listStore) > 0:
             model_ = self.list.get_model()
-            index = self.list.get_cursor()[0][0]
+            if self.list.get_cursor()[0]:
+                index = self.list.get_cursor()[0][0]
+            else:
+                index = 0
 
             b_id = model_[index][0]
 
@@ -240,9 +243,9 @@ class MainDialog:
         self.btnNew = self.toolbar.add_button(gtk.STOCK_NEW,
             _("New"), _("Add a new record"), self.on_btnNew_clicked)
         self.btnEdit = self.toolbar.add_button(gtk.STOCK_EDIT,
-            _("Edit"), _("Edit a record"), self.on_btnEdit_clicked)
+            None, _("Edit a record"), self.on_btnEdit_clicked)
         self.btnRemove = self.toolbar.add_button(gtk.STOCK_DELETE,
-            _("Delete"), _("Delete selected record"), self.on_btnDelete_clicked)
+            None, _("Delete selected record"), self.on_btnDelete_clicked)
         self.toolbar.add_space()
         self.btnPaid = self.toolbar.add_button(gtk.STOCK_APPLY,
             _("Paid"), _("Mark as paid"), self.on_btnPaid_clicked)
@@ -252,9 +255,9 @@ class MainDialog:
         self.btnUnpaid.set_is_important(True)
         self.toolbar.add_space()
         self.btnPref = self.toolbar.add_button(gtk.STOCK_PREFERENCES,
-            _("Preferences"), _("Edit preferences"), self.on_btnPref_clicked)
+            None, _("Edit preferences"), self.on_btnPref_clicked)
         self.btnAbout = self.toolbar.add_button(gtk.STOCK_ABOUT,
-            _("About"), _("About the application"), self.on_btnAbout_clicked)
+            None, _("About the application"), self.on_btnAbout_clicked)
 
     def _populate_menubar(self):
         # Create a UIManager instance
@@ -270,12 +273,12 @@ class MainDialog:
 
         # Create actions
         actiongroup.add_actions([
-            ('File', None, '_File'),
-            ('New', gtk.STOCK_NEW, None, '<Control>n', _("Add a new record"), self.on_btnNew_clicked),
+            ('File', None, _("_File")),
+            ('New', gtk.STOCK_NEW, _("_Add New"), '<Control>n', _("Add a new record"), self.on_btnNew_clicked),
             ('Edit', gtk.STOCK_EDIT, None, '<Control>e', _("Edit a record"), self.on_btnEdit_clicked),
             ('Delete', gtk.STOCK_DELETE, None, '<Control>d', _("Delete selected record"), self.on_btnDelete_clicked),
-            ('Paid', gtk.STOCK_APPLY, _("Paid"), '<Control>p', _("Mark as paid"), self.on_btnPaid_clicked),
-            ('NotPaid', gtk.STOCK_UNDO, _("Not Paid"), '<Control>u', _("Mark as not paid"), self.on_btnPaid_clicked),
+            ('Paid', gtk.STOCK_APPLY, _("_Paid"), '<Control>p', _("Mark as paid"), self.on_btnPaid_clicked),
+            ('NotPaid', gtk.STOCK_UNDO, _("_Not Paid"), '<Control>u', _("Mark as not paid"), self.on_btnPaid_clicked),
             ('Preferences', gtk.STOCK_PREFERENCES, None, None, _("Edit preferences"), self.on_btnPref_clicked),
             ('Quit', gtk.STOCK_QUIT, None, '<Control>q', _("Quit the Program"), self.on_btnQuit_clicked),
             ('View', None, _("_View")),
@@ -292,9 +295,9 @@ class MainDialog:
             self.config.save()
 
         actiongroup.add_radio_actions([
-            ('PaidRecords', None, _("_Paid only"), None, _("Display all paid records only."), 0),
-            ('NotPaidRecords', None, _("_Not paid only"), None, _("Display all unpaid records only."), 1),
-            ('AllRecords', None, _("_All records"), None, _("Display all records."), 2),
+            ('PaidRecords', None, _("_Paid Only"), None, _("Display all paid records only"), 0),
+            ('NotPaidRecords', None, _("_Not Paid Only"), None, _("Display all unpaid records only"), 1),
+            ('AllRecords', None, _("_All Records"), None, _("Display all records"), 2),
         ], saved_view , self._change_view)
 
         # Add the actiongroup to the uimanager
@@ -456,23 +459,23 @@ class MainDialog:
 
     def _create_list_contextmenu(self, widget, event):
         c = ContextMenu(self)
-        c.addMenuItem(_('Add New'),
-                      self.on_btnNew_clicked, gtk.STOCK_NEW)
+        c.addMenuItem(_('_Add New'),
+                      self.on_btnNew_clicked, gtk.STOCK_NEW, True)
         if self.currentrecord: #len(self.list.listStore) > 0
             c.addMenuItem('-', None)
-            c.addMenuItem(_('Delete'),
+            c.addMenuItem(None,
                           self.on_btnDelete_clicked, gtk.STOCK_DELETE)
-            c.addMenuItem(_('Edit'),
+            c.addMenuItem(None,
                           self.on_btnEdit_clicked, gtk.STOCK_EDIT)
             c.addMenuItem('-', None)
             if not self.currentrecord.Paid:
-                c.addMenuItem(_('Paid'),
+                c.addMenuItem(_('_Paid'),
                           self.on_btnPaid_clicked, gtk.STOCK_APPLY, True)
             else:
-                c.addMenuItem(_('Not Paid'),
+                c.addMenuItem(_('Not _Paid'),
                           self.on_btnPaid_clicked, gtk.STOCK_UNDO, True)
         c.addMenuItem('-', None)
-        c.addMenuItem(_('Cancel'), None, gtk.STOCK_CANCEL)
+        c.addMenuItem(None, None, gtk.STOCK_CANCEL)
         c.popup(None, None, None, 3, event.get_time())
 
 
