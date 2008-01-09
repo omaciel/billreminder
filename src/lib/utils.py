@@ -234,9 +234,9 @@ def float_to_currency(number):
 def check_date_format(string):
     pass
 
-def create_pixbuf(rgb):
+def create_pixbuf(size=(16, 16), rgb=(255, 255, 255)):
     # Our image
-    square = Image.new("RGB", (16, 16), rgb)
+    square = Image.new("RGB", size, rgb)
 
     try:
         # Temp storage file
