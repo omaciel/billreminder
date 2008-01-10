@@ -47,6 +47,8 @@ class AddDialog(gtk.Dialog):
         self._connect_fields()
         self.category_index_before = 0
 
+        self.connect("response", self._on_response)
+
         # If a record was passed, we're in edit mode
         if record:
             self._populate_fields()
@@ -304,8 +306,8 @@ class AddDialog(gtk.Dialog):
         alarm = self.alarmbutton.get_date()  or -1
 
         # Validate form
-        if len(payee.strip()) == 0 or len(self.amount.get_text().strip()) == 0:
-            return None, None
+        if not payee.strip() or not self.amount.get_text().strip():
+            return None
 
         amount = utils.currency_to_float(self.amount.get_text())
 
@@ -381,3 +383,21 @@ class AddDialog(gtk.Dialog):
                 entry.emit_stop_by_name("insert-text")
                 gtk.gdk.beep()
                 return
+
+    def _on_response(self, dialog, response_id):
+        message = utils.Message()
+        if response_id == gtk.RESPONSE_ACCEPT:
+            if not self._get_payee().strip() and \
+                                        not self.amount.get_text().strip():
+                message.ShowError(_("\"%s\" and \"%s\" are required fields.") \
+                                        % (_("Payee"), _("Amount")), self)
+                self.emit_stop_by_name("response")
+                self.payee.grab_focus()
+            elif not self._get_payee().strip():
+                message.ShowError(_("\"%s\" is required field.") % _("Payee"), self)
+                self.emit_stop_by_name("response")
+                self.payee.grab_focus()
+            elif not self.amount.get_text().strip():
+                message.ShowError(_("\"%s\" is required field.") % _("Amount"), self)
+                self.emit_stop_by_name("response")
+                self.amount.grab_focus()
