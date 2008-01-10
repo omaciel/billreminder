@@ -2,12 +2,14 @@ Source: billreminder
 Section: gnome
 Priority: extra
 Maintainer: Luiz Armesto <luiz.armesto@gmail.com>
-Build-Depends: debhelper (>= 5), autotools-dev
+Build-Depends: debhelper (>= 5.0.38), autotools-dev, python-central (>= 0.5.6), python-all-dev (>= 2.3.5-11)
+XS-Python-Version: all
 Standards-Version: 3.7.2
 
 Package: billreminder
 Architecture: all
-Depends: python (>=2.5), python (<<2.6), python-gtk2, python-gobject, python-pysqlite2, python-dbus
+XB-Python-Version: ${python:Versions}
+Depends: ${python:Depends}, python-gtk2, python-gobject, python-pysqlite2, python-dbus, python-imaging
 Description: Never forget to pay a bill again!
  BillReminder is a small and quick accounting application
  designed to allow for easy tracking of bills.
