@@ -97,9 +97,9 @@ class MainDialog:
 
         # Pack it all up
         self.box.pack_start(self.toolbar,
-            expand=False, fill=True, padding=2)
+            expand=False, fill=True, padding=0)
         self.box.pack_start(self.scrolledwindow,
-            expand=True, fill=True, padding=2)
+            expand=True, fill=True, padding=0)
         self.box.pack_start(self.statusbar,
             expand=False, fill=True, padding=2)
 
