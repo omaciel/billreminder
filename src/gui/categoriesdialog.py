@@ -221,6 +221,7 @@ class CategoriesDialog(gtk.Dialog):
                                              'color': color})
         self.savebutton.set_sensitive(False)
         self.reloadTreeView()
+        self._on_newbutton_clicked(button)
 
     def _on_deletebutton_clicked(self, button):
     # TODO: Alert if there is more bills in category and ask confirmation
