@@ -16,6 +16,7 @@ src/db/generictable.py
 src/db/versionstable.py
 src/gui/aboutdialog.py
 src/gui/adddialog.py
+src/gui/categoriesdialog.py
 src/gui/maindialog.py
 src/gui/prefdialog.py
 src/gui/widgets/datebutton.py
@@ -25,6 +26,7 @@ src/gui/widgets/timewidget.py
 src/gui/widgets/toolbar.py
 src/gui/widgets/trayicon.py
 src/gui/widgets/viewbill.py
+src/gui/widgets/viewcategory.py
 src/lib/actions.py
 src/lib/bill.py
 src/lib/bubble.py

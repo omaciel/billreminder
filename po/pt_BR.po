@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-04 16:29-0200\n"
-"PO-Revision-Date: 2008-01-08 21:56-0300\n"
+"PO-Revision-Date: 2008-01-09 21:59-0300\n"
 "Last-Translator: Luiz Armesto <luiz.armesto@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -126,8 +126,8 @@ msgstr "A conta %s está vencida."
 
 #. Button Title
 #: ../src/daemon/alarm.py:121
-#: ../src/gui/maindialog.py:248
-#: ../src/gui/maindialog.py:277
+#: ../src/gui/maindialog.py:259
+#: ../src/gui/maindialog.py:288
 #: ../src/lib/utils.py:136
 msgid "Mark as paid"
 msgstr "Marca como Pago"
@@ -172,44 +172,44 @@ msgstr ""
 msgid "BillReminder Website"
 msgstr "Website do BillReminder"
 
-#: ../src/gui/adddialog.py:69
+#: ../src/gui/adddialog.py:71
 msgid "Due Date:"
 msgstr "Data de Vencimento:"
 
-#: ../src/gui/adddialog.py:91
+#: ../src/gui/adddialog.py:93
 msgid "Payee:"
 msgstr "Titular:"
 
-#: ../src/gui/adddialog.py:94
+#: ../src/gui/adddialog.py:96
 msgid "Amount:"
 msgstr "Valor:"
 
-#: ../src/gui/adddialog.py:97
+#: ../src/gui/adddialog.py:99
 msgid "Category:"
 msgstr "Categoria:"
 
-#: ../src/gui/adddialog.py:100
+#: ../src/gui/adddialog.py:102
 #: ../src/gui/widgets/statusbar.py:27
 msgid "Notes:"
 msgstr "Anotações:"
 
-#: ../src/gui/adddialog.py:103
+#: ../src/gui/adddialog.py:105
 msgid "Alarm:"
 msgstr "Alarme:"
 
-#: ../src/gui/adddialog.py:119
+#: ../src/gui/adddialog.py:121
 msgid "Manage Categories"
 msgstr "Gerencia as Categorias"
 
-#: ../src/gui/adddialog.py:139
+#: ../src/gui/adddialog.py:141
 #: ../src/gui/widgets/datebutton.py:41
 msgid "Select Date and Time"
 msgstr "Selecione a Data e Hora"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:250
-#: ../src/gui/adddialog.py:274
-#: ../src/gui/maindialog.py:230
+#: ../src/gui/adddialog.py:252
+#: ../src/gui/adddialog.py:276
+#: ../src/gui/maindialog.py:239
 #: ../src/gui/prefdialog.py:246
 #: ../src/gui/prefdialog.py:335
 #: ../src/gui/widgets/datebutton.py:19
@@ -219,108 +219,147 @@ msgstr "Selecione a Data e Hora"
 msgid "None"
 msgstr "Nenhum"
 
-#: ../src/gui/adddialog.py:257
+#: ../src/gui/adddialog.py:259
+#: ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Nova Categoria"
 
-#: ../src/gui/maindialog.py:241
+#: ../src/gui/adddialog.py:392
+#, python-format
+msgid "\"%s\" and \"%s\" are required fields."
+msgstr "\"%s\" e \"%s\" são campos necessários."
+
+#: ../src/gui/adddialog.py:393
+#: ../src/gui/adddialog.py:397
+#: ../src/gui/widgets/viewbill.py:85
+msgid "Payee"
+msgstr "Titular"
+
+#: ../src/gui/adddialog.py:393
+#: ../src/gui/adddialog.py:401
+msgid "Amount"
+msgstr "Valor"
+
+#: ../src/gui/adddialog.py:397
+#: ../src/gui/adddialog.py:401
+#, python-format
+msgid "\"%s\" is required field."
+msgstr "\"%s\" é um campo necessário."
+
+#: ../src/gui/categoriesdialog.py:23
+msgid "Categories Manager"
+msgstr "Gerenciador de Categorias"
+
+#: ../src/gui/categoriesdialog.py:59
+msgid "Categories"
+msgstr "Categorias"
+
+#: ../src/gui/categoriesdialog.py:82
+msgid "Name:"
+msgstr "Nome:"
+
+#: ../src/gui/categoriesdialog.py:85
+msgid "Color:"
+msgstr "Cor:"
+
+#: ../src/gui/maindialog.py:252
 msgid "New"
 msgstr "Nova"
 
-#: ../src/gui/maindialog.py:241
-#: ../src/gui/maindialog.py:274
+#: ../src/gui/maindialog.py:252
+#: ../src/gui/maindialog.py:285
 msgid "Add a new record"
 msgstr "Adiciona um novo registro"
 
-#: ../src/gui/maindialog.py:243
-#: ../src/gui/maindialog.py:275
+#: ../src/gui/maindialog.py:254
+#: ../src/gui/maindialog.py:286
 msgid "Edit a record"
 msgstr "Edita um registro"
 
-#: ../src/gui/maindialog.py:245
-#: ../src/gui/maindialog.py:276
+#: ../src/gui/maindialog.py:256
+#: ../src/gui/maindialog.py:287
 msgid "Delete selected record"
 msgstr "Exclui o registro selecionado"
 
-#: ../src/gui/maindialog.py:248
-#: ../src/gui/widgets/viewbill.py:91
+#: ../src/gui/maindialog.py:259
+#: ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
 msgstr "Pago"
 
-#: ../src/gui/maindialog.py:251
+#: ../src/gui/maindialog.py:262
 msgid "Not Paid"
 msgstr "Não Pago"
 
-#: ../src/gui/maindialog.py:251
-#: ../src/gui/maindialog.py:278
+#: ../src/gui/maindialog.py:262
+#: ../src/gui/maindialog.py:289
 msgid "Mark as not paid"
 msgstr "Marca como não pago"
 
-#: ../src/gui/maindialog.py:255
-#: ../src/gui/maindialog.py:279
+#: ../src/gui/maindialog.py:266
+#: ../src/gui/maindialog.py:290
 msgid "Edit preferences"
 msgstr "Edita as preferências"
 
-#: ../src/gui/maindialog.py:257
-#: ../src/gui/maindialog.py:283
+#: ../src/gui/maindialog.py:268
+#: ../src/gui/maindialog.py:294
 msgid "About the application"
 msgstr "Sobre a aplicação"
 
-#: ../src/gui/maindialog.py:273
+#: ../src/gui/maindialog.py:284
 msgid "_File"
 msgstr "_Arquivo"
 
-#: ../src/gui/maindialog.py:274
-#: ../src/gui/maindialog.py:459
+#: ../src/gui/maindialog.py:285
+#: ../src/gui/maindialog.py:470
 msgid "_Add New"
 msgstr "_Adicionar Nova"
 
-#: ../src/gui/maindialog.py:277
-#: ../src/gui/maindialog.py:469
+#: ../src/gui/maindialog.py:288
+#: ../src/gui/maindialog.py:480
 msgid "_Paid"
 msgstr "_Pago"
 
-#: ../src/gui/maindialog.py:278
+#: ../src/gui/maindialog.py:289
 msgid "_Not Paid"
 msgstr "_Não Pago"
 
-#: ../src/gui/maindialog.py:280
+#: ../src/gui/maindialog.py:291
 msgid "Quit the Program"
 msgstr "Fecha o Programa"
 
-#: ../src/gui/maindialog.py:281
+#: ../src/gui/maindialog.py:292
 msgid "_View"
 msgstr "_Ver"
 
-#: ../src/gui/maindialog.py:282
+#: ../src/gui/maindialog.py:293
 msgid "_Help"
 msgstr "Aj_uda"
 
-#: ../src/gui/maindialog.py:295
+#: ../src/gui/maindialog.py:306
 msgid "_Paid Only"
 msgstr "Apenas as _Pagas"
 
-#: ../src/gui/maindialog.py:295
+#: ../src/gui/maindialog.py:306
 msgid "Display all paid records only"
 msgstr "Exibe apenas as contas pagas"
 
-#: ../src/gui/maindialog.py:296
+#: ../src/gui/maindialog.py:307
 msgid "_Not Paid Only"
 msgstr "Apenas as _Não Pagas"
 
-#: ../src/gui/maindialog.py:296
+#: ../src/gui/maindialog.py:307
 msgid "Display all unpaid records only"
 msgstr "Exibe apenas as contas não pagas"
 
-#: ../src/gui/maindialog.py:297
+#: ../src/gui/maindialog.py:308
 msgid "_All Records"
 msgstr "_Todas as Contas"
 
-#: ../src/gui/maindialog.py:297
+#: ../src/gui/maindialog.py:308
 msgid "Display all records"
 msgstr "Exibe todas as contas"
 
-#: ../src/gui/maindialog.py:472
+#: ../src/gui/maindialog.py:483
 msgid "Not _Paid"
 msgstr "Não _Pago"
 
@@ -463,27 +502,24 @@ msgstr "Sobre"
 msgid "Quit"
 msgstr "Sair"
 
-#: ../src/gui/widgets/viewbill.py:81
+#: ../src/gui/widgets/viewbill.py:83
+#: ../src/gui/widgets/viewcategory.py:40
 msgid "Category"
 msgstr "Categoria"
 
-#: ../src/gui/widgets/viewbill.py:83
-msgid "Payee"
-msgstr "Titular"
-
-#: ../src/gui/widgets/viewbill.py:85
+#: ../src/gui/widgets/viewbill.py:87
 msgid "Due Date"
 msgstr "Data de Vencimento"
 
-#: ../src/gui/widgets/viewbill.py:87
+#: ../src/gui/widgets/viewbill.py:89
 msgid "Amount Due"
 msgstr "Valor"
 
-#: ../src/gui/widgets/viewbill.py:89
+#: ../src/gui/widgets/viewbill.py:91
 msgid "Notes"
 msgstr "Anotações"
 
-#: ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr "Alarme"
 
