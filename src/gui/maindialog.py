@@ -75,8 +75,9 @@ class MainDialog:
         # ViewBill
         self.list = ViewBill()
         self.list.connect('cursor_changed', self._on_list_cursor_changed)
+        self.list.connect('row_activated', self._on_list_row_activated)
         self.list.connect('button_press_event',
-                          self._on_list_button_press_event)
+            self._on_list_button_press_event)
 
         # Menubar
         self._populate_menubar()
@@ -486,6 +487,10 @@ class MainDialog:
         c.addMenuItem(None, None, gtk.STOCK_CANCEL)
         c.popup(None, None, None, 3, event.get_time())
 
+
+    def _on_list_row_activated(self, widget, path, column):
+        self._on_list_cursor_changed(widget)
+        self.on_btnEdit_clicked(None)
 
     def _on_list_cursor_changed(self, widget):
         # Get currently selected bill
