@@ -13,7 +13,7 @@ except ImportError:
 APPNAME = _("BillReminder")
 APPVERSION = "0.3"
 COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
-             "Og Maciel <omaciel@foresightlinux.org>" % APPNAME
+             "Og Maciel <ogmaciel@gnome.org>" % APPNAME
 WEBSITE = "http://billreminder.sourceforge.net"
 AUTHORS = [
     _('Developers:'),
@@ -38,7 +38,7 @@ Licensing scheme.  An online version of the
 license can be obtained from
 http://www.opensource.org/licenses/bsd-license.html.
 
-Copyright (c) 2006, 2007, Og Maciel
+Copyright (c) 2006-2008 Og Maciel
 All rights reserved.
 """
 
