@@ -17,11 +17,11 @@ COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
 WEBSITE = "http://billreminder.sourceforge.net"
 AUTHORS = [
     _('Developers:'),
-    'Og Maciel <OgMaciel@ubuntu.com>',
-    'Laudeci Oliveira <laudeci@gmail.com>',
+    'Og Maciel <ogmaciel@gnome.com>',
     'Luiz Armesto <luiz.armesto@gmail.com>',
     '',
     _('Contributors:'),
+    'Laudeci Oliveira <laudeci@gmail.com>',
     'Giovanni Deganni <tiefox@gmail.com>',
     'Ruivaldo <ruivaldo@gmail.com>',
     'Mario Danic <pygi@gmail.com>'
