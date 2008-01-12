@@ -118,6 +118,8 @@ class MainDialog:
 
         self.window.show_all()
 
+        self.list.grab_focus()
+
         if self.config.getboolean('General', 'start_in_tray'):
             self.window.hide()
 
