@@ -24,6 +24,7 @@ from db.billstable import BillsTable
 from lib import common
 from lib import dialogs
 from lib.utils import ContextMenu
+from lib.utils import Message
 from lib.utils import get_dbus_interface
 from lib.utils import force_string
 from lib.utils import create_pixbuf
@@ -61,6 +62,7 @@ class MainDialog:
 
     def __init__(self):
         self.config = Config()
+        self.message = Message()
 
         # Create a new window
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
@@ -511,7 +513,12 @@ class MainDialog:
 
     def on_btnDelete_clicked(self, toolbutton):
         if self.currentrecord:
-            self.remove_bill()
+            resp = self.message.ShowQuestionYesNo(
+                            _("Do you really want to delete \"%s\"?") % \
+                                 self.currentrecord.Payee,
+                            self.window, _("Confirmation"))
+            if resp:
+                self.remove_bill()
 
     def on_btnPaid_clicked(self, toolbutton):
         if self.currentrecord:
