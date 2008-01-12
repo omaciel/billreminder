@@ -341,6 +341,7 @@ class MainDialog:
                 self._update_statusbar()
                 #self.bill_id = id_
                 #self.refreshBillList(False)
+        self.reloadTreeView()
 
     def edit_bill(self):
         record = dialogs.edit_dialog(parent=self.window,
@@ -358,6 +359,7 @@ class MainDialog:
                 self._update_statusbar(idx)
             except Exception, e:
                 print str(e)
+        self.reloadTreeView()
 
     def remove_bill(self):
         try:
