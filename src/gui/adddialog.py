@@ -424,21 +424,22 @@ class AddDialog(gtk.Dialog):
                 self.amount.grab_focus()
 
     def _on_calendar_day_selected(self, widget):
-        print "hello"
-        # Use alarm values from preferences
-        atime = self.config.get('Alarm', 'show_alarm_at_time')
-        atime = atime.split(":")
-        atime = [int(x) for x in atime]
-        adays = self.config.getint('Alarm', 'show_alarm_before_days')
-        # Extracts the date off the calendar widget
-        day = self.calendar.get_date()[2]
-        month = self.calendar.get_date()[1] + 1
-        year = self.calendar.get_date()[0]
-        # Create datetime object
-        today = datetime.datetime(year, month, day)
-        delta = datetime.timedelta(days=adays)
+        # Only reprogram alarm if it is not None
+        if self.alarmbutton.get_date():
+            # Use alarm values from preferences
+            atime = self.config.get('Alarm', 'show_alarm_at_time')
+            atime = atime.split(":")
+            atime = [int(x) for x in atime]
+            adays = self.config.getint('Alarm', 'show_alarm_before_days')
+            # Extracts the date off the calendar widget
+            day = self.calendar.get_date()[2]
+            month = self.calendar.get_date()[1] + 1
+            year = self.calendar.get_date()[0]
+            # Create datetime object
+            today = datetime.datetime(year, month, day)
+            delta = datetime.timedelta(days=adays)
 
-        aday = today - delta
-        adate = datetime.datetime(aday.year, aday.month, aday.day, atime[0], atime[1])
+            aday = today - delta
+            adate = datetime.datetime(aday.year, aday.month, aday.day, atime[0], atime[1])
 
-        self.alarmbutton.set_date(time.mktime(adate.timetuple()))
+            self.alarmbutton.set_date(time.mktime(adate.timetuple()))
