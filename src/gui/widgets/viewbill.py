@@ -97,10 +97,19 @@ class ViewBill(GenericListView):
 
     }
 
+    def search_payee(self, model, column, key, iterator):
+        # Extract the value from the payee column
+        text = model.get_value(iterator, 3)
+        # Compare the value typed (key) with payee text
+        if key.lower() in text.lower():
+            return False
+        return True
+
     def __init__(self):
         GenericListView.__init__(self, self.columns)
 
         self.set_search_column(3)
+        self.set_search_equal_func(self.search_payee)
 
         # Set the following columns to invisible
         id = self.get_column(0)
