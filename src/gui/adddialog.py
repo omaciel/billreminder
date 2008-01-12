@@ -15,6 +15,7 @@ from lib import utils
 from lib import common
 from lib.bill import Bill
 from lib.actions import Actions
+from lib.config import Config
 from lib import i18n
 from gui.widgets.datebutton import DateButton
 from gui.categoriesdialog import CategoriesDialog
@@ -34,6 +35,12 @@ class AddDialog(gtk.Dialog):
             self.set_transient_for(parent)
             self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
+        # Configuration data
+        if self.parent and self.parent.config:
+            self.config = self.parent.config
+        else:
+            self.config = Config()
+
         # Private copy of any record passed
         self.currentrecord = record
 
@@ -52,6 +59,19 @@ class AddDialog(gtk.Dialog):
         # If a record was passed, we're in edit mode
         if record:
             self._populate_fields()
+        else:
+            # Use alarm values from preferences
+            atime = self.config.get('Alarm', 'show_alarm_at_time')
+            atime = atime.split(":")
+            atime = [int(x) for x in atime]
+            adays = self.config.getint('Alarm', 'show_alarm_before_days')
+            today  = datetime.datetime.today()
+            delta = datetime.timedelta(days=adays)
+
+            aday = today - delta
+            adate = datetime.datetime(aday.year, aday.month, aday.day, atime[0], atime[1])
+
+            self.alarmbutton.set_date(time.mktime(adate.timetuple()))
 
     def _set_currency(self):
         self.decimal_sep = locale.localeconv()['mon_decimal_point']
@@ -71,6 +91,7 @@ class AddDialog(gtk.Dialog):
         self.callabel.set_markup("<b>%s</b> " % _("Due Date:"))
         self.callabel.set_alignment(0.00, 0.50)
         self.calendar = gtk.Calendar()
+        self.calendar.connect("day_selected", self._on_calendar_day_selected)
         self.calendar.mark_day(datetime.datetime.today().day)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
@@ -156,11 +177,11 @@ class AddDialog(gtk.Dialog):
 
         # Everything
         self.topcontainer.pack_start(self.calbox,
-                                     expand=False, fill=False, padding=10)
+             expand=False, fill=False, padding=10)
         self.topcontainer.pack_start(self.fieldbox,
-                                     expand=False, fill=False, padding=10)
+             expand=False, fill=False, padding=10)
         self.vbox.pack_start(self.topcontainer,
-                             expand=False, fill=True, padding=10)
+             expand=False, fill=True, padding=10)
 
         # Show all widgets
         self.show_all()
@@ -401,3 +422,23 @@ class AddDialog(gtk.Dialog):
                 message.ShowError(_("\"%s\" is required field.") % _("Amount"), self)
                 self.emit_stop_by_name("response")
                 self.amount.grab_focus()
+
+    def _on_calendar_day_selected(self, widget):
+        print "hello"
+        # Use alarm values from preferences
+        atime = self.config.get('Alarm', 'show_alarm_at_time')
+        atime = atime.split(":")
+        atime = [int(x) for x in atime]
+        adays = self.config.getint('Alarm', 'show_alarm_before_days')
+        # Extracts the date off the calendar widget
+        day = self.calendar.get_date()[2]
+        month = self.calendar.get_date()[1] + 1
+        year = self.calendar.get_date()[0]
+        # Create datetime object
+        today = datetime.datetime(year, month, day)
+        delta = datetime.timedelta(days=adays)
+
+        aday = today - delta
+        adate = datetime.datetime(aday.year, aday.month, aday.day, atime[0], atime[1])
+
+        self.alarmbutton.set_date(time.mktime(adate.timetuple()))
