@@ -84,12 +84,12 @@ class MainDialog:
         self.list.connect('row_activated', self._on_list_row_activated)
         self.list.connect('button_press_event', self._on_list_button_press_event)
 
-        # Menubar
-        self._populate_menubar()
-
         # Toolbar
         self.toolbar = Toolbar()
         self._populate_toolbar()
+
+        # Menubar
+        self._populate_menubar()
 
         self.listbox = gtk.VBox(homogeneous=False, spacing=1)
         self.listlabel = gtk.Label()
@@ -147,8 +147,8 @@ class MainDialog:
             self.window.move(x, y)
 
         self.window.show_all()
-        self.toolbar.hide_all()
-
+        # Whether to display toolbar or not
+        self._on_show_toolbar(self.showToolbar)
         self.list.grab_focus()
 
         if self.config.getboolean('General', 'start_in_tray'):
@@ -302,18 +302,13 @@ class MainDialog:
         self.btnUnpaid = self.toolbar.add_button(gtk.STOCK_UNDO,
             _("Not Paid"), _("Mark as not paid"), self.on_btnPaid_clicked)
         self.btnUnpaid.set_is_important(True)
-        self.toolbar.add_space()
-        self.btnPref = self.toolbar.add_button(gtk.STOCK_PREFERENCES,
-            None, _("Edit preferences"), self.on_btnPref_clicked)
-        self.btnAbout = self.toolbar.add_button(gtk.STOCK_ABOUT,
-            None, _("About the application"), self.on_btnAbout_clicked)
 
     def _populate_menubar(self):
         # Create a UIManager instance
-        uimanager = gtk.UIManager()
+        self.uimanager = gtk.UIManager()
 
         # Add the accelerator group to the toplevel window
-        accelgroup = uimanager.get_accel_group()
+        accelgroup = self.uimanager.get_accel_group()
         self.window.add_accel_group(accelgroup)
 
         # Create an ActionGroup
@@ -354,19 +349,23 @@ class MainDialog:
         ], saved_view , self._change_view)
 
         # Add the actiongroup to the uimanager
-        uimanager.insert_action_group(actiongroup, 0)
+        self.uimanager.insert_action_group(actiongroup, 0)
 
         # Add a UI description
-        uimanager.add_ui_from_string(self.menu_ui)
+        self.uimanager.add_ui_from_string(self.menu_ui)
 
         # Create a MenuBar
-        menubar = uimanager.get_widget('/MenuBar')
+        menubar = self.uimanager.get_widget('/MenuBar')
 
-        self.menuNew = uimanager.get_widget('/MenuBar/File/New')
-        self.menuEdit = uimanager.get_widget('/MenuBar/File/Edit')
-        self.menuRemove = uimanager.get_widget('/MenuBar/File/Delete')
-        self.menuPaid = uimanager.get_widget('/MenuBar/File/Paid')
-        self.menuUnpaid = uimanager.get_widget('/MenuBar/File/NotPaid')
+        self.menuNew = self.uimanager.get_widget('/MenuBar/File/New')
+        self.menuEdit = self.uimanager.get_widget('/MenuBar/File/Edit')
+        self.menuRemove = self.uimanager.get_widget('/MenuBar/File/Delete')
+        self.menuPaid = self.uimanager.get_widget('/MenuBar/File/Paid')
+        self.menuUnpaid = self.uimanager.get_widget('/MenuBar/File/NotPaid')
+        # Check whether we display the toolbar or not
+        self.showToolbar = actiongroup.get_action('ShowToolbar')
+        self.showToolbar.set_active(self.config.getboolean('GUI', 'show_toolbar'))
+
 
         # Pack it
         self.box.pack_start(menubar, expand=False, fill=True, padding=0)
@@ -584,8 +583,10 @@ class MainDialog:
         # Toggle toolbar's visibility
         if action.get_active():
             self.toolbar.show_all()
+            self.config.set("GUI", "show_toolbar", True)
         else:
             self.toolbar.hide_all()
+            self.config.set("GUI", "show_toolbar", False)
 
 def main():
     gtk.main()
