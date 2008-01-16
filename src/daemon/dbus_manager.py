@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 __all__ = ['Server', 'get_interface', 'verify_service']

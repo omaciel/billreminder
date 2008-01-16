@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 __all__ = ['MainDialog']
@@ -250,7 +249,7 @@ class MainDialog:
         self.list.listStore.clear()
         self.currentrecord = None
         # Populate treeview
-        self._populateTreeView()
+        length = self._populateTreeView()
 
         if path and length:
             self.list.set_cursor(path)

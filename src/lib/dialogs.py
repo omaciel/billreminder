@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 __all__ = ['about_dialog', 'add_dialog', 'edit_dialog', 'preferences_dialog']
