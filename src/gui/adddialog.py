@@ -95,9 +95,9 @@ class AddDialog(gtk.Dialog):
         self.calendar.mark_day(datetime.datetime.today().day)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
-                               expand=True, fill=True, padding=5)
+           expand=True, fill=True, padding=5)
         self.calbox.pack_start(self.calendar,
-                               expand=True, fill=True, padding=5)
+           expand=True, fill=True, padding=5)
 
         # Fields
         ## Table of 5 x 2

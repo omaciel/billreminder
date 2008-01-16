@@ -6,6 +6,8 @@ __all__ = ['MainDialog']
 import pygtk
 pygtk.require('2.0')
 import gtk
+import time
+import datetime
 from gobject import timeout_add
 
 # Import widgets modules
@@ -50,6 +52,8 @@ class MainDialog:
                 <menuitem action="Quit"/>
               </menu>
               <menu action="View">
+                <menuitem action="ShowToolbar"/>
+                <separator/>
                 <menuitem action="PaidRecords"/>
                 <menuitem action="NotPaidRecords"/>
                 <menuitem action="AllRecords"/>
@@ -68,7 +72,7 @@ class MainDialog:
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_title("%s" % common.APPNAME)
         self.window.set_border_width(0)
-        self.window.set_size_request(500, 300)
+        self.window.set_size_request(385, 380)
         self.window.set_icon_from_file(common.APP_ICON)
         self.window.connect("delete_event", self.on_delete_event)
 
@@ -78,8 +82,7 @@ class MainDialog:
         self.list = ViewBill()
         self.list.connect('cursor_changed', self._on_list_cursor_changed)
         self.list.connect('row_activated', self._on_list_row_activated)
-        self.list.connect('button_press_event',
-            self._on_list_button_press_event)
+        self.list.connect('button_press_event', self._on_list_button_press_event)
 
         # Menubar
         self._populate_menubar()
@@ -88,21 +91,46 @@ class MainDialog:
         self.toolbar = Toolbar()
         self._populate_toolbar()
 
+        self.listbox = gtk.VBox(homogeneous=False, spacing=1)
+        self.listlabel = gtk.Label()
+        self.listlabel.set_markup("<b>Bills:</b>")
+        self.listlabel.set_alignment(0.02, 0.50)
         # ScrolledWindow
         self.scrolledwindow = gtk.ScrolledWindow()
-        self.scrolledwindow.set_shadow_type(gtk.SHADOW_OUT)
+        self.scrolledwindow.set_shadow_type(gtk.SHADOW_IN)
         self.scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC,
                                        gtk.POLICY_AUTOMATIC)
         self.scrolledwindow.add(self.list)
+        ## Pack it all up
+        self.listbox.pack_start(self.listlabel,
+           expand=False, fill=True, padding=5)
+        self.listbox.pack_start(self.scrolledwindow,
+           expand=True, fill=True, padding=5)
 
         # Statusbar
         self.statusbar = Statusbar()
 
+        # Calendar
+        self.calbox = gtk.VBox(homogeneous=False, spacing=1)
+        self.callabel = gtk.Label()
+        self.callabel.set_markup("<b>%s</b> " % _("Due Date:"))
+        self.callabel.set_alignment(0.02, 0.50)
+        self.calendar = gtk.Calendar()
+        self.calendar.connect("day_selected", self._on_calendar_day_selected)
+        ## Pack it all up
+        self.calbox.pack_start(self.callabel,
+           expand=False, fill=True, padding=5)
+        self.calbox.pack_start(self.calendar,
+           expand=True, fill=True, padding=5)
+        self.calendar.mark_day(datetime.datetime.today().day)
+
         # Pack it all up
         self.box.pack_start(self.toolbar,
             expand=False, fill=True, padding=0)
-        self.box.pack_start(self.scrolledwindow,
-            expand=True, fill=True, padding=0)
+        self.box.pack_start(self.calbox,
+            expand=False, fill=True, padding=4)
+        self.box.pack_start(self.listbox,
+            expand=True, fill=True, padding=2)
         self.box.pack_start(self.statusbar,
             expand=False, fill=True, padding=2)
 
@@ -119,6 +147,7 @@ class MainDialog:
             self.window.move(x, y)
 
         self.window.show_all()
+        self.toolbar.hide_all()
 
         self.list.grab_focus()
 
@@ -129,15 +158,8 @@ class MainDialog:
 
         # Connects to the database
         self.actions = Actions()
-        if self.config.getint('GUI', 'show_paid_bills') == 0:
-            self._populateTreeView(self.actions.get_bills( \
-                                   'paid = 1 ORDER BY dueDate DESC'))
-        elif self.config.getint('GUI', 'show_paid_bills') == 1:
-            self._populateTreeView(self.actions.get_bills( \
-                                   'paid = 0 ORDER BY dueDate DESC'))
-        else:
-            self._populateTreeView(self.actions.get_bills( \
-                                   'paid IN (0,1) ORDER BY dueDate DESC'))
+        # populate treeview
+        self._populateTreeView()
         self.notify = NotifyIcon(self)
 
         # Connects to the Daemon
@@ -190,13 +212,34 @@ class MainDialog:
         else:
             self.currentrecord = None
 
-    def _populateTreeView(self, records):
+    def _populateTreeView(self):
         """ Populates the treeview control with the records passed """
+
+        # Extracts the date off the calendar widget
+        day = self.calendar.get_date()[2]
+        month = self.calendar.get_date()[1] + 1
+        year = self.calendar.get_date()[0]
+        # Create datetime object with a timestamp corresponding the end of day
+        selectedDate = datetime.datetime(year, month, day, 23, 59, 59)
+        # Turn it into a time object
+        selectedDate = time.mktime(selectedDate.timetuple())
+
+        if self.config.getint('GUI', 'show_paid_bills') == 0:
+            records = self.actions.get_bills('paid = 1 and dueDate <= %s ORDER BY dueDate DESC' % selectedDate)
+        elif self.config.getint('GUI', 'show_paid_bills') == 1:
+            records = self.actions.get_bills('paid = 0 and dueDate <= %s ORDER BY dueDate DESC' % selectedDate)
+        else:
+            records = self.actions.get_bills('paid IN (0,1) and dueDate <= %s ORDER BY dueDate DESC' % selectedDate)
+
+        # Reset list
+        self.list.listStore.clear()
 
         # Loops through bills collection
         path = 0
         for rec in records:
             self.list.add(self._formated_row(rec))
+            # Highlight days with due bills
+            #self.calendar.mark_day()
 
         self.list.set_cursor(path)
         return len(records)
@@ -206,15 +249,8 @@ class MainDialog:
         path = self.list.get_cursor()[0]
         self.list.listStore.clear()
         self.currentrecord = None
-        if self.config.getint('GUI', 'show_paid_bills') == 0:
-            length = self._populateTreeView(self.actions.get_bills( \
-                                   'paid = 1 ORDER BY dueDate DESC'))
-        elif self.config.getint('GUI', 'show_paid_bills') == 1:
-            length = self._populateTreeView(self.actions.get_bills( \
-                                   'paid = 0 ORDER BY dueDate DESC'))
-        else:
-            length = self._populateTreeView(self.actions.get_bills( \
-                                   'paid IN (0,1) ORDER BY dueDate DESC'))
+        # Populate treeview
+        self._populateTreeView()
 
         if path and length:
             self.list.set_cursor(path)
@@ -306,6 +342,10 @@ class MainDialog:
             saved_view = 1
             self.config.set("GUI", "show_paid_bills", str(saved_view))
             self.config.save()
+
+        actiongroup.add_toggle_actions([
+            ('ShowToolbar', None, _("Show Toolbar"), None, _("Show the toolbar"), self._on_show_toolbar)
+        ])
 
         actiongroup.add_radio_actions([
             ('PaidRecords', None, _("_Paid Only"), None, _("Display all paid records only"), 0),
@@ -535,6 +575,17 @@ class MainDialog:
 
     def on_delete_event(self, widget, event, data=None):
         self._quit_application()
+
+    def _on_calendar_day_selected(self, widget):
+        # Populate treeview
+        self._populateTreeView()
+
+    def _on_show_toolbar(self, action):
+        # Toggle toolbar's visibility
+        if action.get_active():
+            self.toolbar.show_all()
+        else:
+            self.toolbar.hide_all()
 
 def main():
     gtk.main()

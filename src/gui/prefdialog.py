@@ -25,10 +25,8 @@ class PrefDialog(gtk.Dialog):
     def __init__(self, parent=None):
         title = _("Preferences")
         gtk.Dialog.__init__(self, title=title, parent=parent,
-                            flags=gtk.DIALOG_MODAL |
-                            gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_CLOSE,
-                                     gtk.RESPONSE_ACCEPT))
+            flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+            buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
         self.set_position(gtk.WIN_POS_CENTER)
         self.set_icon_from_file(common.APP_ICON)
         #self.action_area.set_layout(gtk.BUTTONBOX_EDGE)
@@ -75,21 +73,21 @@ class PrefDialog(gtk.Dialog):
         self.startup_delay_label2.set_alignment(0.0, 0.5)
 
         self.startup_minimized_checkbox = gtk.CheckButton( \
-                _("Open BillReminder _minimized in notification area"))
+            _("Open BillReminder _minimized in notification area"))
 
         self.startup_delay_box.pack_start(self.startup_delay_label1,
-                                          expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.startup_delay_box.pack_start(self.startup_delay_scale,
-                                          expand=True, fill=True, padding=0)
+            expand=True, fill=True, padding=0)
         self.startup_delay_box.pack_start(self.startup_delay_label2,
-                                          expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
 
         self.statup_container.pack_start(self.startup_notif_checkbox,
-                                         expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.statup_container.pack_start(self.startup_delay_box,
-                                         expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.statup_container.pack_start(self.startup_minimized_checkbox,
-                                         expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
 
         self.statup_alignment.add(self.statup_container)
 
@@ -114,14 +112,11 @@ class PrefDialog(gtk.Dialog):
         self.notif_days_limit_label2 = gtk.Label(_m[1])
 
         self.notif_days_limit_box.pack_start(self.notif_days_limit_checkbox,
-                                             expand=False, fill=False,
-                                             padding=0)
+            expand=False, fill=False, padding=0)
         self.notif_days_limit_box.pack_start(self.notif_days_limit_spin,
-                                             expand=True, fill=True,
-                                             padding=0)
+            expand=True, fill=True, padding=0)
         self.notif_days_limit_box.pack_start(self.notif_days_limit_label2,
-                                             expand=False, fill=False,
-                                             padding=0)
+            expand=False, fill=False, padding=0)
 
         self.notif_alert_box = gtk.HBox(homogeneous=False, spacing=0)
         _m = _("Show _alert %(days)d days before due date, at %(hours)s")
@@ -148,33 +143,33 @@ class PrefDialog(gtk.Dialog):
         self.notif_alert_label3 = gtk.Label(m2)
 
         self.notif_alert_box.pack_start(self.notif_alert_checkbox,
-                                        expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         if len(_m[0]) == 1:
             self.notif_alert_box.pack_start(self.notif_alert_spin,
-                                            expand=False, fill=True, padding=0)
+                expand=False, fill=True, padding=0)
         else:
             self.notif_alert_box.pack_start(self.notif_alert_combo,
-                                            expand=False, fill=False, padding=0)
+                expand=False, fill=False, padding=0)
         self.notif_alert_box.pack_start(self.notif_alert_label2,
                                         expand=False, fill=False, padding=0)
         if len(_m[0]) == 1:
             self.notif_alert_box.pack_start(self.notif_alert_combo,
-                                            expand=False, fill=False, padding=0)
+                expand=False, fill=False, padding=0)
         else:
             self.notif_alert_box.pack_start(self.notif_alert_spin,
-                                            expand=False, fill=True, padding=0)
+                expand=False, fill=True, padding=0)
         self.notif_alert_box.pack_start(self.notif_alert_label3,
-                                        expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
 
         self.notif_due_alert_checkbox = gtk.CheckButton( \
-                                    _("Show alert for bills that are _due"))
+            _("Show alert for bills that are _due"))
 
         self.notif_container.pack_start(self.notif_days_limit_box,
-                                        expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.notif_container.pack_start(self.notif_alert_box,
-                                        expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.notif_container.pack_start(self.notif_due_alert_checkbox,
-                                        expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
 
         self.notif_alignment.add(self.notif_container)
 
@@ -191,23 +186,23 @@ class PrefDialog(gtk.Dialog):
         self.alert_box = gtk.HBox(homogeneous=False, spacing=12)
         self.alert_option1 = gtk.RadioButton(label=_("_Notification Bubble"))
         self.alert_option2 = gtk.RadioButton(group=self.alert_option1,
-                                             label=_("Al_ert Dialog"))
+            label=_("Al_ert Dialog"))
 
         self.alert_box.pack_start(self.alert_option1,
-                                  expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.alert_box.pack_start(self.alert_option2,
-                                  expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
 
         self.alert_container.pack_start(self.alert_box,
-                                        expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
 
         self.alert_alignment.add(self.alert_container)
 
         # Daemon Warning
         self.daemon_container = gtk.VBox(homogeneous=False, spacing=6)
         self.daemon_label = gtk.Label(_("<b>Warning:</b> " \
-                                "BillReminder Notifier is not running!\n" \
-                                "It must be running to show notifications."))
+            "BillReminder Notifier is not running!\n" \
+            "It must be running to show notifications."))
         self.daemon_label.set_justify(gtk.JUSTIFY_CENTER)
         self.daemon_label.set_use_markup(True)
         self.daemon_image = gtk.Image()
@@ -216,30 +211,30 @@ class PrefDialog(gtk.Dialog):
         self.daemon_button.set_image(self.daemon_image)
 
         self.daemon_container.pack_start(self.daemon_label,
-                                         expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.daemon_container.pack_start(self.daemon_button,
-                                         expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
 
         # Everything
         self.topcontainer.pack_start(self.startup_frame,
-                                     expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.topcontainer.pack_start(self.notif_frame,
-                                     expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         self.topcontainer.pack_start(self.alert_frame,
-                                     expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=0)
         if not utils.verify_dbus_service(common.DBUS_INTERFACE):
             self.topcontainer.pack_start(self.daemon_container,
-                                         expand=False, fill=False, padding=0)
+                expand=False, fill=False, padding=0)
 
         self.vbox.pack_start(self.topcontainer,
-                             expand=False, fill=True, padding=10)
+            expand=False, fill=True, padding=10)
 
         self.show_all()
 
     def _populate_fields(self):
 
         self.startup_notif_checkbox.set_active(self.config.getboolean('Alarm',
-                                               'show_startup_notification'))
+            'show_startup_notification'))
 
         delay = self.config.getint('General', 'delay')
         if delay == 0:
@@ -253,14 +248,14 @@ class PrefDialog(gtk.Dialog):
         self.startup_delay_scale.set_value(delay)
 
         self.startup_minimized_checkbox.set_active( \
-                    self.config.getboolean('General', 'start_in_tray'))
+            self.config.getboolean('General', 'start_in_tray'))
 
         self.notif_days_limit_checkbox.set_active( \
-                    self.config.getboolean('Alarm', 'show_before_alarm'))
+            self.config.getboolean('Alarm', 'show_before_alarm'))
         self.notif_alert_checkbox.set_active( \
-                    self.config.getboolean('Alarm', 'show_alarm'))
+            self.config.getboolean('Alarm', 'show_alarm'))
         self.notif_due_alert_checkbox.set_active( \
-                    self.config.getboolean('Alarm', 'show_due_alarm'))
+            self.config.getboolean('Alarm', 'show_due_alarm'))
 
         if not self.config.getboolean('Alarm', 'use_alert_dialog'):
             self.alert_option1.set_active(True)
@@ -268,55 +263,44 @@ class PrefDialog(gtk.Dialog):
             self.alert_option2.set_active(True)
 
         self.notif_days_limit_spin.set_value(self.config.getint('Alarm',
-                                         'notification_days_limit'))
+            'notification_days_limit'))
         self.notif_alert_spin.set_value(self.config.getint('Alarm',
-                                         'show_alarm_before_days'))
+            'show_alarm_before_days'))
 
         store = gtk.ListStore(gobject.TYPE_STRING)
         for i in range(24):
             store.append([_('%H:%M').replace('%H',
-                        "%02d" % i).replace('%M', '00')])
+                "%02d" % i).replace('%M', '00')])
             store.append([_('%H:%M').replace('%H',
-                        "%02d" % i).replace('%M', '30')])
+                "%02d" % i).replace('%M', '30')])
 
         self.notif_alert_combo.set_model(store)
         self.notif_alert_combo.set_text_column(0)
 
         self.notif_alert_combo.child.set_text(self.config.get('Alarm',
-                                               'show_alarm_at_time'))
+            'show_alarm_at_time'))
 
     def _connect_fields(self):
         self.startup_notif_checkbox.connect("toggled",
-                                            self._on_checkbox_toggled,
-                                            'Alarm',
-                                            'show_startup_notification')
+            self._on_checkbox_toggled, 'Alarm', 'show_startup_notification')
         self.startup_minimized_checkbox.connect("toggled",
-                                                self._on_checkbox_toggled,
-                                                'General', 'start_in_tray')
+            self._on_checkbox_toggled, 'General', 'start_in_tray')
         self.notif_days_limit_checkbox.connect("toggled",
-                                          self._on_checkbox_toggled,
-                                          'Alarm', 'show_before_alarm')
+            self._on_checkbox_toggled, 'Alarm', 'show_before_alarm')
         self.notif_alert_checkbox.connect("toggled",
-                                          self._on_checkbox_toggled,
-                                          'Alarm', 'show_alarm')
+            self._on_checkbox_toggled, 'Alarm', 'show_alarm')
         self.notif_due_alert_checkbox.connect("toggled",
-                                              self._on_checkbox_toggled,
-                                              'Alarm', 'show_due_alarm')
+            self._on_checkbox_toggled, 'Alarm', 'show_due_alarm')
         self.notif_alert_combo.child.connect("changed",
-                                             self._on_entry_changed,
-                                             'Alarm', 'show_alarm_at_time')
+            self._on_entry_changed, 'Alarm', 'show_alarm_at_time')
         self.notif_days_limit_spin.connect("changed",
-                                           self._on_entry_changed,
-                                           'Alarm', 'notification_days_limit')
+            self._on_entry_changed, 'Alarm', 'notification_days_limit')
         self.notif_alert_spin.connect("changed",
-                                      self._on_entry_changed,
-                                      'Alarm', 'show_alarm_before_days')
+            self._on_entry_changed, 'Alarm', 'show_alarm_before_days')
         self.startup_delay_scale.connect("value-changed",
-                                         self._on_scale_value_changed,
-                                         'General', 'delay')
+            self._on_scale_value_changed, 'General', 'delay')
         self.alert_option2.connect("toggled",
-                                   self._on_checkbox_toggled,
-                                   'Alarm', 'use_alert_dialog')
+            self._on_checkbox_toggled, 'Alarm', 'use_alert_dialog')
         self.daemon_button.connect("clicked", self._launch_daemon)
 
     def _on_checkbox_toggled(self, togglebutton, category, item):
@@ -344,6 +328,5 @@ class PrefDialog(gtk.Dialog):
         Popen('billreminderd', shell=True)
         button.hide()
         self.daemon_label.set_markup( \
-                _("<b>Note:</b> BillReminder Notifier now is running.\n" \
-                  "It is needed to show notifications."))
-
+            _("<b>Note:</b> BillReminder Notifier now is running.\n" \
+            "It is needed to show notifications."))
