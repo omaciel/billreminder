@@ -115,6 +115,12 @@ class MainDialog:
         self.callabel.set_markup("<b>%s</b> " % _("Due Date:"))
         self.callabel.set_alignment(0.02, 0.50)
         self.calendar = gtk.Calendar()
+        # Format the dueDate field
+        dt = self.config.getfloat("GUI", "due_date")
+        if dt:
+            dt = datetime.datetime.fromtimestamp(dt)
+            self.calendar.select_day(dt.day)
+            self.calendar.select_month(dt.month - 1, dt.year)
         self.calendar.connect("day_selected", self._on_calendar_day_selected)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
@@ -211,9 +217,7 @@ class MainDialog:
         else:
             self.currentrecord = None
 
-    def _populateTreeView(self):
-        """ Populates the treeview control with the records passed """
-
+    def _get_date(self):
         # Extracts the date off the calendar widget
         day = self.calendar.get_date()[2]
         month = self.calendar.get_date()[1] + 1
@@ -222,6 +226,12 @@ class MainDialog:
         selectedDate = datetime.datetime(year, month, day, 23, 59, 59)
         # Turn it into a time object
         selectedDate = time.mktime(selectedDate.timetuple())
+        return selectedDate
+
+    def _populateTreeView(self):
+        """ Populates the treeview control with the records passed """
+
+        selectedDate = self._get_date()
 
         if self.config.getint('GUI', 'show_paid_bills') == 0:
             records = self.actions.get_bills('paid = 1 and dueDate <= %s ORDER BY dueDate DESC' % selectedDate)
@@ -577,6 +587,8 @@ class MainDialog:
     def _on_calendar_day_selected(self, widget):
         # Populate treeview
         self._populateTreeView()
+        selectedDate = self._get_date()
+        self.config.set("GUI", "due_date", selectedDate)
 
     def _on_show_toolbar(self, action):
         # Toggle toolbar's visibility
