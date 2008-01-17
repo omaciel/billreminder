@@ -116,12 +116,8 @@ class MainDialog:
         self.callabel.set_alignment(0.02, 0.50)
         self.calendar = gtk.Calendar()
         # Format the dueDate field
-        dt = self.config.getfloat("GUI", "due_date")
-        if dt:
-            dt = datetime.datetime.fromtimestamp(dt)
-            self.calendar.select_day(dt.day)
-            self.calendar.select_month(dt.month - 1, dt.year)
         self.calendar.connect("day_selected", self._on_calendar_day_selected)
+        self.calendar.connect("month_changed", self._on_calendar_month_changed)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
            expand=False, fill=True, padding=5)
@@ -165,6 +161,8 @@ class MainDialog:
         self.actions = Actions()
         # populate treeview
         self._populateTreeView()
+        # Marks days with bills for selected month
+        self._on_calendar_month_changed(self.calendar)
         self.notify = NotifyIcon(self)
 
         # Connects to the Daemon
@@ -247,8 +245,6 @@ class MainDialog:
         path = 0
         for rec in records:
             self.list.add(self._formated_row(rec))
-            # Highlight days with due bills
-            #self.calendar.mark_day()
 
         self.list.set_cursor(path)
         return len(records)
@@ -523,20 +519,20 @@ class MainDialog:
     def _create_list_contextmenu(self, widget, event):
         c = ContextMenu(self)
         c.addMenuItem(_('_Add New'),
-                      self.on_btnNew_clicked, gtk.STOCK_NEW, True)
-        if self.currentrecord: #len(self.list.listStore) > 0
+            self.on_btnNew_clicked, gtk.STOCK_NEW, True)
+        if self.currentrecord:
             c.addMenuItem('-', None)
             c.addMenuItem(None,
-                          self.on_btnDelete_clicked, gtk.STOCK_DELETE)
+                self.on_btnDelete_clicked, gtk.STOCK_DELETE)
             c.addMenuItem(None,
-                          self.on_btnEdit_clicked, gtk.STOCK_EDIT)
+                self.on_btnEdit_clicked, gtk.STOCK_EDIT)
             c.addMenuItem('-', None)
             if not self.currentrecord.Paid:
                 c.addMenuItem(_('_Paid'),
-                          self.on_btnPaid_clicked, gtk.STOCK_APPLY, True)
+                    self.on_btnPaid_clicked, gtk.STOCK_APPLY, True)
             else:
                 c.addMenuItem(_('Not _Paid'),
-                          self.on_btnPaid_clicked, gtk.STOCK_UNDO, True)
+                    self.on_btnPaid_clicked, gtk.STOCK_UNDO, True)
         c.addMenuItem('-', None)
         c.addMenuItem(None, None, gtk.STOCK_CANCEL)
         c.popup(None, None, None, 3, event.get_time())
@@ -562,9 +558,9 @@ class MainDialog:
     def on_btnDelete_clicked(self, toolbutton):
         if self.currentrecord:
             resp = self.message.ShowQuestionYesNo(
-                            _("Do you really want to delete \"%s\"?") % \
-                                 self.currentrecord.Payee,
-                            self.window, _("Confirmation"))
+                _("Do you really want to delete \"%s\"?") % \
+                self.currentrecord.Payee,
+                self.window, _("Confirmation"))
             if resp:
                 self.remove_bill()
 
@@ -584,11 +580,28 @@ class MainDialog:
     def on_delete_event(self, widget, event, data=None):
         self._quit_application()
 
+    def _on_calendar_month_changed(self, widget):
+        month = self.calendar.get_date()[1] + 1
+        nextMonth = month % 12 + 1
+        goback = datetime.timedelta(seconds=1)
+        year = self.calendar.get_date()[0]
+        # Create datetime object with a timestamp corresponding the end of day
+        firstOfMonth = datetime.datetime(year, month, 1, 0, 0, 0)
+        lastOfMonth = datetime.datetime(year, nextMonth, 1, 0, 0, 0)
+        lastOfMonth = lastOfMonth - goback
+        # Turn it into a time object
+        firstOfMonth = time.mktime(firstOfMonth.timetuple())
+        lastOfMonth = time.mktime(lastOfMonth.timetuple())
+
+        records = self.actions.get_bills('paid = 0 and dueDate >= %s and dueDate <= %s ORDER BY dueDate DESC' % (firstOfMonth, lastOfMonth))
+        # Clear marks
+        self.calendar.clear_marks()
+        for rec in records:
+            self.calendar.mark_day(datetime.datetime.fromtimestamp(rec['dueDate']).day)
+
     def _on_calendar_day_selected(self, widget):
         # Populate treeview
         self._populateTreeView()
-        selectedDate = self._get_date()
-        self.config.set("GUI", "due_date", selectedDate)
 
     def _on_show_toolbar(self, action):
         # Toggle toolbar's visibility
