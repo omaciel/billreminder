@@ -66,7 +66,6 @@ class DAL(object):
         # Create the table
         self.cur.execute(table.CreateSQL)
         self.conn.commit()
-        print table.Name
 
     def _update_fields_information(self, table):
         """ Adds field information for every table."""
@@ -81,7 +80,6 @@ class DAL(object):
         self.add(self.tables['tblversions'],
                  {'tablename': table.Name,
                   'version': table.Version})
-        print 'version saved (%s - %i)' % (table.Name, table.Version)
 
     def _validate_tables(self):
         """ Validates that all tables are up to date. """
@@ -90,7 +88,6 @@ class DAL(object):
         self.cur.execute(stmt)
         # List of all tables with names that start with "br_"
         tbllist = self.cur.fetchall()
-        print tbllist
 
         # Create all tables if database is empty
         if len(tbllist) == 0:
@@ -107,7 +104,6 @@ class DAL(object):
                                {'tablename': tblname})[0]['version']
             except:
                 ver = -1
-            print ver
             # Table is obsolete and will be deleted
             if tblname not in self._tables:
                 # We should revisit this logic
@@ -115,9 +111,7 @@ class DAL(object):
                        tblname
                 self._delete_table(tblname)
                 continue
-            if self._tables[tblname].Version == int(ver) :
-                print '%s is a valid table' % tblname
-            else:
+            if self._tables[tblname].Version != int(ver) :
                 print '%s is NOT a valid table' % tblname
                 self._update_table(self._tables[tblname])
                 # Save tables version info
@@ -151,7 +145,6 @@ class DAL(object):
 
         stmt = "SELECT %(fields)s FROM %(name)s" \
             % dict(fields=", ".join(oldfields), name=table.Name)
-        print stmt
         self.cur.execute(stmt)
         oldrecords = [dict([ (f, row[i]) for i, f in enumerate(oldfields) ]) \
                       for row in self.cur.fetchall()]
@@ -163,8 +156,8 @@ class DAL(object):
         self._create_table(table)
 
         for rec in oldrecords:
-            print self.add(table, dict([(col,rec.get(col,'')) \
-                                  for col in table.Fields]))
+            self.add(table, dict([(col,rec.get(col,'')) \
+                for col in table.Fields]))
 
         self._delete_table('%s_old' % table.Name)
 
@@ -213,7 +206,6 @@ class DAL(object):
             return True
         except Exception, e:
             # Dump error to the screen; may be helpfull when debugging
-            print str(e)
             return False
 
     def add(self, table, kwargs):
@@ -227,7 +219,6 @@ class DAL(object):
         # Insert statement
         stmt = "INSERT INTO %s (%s) VALUES (%s)" %\
             (table.Name, ",".join(cols), ",".join('?' * len(values)))
-        print stmt
         self.cur.execute(stmt, values)
         b_key = self.cur.lastrowid
         if b_key:
