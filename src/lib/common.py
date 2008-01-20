@@ -23,13 +23,14 @@ AUTHORS = [
     'Laudeci Oliveira <laudeci@gmail.com>',
     'Giovanni Deganni <tiefox@gmail.com>',
     'Ruivaldo <ruivaldo@gmail.com>',
-    'Mario Danic <pygi@gmail.com>'
+    'Mario Danic <mario.danic@gmail.com>'
 ]
 
 ARTISTS = [
     'Led Style <ledstyle@gmail.com>',
     'Vinicius Depizzol <vdepizzol@gmail.com>'
 ]
+
 
 LICENSE = """
 This application is distributed under the BSD
