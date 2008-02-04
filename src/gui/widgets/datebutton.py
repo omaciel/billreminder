@@ -85,7 +85,7 @@ class DateButton(gtk.Button):
         self.calendar = gtk.Calendar()
 
         # If we do have an existing alarm time, pass it to the widget
-        self.time = TimeWidget(self.date and time.mktime(self.date.timetuple()) or None)
+        self.time = TimeWidget(self.date and time.mktime(self.date.timetuple()) or None, _("Time:"))
 
         self.vbox.pack_start(self.calendarlabel, False, True, 0)
         self.vbox.pack_start(self.calendar, False, True, 0)

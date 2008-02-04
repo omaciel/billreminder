@@ -8,9 +8,9 @@ import datetime
 from lib import i18n
 
 class TimeWidget(gtk.Frame):
-    def __init__(self, notificationTime=None):
+    def __init__(self, notificationTime=None, label=None):
 
-        gtk.Frame.__init__ (self, label=_("Time:"))
+        gtk.Frame.__init__ (self, label=label)
         self.set_shadow_type(gtk.SHADOW_IN)
 
         # Create internal widgets
