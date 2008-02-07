@@ -98,79 +98,56 @@ class PrefDialog(gtk.Dialog):
         self.notif_alignment.set_padding(10, 0, 12, 0)
         self.notif_frame.add(self.notif_alignment)
 
-        self.notif_container = gtk.VBox(homogeneous=False, spacing=6)
+        notificationsContainer = gtk.VBox(homogeneous=False, spacing=6)
 
-        self.notif_days_limit_box = gtk.HBox(homogeneous=False, spacing=0)
-        _m = _("Show notification for bills that will be due _before %d days")
-        _m = _m.split("%d")
-        self.notif_days_limit_checkbox = gtk.CheckButton(_m[0])
+        self.notif_days_limit_checkbox = gtk.CheckButton("%s" % _('Notify me of due bills:'))
         self.notif_days_limit_spin = gtk.SpinButton()
         self.notif_days_limit_spin.set_range(0, 360)
         self.notif_days_limit_spin.spin(gtk.SPIN_STEP_FORWARD)
         self.notif_days_limit_spin.set_increments(1, 7)
-        self.notif_days_limit_label2 = gtk.Label(_m[1])
+        self.notif_days_limit_label2 = gtk.Label("%s" % _('Days before due date:'))
 
-        self.notif_days_limit_box.pack_start(self.notif_days_limit_checkbox,
+        notificationPreferences = gtk.VBox(homogeneous=False, spacing=0)
+        notificationPreferences.pack_start(self.notif_days_limit_checkbox,
             expand=False, fill=False, padding=0)
-        self.notif_days_limit_box.pack_start(self.notif_days_limit_spin,
-            expand=True, fill=True, padding=0)
-        self.notif_days_limit_box.pack_start(self.notif_days_limit_label2,
+        self.notif_days_limit_hbox = gtk.HBox(homogeneous=False, spacing=0)
+        self.notif_days_limit_hbox.pack_start(self.notif_days_limit_label2,
+            expand=True, fill=False, padding=5)
+        self.notif_days_limit_hbox.pack_start(self.notif_days_limit_spin,
+            expand=False, fill=False, padding=5)
+        notificationPreferences.pack_start(self.notif_days_limit_hbox,
+            expand=False, fill=True, padding=0)
+
+        self.notif_alert_checkbox = gtk.CheckButton("%s" % _('Show alert:'))
+        notificationPreferences.pack_start(self.notif_alert_checkbox,
             expand=False, fill=False, padding=0)
-
-        self.notif_alert_box = gtk.HBox(homogeneous=False, spacing=0)
-        _m = _("Show _alert %(days)d days before due date, at %(hours)s")
-        _m = _m.split("%(days)d")
-        _m[0] = _m[0].split("%(hours)s")
-        _m[1] = _m[1].split("%(hours)s")
-        if len(_m[0]) == 1:
-            m0 = _m[0][0]
-            m1 = _m[1][0]
-            m2 = _m[1][1]
-        else:
-            m0 = _m[0][0]
-            m1 = _m[0][1]
-            m2 = _m[1][0]
-
-        self.notif_alert_checkbox = gtk.CheckButton(m0)
         self.notif_alert_spin = gtk.SpinButton()
         self.notif_alert_spin.set_range(0, 360)
         self.notif_alert_spin.spin(gtk.SPIN_STEP_FORWARD)
         self.notif_alert_spin.set_increments(1, 7)
-        self.notif_alert_label2 = gtk.Label(m1)
+        self.notif_alert_label2 = gtk.Label("%s" % _('Day(s) before due date:'))
         self.notif_alert_combo = gtk.ComboBoxEntry()
         self.notif_alert_combo.child.set_width_chars(6)
-        self.notif_alert_label3 = gtk.Label(m2)
+        self.notif_alert_label3 = gtk.Label("%s" % _('Prefered time:'))
 
-        self.notif_alert_box.pack_start(self.notif_alert_checkbox,
-            expand=False, fill=False, padding=0)
-        if len(_m[0]) == 1:
-            self.notif_alert_box.pack_start(self.notif_alert_spin,
-                expand=False, fill=True, padding=0)
-        else:
-            self.notif_alert_box.pack_start(self.notif_alert_combo,
-                expand=False, fill=False, padding=0)
-        self.notif_alert_box.pack_start(self.notif_alert_label2,
-                                        expand=False, fill=False, padding=0)
-        if len(_m[0]) == 1:
-            self.notif_alert_box.pack_start(self.notif_alert_combo,
-                expand=False, fill=False, padding=0)
-        else:
-            self.notif_alert_box.pack_start(self.notif_alert_spin,
-                expand=False, fill=True, padding=0)
-        self.notif_alert_box.pack_start(self.notif_alert_label3,
+        hbox = gtk.HBox(homogeneous=False, spacing=0)
+        hbox.pack_start(self.notif_alert_label2, expand=True, fill=False, padding=5)
+        hbox.pack_start(self.notif_alert_spin, expand=False, fill=False, padding=0)
+        notificationPreferences.pack_start(hbox, expand=False, fill=True, padding=0)
+
+        hbox = gtk.HBox(homogeneous=False, spacing=0)
+        hbox.pack_start(self.notif_alert_label3, expand=True, fill=False, padding=5)
+        hbox.pack_start(self.notif_alert_combo, expand=False, fill=False, padding=0)
+        notificationPreferences.pack_start(hbox, expand=False, fill=True, padding=0)
+
+        self.alertCheckbox = gtk.CheckButton(_("Show alert for bills that are _due"))
+
+        notificationPreferences.pack_start(self.alertCheckbox, expand=False, fill=False, padding=0)
+
+        notificationsContainer.pack_start(notificationPreferences,
             expand=False, fill=False, padding=0)
 
-        self.notif_due_alert_checkbox = gtk.CheckButton( \
-            _("Show alert for bills that are _due"))
-
-        self.notif_container.pack_start(self.notif_days_limit_box,
-            expand=False, fill=False, padding=0)
-        self.notif_container.pack_start(self.notif_alert_box,
-            expand=False, fill=False, padding=0)
-        self.notif_container.pack_start(self.notif_due_alert_checkbox,
-            expand=False, fill=False, padding=0)
-
-        self.notif_alignment.add(self.notif_container)
+        self.notif_alignment.add(notificationsContainer)
 
         # Alert Type Group
         self.alert_frame = gtk.Frame(label="<b>%s</b>" % _("Alert Type"))
@@ -253,7 +230,7 @@ class PrefDialog(gtk.Dialog):
             self.config.getboolean('Alarm', 'show_before_alarm'))
         self.notif_alert_checkbox.set_active( \
             self.config.getboolean('Alarm', 'show_alarm'))
-        self.notif_due_alert_checkbox.set_active( \
+        self.alertCheckbox.set_active( \
             self.config.getboolean('Alarm', 'show_due_alarm'))
 
         if not self.config.getboolean('Alarm', 'use_alert_dialog'):
@@ -288,7 +265,7 @@ class PrefDialog(gtk.Dialog):
             self._on_checkbox_toggled, 'Alarm', 'show_before_alarm')
         self.notif_alert_checkbox.connect("toggled",
             self._on_checkbox_toggled, 'Alarm', 'show_alarm')
-        self.notif_due_alert_checkbox.connect("toggled",
+        self.alertCheckbox.connect("toggled",
             self._on_checkbox_toggled, 'Alarm', 'show_due_alarm')
         self.notif_alert_combo.child.connect("changed",
             self._on_entry_changed, 'Alarm', 'show_alarm_at_time')
