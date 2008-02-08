@@ -15,6 +15,7 @@ from lib import common
 from lib import utils
 from lib import i18n
 from lib.config import Config
+from widgets.timewidget import TimeWidget
 
 
 class PrefDialog(gtk.Dialog):
@@ -33,13 +34,13 @@ class PrefDialog(gtk.Dialog):
         self.props.skip_taskbar_hint = True
         self.set_border_width(5)
 
-        self._initialize_dialog_widgets()
-
         if self.parent and self.parent.config:
             self.config = self.parent.config
         else:
             self.config = Config()
 
+
+        self._initialize_dialog_widgets()
         self._populate_fields()
         self._connect_fields()
 
@@ -128,6 +129,14 @@ class PrefDialog(gtk.Dialog):
         self.notif_alert_label2 = gtk.Label("%s" % _('Day(s) before due date:'))
         self.notif_alert_combo = gtk.ComboBoxEntry()
         self.notif_alert_combo.child.set_width_chars(6)
+        # If we do have an existing alarm time, pass it to the widget
+        atime = self.config.get('Alarm', 'show_alarm_at_time')
+        atime = atime.split(":")
+        atime = [int(x) for x in atime]
+        aday  = datetime.datetime.today()
+        adate = datetime.datetime(aday.year, aday.month, aday.day, atime[0], atime[1])
+
+        self.notificationTime = TimeWidget(time.mktime(adate.timetuple()))
         self.notif_alert_label3 = gtk.Label("%s" % _('Prefered time:'))
 
         hbox = gtk.HBox(homogeneous=False, spacing=0)
@@ -137,7 +146,7 @@ class PrefDialog(gtk.Dialog):
 
         hbox = gtk.HBox(homogeneous=False, spacing=0)
         hbox.pack_start(self.notif_alert_label3, expand=True, fill=False, padding=5)
-        hbox.pack_start(self.notif_alert_combo, expand=False, fill=False, padding=0)
+        hbox.pack_start(self.notificationTime, expand=False, fill=False, padding=0)
         notificationPreferences.pack_start(hbox, expand=False, fill=True, padding=0)
 
         self.alertCheckbox = gtk.CheckButton(_("Show alert for bills that are _due"))

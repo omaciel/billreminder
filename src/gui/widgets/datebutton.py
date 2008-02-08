@@ -64,10 +64,10 @@ class DateButton(gtk.Button):
 
     def _initialize_dialog_widgets(self):
         dialog = gtk.Dialog(title=_("Select date and time"),
-                            parent=self.parent_window,
-                            flags=gtk.DIALOG_MODAL,
-                            buttons=(str(_("None")), gtk.RESPONSE_REJECT,
-                                     gtk.STOCK_OK, gtk.RESPONSE_OK))
+            parent=self.parent_window,
+            flags=gtk.DIALOG_MODAL,
+            buttons=(str(_("None")), gtk.RESPONSE_REJECT,
+                     gtk.STOCK_OK, gtk.RESPONSE_OK))
 
         if self.parent_window:
             dialog.set_transient_for(self.parent_window)
