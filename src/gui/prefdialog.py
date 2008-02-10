@@ -73,7 +73,7 @@ class PrefDialog(gtk.Dialog):
         self.startup_delay_label2.set_alignment(0.0, 0.5)
 
         self.startup_minimized_checkbox = gtk.CheckButton( \
-            _("Open BillReminder _minimized in notification area"))
+            _("Start _minimized in notification area"))
 
         self.startup_delay_box.pack_start(self.startup_delay_label1,
             expand=False, fill=False, padding=0)
@@ -101,52 +101,41 @@ class PrefDialog(gtk.Dialog):
 
         notificationsContainer = gtk.VBox(homogeneous=False, spacing=6)
 
-        self.notif_days_limit_checkbox = gtk.CheckButton("%s" % _('Notify me of due bills:'))
+        self.notif_days_limit_checkbox = gtk.CheckButton("%s" % _('Notify before due date:'))
         self.notif_days_limit_spin = gtk.SpinButton()
         self.notif_days_limit_spin.set_range(0, 360)
         self.notif_days_limit_spin.spin(gtk.SPIN_STEP_FORWARD)
         self.notif_days_limit_spin.set_increments(1, 7)
-        self.notif_days_limit_label2 = gtk.Label("%s" % _('Days before due date:'))
+        self.notif_days_limit_label2 = gtk.Label("%s" % _('day(s).'))
 
         notificationPreferences = gtk.VBox(homogeneous=False, spacing=0)
-        notificationPreferences.pack_start(self.notif_days_limit_checkbox,
-            expand=False, fill=False, padding=0)
+        hbox = gtk.HBox(homogeneous=False, spacing=0)
+        hbox.pack_start(self.notif_days_limit_checkbox, expand=True, fill=True, padding=0)
+        hbox.pack_start(self.notif_days_limit_spin, expand=False, fill=True, padding=2)
+        hbox.pack_start(self.notif_days_limit_label2, expand=False, fill=False, padding=0)
         self.notif_days_limit_hbox = gtk.HBox(homogeneous=False, spacing=0)
-        self.notif_days_limit_hbox.pack_start(self.notif_days_limit_label2,
-            expand=True, fill=False, padding=5)
-        self.notif_days_limit_hbox.pack_start(self.notif_days_limit_spin,
-            expand=False, fill=False, padding=5)
-        notificationPreferences.pack_start(self.notif_days_limit_hbox,
-            expand=False, fill=True, padding=0)
+        notificationPreferences.pack_start(hbox, expand=False, fill=True, padding=0)
 
-        self.notif_alert_checkbox = gtk.CheckButton("%s" % _('Show alert:'))
-        notificationPreferences.pack_start(self.notif_alert_checkbox,
-            expand=False, fill=False, padding=0)
+        self.notif_alert_checkbox = gtk.CheckButton("%s" % _('Alert before due date:'))
         self.notif_alert_spin = gtk.SpinButton()
         self.notif_alert_spin.set_range(0, 360)
         self.notif_alert_spin.spin(gtk.SPIN_STEP_FORWARD)
         self.notif_alert_spin.set_increments(1, 7)
-        self.notif_alert_label2 = gtk.Label("%s" % _('Day(s) before due date:'))
-        self.notif_alert_combo = gtk.ComboBoxEntry()
-        self.notif_alert_combo.child.set_width_chars(6)
-        # If we do have an existing alarm time, pass it to the widget
-        atime = self.config.get('Alarm', 'show_alarm_at_time')
-        atime = atime.split(":")
-        atime = [int(x) for x in atime]
-        aday  = datetime.datetime.today()
-        adate = datetime.datetime(aday.year, aday.month, aday.day, atime[0], atime[1])
-
-        self.notificationTime = TimeWidget(time.mktime(adate.timetuple()))
+        self.notif_alert_label2 = gtk.Label("%s" % _('day(s).'))
+        self.notificationTime = TimeWidget()
+        self.notificationTime.set_shadow_type(gtk.SHADOW_NONE)
         self.notif_alert_label3 = gtk.Label("%s" % _('Prefered time:'))
+        self.notif_alert_label3.set_alignment(0.00, 0.90)
 
         hbox = gtk.HBox(homogeneous=False, spacing=0)
-        hbox.pack_start(self.notif_alert_label2, expand=True, fill=False, padding=5)
-        hbox.pack_start(self.notif_alert_spin, expand=False, fill=False, padding=0)
+        hbox.pack_start(self.notif_alert_checkbox, expand=True, fill=True, padding=0)
+        hbox.pack_start(self.notif_alert_spin, expand=False, fill=True, padding=2)
+        hbox.pack_start(self.notif_alert_label2, expand=False, fill=False, padding=0)
         notificationPreferences.pack_start(hbox, expand=False, fill=True, padding=0)
 
-        hbox = gtk.HBox(homogeneous=False, spacing=0)
-        hbox.pack_start(self.notif_alert_label3, expand=True, fill=False, padding=5)
-        hbox.pack_start(self.notificationTime, expand=False, fill=False, padding=0)
+        hbox = gtk.VBox(homogeneous=False, spacing=0)
+        hbox.pack_start(self.notif_alert_label3, expand=True, fill=False, padding=0)
+        hbox.pack_start(self.notificationTime, expand=False, fill=True, padding=0)
         notificationPreferences.pack_start(hbox, expand=False, fill=True, padding=0)
 
         self.alertCheckbox = gtk.CheckButton(_("Show alert for bills that are _due"))
@@ -198,7 +187,7 @@ class PrefDialog(gtk.Dialog):
         self.daemon_container.pack_start(self.daemon_label,
             expand=False, fill=False, padding=0)
         self.daemon_container.pack_start(self.daemon_button,
-            expand=False, fill=False, padding=0)
+            expand=False, fill=False, padding=5)
 
         # Everything
         self.topcontainer.pack_start(self.startup_frame,
@@ -252,20 +241,14 @@ class PrefDialog(gtk.Dialog):
         self.notif_alert_spin.set_value(self.config.getint('Alarm',
             'show_alarm_before_days'))
 
-        store = gtk.ListStore(gobject.TYPE_STRING)
-        for i in range(24):
-            store.append([_('%H:%M').replace('%H',
-                "%02d" % i).replace('%M', '00')])
-            store.append([_('%H:%M').replace('%H',
-                "%02d" % i).replace('%M', '30')])
+        atime = self.config.get('Alarm', 'show_alarm_at_time')
+        atime = atime.split(":")
+        self.notificationTime.setHourMinute(atime[0], atime[1])
 
-        self.notif_alert_combo.set_model(store)
-        self.notif_alert_combo.set_text_column(0)
-
-        self.notif_alert_combo.child.set_text(self.config.get('Alarm',
-            'show_alarm_at_time'))
 
     def _connect_fields(self):
+        self.notificationTime.hourSpinner.connect("value_changed", self._on_time_changed)
+        self.notificationTime.minuteSpinner.connect("value_changed", self._on_time_changed)
         self.startup_notif_checkbox.connect("toggled",
             self._on_checkbox_toggled, 'Alarm', 'show_startup_notification')
         self.startup_minimized_checkbox.connect("toggled",
@@ -276,8 +259,6 @@ class PrefDialog(gtk.Dialog):
             self._on_checkbox_toggled, 'Alarm', 'show_alarm')
         self.alertCheckbox.connect("toggled",
             self._on_checkbox_toggled, 'Alarm', 'show_due_alarm')
-        self.notif_alert_combo.child.connect("changed",
-            self._on_entry_changed, 'Alarm', 'show_alarm_at_time')
         self.notif_days_limit_spin.connect("changed",
             self._on_entry_changed, 'Alarm', 'notification_days_limit')
         self.notif_alert_spin.connect("changed",
@@ -287,6 +268,12 @@ class PrefDialog(gtk.Dialog):
         self.alert_option2.connect("toggled",
             self._on_checkbox_toggled, 'Alarm', 'use_alert_dialog')
         self.daemon_button.connect("clicked", self._launch_daemon)
+
+    def _on_time_changed(self, spin):
+        alarm = self.notificationTime.getTime()
+        alarm = ":".join(["%.02d" % x for x in alarm])
+        self.config.set('Alarm', 'show_alarm_at_time', alarm)
+        self.config.save()
 
     def _on_checkbox_toggled(self, togglebutton, category, item):
         self.config.set(category, item, togglebutton.get_active())

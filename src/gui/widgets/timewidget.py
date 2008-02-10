@@ -69,5 +69,12 @@ class TimeWidget(gtk.Frame):
         return True
 
 
+    def setHourMinute(self, hour, minute):
+        if not hour or not minute:
+            return True
+
+        self.hourSpinner.set_value(float(hour))
+        self.minuteSpinner.set_value(float(minute))
+
     def getTime(self):
         return (self.hourSpinner.get_value_as_int(), self.minuteSpinner.get_value_as_int())
