@@ -322,13 +322,13 @@ class AddDialog(gtk.Dialog):
         return cat_id and int(cat_id) or None
 
     def get_record(self):
-        
+
         xTimes = int(self.spinner.get_value())
         # Extracts the date off the calendar widget    
         day = self.calendar.get_date()[2]
         month = self.calendar.get_date()[1] + 1
         year = self.calendar.get_date()[0]
-        
+
         # Create datetime object
         selectedDate = datetime.datetime(year, month, day)
 
@@ -350,7 +350,7 @@ class AddDialog(gtk.Dialog):
             return None
 
         amount = utils.currency_to_float(self.amount.get_text())
-        
+
         if self.currentrecord is None:
             # Verify how many bills will be inserted
             # this will only work for new bills
@@ -379,9 +379,9 @@ class AddDialog(gtk.Dialog):
             self.currentrecord.Notes = sbuffer
             self.currentrecord.Alarm = alarm
             #self.currentrecord.Paid = int(self.chkPaid.get_active())
-    
+
             #return the bill
-            return self.currentrecord
+            return [self.currentrecord]
 
     def _on_categoriesbutton_clicked(self, button, new=False):
         categories = CategoriesDialog(parent=self, new=new)

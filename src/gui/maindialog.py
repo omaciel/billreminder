@@ -376,41 +376,35 @@ class MainDialog:
         self.box.pack_start(menubar, expand=False, fill=True, padding=0)
 
     def add_bill(self):
-        record = dialogs.add_dialog(parent=self.window)
+        record= dialogs.add_dialog(parent=self.window)
 
         # Checks if the user did not cancel the action
-        if record:
+        if records:
             # Add new bill to database
-            if isinstance(record,Bill):
-                bill = self.actions.add_bill(record.Dictionary)
+            for rec in records:
+                bill = self.actions.add_bill(rec.Dictionary)
                 if bill:
                     self.list.add(self._formated_row(bill))
                     self._update_statusbar()
-            elif isinstance(record, list):
-                print record
-                for n in record:
-                    bill = self.actions.add_bill(n.Dictionary)
-                    if bill:
-                        self.list.add(self._formated_row(bill))
-                        self._update_statusbar()
         self.reloadTreeView()
 
     def edit_bill(self):
-        record = dialogs.edit_dialog(parent=self.window,
+        records = dialogs.edit_dialog(parent=self.window,
                                      record=self.currentrecord)
 
         # Checks if the user did not cancel the action
-        if record:
-            try:
-                # Edit bill to database
-                self.actions.edit_bill(record.Dictionary)
-                # Update list with updated record
-                idx = self.list.get_cursor()[0][0]
-                self.list.listStore[idx] = \
-                                self._formated_row(record.Dictionary)
-                self._update_statusbar(idx)
-            except Exception, e:
-                print str(e)
+        if records:
+            for rec in records
+                try:
+                    # Edit bill to database
+                    self.actions.edit_bill(rec.Dictionary)
+                    # Update list with updated record
+                    idx = self.list.get_cursor()[0][0]
+                    self.list.listStore[idx] = \
+                        self._formated_row(rec.Dictionary)
+                    self._update_statusbar(idx)
+                except Exception, e:
+                    print str(e)
         self.reloadTreeView()
 
     def remove_bill(self):
