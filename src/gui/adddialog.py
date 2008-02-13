@@ -58,6 +58,11 @@ class AddDialog(gtk.Dialog):
         # If a record was passed, we're in edit mode
         if record:
             self._populate_fields()
+            #in edit mode we must disable repetition
+            print 'got here'
+            self.spinner.set_sensitive(False)
+            self.repeatlabel.set_sensitive(False)
+            
         else:
             # Use alarm values from preferences
             atime = self.config.get('Alarm', 'show_alarm_at_time')
@@ -100,7 +105,7 @@ class AddDialog(gtk.Dialog):
 
         # Fields
         ## Table of 5 x 2
-        self.table = gtk.Table(rows=5, columns=2, homogeneous=False)
+        self.table = gtk.Table(rows=6, columns=2, homogeneous=False)
         ### Spacing to make things look better
         self.table.set_col_spacing(0, 6)
         self.table.set_row_spacing(0, 6)
@@ -161,6 +166,16 @@ class AddDialog(gtk.Dialog):
         self.alarmbutton = DateButton(self)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
 
+        ## repeat times
+        self.repeatlabel = gtk.Label()
+        self.repeatlabel.set_markup("<b>%s</b> " % _("How times:")) 
+        adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
+        self.spinner = gtk.SpinButton(adj, 0, 0)
+        self.spinner.set_wrap(True)
+        self.spinner.set_numeric(True)
+        self.spinner.set_update_policy(gtk.UPDATE_IF_VALID)
+        self.spinner.set_snap_to_ticks(True)
+        
         ## Pack it all into the table
         self.table.attach(self.payeelabel, 0, 1, 0, 1, gtk.FILL, gtk.FILL)
         self.table.attach(self.amountlabel, 0, 1, 1, 2, gtk.FILL, gtk.FILL)
@@ -172,9 +187,12 @@ class AddDialog(gtk.Dialog):
         self.table.attach(self.categorydock, 1, 2, 2, 3, gtk.FILL, gtk.FILL)
         self.table.attach(self.notesdock, 1, 2, 3, 4, gtk.FILL, gtk.FILL)
         self.table.attach(self.alarmbutton, 1, 2, 4, 5, gtk.FILL, gtk.FILL)
+        self.table.attach(self.repeatlabel, 0, 1, 5, 6, gtk.FILL, gtk.FILL)
+        self.table.attach(self.spinner, 1, 2, 5, 6, gtk.FILL, gtk.FILL)
+        
         ## Pack table
         self.fieldbox.pack_start(self.table, expand=True, fill=True, padding=0)
-
+        
         # Everything
         self.topcontainer.pack_start(self.calbox,
              expand=False, fill=False, padding=10)
@@ -274,7 +292,7 @@ class AddDialog(gtk.Dialog):
         store.append(["---", -1])
 
         for category in categories:
-            print category
+            #print category
             store.append(category)
         store.append(["---", -1])
         store.append([_("New Category"), -2])
@@ -304,14 +322,15 @@ class AddDialog(gtk.Dialog):
         return cat_id and int(cat_id) or None
 
     def get_record(self):
-        # Extracts the date off the calendar widget
+        
+        xTimes = int(self.spinner.get_value())
+        # Extracts the date off the calendar widget    
         day = self.calendar.get_date()[2]
         month = self.calendar.get_date()[1] + 1
         year = self.calendar.get_date()[0]
+        
         # Create datetime object
         selectedDate = datetime.datetime(year, month, day)
-        # Turn it into a time object
-        selectedDate = time.mktime(selectedDate.timetuple())
 
         #buffer = self.txtNotes.get_buffer()
         startiter, enditer = self.txtbuffer.get_bounds()
@@ -331,26 +350,38 @@ class AddDialog(gtk.Dialog):
             return None
 
         amount = utils.currency_to_float(self.amount.get_text())
-
+        
         if self.currentrecord is None:
-            # Create a new object
-            self.currentrecord = Bill(payee, category, selectedDate,
-                                      amount, sbuffer, 0, -1, alarm)
-            #self.currentrecord = Bill(payee, selectedDate,
-            #                          self.amount.get_text(), sbuffer,
-            #                          int(self.chkPaid.get_active()))
+            # Verify how many bills will be inserted
+            # this will only work for new bills
+            if xTimes -1  == 0:
+                self.currentrecord = Bill(payee, category, time.mktime(selectedDate.timetuple()),
+                                          amount, sbuffer, 0, -1, alarm)
+                return self.currentrecord
+            else:
+                # if we are to add more than one bill
+                records = []
+                records.append (Bill(payee, category, time.mktime(selectedDate.timetuple()),
+                                          amount, sbuffer + (' (%s of %s)' % (1,xTimes)), 0, -1, alarm))
+                # calc next dates appending 30 days from the date
+                # maybe would be better use the same day as the first bill
+                for i in range(1, xTimes ):
+                    selectedDate = selectedDate +  datetime.timedelta(days=30)
+                    records.append (Bill(payee, category, time.mktime(selectedDate.timetuple()),
+                                              amount, sbuffer + (' (%s of %s)' % (i +1 ,xTimes )), 0, -1, alarm))
+                return records
         else:
             # Edit existing bill
             self.currentrecord.Category = category
             self.currentrecord.Payee = payee
-            self.currentrecord.DueDate = int(selectedDate)
+            self.currentrecord.DueDate = int(time.mktime(selectedDate.timetuple()))
             self.currentrecord.AmountDue = amount
             self.currentrecord.Notes = sbuffer
             self.currentrecord.Alarm = alarm
             #self.currentrecord.Paid = int(self.chkPaid.get_active())
-
-        #return the bill
-        return self.currentrecord
+    
+            #return the bill
+            return self.currentrecord
 
     def _on_categoriesbutton_clicked(self, button, new=False):
         categories = CategoriesDialog(parent=self, new=new)

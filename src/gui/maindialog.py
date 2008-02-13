@@ -285,7 +285,7 @@ class MainDialog:
                     name = _("None")
                     color = "#000"
                     rgb = (255, 255, 255)
-                formated.append(create_pixbuf((8, 16), rgb))
+                formated.append(create_pixbuf((16, 16), rgb))
                 formated.append(name)
             else:
                 formated.append(row[key])
@@ -381,12 +381,18 @@ class MainDialog:
         # Checks if the user did not cancel the action
         if record:
             # Add new bill to database
-            bill = self.actions.add_bill(record.Dictionary)
-            if bill:
-                self.list.add(self._formated_row(bill))
-                self._update_statusbar()
-                #self.bill_id = id_
-                #self.refreshBillList(False)
+            if isinstance(record,Bill):
+                bill = self.actions.add_bill(record.Dictionary)
+                if bill:
+                    self.list.add(self._formated_row(bill))
+                    self._update_statusbar()
+            elif isinstance(record, list):
+                print record
+                for n in record:
+                    bill = self.actions.add_bill(n.Dictionary)
+                    if bill:
+                        self.list.add(self._formated_row(bill))
+                        self._update_statusbar()
         self.reloadTreeView()
 
     def edit_bill(self):
