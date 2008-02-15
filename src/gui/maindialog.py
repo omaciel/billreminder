@@ -102,9 +102,9 @@ class MainDialog:
         self.scrolledwindow.add(self.list)
         ## Pack it all up
         self.listbox.pack_start(self.listlabel,
-           expand=False, fill=True, padding=5)
+           expand=False, fill=True, padding=1)
         self.listbox.pack_start(self.scrolledwindow,
-           expand=True, fill=True, padding=5)
+           expand=True, fill=True, padding=2)
 
         # Statusbar
         self.statusbar = Statusbar()
@@ -120,9 +120,9 @@ class MainDialog:
         self.calendar.connect("month_changed", self._on_calendar_month_changed)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
-           expand=False, fill=True, padding=5)
+           expand=False, fill=True, padding=1)
         self.calbox.pack_start(self.calendar,
-           expand=True, fill=True, padding=5)
+           expand=True, fill=True, padding=2)
         self.calendar.mark_day(datetime.datetime.today().day)
 
         # Pack it all up
@@ -131,7 +131,7 @@ class MainDialog:
         self.box.pack_start(self.calbox,
             expand=False, fill=True, padding=4)
         self.box.pack_start(self.listbox,
-            expand=True, fill=True, padding=2)
+            expand=True, fill=True, padding=4)
         self.box.pack_start(self.statusbar,
             expand=False, fill=True, padding=2)
 
@@ -394,7 +394,7 @@ class MainDialog:
 
         # Checks if the user did not cancel the action
         if records:
-            for rec in records
+            for rec in records:
                 try:
                     # Edit bill to database
                     self.actions.edit_bill(rec.Dictionary)
