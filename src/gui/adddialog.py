@@ -168,9 +168,11 @@ class AddDialog(gtk.Dialog):
 
         ## repeat times
         self.repeatlabel = gtk.Label()
-        self.repeatlabel.set_markup("<b>%s</b> " % _("How times:"))
+        self.repeatlabel.set_markup("<b>%s</b> " % _("Occurrence:"))
+        self.repeatlabel.set_alignment(0.00, 0.50)
         adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
         self.spinner = gtk.SpinButton(adj, 0, 0)
+        self.spinner.set_tooltip_text(_("How many times to repeat this monthly bill."))
         self.spinner.set_wrap(True)
         self.spinner.set_numeric(True)
         self.spinner.set_update_policy(gtk.UPDATE_IF_VALID)
