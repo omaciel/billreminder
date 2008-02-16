@@ -64,8 +64,8 @@ class PrefDialog(gtk.Dialog):
         alertDays = gtk.Label("%s" % _('day(s).'))
         self.notificationTime = TimeWidget()
         self.notificationTime.set_shadow_type(gtk.SHADOW_NONE)
-        alertPreferedTime = gtk.Label("%s" % _('Prefered time:'))
-        alertPreferedTime.set_alignment(0.00, 0.90)
+        alertPreferredTime = gtk.Label("%s" % _('Preferred time:'))
+        alertPreferredTime.set_alignment(0.00, 0.90)
         alertDefinition = gtk.Label(_('Get alerted when individual bills are due.'))
         alertDefinition.set_alignment(0.00, 0.90)
 
@@ -79,9 +79,9 @@ class PrefDialog(gtk.Dialog):
         hbox.pack_start(alertDays, expand=False, fill=False, padding=0)
         alertContainer.pack_start(hbox, expand=False, fill=True, padding=0)
 
-        # Container for prefered time for alerts.
+        # Container for preferred time for alerts.
         hbox = gtk.VBox(homogeneous=False, spacing=0)
-        hbox.pack_start(alertPreferedTime, expand=True, fill=False, padding=0)
+        hbox.pack_start(alertPreferredTime, expand=True, fill=False, padding=0)
         hbox.pack_start(self.notificationTime, expand=False, fill=True, padding=0)
         alertContainer.pack_start(hbox, expand=False, fill=True, padding=0)
 
