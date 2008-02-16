@@ -213,11 +213,11 @@ class CategoriesDialog(gtk.Dialog):
         if self.currentrecord:
             id = self.currentrecord[0]
             row = self.actions.edit_category({'id': id,
-                                              'categoryname': name,
-                                              'color': color})
+                'categoryname': name,
+                'color': color})
         else:
             row = self.actions.add_category({'categoryname': name,
-                                             'color': color})
+                'color': color})
         self.savebutton.set_sensitive(False)
         self.reloadTreeView()
         self._on_newbutton_clicked(button)

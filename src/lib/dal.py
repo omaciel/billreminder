@@ -38,7 +38,7 @@ class DAL(object):
             os.makedirs(self.dbPath)
 
         self.conn = sqlite.connect(os.path.join(self.dbPath, self.dbName),
-                                   isolation_level=None)
+            isolation_level=None)
         self.cur = self.conn.cursor()
         self.cur.execute("PRAGMA count_changes=0")
 
