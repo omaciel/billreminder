@@ -66,14 +66,15 @@ class PrefDialog(gtk.Dialog):
         self.notificationTime.set_shadow_type(gtk.SHADOW_NONE)
         alertPreferedTime = gtk.Label("%s" % _('Prefered time:'))
         alertPreferedTime.set_alignment(0.00, 0.90)
-        alertDefinition = gtk.Label(_('This is where we explain the definition of an alarm.'))
+        alertDefinition = gtk.Label(_('Get alerted when individual bills are due.'))
+        alertDefinition.set_alignment(0.00, 0.90)
 
         # Add label defining what an alarm means.
         alertContainer.pack_start(alertDefinition, expand=False, fill=True, padding=2)
 
         # Container for alert checkbox and spin button for day selection.
         hbox = gtk.HBox(homogeneous=False, spacing=0)
-        hbox.pack_start(self.alertCheckbox, expand=True, fill=True, padding=2)
+        hbox.pack_start(self.alertCheckbox, expand=False, fill=True, padding=0)
         hbox.pack_start(self.alertSpinButton, expand=False, fill=False, padding=2)
         hbox.pack_start(alertDays, expand=False, fill=False, padding=0)
         alertContainer.pack_start(hbox, expand=False, fill=True, padding=0)
@@ -93,7 +94,8 @@ class PrefDialog(gtk.Dialog):
         notifyAlignment = gtk.Alignment()
         notifyAlignment.set_padding(10, 0, 12, 0)
         notifyFrame.add(notifyAlignment)
-        notificationDefinition = gtk.Label(_('This is where we explain the definition of a notification.'))
+        notificationDefinition = gtk.Label(_('Define when to be notified of upcoming bills.'))
+        notificationDefinition.set_alignment(0.00, 0.90)
 
         notificationsContainer = gtk.VBox(homogeneous=False, spacing=6)
 
@@ -109,7 +111,7 @@ class PrefDialog(gtk.Dialog):
 
         # Container for notification checkbox and spin button for day selection.
         hbox = gtk.HBox(homogeneous=False, spacing=0)
-        hbox.pack_start(self.notifyCheckbox, expand=True, fill=True, padding=2)
+        hbox.pack_start(self.notifyCheckbox, expand=False, fill=True, padding=0)
         hbox.pack_start(self.notifySpinButton, expand=False, fill=False, padding=2)
         hbox.pack_start(notifyDays, expand=False, fill=False, padding=0)
 
@@ -141,14 +143,15 @@ class PrefDialog(gtk.Dialog):
 
         # Daemon Warning
         daemonContainer = gtk.VBox(homogeneous=False, spacing=6)
-        self.daemonLabel = gtk.Label(_("<b>Warning:</b> " \
-            "BillReminder Notifier is not running!\n" \
-            "It must be running to show notifications."))
+        self.daemonLabel = gtk.Label(
+            _("<b>Warning:</b> BillReminder Notifier is \n" \
+            "not running! You need to start it in order \n" \
+            " to receive notifications."))
         self.daemonLabel.set_justify(gtk.JUSTIFY_CENTER)
         self.daemonLabel.set_use_markup(True)
         daemonImage = gtk.Image()
         daemonImage.set_from_stock('gtk-execute', 2)
-        self.daemonButton = gtk.Button(label=_("_Launch BillReminder Notifier"))
+        self.daemonButton = gtk.Button(label=_("_Start BillReminder Notifier"))
         self.daemonButton.set_image(daemonImage)
 
         daemonContainer.pack_start(self.daemonLabel, expand=False, fill=False, padding=0)

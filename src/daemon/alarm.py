@@ -159,14 +159,14 @@ class Alarm(object):
         interval = self.parent.config.getint('Alarm', 'interval')
         now = datetime.datetime.now()
         alert_hour, alert_minute = self.parent.config.get('Alarm',
-                                     'show_alarm_at_time').split(':')
+            'show_alarm_at_time').split(':')
         alert_hour = int(alert_hour)
         alert_minute = int(alert_minute)
         alert = datetime.datetime(now.year, now.month, now.day,
-                                  alert_hour, alert_minute)
+            alert_hour, alert_minute)
         now = int(time.mktime(now.timetuple()))
         alert = int(time.mktime(alert.timetuple()))
-        # Alarm for bills wich will be due before n days
+        # Alarm for bills which will be due before n days
         if self.parent.config.getboolean('Alarm', 'show_before_alarm') \
            and alert >= (now - interval/2) and alert < (now + interval/2):
             days = self.parent.config.getint('Alarm', 'show_alarm_before_days')
