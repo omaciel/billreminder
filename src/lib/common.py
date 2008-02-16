@@ -3,10 +3,7 @@
 import os
 from lib import i18n
 
-try:
-    from sysvars import datadir
-except ImportError:
-    datadir = "/usr/share"
+datadir = "/usr/share"
 
 # Application info
 APPNAME = _("BillReminder")
