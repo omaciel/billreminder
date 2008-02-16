@@ -376,7 +376,7 @@ class MainDialog:
         self.box.pack_start(menubar, expand=False, fill=True, padding=0)
 
     def add_bill(self):
-        record= dialogs.add_dialog(parent=self.window)
+        records = dialogs.add_dialog(parent=self.window)
 
         # Checks if the user did not cancel the action
         if records:

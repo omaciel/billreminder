@@ -64,6 +64,8 @@ def edit_dialog(record, parent=None):
     # Checks if the user did not cancel the action
     if response == gtk.RESPONSE_ACCEPT:
         record = dialog.get_record()
+    else:
+        record = [record]
     dialog.destroy()
 
     return record

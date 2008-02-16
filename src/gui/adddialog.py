@@ -62,7 +62,7 @@ class AddDialog(gtk.Dialog):
             print 'got here'
             self.spinner.set_sensitive(False)
             self.repeatlabel.set_sensitive(False)
-            
+
         else:
             # Use alarm values from preferences
             atime = self.config.get('Alarm', 'show_alarm_at_time')
@@ -163,19 +163,19 @@ class AddDialog(gtk.Dialog):
         ### Buffer object for Notes field
         self.txtbuffer = self.notes.get_buffer()
         ### Alarm
-        self.alarmbutton = DateButton(self)
+        self.alarmbutton = DateButton(self, type="specified")
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
 
         ## repeat times
         self.repeatlabel = gtk.Label()
-        self.repeatlabel.set_markup("<b>%s</b> " % _("How times:")) 
+        self.repeatlabel.set_markup("<b>%s</b> " % _("How times:"))
         adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
         self.spinner = gtk.SpinButton(adj, 0, 0)
         self.spinner.set_wrap(True)
         self.spinner.set_numeric(True)
         self.spinner.set_update_policy(gtk.UPDATE_IF_VALID)
         self.spinner.set_snap_to_ticks(True)
-        
+
         ## Pack it all into the table
         self.table.attach(self.payeelabel, 0, 1, 0, 1, gtk.FILL, gtk.FILL)
         self.table.attach(self.amountlabel, 0, 1, 1, 2, gtk.FILL, gtk.FILL)
@@ -189,10 +189,10 @@ class AddDialog(gtk.Dialog):
         self.table.attach(self.alarmbutton, 1, 2, 4, 5, gtk.FILL, gtk.FILL)
         self.table.attach(self.repeatlabel, 0, 1, 5, 6, gtk.FILL, gtk.FILL)
         self.table.attach(self.spinner, 1, 2, 5, 6, gtk.FILL, gtk.FILL)
-        
+
         ## Pack table
         self.fieldbox.pack_start(self.table, expand=True, fill=True, padding=0)
-        
+
         # Everything
         self.topcontainer.pack_start(self.calbox,
              expand=False, fill=False, padding=10)
@@ -324,7 +324,7 @@ class AddDialog(gtk.Dialog):
     def get_record(self):
 
         xTimes = int(self.spinner.get_value())
-        # Extracts the date off the calendar widget    
+        # Extracts the date off the calendar widget
         day = self.calendar.get_date()[2]
         month = self.calendar.get_date()[1] + 1
         year = self.calendar.get_date()[0]
@@ -357,7 +357,7 @@ class AddDialog(gtk.Dialog):
             if xTimes -1  == 0:
                 self.currentrecord = Bill(payee, category, time.mktime(selectedDate.timetuple()),
                                           amount, sbuffer, 0, -1, alarm)
-                return self.currentrecord
+                return [self.currentrecord]
             else:
                 # if we are to add more than one bill
                 records = []
