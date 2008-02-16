@@ -163,7 +163,7 @@ class AddDialog(gtk.Dialog):
         ### Buffer object for Notes field
         self.txtbuffer = self.notes.get_buffer()
         ### Alarm
-        self.alarmbutton = DateButton(self, type="specified")
+        self.alarmbutton = DateButton(self)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
 
         ## repeat times
