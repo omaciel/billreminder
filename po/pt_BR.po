@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-04 16:29-0200\n"
+"POT-Creation-Date: 2008-02-16 17:52-0500\n"
 "PO-Revision-Date: 2008-01-09 21:59-0300\n"
 "Last-Translator: Luiz Armesto <luiz.armesto@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
@@ -16,32 +16,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../data/billreminderd.desktop.in.h:1
-#: ../src/billreminderd.py:49
-#: ../src/daemon/alarm.py:114
-#: ../src/daemon/dbus_manager.py:46
+#: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:48
+#: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
 msgid "BillReminder Notifier"
 msgstr "Notificador do BillReminder"
 
-#: ../data/billreminderd.desktop.in.h:2
-#: ../data/billreminder.desktop.in.h:2
+#: ../data/billreminderd.desktop.in.h:2 ../data/billreminder.desktop.in.h:2
 msgid "Bills manager"
 msgstr "Gerenciador de contas"
 
-#: ../data/billreminderd.desktop.in.h:3
-#: ../data/billreminder.desktop.in.h:3
+#: ../data/billreminderd.desktop.in.h:3 ../data/billreminder.desktop.in.h:3
 msgid "Never forget to pay a bill again!"
 msgstr "Nunca mais esqueça de pagar uma conta!"
 
 #. Application info
-#: ../data/billreminder.desktop.in.h:1
-#: ../src/gui/widgets/trayicon.py:30
-#: ../src/lib/common.py:13
-#: ../src/lib/utils.py:139
+#: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
+#: ../src/lib/common.py:12 ../src/lib/utils.py:138
 msgid "BillReminder"
 msgstr "BillReminder"
 
-#: ../src/billreminder.py:34
+#: ../src/billreminder.py:33
 msgid ""
 "Usage:  billreminder [OPTIONS...]\n"
 "\n"
@@ -61,14 +55,13 @@ msgstr ""
 "  --standalone\t\tAcessa a base de dados diretamente, sem o daemon.\n"
 "  --version, -v\t\tExibe o número de versão desta aplicação.\n"
 
-#: ../src/billreminder.py:53
-#: ../src/billreminderd.py:48
-#: ../src/daemon/dbus_manager.py:45
+#: ../src/billreminder.py:52 ../src/billreminderd.py:47
+#: ../src/daemon/dbus_manager.py:44
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
 msgstr "Este é o %(appname)s - Versão: %(version)s"
 
-#: ../src/billreminderd.py:22
+#: ../src/billreminderd.py:21
 msgid ""
 "Usage:  billreminderd [OPTIONS...]\n"
 "\n"
@@ -90,448 +83,441 @@ msgstr ""
 "  --stop\t\t\tInterrompe o serviço.\n"
 "  --version, -v\t\tExibe o número de versão desta aplicação.\n"
 
-#: ../src/daemon/alarm.py:62
+#: ../src/daemon/alarm.py:61
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] "Você tem %s conta a pagar!"
 msgstr[1] "Você tem %s contas a pagar!"
 
-#: ../src/daemon/alarm.py:67
+#: ../src/daemon/alarm.py:66
 msgid "Show BillReminder"
 msgstr "Exibir BillReminder"
 
-#: ../src/daemon/alarm.py:69
-#: ../src/daemon/alarm.py:124
+#: ../src/daemon/alarm.py:68 ../src/daemon/alarm.py:123
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../src/daemon/alarm.py:97
-#: ../src/daemon/alarm.py:184
+#: ../src/daemon/alarm.py:96 ../src/daemon/alarm.py:183
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr "A conta %(bill)s estará vencida dia %(day)s."
 
 #. TRANSLATORS: This is a date format. You can change the order.
-#: ../src/daemon/alarm.py:100
-#: ../src/daemon/alarm.py:187
-#: ../src/gui/widgets/viewbill.py:46
+#: ../src/daemon/alarm.py:99 ../src/daemon/alarm.py:186
+#: ../src/gui/widgets/viewbill.py:45
 msgid "%Y/%m/%d"
 msgstr "%d/%m/%Y"
 
-#: ../src/daemon/alarm.py:110
+#: ../src/daemon/alarm.py:109
 #, python-format
 msgid "The bill %s is due."
 msgstr "A conta %s está vencida."
 
 #. Button Title
-#: ../src/daemon/alarm.py:121
-#: ../src/gui/maindialog.py:259
-#: ../src/gui/maindialog.py:288
-#: ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:305
+#: ../src/gui/maindialog.py:329 ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Marca como Pago"
 
-#: ../src/daemon/alarm.py:123
-#: ../src/lib/utils.py:137
+#: ../src/daemon/alarm.py:122 ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/daemon/main.py:118
+#: ../src/daemon/main.py:117
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr "Arquivo de Tranca encontrado: Você tem uma outra instância executando. (pid=%d)"
+msgstr ""
+"Arquivo de Tranca encontrado: Você tem uma outra instância executando. (pid=%"
+"d)"
 
-#: ../src/daemon/main.py:123
+#: ../src/daemon/main.py:122
 msgid "Lock File found: Possibly the program was exited unexpectedly."
-msgstr "Arquivo de Tranca encontrado: Provavelmente o programa fechou inesperadamente."
+msgstr ""
+"Arquivo de Tranca encontrado: Provavelmente o programa fechou "
+"inesperadamente."
 
-#: ../src/daemon/main.py:126
+#: ../src/daemon/main.py:125
 msgid "Removing Lock File..."
 msgstr "Removendo Arquivo de Tranca."
 
-#: ../src/daemon/main.py:128
+#: ../src/daemon/main.py:127
 msgid "Successfully."
 msgstr "Com sucesso."
 
-#: ../src/daemon/main.py:130
+#: ../src/daemon/main.py:129
 msgid "Failed."
 msgstr "Falhou."
 
-#: ../src/daemon/main.py:134
+#: ../src/daemon/main.py:133
 msgid "BillReminder Notifier is already running."
 msgstr "Notificador do BillReminder já está sendo executado."
 
-#: ../src/gui/aboutdialog.py:14
+#: ../src/gui/aboutdialog.py:13
 msgid "translator-credits"
 msgstr ""
 "Og Maciel <og.maciel@gnome.org>\n"
 "Luiz Armesto <luiz.armesto@gmail.com>"
 
-#: ../src/gui/aboutdialog.py:37
+#: ../src/gui/aboutdialog.py:36
 msgid "BillReminder Website"
 msgstr "Website do BillReminder"
 
-#: ../src/gui/adddialog.py:71
+#: ../src/gui/adddialog.py:95 ../src/gui/maindialog.py:115
 msgid "Due Date:"
 msgstr "Data de Vencimento:"
 
-#: ../src/gui/adddialog.py:93
+#: ../src/gui/adddialog.py:118
 msgid "Payee:"
 msgstr "Titular:"
 
-#: ../src/gui/adddialog.py:96
+#: ../src/gui/adddialog.py:121
 msgid "Amount:"
 msgstr "Valor:"
 
-#: ../src/gui/adddialog.py:99
+#: ../src/gui/adddialog.py:124
 msgid "Category:"
 msgstr "Categoria:"
 
-#: ../src/gui/adddialog.py:102
-#: ../src/gui/widgets/statusbar.py:27
+#: ../src/gui/adddialog.py:127 ../src/gui/widgets/statusbar.py:26
 msgid "Notes:"
 msgstr "Anotações:"
 
-#: ../src/gui/adddialog.py:105
+#: ../src/gui/adddialog.py:130
 msgid "Alarm:"
 msgstr "Alarme:"
 
-#: ../src/gui/adddialog.py:121
+#: ../src/gui/adddialog.py:146
 msgid "Manage Categories"
 msgstr "Gerencia as Categorias"
 
-#: ../src/gui/adddialog.py:141
-#: ../src/gui/widgets/datebutton.py:41
+#: ../src/gui/adddialog.py:167 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Selecione a Data e Hora"
 
+#: ../src/gui/adddialog.py:171
+msgid "Occurrence:"
+msgstr ""
+
+#: ../src/gui/adddialog.py:175
+msgid "How many times to repeat this monthly bill."
+msgstr ""
+
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:252
-#: ../src/gui/adddialog.py:276
-#: ../src/gui/maindialog.py:239
-#: ../src/gui/prefdialog.py:246
-#: ../src/gui/prefdialog.py:335
-#: ../src/gui/widgets/datebutton.py:19
-#: ../src/gui/widgets/datebutton.py:27
-#: ../src/gui/widgets/datebutton.py:44
-#: ../src/gui/widgets/datebutton.py:70
+#: ../src/gui/adddialog.py:293 ../src/gui/adddialog.py:317
+#: ../src/gui/maindialog.py:285 ../src/gui/prefdialog.py:228
+#: ../src/gui/widgets/datebutton.py:18 ../src/gui/widgets/datebutton.py:26
+#: ../src/gui/widgets/datebutton.py:43 ../src/gui/widgets/datebutton.py:69
 msgid "None"
 msgstr "Nenhum"
 
-#: ../src/gui/adddialog.py:259
-#: ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:300 ../src/gui/categoriesdialog.py:47
 msgid "New Category"
 msgstr "Nova Categoria"
 
-#: ../src/gui/adddialog.py:392
+#: ../src/gui/adddialog.py:446
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" e \"%s\" são campos necessários."
 
-#: ../src/gui/adddialog.py:393
-#: ../src/gui/adddialog.py:397
-#: ../src/gui/widgets/viewbill.py:85
+#: ../src/gui/adddialog.py:447 ../src/gui/adddialog.py:451
+#: ../src/gui/widgets/viewbill.py:84
 msgid "Payee"
 msgstr "Titular"
 
-#: ../src/gui/adddialog.py:393
-#: ../src/gui/adddialog.py:401
+#: ../src/gui/adddialog.py:447 ../src/gui/adddialog.py:455
 msgid "Amount"
 msgstr "Valor"
 
-#: ../src/gui/adddialog.py:397
-#: ../src/gui/adddialog.py:401
+#: ../src/gui/adddialog.py:451 ../src/gui/adddialog.py:455
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" é um campo necessário."
 
-#: ../src/gui/categoriesdialog.py:23
+#: ../src/gui/categoriesdialog.py:22
 msgid "Categories Manager"
 msgstr "Gerenciador de Categorias"
 
-#: ../src/gui/categoriesdialog.py:59
+#: ../src/gui/categoriesdialog.py:58
 msgid "Categories"
 msgstr "Categorias"
 
-#: ../src/gui/categoriesdialog.py:82
+#: ../src/gui/categoriesdialog.py:81
 msgid "Name:"
 msgstr "Nome:"
 
-#: ../src/gui/categoriesdialog.py:85
+#: ../src/gui/categoriesdialog.py:84
 msgid "Color:"
 msgstr "Cor:"
 
-#: ../src/gui/maindialog.py:252
+#: ../src/gui/maindialog.py:298
 msgid "New"
 msgstr "Nova"
 
-#: ../src/gui/maindialog.py:252
-#: ../src/gui/maindialog.py:285
+#: ../src/gui/maindialog.py:298 ../src/gui/maindialog.py:326
 msgid "Add a new record"
 msgstr "Adiciona um novo registro"
 
-#: ../src/gui/maindialog.py:254
-#: ../src/gui/maindialog.py:286
+#: ../src/gui/maindialog.py:300 ../src/gui/maindialog.py:327
 msgid "Edit a record"
 msgstr "Edita um registro"
 
-#: ../src/gui/maindialog.py:256
-#: ../src/gui/maindialog.py:287
+#: ../src/gui/maindialog.py:302 ../src/gui/maindialog.py:328
 msgid "Delete selected record"
 msgstr "Exclui o registro selecionado"
 
-#: ../src/gui/maindialog.py:259
-#: ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/maindialog.py:305 ../src/gui/widgets/viewbill.py:92
 msgid "Paid"
 msgstr "Pago"
 
-#: ../src/gui/maindialog.py:262
+#: ../src/gui/maindialog.py:308
 msgid "Not Paid"
 msgstr "Não Pago"
 
-#: ../src/gui/maindialog.py:262
-#: ../src/gui/maindialog.py:289
+#: ../src/gui/maindialog.py:308 ../src/gui/maindialog.py:330
 msgid "Mark as not paid"
 msgstr "Marca como não pago"
 
-#: ../src/gui/maindialog.py:266
-#: ../src/gui/maindialog.py:290
-msgid "Edit preferences"
-msgstr "Edita as preferências"
-
-#: ../src/gui/maindialog.py:268
-#: ../src/gui/maindialog.py:294
-msgid "About the application"
-msgstr "Sobre a aplicação"
-
-#: ../src/gui/maindialog.py:284
+#: ../src/gui/maindialog.py:325
 msgid "_File"
 msgstr "_Arquivo"
 
-#: ../src/gui/maindialog.py:285
-#: ../src/gui/maindialog.py:470
+#: ../src/gui/maindialog.py:326 ../src/gui/maindialog.py:521
 msgid "_Add New"
 msgstr "_Adicionar Nova"
 
-#: ../src/gui/maindialog.py:288
-#: ../src/gui/maindialog.py:480
+#: ../src/gui/maindialog.py:329 ../src/gui/maindialog.py:531
 msgid "_Paid"
 msgstr "_Pago"
 
-#: ../src/gui/maindialog.py:289
+#: ../src/gui/maindialog.py:330
 msgid "_Not Paid"
 msgstr "_Não Pago"
 
-#: ../src/gui/maindialog.py:291
+#: ../src/gui/maindialog.py:331
+msgid "Edit preferences"
+msgstr "Edita as preferências"
+
+#: ../src/gui/maindialog.py:332
 msgid "Quit the Program"
 msgstr "Fecha o Programa"
 
-#: ../src/gui/maindialog.py:292
+#: ../src/gui/maindialog.py:333
 msgid "_View"
 msgstr "_Ver"
 
-#: ../src/gui/maindialog.py:293
+#: ../src/gui/maindialog.py:334
 msgid "_Help"
 msgstr "Aj_uda"
 
-#: ../src/gui/maindialog.py:306
+#: ../src/gui/maindialog.py:335
+msgid "About the application"
+msgstr "Sobre a aplicação"
+
+#: ../src/gui/maindialog.py:347
+msgid "Show Toolbar"
+msgstr ""
+
+#: ../src/gui/maindialog.py:347
+msgid "Show the toolbar"
+msgstr ""
+
+#: ../src/gui/maindialog.py:351
 msgid "_Paid Only"
 msgstr "Apenas as _Pagas"
 
-#: ../src/gui/maindialog.py:306
+#: ../src/gui/maindialog.py:351
 msgid "Display all paid records only"
 msgstr "Exibe apenas as contas pagas"
 
-#: ../src/gui/maindialog.py:307
+#: ../src/gui/maindialog.py:352
 msgid "_Not Paid Only"
 msgstr "Apenas as _Não Pagas"
 
-#: ../src/gui/maindialog.py:307
+#: ../src/gui/maindialog.py:352
 msgid "Display all unpaid records only"
 msgstr "Exibe apenas as contas não pagas"
 
-#: ../src/gui/maindialog.py:308
+#: ../src/gui/maindialog.py:353
 msgid "_All Records"
 msgstr "_Todas as Contas"
 
-#: ../src/gui/maindialog.py:308
+#: ../src/gui/maindialog.py:353
 msgid "Display all records"
 msgstr "Exibe todas as contas"
 
-#: ../src/gui/maindialog.py:483
+#: ../src/gui/maindialog.py:534
 msgid "Not _Paid"
 msgstr "Não _Pago"
 
-#: ../src/gui/prefdialog.py:26
-#: ../src/gui/widgets/trayicon.py:48
+#: ../src/gui/maindialog.py:561
+#, python-format
+msgid "Do you really want to delete \"%s\"?"
+msgstr ""
+
+#: ../src/gui/maindialog.py:563
+#, fuzzy
+msgid "Confirmation"
+msgstr "Informação"
+
+#: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
 msgid "Preferences"
 msgstr "Preferências"
 
-#. Startup Group
-#: ../src/gui/prefdialog.py:54
-msgid "Startup"
-msgstr "Iniciar"
+#. Alert Group
+#: ../src/gui/prefdialog.py:51
+#, fuzzy
+msgid "Alerts"
+msgstr "Tipo de Alerta"
 
-#: ../src/gui/prefdialog.py:64
-msgid "_Show notifications when user login"
-msgstr "Exibir notificações no lo_gin"
+#: ../src/gui/prefdialog.py:59
+msgid "Alert before due date:"
+msgstr ""
+
+#: ../src/gui/prefdialog.py:64 ../src/gui/prefdialog.py:110
+msgid "day(s)."
+msgstr ""
 
 #: ../src/gui/prefdialog.py:67
-msgid "Delay:"
-msgstr "Atraso:"
+#, fuzzy
+msgid "Preferred time:"
+msgstr "Preferências"
 
-#: ../src/gui/prefdialog.py:73
-#: ../src/gui/prefdialog.py:251
-#: ../src/gui/prefdialog.py:340
+#: ../src/gui/prefdialog.py:69
+msgid "Get alerted when individual bills are due."
+msgstr ""
+
+#. Notification Group
+#: ../src/gui/prefdialog.py:91
+msgid "Notifications"
+msgstr "Notificações"
+
+#: ../src/gui/prefdialog.py:97
+msgid "Define when to be notified of upcoming bills."
+msgstr ""
+
+#: ../src/gui/prefdialog.py:105
+msgid "Notify before due date:"
+msgstr ""
+
+#. Alert Type Group
+#: ../src/gui/prefdialog.py:123
+msgid "Alert Type"
+msgstr "Tipo de Alerta"
+
+#: ../src/gui/prefdialog.py:133
+msgid "_Notification Bubble"
+msgstr "Balão de _Notificação"
+
+#: ../src/gui/prefdialog.py:135
+msgid "Al_ert Dialog"
+msgstr "Diálogo de Al_erta"
+
+#: ../src/gui/prefdialog.py:147
+#, fuzzy
+msgid ""
+"<b>Warning:</b> BillReminder Notifier is \n"
+"not running! You need to start it in order \n"
+" to receive notifications."
+msgstr ""
+"<b>Atenção:</b> O Notificador do BillReminder não está sendo executado!\n"
+"Ele deve estar sendo executado para exibir as notificações."
+
+#: ../src/gui/prefdialog.py:154
+#, fuzzy
+msgid "_Start BillReminder Notifier"
+msgstr "Notificador do BillReminder"
+
+#: ../src/gui/prefdialog.py:230
+msgid "1 hour"
+msgstr "1 hora"
+
+#: ../src/gui/prefdialog.py:233
 #, python-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuto"
 msgstr[1] "%d minutos"
 
-#: ../src/gui/prefdialog.py:78
-msgid "Open BillReminder _minimized in notification area"
-msgstr "Iniciar BillReminder _minimizado na área de notificação"
+#: ../src/gui/prefdialog.py:239
+#, fuzzy
+msgid "<b>Note:</b> BillReminder Notifier is now running."
+msgstr "Notificador do BillReminder já está sendo executado."
 
-#. Notification Group
-#: ../src/gui/prefdialog.py:97
-msgid "Notifications"
-msgstr "Notificações"
-
-#: ../src/gui/prefdialog.py:107
-#, python-format
-msgid "Show notification for bills that will be due _before %d days"
-msgstr "Exibir notificações para contas que _vencerão antes de %d dias"
-
-#: ../src/gui/prefdialog.py:127
-#, python-format
-msgid "Show _alert %(days)d days before due date, at %(hours)s"
-msgstr "Exibir _alerta %(days)d dias antes do vencimento, às  %(hours)s"
-
-#: ../src/gui/prefdialog.py:170
-msgid "Show alert for bills that are _due"
-msgstr "Exibir alerta para contas venci_das"
-
-#. Alert Type Group
-#: ../src/gui/prefdialog.py:182
-msgid "Alert Type"
-msgstr "Tipo de Alerta"
-
-#: ../src/gui/prefdialog.py:192
-msgid "_Notification Bubble"
-msgstr "Balão de _Notificação"
-
-#: ../src/gui/prefdialog.py:194
-msgid "Al_ert Dialog"
-msgstr "Diálogo de Al_erta"
-
-#: ../src/gui/prefdialog.py:208
-msgid ""
-"<b>Warning:</b> BillReminder Notifier is not running!\n"
-"It must be running to show notifications."
-msgstr ""
-"<b>Atenção:</b> O Notificador do BillReminder não está sendo executado!\n"
-"Ele deve estar sendo executado para exibir as notificações."
-
-#: ../src/gui/prefdialog.py:215
-msgid "_Launch BillReminder Notifier"
-msgstr "_Iniciar o Notificador do BillReminder"
-
-#: ../src/gui/prefdialog.py:248
-#: ../src/gui/prefdialog.py:337
-msgid "1 hour"
-msgstr "1 hora"
-
-#: ../src/gui/prefdialog.py:277
-#: ../src/gui/prefdialog.py:279
-msgid "%H:%M"
-msgstr "%H:%M"
-
-#: ../src/gui/prefdialog.py:347
-msgid ""
-"<b>Note:</b> BillReminder Notifier now is running.\n"
-"It is needed to show notifications."
-msgstr ""
-"<b>Nota:</b>O Notificador do BillReminder agora está sendo executado.\n"
-"Ele é necessário para exibir as notificações."
-
-#: ../src/gui/widgets/datebutton.py:33
-#: ../src/gui/widgets/datebutton.py:62
+#: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:61
 msgid "%Y/%m/%d %H:%M"
 msgstr "%d/%m/%Y %H:%M"
 
-#: ../src/gui/widgets/datebutton.py:67
+#: ../src/gui/widgets/datebutton.py:66
 msgid "Select date and time"
 msgstr "Selecione a data e hora"
 
-#: ../src/gui/widgets/datebutton.py:78
+#: ../src/gui/widgets/datebutton.py:77
 msgid "Date:"
 msgstr "Data:"
 
-#: ../src/gui/widgets/datebutton.py:82
-#: ../src/gui/widgets/timewidget.py:14
+#. If we do have an existing alarm time, pass it to the widget
+#: ../src/gui/widgets/datebutton.py:81 ../src/gui/widgets/datebutton.py:88
 msgid "Time:"
 msgstr "Hora:"
 
-#: ../src/gui/widgets/statusbar.py:17
+#: ../src/gui/widgets/statusbar.py:16
 msgid "Records:"
 msgstr "Registros:"
 
-#: ../src/gui/widgets/timewidget.py:29
+#: ../src/gui/widgets/timewidget.py:28
 msgid "Hour :"
 msgstr "Hora:"
 
-#: ../src/gui/widgets/timewidget.py:38
+#: ../src/gui/widgets/timewidget.py:37
 msgid "Minute :"
 msgstr "Minuto:"
 
-#: ../src/gui/widgets/trayicon.py:43
+#: ../src/gui/widgets/trayicon.py:42
 msgid "Hide Window"
 msgstr "Esconder Janela"
 
-#: ../src/gui/widgets/trayicon.py:45
+#: ../src/gui/widgets/trayicon.py:44
 msgid "Show Window"
 msgstr "Mostrar Janela"
 
-#: ../src/gui/widgets/trayicon.py:51
+#: ../src/gui/widgets/trayicon.py:50
 msgid "About"
 msgstr "Sobre"
 
-#: ../src/gui/widgets/trayicon.py:55
+#: ../src/gui/widgets/trayicon.py:54
 msgid "Quit"
 msgstr "Sair"
 
-#: ../src/gui/widgets/viewbill.py:83
-#: ../src/gui/widgets/viewcategory.py:40
+#: ../src/gui/widgets/viewbill.py:82 ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
 msgstr "Categoria"
 
-#: ../src/gui/widgets/viewbill.py:87
+#: ../src/gui/widgets/viewbill.py:86
 msgid "Due Date"
 msgstr "Data de Vencimento"
 
-#: ../src/gui/widgets/viewbill.py:89
+#: ../src/gui/widgets/viewbill.py:88
 msgid "Amount Due"
 msgstr "Valor"
 
-#: ../src/gui/widgets/viewbill.py:91
+#: ../src/gui/widgets/viewbill.py:90
 msgid "Notes"
 msgstr "Anotações"
 
-#: ../src/gui/widgets/viewbill.py:95
+#: ../src/gui/widgets/viewbill.py:94
 msgid "Alarm"
 msgstr "Alarme"
 
-#: ../src/lib/common.py:19
+#: ../src/lib/common.py:18
 msgid "Developers:"
 msgstr "Desenvolvedores:"
 
-#: ../src/lib/common.py:24
+#: ../src/lib/common.py:22
 msgid "Contributors:"
 msgstr "Contribuidores:"
 
-#: ../src/lib/dbus_actions.py:30
+#: ../src/lib/dbus_actions.py:29
 msgid ""
 "An error occurred while connecting to BillReminder Notifier!\n"
 "Do you want to launch it and restart BillReminder?"
@@ -540,40 +526,72 @@ msgstr ""
 "Você deseja iniciá-lo e reiniciar o BillReminder?"
 
 #. Dialog Title
-#: ../src/lib/dialogs.py:52
+#: ../src/lib/dialogs.py:51
 msgid "Add a New Record"
 msgstr "Adicionar Nova"
 
 #. Dialog Title
-#: ../src/lib/dialogs.py:63
+#: ../src/lib/dialogs.py:62
 msgid "Edit a Record"
 msgstr "Editar um Registro"
 
 #. Dialog Title
-#: ../src/lib/utils.py:84
+#: ../src/lib/utils.py:83
 msgid "Question"
 msgstr "Pergunta"
 
 #. Dialog Title
-#: ../src/lib/utils.py:97
-#: ../src/lib/utils.py:110
+#: ../src/lib/utils.py:96 ../src/lib/utils.py:109
 msgid "Error"
 msgstr "Erro"
 
 #. Dialog Title
-#: ../src/lib/utils.py:123
+#: ../src/lib/utils.py:122
 msgid "Information"
 msgstr "Informação"
 
-#: ../src/lib/utils.py:151
+#: ../src/lib/utils.py:150
 msgid "Close _Without Saving"
 msgstr "Fechar _Sem Salvar"
 
-#: ../src/lib/utils.py:157
+#: ../src/lib/utils.py:156
 msgid "Save changes before closing?"
 msgstr "Salvar alterações antes de fechar?"
 
-#: ../src/lib/utils.py:158
+#: ../src/lib/utils.py:157
 msgid "If you close without saving, your changes will be discarded."
 msgstr "Se você fechar sem salvar, as alterações serão descartadas."
 
+#~ msgid "Startup"
+#~ msgstr "Iniciar"
+
+#~ msgid "_Show notifications when user login"
+#~ msgstr "Exibir notificações no lo_gin"
+
+#~ msgid "Delay:"
+#~ msgstr "Atraso:"
+
+#~ msgid "Open BillReminder _minimized in notification area"
+#~ msgstr "Iniciar BillReminder _minimizado na área de notificação"
+
+#~ msgid "Show notification for bills that will be due _before %d days"
+#~ msgstr "Exibir notificações para contas que _vencerão antes de %d dias"
+
+#~ msgid "Show _alert %(days)d days before due date, at %(hours)s"
+#~ msgstr "Exibir _alerta %(days)d dias antes do vencimento, às  %(hours)s"
+
+#~ msgid "Show alert for bills that are _due"
+#~ msgstr "Exibir alerta para contas venci_das"
+
+#~ msgid "_Launch BillReminder Notifier"
+#~ msgstr "_Iniciar o Notificador do BillReminder"
+
+#~ msgid "%H:%M"
+#~ msgstr "%H:%M"
+
+#~ msgid ""
+#~ "<b>Note:</b> BillReminder Notifier now is running.\n"
+#~ "It is needed to show notifications."
+#~ msgstr ""
+#~ "<b>Nota:</b>O Notificador do BillReminder agora está sendo executado.\n"
+#~ "Ele é necessário para exibir as notificações."
