@@ -515,7 +515,7 @@ class MainDialog:
             sent by a right click on tvBill widget. """
         if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
             self._get_selected_record()
-            timeout_add(100, self._create_list_contextmenu, widget, event)
+            timeout_add(200, self._create_list_contextmenu, widget, event)
 
     def _create_list_contextmenu(self, widget, event):
         c = ContextMenu(self)
