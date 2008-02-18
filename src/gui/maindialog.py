@@ -116,7 +116,6 @@ class MainDialog:
         self.callabel.set_alignment(0.02, 0.50)
         self.calendar = gtk.Calendar()
         # Format the dueDate field
-        self.calendar.connect("day_selected", self._on_calendar_day_selected)
         self.calendar.connect("month_changed", self._on_calendar_month_changed)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
@@ -160,9 +159,7 @@ class MainDialog:
         # Connects to the database
         self.actions = Actions()
         # populate treeview
-        self._populateTreeView()
-        # Marks days with bills for selected month
-        self._on_calendar_month_changed(self.calendar)
+        self.reloadTreeView()
         self.notify = NotifyIcon(self)
 
         # Connects to the Daemon
@@ -226,17 +223,13 @@ class MainDialog:
         selectedDate = time.mktime(selectedDate.timetuple())
         return selectedDate
 
-    def _populateTreeView(self):
+    def _markCalendar(self, records):
+        self.calendar.clear_marks()
+        for rec in records:
+            self.calendar.mark_day(datetime.datetime.fromtimestamp(rec['dueDate']).day)
+
+    def _populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
-
-        selectedDate = self._get_date()
-
-        if self.config.getint('GUI', 'show_paid_bills') == 0:
-            records = self.actions.get_bills('paid = 1 and dueDate <= %s ORDER BY dueDate DESC' % selectedDate)
-        elif self.config.getint('GUI', 'show_paid_bills') == 1:
-            records = self.actions.get_bills('paid = 0 and dueDate <= %s ORDER BY dueDate DESC' % selectedDate)
-        else:
-            records = self.actions.get_bills('paid IN (0,1) and dueDate <= %s ORDER BY dueDate DESC' % selectedDate)
 
         # Reset list
         self.list.listStore.clear()
@@ -251,16 +244,24 @@ class MainDialog:
 
     def reloadTreeView(self, *arg):
         # Update list with updated record
+        status = self.config.getint('GUI', 'show_paid_bills')
+        month = self.calendar.get_date()[1] + 1
+        year = self.calendar.get_date()[0]
+
         path = self.list.get_cursor()[0]
         self.list.listStore.clear()
         self.currentrecord = None
-        # Populate treeview
-        length = self._populateTreeView()
 
-        if path and length:
-            self.list.set_cursor(path)
+        # Get list of records
+        records = self.actions.get_monthly_bills(status, month, year)
+
+        # Populate treeview
+        self._populateTreeView(records)
+        # Mark days in calendar
+        self._markCalendar(records)
+        # Update status bar
         self._update_statusbar()
-        return length
+        return len(records)
 
     def _formated_row(self, row):
         """ Formats a bill to be displayed as a row. """
@@ -348,8 +349,8 @@ class MainDialog:
         ])
 
         actiongroup.add_radio_actions([
-            ('PaidRecords', None, _("_Paid Only"), None, _("Display all paid records only"), 0),
-            ('NotPaidRecords', None, _("_Not Paid Only"), None, _("Display all unpaid records only"), 1),
+            ('NotPaidRecords', None, _("_Not Paid Only"), None, _("Display all unpaid records only"), 0),
+            ('PaidRecords', None, _("_Paid Only"), None, _("Display all paid records only"), 1),
             ('AllRecords', None, _("_All Records"), None, _("Display all records"), 2),
         ], saved_view , self._change_view)
 
@@ -581,27 +582,7 @@ class MainDialog:
         self._quit_application()
 
     def _on_calendar_month_changed(self, widget):
-        month = self.calendar.get_date()[1] + 1
-        nextMonth = month % 12 + 1
-        goback = datetime.timedelta(seconds=1)
-        year = self.calendar.get_date()[0]
-        # Create datetime object with a timestamp corresponding the end of day
-        firstOfMonth = datetime.datetime(year, month, 1, 0, 0, 0)
-        lastOfMonth = datetime.datetime(year, nextMonth, 1, 0, 0, 0)
-        lastOfMonth = lastOfMonth - goback
-        # Turn it into a time object
-        firstOfMonth = time.mktime(firstOfMonth.timetuple())
-        lastOfMonth = time.mktime(lastOfMonth.timetuple())
-
-        records = self.actions.get_bills('paid = 0 and dueDate >= %s and dueDate <= %s ORDER BY dueDate DESC' % (firstOfMonth, lastOfMonth))
-        # Clear marks
-        self.calendar.clear_marks()
-        for rec in records:
-            self.calendar.mark_day(datetime.datetime.fromtimestamp(rec['dueDate']).day)
-
-    def _on_calendar_day_selected(self, widget):
-        # Populate treeview
-        self._populateTreeView()
+        self.reloadTreeView()
 
     def _on_show_toolbar(self, action):
         # Toggle toolbar's visibility
