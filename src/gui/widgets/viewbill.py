@@ -42,7 +42,7 @@ class ViewBill(GenericListView):
         # Format the dueDate field
         dueDate = datetime.datetime.fromtimestamp(dueDate)
         # TRANSLATORS: This is a date format. You can change the order.
-        dueDate = dueDate.strftime(_('%Y/%m/%d').encode('ASCII'))
+        dueDate = dueDate.strftime(_('%m/%d').encode('ASCII'))
         cell.set_property('text', dueDate)
         cell.set_property('xalign', 0.5)
 
@@ -83,9 +83,9 @@ class ViewBill(GenericListView):
             gtk.CellRendererText(), category_cell_data_function],
         3: [_('Payee'),
             gtk.CellRendererText(), payee_cell_data_function],
-        4: [_('Due Date'),
+        4: [_('Date'),
             gtk.CellRendererText(), duedate_cell_data_function],
-        5: [_('Amount Due'),
+        5: [_('Amount'),
             gtk.CellRendererText(), amountdue_cell_data_function],
         6: [_('Notes'),
             gtk.CellRendererText(), notes_cell_data_function],
