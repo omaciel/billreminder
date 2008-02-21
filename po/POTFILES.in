@@ -36,4 +36,5 @@ src/lib/dal.py
 src/lib/dbus_actions.py
 src/lib/dialogs.py
 src/lib/utils.py
+src/lib/scheduler.py
 

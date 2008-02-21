@@ -13,6 +13,7 @@ billreminder_lib_PYTHON = \
 	dbus_actions.py \
 	dialogs.py \
 	i18n.py \
+	scheduler.py \
 	sysvars.py \
 	utils.py
 

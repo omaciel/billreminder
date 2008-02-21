@@ -8,7 +8,7 @@ import dal
 import bill
 import time
 import datetime
-from lib import common
+from lib import common, scheduler
 from lib.utils import force_string
 from lib.utils import verify_dbus_service
 from db.billstable import BillsTable
@@ -23,15 +23,9 @@ class Actions(object):
         self.dal = databaselayer
 
     def get_monthly_bills(self, status, month, year):
-        nextMonth = month % 12 + 1
-        goback = datetime.timedelta(seconds=1)
-        # Create datetime object with a timestamp corresponding the end of day
-        firstOfMonth = datetime.datetime(year, month, 1, 0, 0, 0)
-        lastOfMonth = datetime.datetime(year, nextMonth, 1, 0, 0, 0)
-        lastOfMonth = lastOfMonth - goback
-        # Turn it into a time object
-        firstOfMonth = time.mktime(firstOfMonth.timetuple())
-        lastOfMonth = time.mktime(lastOfMonth.timetuple())
+        # Delimeters for our search
+        firstOfMonth = scheduler.first_of_month(month, year)
+        lastOfMonth = scheduler.last_of_month(month, year)
 
         # Determine status criteria
         status = status < 2 and ' = %s' % status or ' in (0,1)'
