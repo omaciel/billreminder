@@ -9,9 +9,9 @@ SC_MONTHLY = _("Monthly")
 
 def time_from_calendar(calendar):
     ''' Return a time object representing the date. '''
-    day = self.calendar.get_date()[2]
-    month = self.calendar.get_date()[1] + 1
-    year = self.calendar.get_date()[0]
+    day = calendar[2]
+    month = calendar[1] + 1
+    year = calendar[0]
     # Create datetime object
     ret = datetime.datetime(year, month, day)
     # Convert from datetime to time
@@ -37,7 +37,7 @@ def datetime_from_timestamp(timestamp):
 
     return ret
 
-def get_schedule_date(frequency, date):
+def get_schedule_timestamp(frequency, date):
     ''' Return the scheduled date from original date. '''
 
     # Date conversion if needed
@@ -59,6 +59,7 @@ def get_schedule_date(frequency, date):
     return ret
 
 def first_of_month(month, year):
+    ''' Return the timestamp for the first day of the given month. '''
     ret = datetime.datetime(year, month, 1, 0, 0, 0)
 
     # Convert to timestamp
@@ -67,11 +68,31 @@ def first_of_month(month, year):
     return ret
 
 def last_of_month(month, year):
+    ''' Return the timestamp for the last day of the given month. '''
     nextMonth = month % 12 + 1
     goback = datetime.timedelta(seconds=1)
     # Create datetime object with a timestamp corresponding the end of day
     nextMonth = datetime.datetime(year, nextMonth, 1, 0, 0, 0)
     ret = nextMonth - goback
+
+    # Convert to timestamp
+    ret = timestamp_from_datetime(ret)
+
+    return ret
+
+def get_alarm_timestamp(alertDays, alertTime, origDate=None):
+    ''' Calculate alarm timestamp. '''
+
+    if not origDate:
+        origDate = datetime_from_timestamp(origDate)
+    elif isinstance(origDate, float):
+        origDate = datetime_from_timestamp(origDate)
+
+    alertTime = alertTime.split(':')
+    delta = datetime.timedelta(days=alertDays)
+    alertDate = origDate - delta
+
+    ret = datetime.datetime(alertDate.year, alertDate.month, alertDate.day, int(alertTime[0]), int(alertTime[1]))
 
     # Convert to timestamp
     ret = timestamp_from_datetime(ret)
