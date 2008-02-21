@@ -220,19 +220,6 @@ class PrefDialog(gtk.Dialog):
         self.config.set(category, item, editable.get_text())
         self.config.save()
 
-    def _on_scale_value_changed(self, range, category, item):
-        delay = int(range.get_value())
-        self.config.set(category, item, delay)
-        self.config.save()
-        if delay == 0:
-            msg = " %s" % _("None")
-        elif delay >= 60:
-            msg = " %s" % _("1 hour")
-            delay = 60
-        else:
-            msg = " %s" % ngettext("%d minute", "%d minutes", delay) % delay
-        self.startup_delay_label2.set_text(msg)
-
     def _launch_daemon(self, button):
         Popen('billreminderd', shell=True)
         button.hide()
