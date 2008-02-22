@@ -30,7 +30,7 @@ def timestamp_from_datetime(date):
 
 def datetime_from_timestamp(timestamp):
     ''' Convert a time object into a datetime object. '''
-    if isinstance(timestamp, float):
+    if isinstance(timestamp, float) or isinstance(timestamp, int):
         ret = datetime.datetime.fromtimestamp(timestamp)
     else:
         ret = datetime.datetime.now()
@@ -41,7 +41,7 @@ def get_schedule_timestamp(frequency, date):
     ''' Return the scheduled date from original date. '''
 
     # Date conversion if needed
-    if isinstance(date, float):
+    if isinstance(date, float) or isinstance(date, int):
         date = datetime_from_timestamp(date)
 
     if frequency == SC_WEEKLY:
@@ -85,7 +85,7 @@ def get_alarm_timestamp(alertDays, alertTime, origDate=None):
 
     if not origDate:
         origDate = datetime_from_timestamp(origDate)
-    elif isinstance(origDate, float):
+    elif isinstance(origDate, float) or isinstance(origDate, int):
         origDate = datetime_from_timestamp(origDate)
 
     alertTime = alertTime.split(':')

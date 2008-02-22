@@ -5,7 +5,6 @@ __all__ = ['AddDialog']
 import pygtk
 pygtk.require('2.0')
 import gtk
-import time
 import datetime
 import locale
 import gobject
@@ -60,8 +59,8 @@ class AddDialog(gtk.Dialog):
         if record:
             self._populate_fields()
             #in edit mode we must disable repetition
-            print 'got here'
             self.repeatSpinner.set_sensitive(False)
+            self.frequency.set_sensitive(False)
             self.repeatlabel.set_sensitive(False)
 
         else:
@@ -91,10 +90,6 @@ class AddDialog(gtk.Dialog):
         self.calendar = gtk.Calendar()
         self.calendar.connect("day_selected", self._on_calendar_day_selected)
         self.calendar.mark_day(datetime.datetime.today().day)
-        ## Repeating bills
-        self.frequency = gtk.combo_box_new_text()
-        self.frequency.set_row_separator_func(self._determine_separator)
-        self._populate_frequency()
         ## repeat times
         self.repeatlabel = gtk.Label()
         self.repeatlabel.set_markup("<b>%s</b> " % _("Repeat:"))
@@ -106,10 +101,15 @@ class AddDialog(gtk.Dialog):
         self.repeatSpinner.set_numeric(True)
         self.repeatSpinner.set_update_policy(gtk.UPDATE_IF_VALID)
         self.repeatSpinner.set_snap_to_ticks(True)
+        ## Repeating bills
+        self.frequency = gtk.combo_box_new_text()
+        self.frequency.connect('changed', self._on_frequency_changed)
+        self.frequency.set_row_separator_func(self._determine_separator)
+        self._populate_frequency()
         hbox = gtk.HBox(homogeneous=False, spacing=0)
         hbox.pack_start(self.repeatlabel, expand=True, fill=True, padding=0)
-        hbox.pack_start(self.repeatSpinner, expand=True, fill=True, padding=0)
         hbox.pack_start(self.frequency, expand=True, fill=True, padding=0)
+        hbox.pack_start(self.repeatSpinner, expand=True, fill=True, padding=0)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
            expand=True, fill=True, padding=5)
@@ -117,7 +117,6 @@ class AddDialog(gtk.Dialog):
            expand=True, fill=True, padding=5)
         self.calbox.pack_start(hbox,
            expand=True, fill=True, padding=5)
-
 
         # Fields
         ## Table of 5 x 2
@@ -223,7 +222,7 @@ class AddDialog(gtk.Dialog):
         # Format the amount field
         self.amount.set_text(utils.float_to_currency(self.currentrecord.AmountDue))
         # Format the dueDate field
-        dt = datetime.datetime.fromtimestamp(self.currentrecord.DueDate)
+        dt = scheduler.datetime_from_timestamp(self.currentrecord.DueDate)
         self.calendar.select_day(dt.day)
         self.calendar.select_month(dt.month - 1, dt.year)
         utils.select_combo_text(self.payee, self.currentrecord.Payee)
@@ -278,9 +277,11 @@ class AddDialog(gtk.Dialog):
         """ Populates combobox with allowable frequency. """
         store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_INT)
         self.frequency.set_model(store)
-        store.append([scheduler.SC_ONCE, -1])
-        store.append([scheduler.SC_MONTHLY, 0])
-        store.append([scheduler.SC_WEEKLY, 1])
+        store.append([scheduler.SC_ONCE, 0])
+        store.append([scheduler.SC_MONTHLY, 1])
+        store.append([scheduler.SC_WEEKLY, 2])
+        # Set SC_ONCE as default
+        self.frequency.set_active(0)
 
     def _populate_category(self, return_id=None):
         """ Populates combobox with existing categories """
@@ -289,7 +290,7 @@ class AddDialog(gtk.Dialog):
 
         # List of categories from database
         categories = []
-        records = actions.get_categories("") or []
+        records = actions.get_categories("id > 0 ORDER BY categoryname ASC") or []
 
         ret = 0
 
@@ -336,14 +337,11 @@ class AddDialog(gtk.Dialog):
 
     def get_record(self):
 
-        xTimes = int(self.repeatSpinner.get_value())
+        repeat = int(self.repeatSpinner.get_value())
+        frequency = self.frequency.get_active_text()
         # Extracts the date off the calendar widget
-        day = self.calendar.get_date()[2]
-        month = self.calendar.get_date()[1] + 1
-        year = self.calendar.get_date()[0]
-
         # Create datetime object
-        selectedDate = datetime.datetime(year, month, day)
+        selectedDate = scheduler.time_from_calendar(self.calendar.get_date())
 
         #buffer = self.txtNotes.get_buffer()
         startiter, enditer = self.txtbuffer.get_bounds()
@@ -367,34 +365,41 @@ class AddDialog(gtk.Dialog):
         if self.currentrecord is None:
             # Verify how many bills will be inserted
             # this will only work for new bills
-            if xTimes -1  == 0:
-                self.currentrecord = Bill(payee, category, time.mktime(selectedDate.timetuple()),
-                                          amount, sbuffer, 0, -1, alarm)
+            if frequency == scheduler.SC_ONCE:
+                self.currentrecord = Bill(payee, category, selectedDate,
+                    amount, sbuffer, 0, -1, alarm)
                 return [self.currentrecord]
             else:
                 # if we are to add more than one bill
                 records = []
-                records.append (Bill(payee, category, time.mktime(selectedDate.timetuple()),
-                                          amount, sbuffer + (' (%s of %s)' % (1,xTimes)), 0, -1, alarm))
-                # calc next dates appending 30 days from the date
-                # maybe would be better use the same day as the first bill
-                for i in range(1, xTimes ):
-                    selectedDate = selectedDate +  datetime.timedelta(days=30)
-                    records.append (Bill(payee, category, time.mktime(selectedDate.timetuple()),
-                                              amount, sbuffer + (' (%s of %s)' % (i +1 ,xTimes )), 0, -1, alarm))
+                records.append (Bill(payee, category, selectedDate,
+                    amount, sbuffer + (' (%s of %s)' % (1,repeat)), 0, -1, alarm))
+                # calc next dates depending of frequency chosen.
+                for i in range(1, repeat):
+                    selectedDate = scheduler.get_schedule_timestamp(frequency, selectedDate)
+                    records.append (Bill(payee, category, selectedDate,
+                        amount, sbuffer + (' (%s of %s)' % (i +1 ,repeat )), 0, -1, alarm))
                 return records
         else:
             # Edit existing bill
             self.currentrecord.Category = category
             self.currentrecord.Payee = payee
-            self.currentrecord.DueDate = int(time.mktime(selectedDate.timetuple()))
+            self.currentrecord.DueDate = int(selectedDate)
             self.currentrecord.AmountDue = amount
             self.currentrecord.Notes = sbuffer
             self.currentrecord.Alarm = alarm
-            #self.currentrecord.Paid = int(self.chkPaid.get_active())
 
             #return the bill
             return [self.currentrecord]
+
+    def _on_frequency_changed(self, widget):
+        frequency = widget.get_active_text()
+        if frequency == scheduler.SC_ONCE:
+            self.repeatSpinner.set_value(1)
+            self.repeatSpinner.set_sensitive(False)
+        else:
+            self.repeatSpinner.set_sensitive(True)
+
 
     def _on_categoriesbutton_clicked(self, button, new=False):
         categories = CategoriesDialog(parent=self, new=new)
