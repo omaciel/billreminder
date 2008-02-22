@@ -41,7 +41,7 @@ def get_schedule_timestamp(frequency, date):
     ''' Return the scheduled date from original date. '''
 
     # Date conversion if needed
-    if isinstance(timestamp, float):
+    if isinstance(date, float):
         date = datetime_from_timestamp(date)
 
     if frequency == SC_WEEKLY:

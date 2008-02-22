@@ -61,7 +61,7 @@ class AddDialog(gtk.Dialog):
             self._populate_fields()
             #in edit mode we must disable repetition
             print 'got here'
-            self.spinner.set_sensitive(False)
+            self.repeatSpinner.set_sensitive(False)
             self.repeatlabel.set_sensitive(False)
 
         else:
@@ -91,15 +91,37 @@ class AddDialog(gtk.Dialog):
         self.calendar = gtk.Calendar()
         self.calendar.connect("day_selected", self._on_calendar_day_selected)
         self.calendar.mark_day(datetime.datetime.today().day)
+        ## Repeating bills
+        self.frequency = gtk.combo_box_new_text()
+        self.frequency.set_row_separator_func(self._determine_separator)
+        self._populate_frequency()
+        ## repeat times
+        self.repeatlabel = gtk.Label()
+        self.repeatlabel.set_markup("<b>%s</b> " % _("Repeat:"))
+        self.repeatlabel.set_alignment(0.00, 0.50)
+        adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
+        self.repeatSpinner = gtk.SpinButton(adj, 0, 0)
+        self.repeatSpinner.set_tooltip_text(_("How many times to repeat this monthly bill."))
+        self.repeatSpinner.set_wrap(True)
+        self.repeatSpinner.set_numeric(True)
+        self.repeatSpinner.set_update_policy(gtk.UPDATE_IF_VALID)
+        self.repeatSpinner.set_snap_to_ticks(True)
+        hbox = gtk.HBox(homogeneous=False, spacing=0)
+        hbox.pack_start(self.repeatlabel, expand=True, fill=True, padding=0)
+        hbox.pack_start(self.repeatSpinner, expand=True, fill=True, padding=0)
+        hbox.pack_start(self.frequency, expand=True, fill=True, padding=0)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
            expand=True, fill=True, padding=5)
         self.calbox.pack_start(self.calendar,
            expand=True, fill=True, padding=5)
+        self.calbox.pack_start(hbox,
+           expand=True, fill=True, padding=5)
+
 
         # Fields
         ## Table of 5 x 2
-        self.table = gtk.Table(rows=6, columns=2, homogeneous=False)
+        self.table = gtk.Table(rows=5, columns=2, homogeneous=False)
         ### Spacing to make things look better
         self.table.set_col_spacing(0, 6)
         self.table.set_row_spacing(0, 6)
@@ -160,17 +182,6 @@ class AddDialog(gtk.Dialog):
         self.alarmbutton = DateButton(self)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
 
-        ## repeat times
-        self.repeatlabel = gtk.Label()
-        self.repeatlabel.set_markup("<b>%s</b> " % _("Occurrence:"))
-        self.repeatlabel.set_alignment(0.00, 0.50)
-        adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
-        self.spinner = gtk.SpinButton(adj, 0, 0)
-        self.spinner.set_tooltip_text(_("How many times to repeat this monthly bill."))
-        self.spinner.set_wrap(True)
-        self.spinner.set_numeric(True)
-        self.spinner.set_update_policy(gtk.UPDATE_IF_VALID)
-        self.spinner.set_snap_to_ticks(True)
 
         ## Pack it all into the table
         self.table.attach(self.payeelabel, 0, 1, 0, 1, gtk.FILL, gtk.FILL)
@@ -183,8 +194,6 @@ class AddDialog(gtk.Dialog):
         self.table.attach(self.categorydock, 1, 2, 2, 3, gtk.FILL, gtk.FILL)
         self.table.attach(self.notesdock, 1, 2, 3, 4, gtk.FILL, gtk.FILL)
         self.table.attach(self.alarmbutton, 1, 2, 4, 5, gtk.FILL, gtk.FILL)
-        self.table.attach(self.repeatlabel, 0, 1, 5, 6, gtk.FILL, gtk.FILL)
-        self.table.attach(self.spinner, 1, 2, 5, 6, gtk.FILL, gtk.FILL)
 
         ## Pack table
         self.fieldbox.pack_start(self.table, expand=True, fill=True, padding=0)
@@ -265,6 +274,14 @@ class AddDialog(gtk.Dialog):
         else:
             return self.payeeEntry.get_text()
 
+    def _populate_frequency(self):
+        """ Populates combobox with allowable frequency. """
+        store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_INT)
+        self.frequency.set_model(store)
+        store.append([scheduler.SC_ONCE, -1])
+        store.append([scheduler.SC_MONTHLY, 0])
+        store.append([scheduler.SC_WEEKLY, 1])
+
     def _populate_category(self, return_id=None):
         """ Populates combobox with existing categories """
         # Connects to the database
@@ -319,7 +336,7 @@ class AddDialog(gtk.Dialog):
 
     def get_record(self):
 
-        xTimes = int(self.spinner.get_value())
+        xTimes = int(self.repeatSpinner.get_value())
         # Extracts the date off the calendar widget
         day = self.calendar.get_date()[2]
         month = self.calendar.get_date()[1] + 1
