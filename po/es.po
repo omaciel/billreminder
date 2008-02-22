@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-16 17:51-0500\n"
+"POT-Creation-Date: 2008-02-22 13:52-0500\n"
 "PO-Revision-Date: 2007-04-04 11:35-0400\n"
 "Last-Translator: Gilberto Miralla <xyhthyx@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 
 #. Application info
 #: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
-#: ../src/lib/common.py:12 ../src/lib/utils.py:138
+#: ../src/lib/common.py:9 ../src/lib/utils.py:138
 msgid "BillReminder"
 msgstr "RecuerdaCuentas"
 
@@ -90,9 +90,7 @@ msgstr "Cancelar"
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr ""
 
-#. TRANSLATORS: This is a date format. You can change the order.
 #: ../src/daemon/alarm.py:99 ../src/daemon/alarm.py:186
-#: ../src/gui/widgets/viewbill.py:45
 msgid "%Y/%m/%d"
 msgstr "%d/%m/%Y"
 
@@ -102,8 +100,8 @@ msgid "The bill %s is due."
 msgstr ""
 
 #. Button Title
-#: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:305
-#: ../src/gui/maindialog.py:329 ../src/lib/utils.py:135
+#: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:306
+#: ../src/gui/maindialog.py:330 ../src/lib/utils.py:135
 #, fuzzy
 msgid "Mark as paid"
 msgstr "Guardar como Pagado"
@@ -147,79 +145,80 @@ msgstr "créditos-traductor"
 msgid "BillReminder Website"
 msgstr "RecuerdaCuentas"
 
-#: ../src/gui/adddialog.py:95 ../src/gui/maindialog.py:115
+#: ../src/gui/adddialog.py:88 ../src/gui/maindialog.py:115
 #, fuzzy
 msgid "Due Date:"
 msgstr "Fecha Debida"
 
-#: ../src/gui/adddialog.py:118
+#: ../src/gui/adddialog.py:95
+msgid "Repeat:"
+msgstr ""
+
+#: ../src/gui/adddialog.py:99
+msgid "How many times to repeat this monthly bill."
+msgstr ""
+
+#: ../src/gui/adddialog.py:133
 #, fuzzy
 msgid "Payee:"
 msgstr "Beneficiario"
 
-#: ../src/gui/adddialog.py:121
+#: ../src/gui/adddialog.py:136
 #, fuzzy
 msgid "Amount:"
 msgstr "Cantidad Debida"
 
-#: ../src/gui/adddialog.py:124
+#: ../src/gui/adddialog.py:139
 msgid "Category:"
 msgstr ""
 
-#: ../src/gui/adddialog.py:127 ../src/gui/widgets/statusbar.py:26
+#: ../src/gui/adddialog.py:142 ../src/gui/widgets/statusbar.py:26
 #, fuzzy
 msgid "Notes:"
 msgstr "Notas"
 
-#: ../src/gui/adddialog.py:130
+#: ../src/gui/adddialog.py:145
 msgid "Alarm:"
 msgstr ""
 
-#: ../src/gui/adddialog.py:146
+#: ../src/gui/adddialog.py:161
 msgid "Manage Categories"
 msgstr ""
 
-#: ../src/gui/adddialog.py:167 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:182 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr ""
 
-#: ../src/gui/adddialog.py:171
-msgid "Occurrence:"
-msgstr ""
-
-#: ../src/gui/adddialog.py:175
-msgid "How many times to repeat this monthly bill."
-msgstr ""
-
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:293 ../src/gui/adddialog.py:317
-#: ../src/gui/maindialog.py:285 ../src/gui/prefdialog.py:228
-#: ../src/gui/widgets/datebutton.py:18 ../src/gui/widgets/datebutton.py:26
-#: ../src/gui/widgets/datebutton.py:43 ../src/gui/widgets/datebutton.py:69
+#: ../src/gui/adddialog.py:305 ../src/gui/adddialog.py:329
+#: ../src/gui/maindialog.py:286 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/widgets/datebutton.py:26 ../src/gui/widgets/datebutton.py:43
+#: ../src/gui/widgets/datebutton.py:69
 #, fuzzy
 msgid "None"
 msgstr "Notas"
 
-#: ../src/gui/adddialog.py:300 ../src/gui/categoriesdialog.py:47
+#: ../src/gui/adddialog.py:312 ../src/gui/categoriesdialog.py:47
 msgid "New Category"
 msgstr ""
 
-#: ../src/gui/adddialog.py:446
+#: ../src/gui/adddialog.py:462
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr ""
 
-#: ../src/gui/adddialog.py:447 ../src/gui/adddialog.py:451
+#: ../src/gui/adddialog.py:463 ../src/gui/adddialog.py:467
 #: ../src/gui/widgets/viewbill.py:84
 msgid "Payee"
 msgstr "Beneficiario"
 
-#: ../src/gui/adddialog.py:447 ../src/gui/adddialog.py:455
+#: ../src/gui/adddialog.py:463 ../src/gui/adddialog.py:471
+#: ../src/gui/widgets/viewbill.py:88
 #, fuzzy
 msgid "Amount"
 msgstr "Cantidad Debida"
 
-#: ../src/gui/adddialog.py:451 ../src/gui/adddialog.py:455
+#: ../src/gui/adddialog.py:467 ../src/gui/adddialog.py:471
 #, python-format
 msgid "\"%s\" is required field."
 msgstr ""
@@ -240,89 +239,80 @@ msgstr ""
 msgid "Color:"
 msgstr ""
 
-#: ../src/gui/maindialog.py:298
+#: ../src/gui/maindialog.py:299
 #, fuzzy
 msgid "New"
 msgstr "Añadir Nuevo"
 
-#: ../src/gui/maindialog.py:298 ../src/gui/maindialog.py:326
+#: ../src/gui/maindialog.py:299 ../src/gui/maindialog.py:327
 msgid "Add a new record"
 msgstr ""
 
-#: ../src/gui/maindialog.py:300 ../src/gui/maindialog.py:327
+#: ../src/gui/maindialog.py:301 ../src/gui/maindialog.py:328
 msgid "Edit a record"
 msgstr ""
 
-#: ../src/gui/maindialog.py:302 ../src/gui/maindialog.py:328
+#: ../src/gui/maindialog.py:303 ../src/gui/maindialog.py:329
 msgid "Delete selected record"
 msgstr ""
 
-#: ../src/gui/maindialog.py:305 ../src/gui/widgets/viewbill.py:92
+#: ../src/gui/maindialog.py:306 ../src/gui/widgets/viewbill.py:92
 msgid "Paid"
 msgstr "Pagado"
 
-#: ../src/gui/maindialog.py:308
+#: ../src/gui/maindialog.py:309
 msgid "Not Paid"
 msgstr "No Pagado"
 
-#: ../src/gui/maindialog.py:308 ../src/gui/maindialog.py:330
+#: ../src/gui/maindialog.py:309 ../src/gui/maindialog.py:331
 msgid "Mark as not paid"
 msgstr ""
 
-#: ../src/gui/maindialog.py:325
+#: ../src/gui/maindialog.py:326
 #, fuzzy
 msgid "_File"
 msgstr "_Archivo"
 
-#: ../src/gui/maindialog.py:326 ../src/gui/maindialog.py:521
+#: ../src/gui/maindialog.py:327 ../src/gui/maindialog.py:522
 #, fuzzy
 msgid "_Add New"
 msgstr "Añadir Nuevo"
 
-#: ../src/gui/maindialog.py:329 ../src/gui/maindialog.py:531
+#: ../src/gui/maindialog.py:330 ../src/gui/maindialog.py:532
 msgid "_Paid"
 msgstr "_Pagado"
 
-#: ../src/gui/maindialog.py:330
+#: ../src/gui/maindialog.py:331
 #, fuzzy
 msgid "_Not Paid"
 msgstr "No Pagado"
 
-#: ../src/gui/maindialog.py:331
+#: ../src/gui/maindialog.py:332
 msgid "Edit preferences"
 msgstr ""
 
-#: ../src/gui/maindialog.py:332
+#: ../src/gui/maindialog.py:333
 msgid "Quit the Program"
 msgstr ""
 
-#: ../src/gui/maindialog.py:333
+#: ../src/gui/maindialog.py:334
 msgid "_View"
 msgstr ""
 
-#: ../src/gui/maindialog.py:334
+#: ../src/gui/maindialog.py:335
 msgid "_Help"
 msgstr "_Ayuda"
 
-#: ../src/gui/maindialog.py:335
+#: ../src/gui/maindialog.py:336
 msgid "About the application"
 msgstr ""
 
-#: ../src/gui/maindialog.py:347
+#: ../src/gui/maindialog.py:348
 msgid "Show Toolbar"
 msgstr ""
 
-#: ../src/gui/maindialog.py:347
+#: ../src/gui/maindialog.py:348
 msgid "Show the toolbar"
-msgstr ""
-
-#: ../src/gui/maindialog.py:351
-#, fuzzy
-msgid "_Paid Only"
-msgstr "_Pagado"
-
-#: ../src/gui/maindialog.py:351
-msgid "Display all paid records only"
 msgstr ""
 
 #: ../src/gui/maindialog.py:352
@@ -336,24 +326,33 @@ msgstr ""
 
 #: ../src/gui/maindialog.py:353
 #, fuzzy
+msgid "_Paid Only"
+msgstr "_Pagado"
+
+#: ../src/gui/maindialog.py:353
+msgid "Display all paid records only"
+msgstr ""
+
+#: ../src/gui/maindialog.py:354
+#, fuzzy
 msgid "_All Records"
 msgstr "<b>Expedientes:</b>"
 
-#: ../src/gui/maindialog.py:353
+#: ../src/gui/maindialog.py:354
 msgid "Display all records"
 msgstr ""
 
-#: ../src/gui/maindialog.py:534
+#: ../src/gui/maindialog.py:535
 #, fuzzy
 msgid "Not _Paid"
 msgstr "No Pagado"
 
-#: ../src/gui/maindialog.py:561
+#: ../src/gui/maindialog.py:562
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr ""
 
-#: ../src/gui/maindialog.py:563
+#: ../src/gui/maindialog.py:564
 msgid "Confirmation"
 msgstr ""
 
@@ -420,18 +419,7 @@ msgstr ""
 msgid "_Start BillReminder Notifier"
 msgstr "RecuerdaCuentas"
 
-#: ../src/gui/prefdialog.py:230
-msgid "1 hour"
-msgstr ""
-
-#: ../src/gui/prefdialog.py:233
-#, python-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../src/gui/prefdialog.py:239
+#: ../src/gui/prefdialog.py:226
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr ""
 
@@ -483,17 +471,20 @@ msgstr ""
 msgid "Quit"
 msgstr "Salir"
 
+#. TRANSLATORS: This is a date format. You can change the order.
+#: ../src/gui/widgets/viewbill.py:45
+#, fuzzy
+msgid "%m/%d"
+msgstr "%d/%m/%Y"
+
 #: ../src/gui/widgets/viewbill.py:82 ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
 msgstr ""
 
 #: ../src/gui/widgets/viewbill.py:86
-msgid "Due Date"
+#, fuzzy
+msgid "Date"
 msgstr "Fecha Debida"
-
-#: ../src/gui/widgets/viewbill.py:88
-msgid "Amount Due"
-msgstr "Cantidad Debida"
 
 #: ../src/gui/widgets/viewbill.py:90
 msgid "Notes"
@@ -503,11 +494,11 @@ msgstr "Notas"
 msgid "Alarm"
 msgstr ""
 
-#: ../src/lib/common.py:18
+#: ../src/lib/common.py:15
 msgid "Developers:"
 msgstr ""
 
-#: ../src/lib/common.py:22
+#: ../src/lib/common.py:19
 msgid "Contributors:"
 msgstr ""
 
@@ -554,6 +545,25 @@ msgstr ""
 #: ../src/lib/utils.py:157
 msgid "If you close without saving, your changes will be discarded."
 msgstr ""
+
+#: ../src/lib/scheduler.py:6
+#, fuzzy
+msgid "Once"
+msgstr "Cancelar"
+
+#: ../src/lib/scheduler.py:7
+msgid "Weekly"
+msgstr ""
+
+#: ../src/lib/scheduler.py:8
+msgid "Monthly"
+msgstr ""
+
+#~ msgid "Due Date"
+#~ msgstr "Fecha Debida"
+
+#~ msgid "Amount Due"
+#~ msgstr "Cantidad Debida"
 
 #~ msgid "<b>Due Date:</b>"
 #~ msgstr "<b>Fecha Debida:</b>"
