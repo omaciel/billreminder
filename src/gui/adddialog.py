@@ -96,7 +96,7 @@ class AddDialog(gtk.Dialog):
         self.repeatlabel.set_alignment(0.00, 0.50)
         adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
         self.repeatSpinner = gtk.SpinButton(adj, 0, 0)
-        self.repeatSpinner.set_tooltip_text(_("How many times to repeat this monthly bill."))
+        self.repeatSpinner.set_tooltip_text(_("How many times to repeat this bill."))
         self.repeatSpinner.set_wrap(True)
         self.repeatSpinner.set_numeric(True)
         self.repeatSpinner.set_update_policy(gtk.UPDATE_IF_VALID)

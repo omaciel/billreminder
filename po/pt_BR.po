@@ -1,13 +1,14 @@
 # Portuguese translations for BillReminder package.
 # Copyright (C) 2007 Og Maciel
 # This file is distributed under the same license as the BillReminder package.
-# Automatically generated, 2007.
+# Luiz Fernando" <luiz.armesto@gmail.com>d, 2007-2008.
+# Fábio Nogueira <deb-user-ba@ubuntu.com>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-22 13:52-0500\n"
+"POT-Creation-Date: 2008-02-22 22:53-0500\n"
 "PO-Revision-Date: 2008-02-22 20:18-0300\n"
 "Last-Translator: Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
@@ -84,7 +85,7 @@ msgstr ""
 "  --version, -v\t\tExibe o número de versão desta aplicação.\n"
 
 #: ../src/daemon/alarm.py:61
-
+#, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] "Você tem %s conta a pagar!"
@@ -171,8 +172,8 @@ msgid "Repeat:"
 msgstr "Repetir:"
 
 #: ../src/gui/adddialog.py:99
-msgid "How many times to repeat this monthly bill."
-msgstr "Repetir quantas vezes mensalmente esta conta."
+msgid "How many times to repeat this bill."
+msgstr "Repetir quantas vezes esta conta."
 
 #: ../src/gui/adddialog.py:133
 msgid "Payee:"
@@ -218,7 +219,6 @@ msgstr "Nova Categoria"
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" e \"%s\" são campos necessários."
-
 
 #: ../src/gui/adddialog.py:463 ../src/gui/adddialog.py:467
 #: ../src/gui/widgets/viewbill.py:84

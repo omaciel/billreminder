@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-22 13:52-0500\n"
+"POT-Creation-Date: 2008-02-22 22:52-0500\n"
 "PO-Revision-Date: 2007-04-04 11:35-0400\n"
 "Last-Translator: Gilberto Miralla <xyhthyx@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -155,7 +155,7 @@ msgid "Repeat:"
 msgstr ""
 
 #: ../src/gui/adddialog.py:99
-msgid "How many times to repeat this monthly bill."
+msgid "How many times to repeat this bill."
 msgstr ""
 
 #: ../src/gui/adddialog.py:133
