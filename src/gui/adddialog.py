@@ -377,6 +377,8 @@ class AddDialog(gtk.Dialog):
                 # calc next dates depending of frequency chosen.
                 for i in range(1, repeat):
                     selectedDate = scheduler.get_schedule_timestamp(frequency, selectedDate)
+                    if alarm != -1:
+                        alarm = scheduler.get_schedule_timestamp(frequency, alarm)
                     records.append (Bill(payee, category, selectedDate,
                         amount, sbuffer + (' (%s of %s)' % (i +1 ,repeat )), 0, -1, alarm))
                 return records
