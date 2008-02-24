@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the billreminder package.
 # Rolando Espinoza La Fuente <darkrho@gmail.com>, 2007."
 # Gilberto Miralla <xyhthyx@gmail.com>, 2007, 2008.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-22 22:52-0500\n"
+"POT-Creation-Date: 2008-02-23 19:02-0500\n"
 "PO-Revision-Date: 2007-04-04 11:35-0400\n"
 "Last-Translator: Gilberto Miralla <xyhthyx@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -129,11 +129,14 @@ msgstr "Editar"
 #: ../src/daemon/main.py:117
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr "Archivo de Bloqueo encontrado: Tienes una instancia corriendo. (pid=%d)"
+msgstr ""
+"Archivo de Bloqueo encontrado: Tienes una instancia corriendo. (pid=%d)"
 
 #: ../src/daemon/main.py:122
 msgid "Lock File found: Possibly the program was exited unexpectedly."
-msgstr "Archivo de Bloqueo encontrado: Posiblemente el programa cerró inesperadamente."
+msgstr ""
+"Archivo de Bloqueo encontrado: Posiblemente el programa cerró "
+"inesperadamente."
 
 #: ../src/daemon/main.py:125
 msgid "Removing Lock File..."
@@ -218,23 +221,23 @@ msgstr "Ninguno"
 msgid "New Category"
 msgstr "Categoría Nueva"
 
-#: ../src/gui/adddialog.py:462
+#: ../src/gui/adddialog.py:464
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" y \"%s\" son campos obligatorios."
 
-#: ../src/gui/adddialog.py:463 ../src/gui/adddialog.py:467
+#: ../src/gui/adddialog.py:465 ../src/gui/adddialog.py:469
 #: ../src/gui/widgets/viewbill.py:84
 msgid "Payee"
 msgstr "Beneficiario"
 
-#: ../src/gui/adddialog.py:463 ../src/gui/adddialog.py:471
+#: ../src/gui/adddialog.py:465 ../src/gui/adddialog.py:473
 #: ../src/gui/widgets/viewbill.py:88
 #, fuzzy
 msgid "Amount"
 msgstr "Cantidad"
 
-#: ../src/gui/adddialog.py:467 ../src/gui/adddialog.py:471
+#: ../src/gui/adddialog.py:469 ../src/gui/adddialog.py:473
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" es un campo obligatorio."
@@ -254,6 +257,11 @@ msgstr "Nombre:"
 #: ../src/gui/categoriesdialog.py:84
 msgid "Color:"
 msgstr "Color:"
+
+#: ../src/gui/maindialog.py:95
+#, fuzzy
+msgid "Bills:"
+msgstr "Cuenta"
 
 #: ../src/gui/maindialog.py:299
 #, fuzzy
@@ -641,9 +649,6 @@ msgstr "Mensual"
 
 #~ msgid "Bill '%s' not deleted."
 #~ msgstr "La cuenta '%s' no fue borrada."
-
-#~ msgid "Bill"
-#~ msgstr "Cuenta"
 
 #~ msgid "0"
 #~ msgstr "0"

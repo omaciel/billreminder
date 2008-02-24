@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-22 22:53-0500\n"
+"POT-Creation-Date: 2008-02-23 19:03-0500\n"
 "PO-Revision-Date: 2008-02-22 20:18-0300\n"
 "Last-Translator: Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
@@ -215,22 +215,22 @@ msgstr "Nenhum"
 msgid "New Category"
 msgstr "Nova Categoria"
 
-#: ../src/gui/adddialog.py:462
+#: ../src/gui/adddialog.py:464
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" e \"%s\" são campos necessários."
 
-#: ../src/gui/adddialog.py:463 ../src/gui/adddialog.py:467
+#: ../src/gui/adddialog.py:465 ../src/gui/adddialog.py:469
 #: ../src/gui/widgets/viewbill.py:84
 msgid "Payee"
 msgstr "Titular"
 
-#: ../src/gui/adddialog.py:463 ../src/gui/adddialog.py:471
+#: ../src/gui/adddialog.py:465 ../src/gui/adddialog.py:473
 #: ../src/gui/widgets/viewbill.py:88
 msgid "Amount"
 msgstr "Valor"
 
-#: ../src/gui/adddialog.py:467 ../src/gui/adddialog.py:471
+#: ../src/gui/adddialog.py:469 ../src/gui/adddialog.py:473
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" é um campo necessário."
@@ -250,6 +250,10 @@ msgstr "Nome:"
 #: ../src/gui/categoriesdialog.py:84
 msgid "Color:"
 msgstr "Cor:"
+
+#: ../src/gui/maindialog.py:95
+msgid "Bills:"
+msgstr "Contas:"
 
 #: ../src/gui/maindialog.py:299
 msgid "New"
