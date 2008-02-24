@@ -92,7 +92,7 @@ class MainDialog:
 
         self.listbox = gtk.VBox(homogeneous=False, spacing=1)
         self.listlabel = gtk.Label()
-        self.listlabel.set_markup("<b>Bills:</b>")
+        self.listlabel.set_markup("<b>%s</b>" % _("Bills:"))
         self.listlabel.set_alignment(0.02, 0.50)
         # ScrolledWindow
         self.scrolledwindow = gtk.ScrolledWindow()
