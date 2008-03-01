@@ -9,7 +9,7 @@ from subprocess import Popen
 
 import dal
 import bill
-from lib import common
+from lib import common, scheduler
 from lib.utils import force_string
 from lib.utils import Message
 from db.billstable import BillsTable
@@ -46,6 +46,19 @@ class Actions(object):
         if 'caId' in record.keys():
             record['caId'] = int(record['caId'])
         return record
+
+    def get_monthly_bills(self, status, month, year):
+        # Delimeters for our search
+        firstOfMonth = scheduler.first_of_month(month, year)
+        lastOfMonth = scheduler.last_of_month(month, year)
+
+        # Determine status criteria
+        status = status < 2 and ' = %s' % status or ' in (0,1)'
+
+        records = self.get_bills('paid %s' \
+            ' and dueDate >= %s and dueDate <= %s' \
+            ' ORDER BY dueDate DESC' % (status, firstOfMonth, lastOfMonth))
+        return records
 
     def get_bills(self, kwargs):
         """ Returns one or more records that meet the criteria passed """
