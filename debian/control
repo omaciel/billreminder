@@ -2,9 +2,9 @@ Source: billreminder
 Section: gnome
 Priority: extra
 Maintainer: Luiz Armesto <luiz.armesto@gmail.com>
-Build-Depends: debhelper (>= 5.0.38), autotools-dev, python-central (>= 0.5.6), python-all-dev (>= 2.3.5-11)
+Build-Depends: debhelper (>= 5.0.38), autotools-dev, cdbs, intltool, python-central (>= 0.5.6), python-all-dev (>= 2.3.5-11), python-gtk2, python-gobject, python-pysqlite2, python-dbus, python-imaging
 XS-Python-Version: all
-Standards-Version: 3.7.2
+Standards-Version: 3.7.3
 
 Package: billreminder
 Architecture: all
