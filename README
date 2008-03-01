@@ -17,12 +17,18 @@ Many thanks to the following people who directly and indirectly helped with this
     * Rolando Espinoza La Fuente
     * Gilberto Miralla
     * Reinout van Schouwen
+    * Sebastian Haselbeck
+    * Fábio Nogueira
+    * Tommy Mikkelsen
+    * Daniel Nylander
+    * Diogo Autilio
+    * Alex Bevilacqua
 
 DEPENDENCIES
 ============
-pygtk
-pysqlite2
-
+python gtk
+python sqlite2
+python image
 
 INSTALLATION
 ============

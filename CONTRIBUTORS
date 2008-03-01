@@ -1,10 +1,12 @@
 Translators:
 ===========
-de: Sebastian Haselbeck <haselbeck@gmx.net>
-es: Rolando Espinoza La Fuente <darkrho@gmail.com>, Gilberto Miralla <xyhthyx@gmail.com>
-nl: Reinout van Schouwen <reinouts@gnome.org>
-no: Tommy Mikkelsen <tamikkelsen@gmail.com>
-sv: Daniel Nylander <po@danielnylander.se>
+de:    Sebastian Haselbeck <haselbeck@gmx.net>
+es:    Rolando Espinoza La Fuente <darkrho@gmail.com>
+       Gilberto Miralla <xyhthyx@gmail.com>
+nl:    Reinout van Schouwen <reinouts@gnome.org>
+no:    Tommy Mikkelsen <tamikkelsen@gmail.com>
+pt_BR: Fábio Nogueira <deb-user-ba@ubuntu.com>
+sv:    Daniel Nylander <po@danielnylander.se>
 
 Beta Testers:
 ============
@@ -13,3 +15,8 @@ Mat Davey <mat@in-theory.org.uk>
 Patches:
 ========
 Daniel Schierbeck <daniel.schierbeck@gmail.com>
+
+Packagers:
+=========
+Diogo Autilio <diautilio@gmail.com>
+Alex Bevilacqua <alexbevi@gmail.com>
