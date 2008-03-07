@@ -49,7 +49,8 @@ def get_schedule_timestamp(frequency, date):
         ret = date + delta
     elif frequency == SC_MONTHLY:
         nextMonth = date.month % 12 + 1
-        ret = datetime.datetime(date.year, nextMonth, date.day)
+        nextMonthYear = date.year + ((date.month) / 12)
+        ret = datetime.datetime(nextMonthYear, nextMonth, date.day)
     else:
         ret = date
 
@@ -70,9 +71,10 @@ def first_of_month(month, year):
 def last_of_month(month, year):
     ''' Return the timestamp for the last day of the given month. '''
     nextMonth = month % 12 + 1
+    nextMonthYear = year + ((month) / 12)
     goback = datetime.timedelta(seconds=1)
     # Create datetime object with a timestamp corresponding the end of day
-    nextMonth = datetime.datetime(year, nextMonth, 1, 0, 0, 0)
+    nextMonth = datetime.datetime(nextMonthYear, nextMonth, 1, 0, 0, 0)
     ret = nextMonth - goback
 
     # Convert to timestamp
