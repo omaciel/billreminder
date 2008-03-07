@@ -1,0 +1,5 @@
+2008-03-06 Og Maciel <ogmaciel@gnome.org>
+
+    * scheduler.py: Fixed a bug that would cause recurring bills
+    not to expand beyond the current year, change make by Luiz 
+    Armesto <luiz.armesto@gmail.com> (ref: sourceforge #1908445)
