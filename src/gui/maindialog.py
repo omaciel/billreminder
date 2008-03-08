@@ -24,6 +24,7 @@ from db.billstable import BillsTable
 # Import common utilities
 from lib import common
 from lib import dialogs
+from lib import scheduler
 from lib.utils import ContextMenu
 from lib.utils import Message
 from lib.utils import get_dbus_interface
@@ -117,6 +118,7 @@ class MainDialog:
         self.calendar = gtk.Calendar()
         # Format the dueDate field
         self.calendar.connect("month_changed", self._on_calendar_month_changed)
+        self.calendar.connect("day_selected_double_click", self._on_calendar_double_click)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
            expand=False, fill=True, padding=1)
@@ -211,17 +213,6 @@ class MainDialog:
                 self.currentrecord = None
         else:
             self.currentrecord = None
-
-    def _get_date(self):
-        # Extracts the date off the calendar widget
-        day = self.calendar.get_date()[2]
-        month = self.calendar.get_date()[1] + 1
-        year = self.calendar.get_date()[0]
-        # Create datetime object with a timestamp corresponding the end of day
-        selectedDate = datetime.datetime(year, month, day, 23, 59, 59)
-        # Turn it into a time object
-        selectedDate = time.mktime(selectedDate.timetuple())
-        return selectedDate
 
     def _markCalendar(self, records):
         self.calendar.clear_marks()
@@ -377,7 +368,8 @@ class MainDialog:
         self.box.pack_start(menubar, expand=False, fill=True, padding=0)
 
     def add_bill(self):
-        records = dialogs.add_dialog(parent=self.window)
+        selectedDate = scheduler.time_from_calendar(self.calendar.get_date())
+        records = dialogs.add_dialog(parent=self.window, selectedDate=selectedDate)
 
         # Checks if the user did not cancel the action
         if records:
@@ -580,6 +572,9 @@ class MainDialog:
 
     def on_delete_event(self, widget, event, data=None):
         self._quit_application()
+
+    def _on_calendar_double_click(self, widget):
+        self.add_bill()
 
     def _on_calendar_month_changed(self, widget):
         self.reloadTreeView()

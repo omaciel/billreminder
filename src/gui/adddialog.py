@@ -23,7 +23,7 @@ class AddDialog(gtk.Dialog):
     """
     Class used to generate dialog to allow user to enter/edit records.
     """
-    def __init__(self, title=None, parent=None, record=None):
+    def __init__(self, title=None, parent=None, record=None, selectedDate=None):
         gtk.Dialog.__init__(self, title=title, parent=parent,
                             flags=gtk.DIALOG_MODAL,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
@@ -33,6 +33,11 @@ class AddDialog(gtk.Dialog):
         if parent:
             self.set_transient_for(parent)
             self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+
+        # If we have a selected date, then set calendar to use it
+        if not selectedDate:
+            selectedDate = datetime.datetime.today()
+        self.selectedDate = selectedDate
 
         # Configuration data
         if self.parent and self.parent.config:
@@ -89,7 +94,7 @@ class AddDialog(gtk.Dialog):
         self.callabel.set_alignment(0.00, 0.50)
         self.calendar = gtk.Calendar()
         self.calendar.connect("day_selected", self._on_calendar_day_selected)
-        self.calendar.mark_day(datetime.datetime.today().day)
+        self.calendar.mark_day(self.selectedDate.day)
         ## repeat times
         self.repeatlabel = gtk.Label()
         self.repeatlabel.set_markup("<b>%s</b> " % _("Repeat:"))

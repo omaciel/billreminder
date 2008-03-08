@@ -1,0 +1,7 @@
+2008-03-08 Og Maciel <ogmaciel@gnome.org>
+
+    * adddialog.py: Added optional selectedDate parameter to be used to pre-populate
+      calendar with passed date object when adding new record. (SF #1906715)
+    * maindialog.py: Removed unused _get_date method and added method to calendar
+      that allows user to add a new record by double-clicking on a selected date.
+      (SF #1906715)

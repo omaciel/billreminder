@@ -1,10 +1,28 @@
+BillReminder 0.3.x
+==================
+
+ * adddialog.py: Added optional selectedDate parameter to be used to pre-populate
+   calendar with passed date object when adding new record. (SF #1906715)
+ * maindialog.py: Removed unused _get_date method and added method to calendar
+   that allows user to add a new record by double-clicking on a selected date.
+   (SF #1906715)
+ * billreminder.desktop.in: Changed version attribute to 0.3.
+ * scheduler.py: Fixed a bug that would cause recurring bills not to
+   expand beyond the current year, change make by Luiz Armesto
+   <luiz.armesto@gmail.com> (ref: sourceforge #1908445)
+ * fr.po: French translation added by Robert-André Mauchin
+   <zebob.m@pengzone.org>
+
+BillReminder 0.3.0
+==================
+
 2008-03-01  Og Maciel <ogmaciel@gnome.org>
 
     * This was a massive rewrite of the entire application, and instead
     of listing all files that have been changd, I'll try to highlight
     the most important changes and features instead.
     * GLADE: BillReminder 0.3 was entirely re-written in order to remove
-    all glade files and dependencies. The initial idea was to simply 
+    all glade files and dependencies. The initial idea was to simply
     get rid of the dependency, but it also served as a learning process
     for me (and I believe the other contributors will agree with this
     as well).
