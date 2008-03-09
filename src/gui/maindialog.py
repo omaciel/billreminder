@@ -369,6 +369,7 @@ class MainDialog:
 
     def add_bill(self):
         selectedDate = scheduler.time_from_calendar(self.calendar.get_date())
+        selectedDate = scheduler.datetime_from_timestamp(selectedDate)
         records = dialogs.add_dialog(parent=self.window, selectedDate=selectedDate)
 
         # Checks if the user did not cancel the action

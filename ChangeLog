@@ -1,12 +1,13 @@
 BillReminder 0.3.x
 ==================
 
- * po/nl.po: Dutch translation updated by Daniel van Eeden <Daniel.van.Eeden@myname.nl>
  * src/gui/adddialog.py: Added optional selectedDate parameter to be used to pre-populate calendar with passed date object when adding new record. (SF #1906715)
  * src/gui/maindialog.py: Removed unused _get_date method and added method to calendar that allows user to add a new record by double-clicking on a selected date.  (SF #1906715)
  * data/billreminder.desktop.in: Changed version attribute to 0.3.
+ * src/lib/dialog.py: Added missing parameters to AddDialog call
  * src/lib/scheduler.py: Fixed a bug that would cause recurring bills not to expand beyond the current year, change make by Luiz Armesto <luiz.armesto@gmail.com> (ref: sourceforge #1908445)
  * po/fr.po: French translation added by Robert-André Mauchin <zebob.m@pengzone.org>
+ * po/nl.po: Dutch translation updated by Daniel van Eeden <Daniel.van.Eeden@myname.nl>
 
 BillReminder 0.3.0
 ==================

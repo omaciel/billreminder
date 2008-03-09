@@ -72,7 +72,7 @@ class AddDialog(gtk.Dialog):
             # Use alarm values from preferences
             atime = self.config.get('Alarm', 'show_alarm_at_time')
             adays = self.config.getint('Alarm', 'show_alarm_before_days')
-            alarmDate = scheduler.get_alarm_timestamp(adays, atime)
+            alarmDate = scheduler.get_alarm_timestamp(adays, atime, selectedDate)
             self.alarmbutton.set_date(alarmDate)
 
     def _set_currency(self):
@@ -93,8 +93,6 @@ class AddDialog(gtk.Dialog):
         self.callabel.set_markup("<b>%s</b> " % _("Due Date:"))
         self.callabel.set_alignment(0.00, 0.50)
         self.calendar = gtk.Calendar()
-        self.calendar.connect("day_selected", self._on_calendar_day_selected)
-        self.calendar.mark_day(self.selectedDate.day)
         ## repeat times
         self.repeatlabel = gtk.Label()
         self.repeatlabel.set_markup("<b>%s</b> " % _("Repeat:"))
@@ -185,6 +183,11 @@ class AddDialog(gtk.Dialog):
         ### Alarm
         self.alarmbutton = DateButton(self)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
+        # Event responsible for updating alarm date
+        self.calendar.connect("day_selected", self._on_calendar_day_selected)
+        self.calendar.select_day(self.selectedDate.day)
+        self.calendar.select_month(self.selectedDate.month - 1, self.selectedDate.year)
+        self.calendar.mark_day(self.selectedDate.day)
 
 
         ## Pack it all into the table

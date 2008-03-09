@@ -45,10 +45,10 @@ def categories_dialog(parent=None):
 
     return ret
 
-def add_dialog(parent=None):
+def add_dialog(parent=None, selectedDate=None):
     record = None
     # Dialog Title
-    dialog = AddDialog(title=_("Add a New Record"), parent=parent)
+    dialog = AddDialog(title=_("Add a New Record"), parent=parent, record=record, selectedDate=selectedDate)
     response = dialog.run()
     # Checks if the user did not cancel the action
     if response == gtk.RESPONSE_ACCEPT:

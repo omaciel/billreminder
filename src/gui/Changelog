@@ -1,7 +1,9 @@
+2008-03-09 Og Maciel <ogmaciel@gnome.org>
+
+    * maindialog.py: Convert selectedDate from calendar to a datatime object prior to passing it to adddialog.py
+    * adddialog.py: Make sure that alarmbutton has its date set based on passed on due date
+
 2008-03-08 Og Maciel <ogmaciel@gnome.org>
 
-    * adddialog.py: Added optional selectedDate parameter to be used to pre-populate
-      calendar with passed date object when adding new record. (SF #1906715)
-    * maindialog.py: Removed unused _get_date method and added method to calendar
-      that allows user to add a new record by double-clicking on a selected date.
-      (SF #1906715)
+    * adddialog.py: Added optional selectedDate parameter to be used to pre-populate calendar with passed date object when adding new record. (ref: sourceforge #1906715)
+    * maindialog.py: Removed unused _get_date method and added method to calendar that allows user to add a new record by double-clicking on a selected date. (ref: sourceforge #1906715)
