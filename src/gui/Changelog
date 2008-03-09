@@ -1,7 +1,7 @@
 2008-03-09 Og Maciel <ogmaciel@gnome.org>
 
     * maindialog.py: Convert selectedDate from calendar to a datatime object prior to passing it to adddialog.py
-    * adddialog.py: Make sure that alarmbutton has its date set based on passed on due date
+    * adddialog.py: Make sure that alarmbutton has its date set based on passed on due date; Set category to None by default on new records
 
 2008-03-08 Og Maciel <ogmaciel@gnome.org>
 

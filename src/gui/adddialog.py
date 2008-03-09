@@ -310,14 +310,14 @@ class AddDialog(gtk.Dialog):
 
         store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_INT)
         self.category.set_model(store)
-        store.append([_("None"), -1])
+        store.append([_("None"), 0])
         store.append(["---", -1])
 
         for category in categories:
-            #print category
             store.append(category)
         store.append(["---", -1])
         store.append([_("New Category"), -2])
+        self.category.set_active(0)
 
         return ret
 
