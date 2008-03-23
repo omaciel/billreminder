@@ -11,17 +11,19 @@ if not os.path.exists(os.path.join(basedir, "billreminder.py")):
 sys.path.insert(0, basedir)
 os.chdir(basedir)
 
-try:
-    import gtk
-except ImportError:
-    print "Please install gtk"
-    raise SystemExit
+
 
 try:
     import pygtk
     pygtk.require("2.0")
 except ImportError:
     print "Please install pygtk"
+    raise SystemExit
+
+try:
+    import gtk
+except ImportError:
+    print "Please install gtk"
     raise SystemExit
 
 from lib import dialogs

@@ -15,6 +15,7 @@ from lib import scheduler
 from lib.bill import Bill
 from lib.actions import Actions
 from lib.config import Config
+from lib.utils import create_pixbuf
 from lib import i18n
 from gui.widgets.datebutton import DateButton
 from gui.categoriesdialog import CategoriesDialog
@@ -159,6 +160,17 @@ class AddDialog(gtk.Dialog):
         ### Category
         self.categorydock = gtk.HBox(homogeneous=False, spacing=0)
         self.category = gtk.combo_box_new_text()
+        #here is the trick to make an image appear in a gtk.combo_box_new_text
+        #keeping the separator line safe
+        #TODO: Find a way to make the pixbuff appear in the left
+        textcell = self.category.get_cells()[0]
+        textcell.set_property('xalign', 0)
+        pbcell = gtk.CellRendererPixbuf()
+
+        self.category.pack_start(pbcell, False)
+        #self.category.add_attribute(textcell, 'text', 0)
+        self.category.add_attribute(pbcell, 'pixbuf', 1)
+        
         self.category.set_row_separator_func(self._determine_separator)
         self.categorybutton = gtk.Button()
         self.categorybutton.set_tooltip_text(_("Manage Categories"))
@@ -301,22 +313,30 @@ class AddDialog(gtk.Dialog):
         records = actions.get_categories("id > 0 ORDER BY categoryname ASC") or []
 
         ret = 0
-
+        empty_color = create_pixbuf(rgb=(255,255,255))
+        empty_color= empty_color.add_alpha (True, chr(255), chr(255),chr(255))
         for rec in records:
             if [rec['categoryname'], rec['id']] not in categories:
-                categories.append([rec['categoryname'], int(rec['id'])])
+                #TODO: Better put color creation in a function
+                color = gtk.gdk.color_parse(rec['color'])
+                red = color.red * 255 / 65535
+                green = color.green * 255 / 65535
+                blue = color.blue * 255 / 65535
+                rgb = (red, green, blue)
+                
+                categories.append([rec['categoryname'], create_pixbuf(rgb=rgb), int(rec['id'])])
                 if return_id and int(return_id) == int(rec['id']):
                     ret = len(categories) + 1
 
-        store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_INT)
+        store = gtk.ListStore( gobject.TYPE_STRING, gtk.gdk.Pixbuf, gobject.TYPE_INT)
         self.category.set_model(store)
-        store.append([_("None"), 0])
-        store.append(["---", -1])
+        store.append([_("None"),empty_color, 0])
+        store.append(["---", None,-1])
 
         for category in categories:
             store.append(category)
-        store.append(["---", -1])
-        store.append([_("New Category"), -2])
+        store.append(["---", None, -1])
+        store.append([_("New Category"),empty_color, -2])
         self.category.set_active(0)
 
         return ret
@@ -420,11 +440,10 @@ class AddDialog(gtk.Dialog):
 
         index = self.category.get_active()
         model = self.category.get_model()
-        id_original = int(model[index][1])
-
+        id_original = int(model[index][2])
         # Repopulate categories
         new_index = self._populate_category(id_original)
-
+    
         cursor = categories.list.get_cursor()
         if cursor[0]:
             cat_index = cursor[0][0]
