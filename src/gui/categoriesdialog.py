@@ -156,13 +156,11 @@ class CategoriesDialog(gtk.Dialog):
             else:
                 formated.append(row[key])
         formated.append(row['color'])
-        print formated
         return formated
 
     def _on_list_cursor_changed(self, widget):
         # Get currently selected bill
         self._get_selected_record()
-        print self.currentrecord
         # Update statusbar
         self._update_fields()
         self.deletebutton.set_sensitive(True)
@@ -203,7 +201,6 @@ class CategoriesDialog(gtk.Dialog):
         self.color.set_color(gtk.gdk.color_parse("#000"))
         self.deletebutton.set_sensitive(False)
         self.savebutton.set_sensitive(False)
-        #self.list.set_cursor((11,))
         self.name_.grab_focus()
 
     def _on_savebutton_clicked(self, button):
