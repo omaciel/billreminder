@@ -12,6 +12,9 @@ BillReminder 0.3.x
    * French translation added by Robert-André Mauchin
    * Dutch translation updated by Daniel van Eeden
 
+ Graphical Interface:
+  * Display the colored tile for each category next to its name in the categories dropdown in the add/edit dialog.
+
 BillReminder 0.3.0
 ==================
 

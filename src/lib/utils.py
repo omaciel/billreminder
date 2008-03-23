@@ -247,7 +247,7 @@ def create_pixbuf(size=(16, 16), rgb=(255, 255, 255)):
         square.save(sqfile, "png")
         # Create the pixbug object
         pixbuf = gtk.gdk.pixbuf_new_from_file(sqfile)
-        
+
     finally:
         # clean up
         os.remove(sqfile)

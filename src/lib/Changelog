@@ -1,3 +1,7 @@
+2008-03-23 Og Maciel <ogmaciel@gnome.org>
+
+    * utils.py: Added optional 'index' parameter to global function that selects items in a gtk.ComboBox widget.
+
 2008-03-09 Og Maciel <ogmaciel@gnome.org>
 
     * dialogs.py: Added missing parameters to AddDialog call

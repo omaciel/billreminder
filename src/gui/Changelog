@@ -1,3 +1,7 @@
+2008-03-23 Og Maciel <ogmaciel@gnome.org>
+
+    * adddialog.py: Display category colored icon to the left of the category name in the combobox. This was a patch sent by Laudeci Oliveira which I fine tweaked.
+
 2008-03-09 Og Maciel <ogmaciel@gnome.org>
 
     * maindialog.py: Convert selectedDate from calendar to a datatime object prior to passing it to adddialog.py
