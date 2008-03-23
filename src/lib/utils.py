@@ -160,10 +160,13 @@ class Message:
         dlg.destroy()
         return ret
 
-def select_combo_text(cb, text):
+def select_combo_text(cb, text, index=0):
+    """
+    Searches through a gtkComoboBox for 'text' at 'index', selecting it.
+    """
     i = 0
     for n in cb.get_model():
-        if n[0] == text:
+        if n[index] == text:
             break
         i += 1
     cb.set_active(i)
