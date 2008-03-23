@@ -108,7 +108,7 @@ class AddDialog(gtk.Dialog):
         ## Repeating bills
         self.frequency = gtk.combo_box_new_text()
         self.frequency.connect('changed', self._on_frequency_changed)
-        self.frequency.set_row_separator_func(self._determine_separator)
+        #self.frequency.set_row_separator_func(self._determine_separator)
         self._populate_frequency()
         hbox = gtk.HBox(homogeneous=False, spacing=0)
         hbox.pack_start(self.repeatlabel, expand=True, fill=True, padding=0)
@@ -159,19 +159,15 @@ class AddDialog(gtk.Dialog):
         self.amount.set_alignment(1.00)
         ### Category
         self.categorydock = gtk.HBox(homogeneous=False, spacing=0)
-        self.category = gtk.combo_box_new_text()
-        #here is the trick to make an image appear in a gtk.combo_box_new_text
-        #keeping the separator line safe
-        #TODO: Find a way to make the pixbuff appear in the left
-        textcell = self.category.get_cells()[0]
-        textcell.set_property('xalign', 0)
-        pbcell = gtk.CellRendererPixbuf()
-
-        self.category.pack_start(pbcell, False)
-        #self.category.add_attribute(textcell, 'text', 0)
-        self.category.add_attribute(pbcell, 'pixbuf', 1)
-        
+        self.category = gtk.ComboBox()
+        px = gtk.CellRendererPixbuf()
+        txt = gtk.CellRendererText()
+        self.category.pack_start(px, False)
+        self.category.pack_start(txt, False)
+        self.category.add_attribute(px, "pixbuf", 0)
+        self.category.add_attribute(txt, "text", 1)
         self.category.set_row_separator_func(self._determine_separator)
+
         self.categorybutton = gtk.Button()
         self.categorybutton.set_tooltip_text(_("Manage Categories"))
         self.categorybuttonimage = gtk.Image()
@@ -236,7 +232,7 @@ class AddDialog(gtk.Dialog):
 
 
     def _determine_separator(self, model, iter, data=None):
-        return model.get_value(iter, 0) == "---"
+        return model.get_value(iter, 1) == "---"
 
     def _populate_fields(self):
         # Format the amount field
@@ -250,7 +246,7 @@ class AddDialog(gtk.Dialog):
         records = actions.get_categories({'id': self.currentrecord.Category})
         if records:
             categoryname = records[0]['categoryname']
-            utils.select_combo_text(self.category, categoryname)
+            utils.select_combo_text(self.category, categoryname, 1)
         else:
             self.category.set_active(0)
 
@@ -323,20 +319,21 @@ class AddDialog(gtk.Dialog):
                 green = color.green * 255 / 65535
                 blue = color.blue * 255 / 65535
                 rgb = (red, green, blue)
-                
-                categories.append([rec['categoryname'], create_pixbuf(rgb=rgb), int(rec['id'])])
+
+                categories.append([create_pixbuf(rgb=rgb), rec['categoryname'], int(rec['id'])])
                 if return_id and int(return_id) == int(rec['id']):
                     ret = len(categories) + 1
 
-        store = gtk.ListStore( gobject.TYPE_STRING, gtk.gdk.Pixbuf, gobject.TYPE_INT)
+        store = gtk.ListStore(gtk.gdk.Pixbuf, str, int)
+
         self.category.set_model(store)
-        store.append([_("None"),empty_color, 0])
-        store.append(["---", None,-1])
+        store.append([empty_color, _("None"), 0])
+        store.append([None, "---", -1])
 
         for category in categories:
             store.append(category)
-        store.append(["---", None, -1])
-        store.append([_("New Category"),empty_color, -2])
+        store.append([None, "---", -1])
+        store.append([empty_color, _("New Category"), -2])
         self.category.set_active(0)
 
         return ret
@@ -350,7 +347,7 @@ class AddDialog(gtk.Dialog):
             model = self.category.get_model()
             iteration = self.category.get_active_iter()
             if iteration:
-                name = model.get_value(iteration, 0)
+                name = model.get_value(iteration, 1)
         else:
             name = None
 
@@ -443,7 +440,7 @@ class AddDialog(gtk.Dialog):
         id_original = int(model[index][2])
         # Repopulate categories
         new_index = self._populate_category(id_original)
-    
+
         cursor = categories.list.get_cursor()
         if cursor[0]:
             cat_index = cursor[0][0]
