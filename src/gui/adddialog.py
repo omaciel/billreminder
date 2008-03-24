@@ -227,7 +227,7 @@ class AddDialog(gtk.Dialog):
     def _connect_fields(self):
         self.category.connect("changed", self._on_categorycombo_changed)
         self.categorybutton.connect("clicked",
-                                    self._on_categoriesbutton_clicked)
+            self._on_categoriesbutton_clicked)
         self.amount.connect("insert-text", self._on_amount_insert)
 
 

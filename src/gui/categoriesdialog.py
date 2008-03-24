@@ -39,7 +39,7 @@ class CategoriesDialog(gtk.Dialog):
         self._connect_fields()
         #self._populate_fields()
         self.actions = Actions()
-        self._populateTreeView(self.actions.get_categories(""))
+        self._populateTreeView(self.actions.get_categories("id > 0 ORDER BY categoryname ASC"))
 
         if new:
             self._on_newbutton_clicked(None)

@@ -13,6 +13,7 @@ BillReminder 0.3.x
    * Dutch translation updated by Daniel van Eeden
 
  Graphical Interface:
+  * Display categories by category name in ascending order in the categories dialog.
   * Display the colored tile for each category next to its name in the categories dropdown in the add/edit dialog.
 
 BillReminder 0.3.0

@@ -1,5 +1,6 @@
 2008-03-23 Og Maciel <ogmaciel@gnome.org>
 
+    * categoriesdialog.py: Display categories by category name in ascending order.
     * adddialog.py: Display category colored icon to the left of the category name in the combobox. This was a patch sent by Laudeci Oliveira which I fine tweaked.
 
 2008-03-09 Og Maciel <ogmaciel@gnome.org>
