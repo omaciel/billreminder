@@ -1,3 +1,8 @@
+2008-03-26  Og Maciel <ogmaciel@gnome.org>
+
+    * billreminder.pot: Updated message catalog
+    * *.po: Merged all translations with newer pot
+
 2008-03-09  Og Maciel <ogmaciel@gnome.org>
 
     * nl.po: Dutch translation updated by
