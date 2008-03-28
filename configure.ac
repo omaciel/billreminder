@@ -1,7 +1,7 @@
 dnl -*- Mode: autoconf -*-
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.53)
-AC_INIT(billreminder, 0.3.0, http://billreminder.sourceforge.net/)
+AC_INIT(billreminder, 0.3.1, http://billreminder.sourceforge.net/)
 AC_CONFIG_SRCDIR(billreminder.in)
 AM_INIT_AUTOMAKE([1.7])
 AC_CONFIG_MACRO_DIR([m4])
