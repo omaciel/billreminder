@@ -1,6 +1,9 @@
 BillReminder 0.3.x
 ==================
 
+BillReminder 0.3.1
+==================
+
  Bugs:
  #1906715 - New records can now be created by double-clicking a date in
   the main calendar. The due date for this new record will be set to the
