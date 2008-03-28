@@ -1,32 +1,11 @@
 ===============================
-BillReminder 0.3
+BillReminder 0.3.1
 ==============================
 
-2008-03-01  Og Maciel <ogmaciel@gnome.org>
+2008-03-27  Og Maciel <ogmaciel@gnome.org>
 
-* This was a massive rewrite of the entire application, and instead
-of listing all files that have been changd, I'll try to highlight
-the most important changes and features instead.
-* GLADE: BillReminder 0.3 was entirely re-written in order to remove
-all glade files and dependencies. The initial idea was to simply 
-get rid of the dependency, but it also served as a learning process
-for me (and I believe the other contributors will agree with this
-as well).
-* DBUS: The DBUS layer received a bit more love from Luiz Armesto,
-breaking it down into the proper calls so to separate the 'engine'
-per se from the client.
-* UI: The user interface has also gone a series of changes and
-(hopefully) improvements. It is probably not 100% HIG compliant yet,
-but we'll gladly accept suggestions.
-* Bug management: Towards the last 8 weeks of development we've adopted
-the habit of filing bug reports prior to fixing the issues that we
-encountered during the development cycle.
-* Translations: All prior contributors promptly replied to my email
-asking them to update their translations:
-
-    - de.po:    Sebastian Haselbeck
-    - es.po:    Gilberto J. Miralla
-    - no_NB.po: Tommy Mikkelsen
-    - no.po:    Tommy Mikkelsen
-    - pt_BR.po: Fábio Nogueira
-    - sv.po:    Daniel Nylander
+ * This is a minor release where a couple of bugs have been closed and
+ some UI work was done to improve the workflow. It is worth to mention
+ the new French translation, courtesy of Robert-André Mauchin, updated
+ Dutch translation, courtesy of Daniel van Eeden, and some UI work done
+ by Laudeci Oliveira.

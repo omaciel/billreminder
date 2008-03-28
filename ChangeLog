@@ -4,7 +4,7 @@ BillReminder 0.3.x
  Bugs:
  #1906715 - New records can now be created by double-clicking a date in
   the main calendar. The due date for this new record will be set to the
- data selected upon double-clicking.
+ date selected upon double-clicking.
  #1908445 - Fixed a bug that would cause recurring bills not to expand
   beyond the current year.
 

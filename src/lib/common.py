@@ -7,7 +7,7 @@ datadir = "/usr/share"
 
 # Application info
 APPNAME = _("BillReminder")
-APPVERSION = "0.3"
+APPVERSION = "0.3.1"
 COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
              "Og Maciel <ogmaciel@gnome.org>" % APPNAME
 WEBSITE = "http://billreminder.sourceforge.net"
