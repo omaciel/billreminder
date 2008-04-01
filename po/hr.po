@@ -1,0 +1,555 @@
+# Mario Ðaniæ <mario.danic@gmail.com>, 2008.
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: BillReminder 0.3.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-26 23:55-0400\n"
+"PO-Revision-Date: 2008-03-28 13:12+0100\n"
+"Last-Translator: Mario Ðani <mario.danic@gmail.com>\n"
+"Language-Team: Croatian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:48
+#: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
+msgid "BillReminder Notifier"
+msgstr "BillReminder daemon"
+
+#: ../data/billreminderd.desktop.in.h:2 ../data/billreminder.desktop.in.h:2
+msgid "Bills manager"
+msgstr "Upravljaè raèunima"
+
+#: ../data/billreminderd.desktop.in.h:3 ../data/billreminder.desktop.in.h:3
+msgid "Never forget to pay a bill again!"
+msgstr "Vise necete zaboraviti platiti raèune!"
+
+#. Application info
+#: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
+#: ../src/lib/common.py:9 ../src/lib/utils.py:138
+msgid "BillReminder"
+msgstr "BillReminder"
+
+#: ../src/billreminder.py:35
+msgid ""
+"Usage:  billreminder [OPTIONS...]\n"
+"\n"
+"Options:\n"
+"  --help, -h, -?\tShow this message.\n"
+"  --about\t\tAbout this application.\n"
+"  --add\t\t\tAdds a new record to the database.\n"
+"  --standalone\t\tAccess database directly, without daemon.\n"
+"  --version, -v\t\tDisplays the version number for this application.\n"
+msgstr "Usage:Â·Â·billreminderÂ·[OPTIONS...]\n"
+"\n"
+"Options:\n"
+"Â·Â·--help,Â·-h,Â·-?\tPrikaÅ¾i ovu poruku.\n"
+"Â·Â·--about\t\tO programu.\n"
+"Â·Â·--add\t\t\tDodaj novi unos u bazu.\n"
+"Â·Â·--standalone\t\tPristupaj bazi direktno, bez daemona.\n"
+"Â·Â·--version,Â·-v\t\tPrikaÅ¾i verziju programa.\n"
+
+#: ../src/billreminder.py:54 ../src/billreminderd.py:47
+#: ../src/daemon/dbus_manager.py:44
+#, python-format
+msgid "This is %(appname)s - Version: %(version)s"
+msgstr "Ovo je %(appname)s - Verzija: %(version)s"
+
+#: ../src/billreminderd.py:21
+msgid ""
+"Usage:  billreminderd [OPTIONS...]\n"
+"\n"
+"Options:\n"
+"  --help, -h, -?\tShow this message.\n"
+"  --verbose\t\tPrint output messages.\n"
+"  --no-daemon\t\tDon't run as a daemon.\n"
+"  --open-gui\t\tStart daemon and launch GUI.\n"
+"  --stop\t\t\tStop daemon.\n"
+"  --version, -v\t\tDisplays the version number for this application.\n"
+msgstr ""
+"Usage:Â·Â·billreminderdÂ·[OPTIONS...]\n"
+"\n"
+"Options:\n"
+"Â·Â·--help,Â·-h,Â·-?\tPrikaÅ¾i ovu poruku.\n"
+"Â·Â·--verbose\t\tIspisuj debug poruke.\n"
+"Â·Â·--no-daemon\t\tNe pokreÄ‡i daemona.\n"
+"Â·Â·--open-gui\t\tPokreni daemona i GUI.\n"
+"Â·Â·--stop\t\t\tZaustavi daemona.\n"
+"Â·Â·--version,Â·-v\t\tPrikaÅ¾i verziju ove aplikacije.\n"
+
+#: ../src/daemon/alarm.py:61
+#, python-format
+msgid "You have %s outstanding bill to pay!"
+msgid_plural "You have %s outstanding bills to pay!"
+msgstr[0] "Imate %s raèuna za  platiti!"
+msgstr[1] "Imate %s raèuna za  platiti!"
+msgstr[2] "Imate %s raèuna za  platiti!"
+
+#: ../src/daemon/alarm.py:66
+msgid "Show BillReminder"
+msgstr "Prika¾i BillReminder"
+
+#: ../src/daemon/alarm.py:68 ../src/daemon/alarm.py:123
+msgid "Cancel"
+msgstr "Prekini"
+
+#: ../src/daemon/alarm.py:96 ../src/daemon/alarm.py:183
+#, python-format
+msgid "The bill %(bill)s will be due at %(day)s."
+msgstr "Raèun %(bill)s ce dospjeti za %(day)s dana."
+
+#: ../src/daemon/alarm.py:99 ../src/daemon/alarm.py:186
+msgid "%Y/%m/%d"
+msgstr "%d/%m/%Y"
+
+#: ../src/daemon/alarm.py:109
+#, python-format
+msgid "The bill %s is due."
+msgstr "Raèun %s je dospio."
+
+#. Button Title
+#: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:297
+#: ../src/gui/maindialog.py:321 ../src/lib/utils.py:135
+msgid "Mark as paid"
+msgstr "Oznaèi kao plaæeno"
+
+#: ../src/daemon/alarm.py:122 ../src/lib/utils.py:136
+msgid "Edit"
+msgstr "Izmjeni"
+
+#: ../src/daemon/main.py:117
+#, python-format
+msgid "Lock File found: You have another instance running. (pid=%d)"
+msgstr "Lock file pronaðen: Jedna instanca je veæ pokrenuta. (pid=%d)"
+
+#: ../src/daemon/main.py:122
+msgid "Lock File found: Possibly the program was exited unexpectedly."
+msgstr "Lock file nije pronaðen: Program se vjerovatno sru¹io."
+
+#: ../src/daemon/main.py:125
+msgid "Removing Lock File..."
+msgstr "Bri¹em lock file..."
+
+#: ../src/daemon/main.py:127
+msgid "Successfully."
+msgstr "Uspje¹no."
+
+#: ../src/daemon/main.py:129
+msgid "Failed."
+msgstr "Neuspje¹no."
+
+#: ../src/daemon/main.py:133
+msgid "BillReminder Notifier is already running."
+msgstr "BillReminder daemon je veæ pokrenut."
+
+#: ../src/gui/aboutdialog.py:13
+msgid "translator-credits"
+msgstr "Autori prijevoda:"
+
+#: ../src/gui/aboutdialog.py:36
+msgid "BillReminder Website"
+msgstr "BillReminder Website"
+
+#: ../src/gui/adddialog.py:94 ../src/gui/maindialog.py:116
+msgid "Due Date:"
+msgstr "Datum dospijeæa:"
+
+#: ../src/gui/adddialog.py:99
+msgid "Repeat:"
+msgstr "Ponovi:"
+
+#: ../src/gui/adddialog.py:103
+msgid "How many times to repeat this bill."
+msgstr "Koliko puta ¾elite ponoviti ovaj raèun."
+
+#: ../src/gui/adddialog.py:137
+msgid "Payee:"
+msgstr "Primatelj:"
+
+#: ../src/gui/adddialog.py:140
+msgid "Amount:"
+msgstr "Iznos:"
+
+#: ../src/gui/adddialog.py:143
+msgid "Category:"
+msgstr "Kategorija:"
+
+#: ../src/gui/adddialog.py:146 ../src/gui/widgets/statusbar.py:26
+msgid "Notes:"
+msgstr "Bilje¹ke:"
+
+#: ../src/gui/adddialog.py:149
+msgid "Alarm:"
+msgstr "Alarm:"
+
+#: ../src/gui/adddialog.py:172
+msgid "Manage Categories"
+msgstr "Upravljaè kategorijama"
+
+#: ../src/gui/adddialog.py:193 ../src/gui/widgets/datebutton.py:40
+msgid "Select Date and Time"
+msgstr "Odaberi datum i vrijeme"
+
+#. TRANSLATORS: No date selected
+#: ../src/gui/adddialog.py:330 ../src/gui/adddialog.py:354
+#: ../src/gui/maindialog.py:277 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/widgets/datebutton.py:26 ../src/gui/widgets/datebutton.py:43
+#: ../src/gui/widgets/datebutton.py:69
+msgid "None"
+msgstr "Ni¹ta"
+
+#: ../src/gui/adddialog.py:336 ../src/gui/categoriesdialog.py:47
+msgid "New Category"
+msgstr "Nova kategorija"
+
+#: ../src/gui/adddialog.py:488
+#, python-format
+msgid "\"%s\" and \"%s\" are required fields."
+msgstr "\"%s\"Â·andÂ·\"%s\"Â·areÂ·su obvezna polja."
+
+#: ../src/gui/adddialog.py:489 ../src/gui/adddialog.py:493
+#: ../src/gui/widgets/viewbill.py:84
+msgid "Payee"
+msgstr "Primatelj:"
+
+#: ../src/gui/adddialog.py:489 ../src/gui/adddialog.py:497
+#: ../src/gui/widgets/viewbill.py:88
+msgid "Amount"
+msgstr "Iznos"
+
+#: ../src/gui/adddialog.py:493 ../src/gui/adddialog.py:497
+#, python-format
+msgid "\"%s\" is required field."
+msgstr "\"%s\" je obvezno polje."
+
+#: ../src/gui/categoriesdialog.py:22
+msgid "Categories Manager"
+msgstr "Upravljaè kategorijama"
+
+#: ../src/gui/categoriesdialog.py:58
+msgid "Categories"
+msgstr "Kategorije"
+
+#: ../src/gui/categoriesdialog.py:81
+msgid "Name:"
+msgstr "Ime:"
+
+#: ../src/gui/categoriesdialog.py:84
+msgid "Color:"
+msgstr "Boja:"
+
+#: ../src/gui/maindialog.py:96
+msgid "Bills:"
+msgstr "Raèuni:"
+
+#: ../src/gui/maindialog.py:290
+msgid "New"
+msgstr "Novi"
+
+#: ../src/gui/maindialog.py:290 ../src/gui/maindialog.py:318
+msgid "Add a new record"
+msgstr "Dodaj novi unos"
+
+#: ../src/gui/maindialog.py:292 ../src/gui/maindialog.py:319
+msgid "Edit a record"
+msgstr "Promijeni unos"
+
+#: ../src/gui/maindialog.py:294 ../src/gui/maindialog.py:320
+msgid "Delete selected record"
+msgstr "Izbri¹i odabrani unos"
+
+#: ../src/gui/maindialog.py:297 ../src/gui/widgets/viewbill.py:92
+msgid "Paid"
+msgstr "Plaæeno"
+
+#: ../src/gui/maindialog.py:300
+msgid "Not Paid"
+msgstr "Neplaæeno"
+
+#: ../src/gui/maindialog.py:300 ../src/gui/maindialog.py:322
+msgid "Mark as not paid"
+msgstr "Oznaèeno kao neplaæeno"
+
+#: ../src/gui/maindialog.py:317
+msgid "_File"
+msgstr "_Glavni"
+
+#: ../src/gui/maindialog.py:318 ../src/gui/maindialog.py:515
+msgid "_Add New"
+msgstr "_Dodaj novi"
+
+#: ../src/gui/maindialog.py:321 ../src/gui/maindialog.py:525
+msgid "_Paid"
+msgstr "_Plaæeno"
+
+#: ../src/gui/maindialog.py:322
+msgid "_Not Paid"
+msgstr "_Neplaæeno"
+
+#: ../src/gui/maindialog.py:323
+msgid "Edit preferences"
+msgstr "Promijeni postavke"
+
+#: ../src/gui/maindialog.py:324
+msgid "Quit the Program"
+msgstr "Izlaz iz programa"
+
+#: ../src/gui/maindialog.py:325
+msgid "_View"
+msgstr "_Pogled"
+
+#: ../src/gui/maindialog.py:326
+msgid "_Help"
+msgstr "P_omoæ"
+
+#: ../src/gui/maindialog.py:327
+msgid "About the application"
+msgstr "O aplikaciji"
+
+#: ../src/gui/maindialog.py:339
+msgid "Show Toolbar"
+msgstr "Prika¾i alatnu traku"
+
+#: ../src/gui/maindialog.py:339
+msgid "Show the toolbar"
+msgstr "Prika¾i alatnu traku"
+
+#: ../src/gui/maindialog.py:343
+msgid "_Not Paid Only"
+msgstr "_Samo neplaæene"
+
+#: ../src/gui/maindialog.py:343
+msgid "Display all unpaid records only"
+msgstr "Prika¾i samo neplaæene unose"
+
+#: ../src/gui/maindialog.py:344
+msgid "_Paid Only"
+msgstr "Sa_mo plaæene"
+
+#: ../src/gui/maindialog.py:344
+msgid "Display all paid records only"
+msgstr "Prika¾i samo plaæene unose"
+
+#: ../src/gui/maindialog.py:345
+msgid "_All Records"
+msgstr "Sv_i unosi"
+
+#: ../src/gui/maindialog.py:345
+msgid "Display all records"
+msgstr "Prika¾i sve unose"
+
+#: ../src/gui/maindialog.py:528
+msgid "Not _Paid"
+msgstr "Nije plaæ_eno"
+
+#: ../src/gui/maindialog.py:555
+#, python-format
+msgid "Do you really want to delete \"%s\"?"
+msgstr "®elite li zbilja obrisati \"%s\"?"
+
+#: ../src/gui/maindialog.py:557
+msgid "Confirmation"
+msgstr "Potvrda"
+
+#: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
+msgid "Preferences"
+msgstr "Postavke"
+
+#. Alert Group
+#: ../src/gui/prefdialog.py:51
+msgid "Alerts"
+msgstr "Obavijesti"
+
+#: ../src/gui/prefdialog.py:59
+msgid "Alert before due date:"
+msgstr "Obavijest prije datuma dospijeæa:"
+
+#: ../src/gui/prefdialog.py:64 ../src/gui/prefdialog.py:110
+msgid "day(s)."
+msgstr "dan(i)."
+
+#: ../src/gui/prefdialog.py:67
+msgid "Preferred time:"
+msgstr "Preferirano vrijeme:"
+
+#: ../src/gui/prefdialog.py:69
+msgid "Get alerted when individual bills are due."
+msgstr "Obavijesti me kada pojedinaèni raèuni dospiju."
+
+#. Notification Group
+#: ../src/gui/prefdialog.py:91
+msgid "Notifications"
+msgstr "Obavijesti"
+
+#: ../src/gui/prefdialog.py:97
+msgid "Define when to be notified of upcoming bills."
+msgstr "Definiraj kada"
+
+#: ../src/gui/prefdialog.py:105
+msgid "Notify before due date:"
+msgstr "Obavijesti prije datuma dospijeæa:"
+
+#. Alert Type Group
+#: ../src/gui/prefdialog.py:123
+msgid "Alert Type"
+msgstr "Vrsta obavijesti"
+
+#: ../src/gui/prefdialog.py:133
+msgid "_Notification Bubble"
+msgstr "_Mjehuriæ za obavijesti"
+
+#: ../src/gui/prefdialog.py:135
+msgid "Al_ert Dialog"
+msgstr "Oba_vijesni prozor"
+
+#: ../src/gui/prefdialog.py:147
+msgid ""
+"<b>Warning:</b> BillReminder Notifier is \n"
+"not running! You need to start it in order \n"
+" to receive notifications."
+msgstr "<b>Upozorenje</b> BillReminder daemon nije \n"
+"pokrenut! Morate ga pokrenuti kako bi dobivali \""
+"obavijesti."
+
+#: ../src/gui/prefdialog.py:154
+msgid "_Start BillReminder Notifier"
+msgstr "_Pokreni BillReminder daemon"
+
+#: ../src/gui/prefdialog.py:226
+msgid "<b>Note:</b> BillReminder Notifier is now running."
+msgstr "<b>Informacija:</b> BillReminder daemon je sada pokrenut."
+
+#: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:61
+msgid "%Y/%m/%d %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+#: ../src/gui/widgets/datebutton.py:66
+msgid "Select date and time"
+msgstr "Odaberite datum i vrijeme:"
+
+#: ../src/gui/widgets/datebutton.py:77
+msgid "Date:"
+msgstr "Datum"
+
+#. If we do have an existing alarm time, pass it to the widget
+#: ../src/gui/widgets/datebutton.py:81 ../src/gui/widgets/datebutton.py:88
+msgid "Time:"
+msgstr "Vrijeme:"
+
+#: ../src/gui/widgets/statusbar.py:16
+msgid "Records:"
+msgstr "Unosi:"
+
+#: ../src/gui/widgets/timewidget.py:28
+msgid "Hour :"
+msgstr "Sat :"
+
+#: ../src/gui/widgets/timewidget.py:37
+msgid "Minute :"
+msgstr "Minuta:"
+
+#: ../src/gui/widgets/trayicon.py:42
+msgid "Hide Window"
+msgstr "Sakrij prozor"
+
+#: ../src/gui/widgets/trayicon.py:44
+msgid "Show Window"
+msgstr "Prika¾i prozor"
+
+#: ../src/gui/widgets/trayicon.py:50
+msgid "About"
+msgstr "O programu"
+
+#: ../src/gui/widgets/trayicon.py:54
+msgid "Quit"
+msgstr "Izlaz"
+
+#. TRANSLATORS: This is a date format. You can change the order.
+#: ../src/gui/widgets/viewbill.py:45
+msgid "%m/%d"
+msgstr "%d/%m"
+
+#: ../src/gui/widgets/viewbill.py:82 ../src/gui/widgets/viewcategory.py:39
+msgid "Category"
+msgstr "Kategorija"
+
+#: ../src/gui/widgets/viewbill.py:86
+msgid "Date"
+msgstr "Datum"
+
+#: ../src/gui/widgets/viewbill.py:90
+msgid "Notes"
+msgstr "Bilje¹ke"
+
+#: ../src/gui/widgets/viewbill.py:94
+msgid "Alarm"
+msgstr "Alarm"
+
+#: ../src/lib/common.py:15
+msgid "Developers:"
+msgstr "Autori:"
+
+#: ../src/lib/common.py:19
+msgid "Contributors:"
+msgstr "Doprinjeli: "
+
+#: ../src/lib/dbus_actions.py:29
+msgid ""
+"An error occurred while connecting to BillReminder Notifier!\n"
+"Do you want to launch it and restart BillReminder?"
+msgstr "Dogodila se pogre¹ka pri spajanju na BilLReminder daemon-a!\n"
+"®elite li ga pokrenuti i ponovno startati BillReminder?"
+
+#. Dialog Title
+#: ../src/lib/dialogs.py:51
+msgid "Add a New Record"
+msgstr "Dodaj unos"
+
+#. Dialog Title
+#: ../src/lib/dialogs.py:62
+msgid "Edit a Record"
+msgstr "Promijeni unos"
+
+#. Dialog Title
+#: ../src/lib/utils.py:83
+msgid "Question"
+msgstr "Pitanje"
+
+#. Dialog Title
+#: ../src/lib/utils.py:96 ../src/lib/utils.py:109
+msgid "Error"
+msgstr "Pogre¹ka"
+
+#. Dialog Title
+#: ../src/lib/utils.py:122
+msgid "Information"
+msgstr "Informacije"
+
+#: ../src/lib/utils.py:150
+msgid "Close _Without Saving"
+msgstr "Izaði _bez snimanja"
+
+#: ../src/lib/utils.py:156
+msgid "Save changes before closing?"
+msgstr "Snimi promjene prije zatvaranja?"
+
+#: ../src/lib/utils.py:157
+msgid "If you close without saving, your changes will be discarded."
+msgstr "Ako zatvorite bez snimanja, vase promjene æe biti odbaèene."
+
+#: ../src/lib/scheduler.py:6
+msgid "Once"
+msgstr "Jednom"
+
+#: ../src/lib/scheduler.py:7
+msgid "Weekly"
+msgstr "Tjedno"
+
+#: ../src/lib/scheduler.py:8
+msgid "Monthly"
+msgstr "Mjeseèno"
+
