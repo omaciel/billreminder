@@ -2,6 +2,7 @@
 
 import sys
 import os
+from optparse import OptionParser
 
 current_path = os.path.realpath(__file__)
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -32,25 +33,24 @@ from lib import i18n
 from gui.maindialog import MainDialog as BillReminder
 
 def main():
-    help = _("""Usage:  billreminder [OPTIONS...]
 
-Options:
-  --help, -h, -?\tShow this message.
-  --about\t\tAbout this application.
-  --add\t\t\tAdds a new record to the database.
-  --standalone\t\tAccess database directly, without daemon.
-  --version, -v\t\tDisplays the version number for this application.
-""")
+    #args = sys.argv
+    parser = OptionParser()
+    parser.set_usage(_("Usage:  billreminder [OPTIONS...]"))
+    parser.add_option('-v','--version', action='store_true', dest='app_version', default=False, help=_('Displays the version number for this application.'))
+    parser.add_option('--about', action='store_true', dest='app_about', default=False, help=_('About this application.'))
+    parser.add_option('--add', action='store_true', dest='app_add', default=False, help=_('Adds a new record to the database.'))
+    parser.add_option('--standalone', action='store_true', dest='app_standalone', default=False, help=_('Access database directly, without daemon.'))
 
     # Verify arguments
-    args = sys.argv
-    if "--help" in args or "-h" in args  or "-?" in args:
-        print help
-    elif "--about" in args:
+    options, args = parser.parse_args()
+    if options.app_about:
         dialogs.about_dialog()
-    elif "--add" in args:
+    elif options.app_add:
         print dialogs.add_dialog()
-    elif "--version" in args or "-v" in args:
+    elif options.app_standalone:
+        print _("This option is not implemented yet.")
+    elif options.app_version:
         print _("This is %(appname)s - Version: %(version)s") % \
                          {'appname': common.APPNAME,
                           'version': common.APPVERSION}

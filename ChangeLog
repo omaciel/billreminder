@@ -1,6 +1,9 @@
 BillReminder 0.3.x
 ==================
 
+ Backend:
+  * Changed BillReminder's command line parsing to use OptionParser.
+
  Translations:
   * Croatian translation by Mario Ðani
 

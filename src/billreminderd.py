@@ -2,6 +2,7 @@
 
 import sys
 import os
+from optparse import OptionParser
 
 current_path = os.path.realpath(__file__)
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -18,23 +19,17 @@ from daemon.dbus_manager import verify_service
 
 
 def main():
-    help = _("""Usage:  billreminderd [OPTIONS...]
-
-Options:
-  --help, -h, -?\tShow this message.
-  --verbose\t\tPrint output messages.
-  --no-daemon\t\tDon't run as a daemon.
-  --open-gui\t\tStart daemon and launch GUI.
-  --stop\t\t\tStop daemon.
-  --version, -v\t\tDisplays the version number for this application.
-""")
+    parser = OptionParser()
+    parser.set_usage(_("Usage:  billreminder [OPTIONS...]"))
+    parser.add_option('--version', action='store_true', dest='app_version', default=False, help=_('Displays the version number for this application.'))
+    parser.add_option('--verbose', action='store_true', dest='app_verbose', default=False, help=_('Print output messages.'))
+    parser.add_option('--no-daemon', action='store_true', dest='app_nodaemon', default=False, help=_("Don't run as a daemon."))
+    parser.add_option('--open-gui', action='store_true', dest='app_opengui', default=False, help=_('Start daemon and launch GUI.'))
+    parser.add_option('--stop', action='store_true', dest='app_stop', default=False, help=_('Stop daemon.'))
 
     # Verify arguments
-    args = sys.argv
-    if '--help' in args or '-h' in args or '-?' in args:
-        print help
-        raise SystemExit
-    elif '--stop' in args:
+    options, args = parser.parse_args()
+    if options.app_stop:
         import dbus
         import dbus.service
         if verify_service(common.DBUS_INTERFACE):
@@ -43,7 +38,7 @@ Options:
                                          common.DBUS_PATH)
             dbus_interface = dbus.Interface(obj, common.DBUS_INTERFACE)
             dbus_interface.quit()
-    elif '--version' in args or '-v' in args:
+    elif options.app_version:
         print _('This is %(appname)s - Version: %(version)s') % \
                          {'appname': _("BillReminder Notifier"),
                           'version': common.APPVERSION}
