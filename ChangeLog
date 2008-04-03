@@ -2,6 +2,8 @@ BillReminder 0.3.x
 ==================
 
  Bugs:
+  #1 - Make category names a unique field.
+   ref: http://code.google.com/p/billreminder/issues/detail?id=1
   #4 - Make setting an alarm really optional.
    ref: http://code.google.com/p/billreminder/issues/detail?id=4
 

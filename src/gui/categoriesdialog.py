@@ -11,6 +11,7 @@ from lib.actions import Actions
 from lib import common
 from lib import i18n
 from lib.utils import create_pixbuf
+from lib.utils import Message
 from gui.widgets.viewcategory import ViewCategory
 from db.categoriestable import CategoriesTable
 
@@ -207,6 +208,14 @@ class CategoriesDialog(gtk.Dialog):
     # TODO: Verify if already exist another category with the same name
         name =  self.name_.get_text()
         color = self.color.get_color().to_string()
+
+        # Check if it already exists
+        rec = self.actions.get_categories("UPPER(categoryname) = '%s'" % name.upper())
+        if rec:
+            message = Message()
+            message.ShowError(_("The category %s already exists in the database!") % name, self)
+            return
+
         if self.currentrecord:
             id = self.currentrecord[0]
             row = self.actions.edit_category({'id': id,
