@@ -1,3 +1,7 @@
+2008-04-03 Og Maciel <ogmaciel@gnome.org>
+
+    * adddialog.py: Only set the alarm if it is specified in the user's preferences. (ref. http://code.google.com/p/billreminder/issues/detail?id=4)
+
 2008-03-23 Og Maciel <ogmaciel@gnome.org>
 
     * categoriesdialog.py: Display categories by category name in ascending order.

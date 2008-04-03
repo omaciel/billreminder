@@ -71,10 +71,11 @@ class AddDialog(gtk.Dialog):
 
         else:
             # Use alarm values from preferences
-            atime = self.config.get('Alarm', 'show_alarm_at_time')
-            adays = self.config.getint('Alarm', 'show_alarm_before_days')
-            alarmDate = scheduler.get_alarm_timestamp(adays, atime, selectedDate)
-            self.alarmbutton.set_date(alarmDate)
+            if self.config.get('Alarm', 'show_alarm') == 'true':
+                atime = self.config.get('Alarm', 'show_alarm_at_time')
+                adays = self.config.getint('Alarm', 'show_alarm_before_days')
+                alarmDate = scheduler.get_alarm_timestamp(adays, atime, selectedDate)
+                self.alarmbutton.set_date(alarmDate)
 
     def _set_currency(self):
         self.decimal_sep = locale.localeconv()['mon_decimal_point']
