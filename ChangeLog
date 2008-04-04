@@ -4,11 +4,14 @@ BillReminder 0.3.x
  Bugs:
   #1 - Make category names a unique field.
    ref: http://code.google.com/p/billreminder/issues/detail?id=1
+  #2 - Newly added categories should be selected automatically
+   ref: http://code.google.com/p/billreminder/issues/detail?id=2
   #4 - Make setting an alarm really optional.
    ref: http://code.google.com/p/billreminder/issues/detail?id=4
 
  Backend:
-  * Changed BillReminder's command line parsing to use OptionParser.
+  #3 - Changed BillReminder's command line parsing to use OptionParser.
+   ref: http://code.google.com/p/billreminder/issues/detail?id=3
 
  Translations:
   * Croatian translation by Mario Ðani

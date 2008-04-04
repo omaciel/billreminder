@@ -300,7 +300,7 @@ class AddDialog(gtk.Dialog):
         # Set SC_ONCE as default
         self.frequency.set_active(0)
 
-    def _populate_category(self, return_id=None):
+    def _populate_category(self, categoryname=None):
         """ Populates combobox with existing categories """
         # Connects to the database
         actions = Actions()
@@ -313,17 +313,17 @@ class AddDialog(gtk.Dialog):
         empty_color = create_pixbuf(rgb=(255,255,255))
         empty_color= empty_color.add_alpha (True, chr(255), chr(255),chr(255))
         for rec in records:
-            if [rec['categoryname'], rec['id']] not in categories:
-                #TODO: Better put color creation in a function
-                color = gtk.gdk.color_parse(rec['color'])
-                red = color.red * 255 / 65535
-                green = color.green * 255 / 65535
-                blue = color.blue * 255 / 65535
-                rgb = (red, green, blue)
+            #if [rec['categoryname'], rec['id']] not in categories:
+            #TODO: Better put color creation in a function
+            color = gtk.gdk.color_parse(rec['color'])
+            red = color.red * 255 / 65535
+            green = color.green * 255 / 65535
+            blue = color.blue * 255 / 65535
+            rgb = (red, green, blue)
 
-                categories.append([create_pixbuf(rgb=rgb), rec['categoryname'], int(rec['id'])])
-                if return_id and int(return_id) == int(rec['id']):
-                    ret = len(categories) + 1
+            categories.append([create_pixbuf(rgb=rgb), rec['categoryname'], int(rec['id'])])
+            if categoryname and categoryname == rec['categoryname']:
+                ret = len(categories) + 1
 
         store = gtk.ListStore(gtk.gdk.Pixbuf, str, int)
 
@@ -335,7 +335,7 @@ class AddDialog(gtk.Dialog):
             store.append(category)
         store.append([None, "---", -1])
         store.append([empty_color, _("New Category"), -2])
-        self.category.set_active(0)
+        self.category.set_active(ret)
 
         return ret
 
@@ -428,39 +428,19 @@ class AddDialog(gtk.Dialog):
         else:
             self.repeatSpinner.set_sensitive(True)
 
-
     def _on_categoriesbutton_clicked(self, button, new=False):
+        # if new == True, a simpler categories dialog pops up
         categories = CategoriesDialog(parent=self, new=new)
         ret = categories.run()
 
-        if ret == gtk.RESPONSE_OK and new:
-            categories._on_savebutton_clicked(None)
-
-        index = self.category.get_active()
-        model = self.category.get_model()
-        id_original = int(model[index][2])
-        # Repopulate categories
-        new_index = self._populate_category(id_original)
-
-        cursor = categories.list.get_cursor()
-        if cursor[0]:
-            cat_index = cursor[0][0]
-        else:
-            cat_index = 0
-        cat_model = categories.list.get_model()
-
         if ret == gtk.RESPONSE_OK:
-            if not len(cat_model):
-                index = 0
-            else:
-                index = cat_index + 2
-        else:
-            index = new_index
+            #TODO: We should handle the saving in the dialog itself.
+            # the category hasn't been saved yet... so save it.
+            if new:
+                categories._on_savebutton_clicked(None)
+            category = categories.currentrecord
 
-        if ret == gtk.RESPONSE_OK and new:
-            index = len(cat_model) + 1
-
-        self.category.set_active(index)
+            self._populate_category(category['categoryname'])
 
         categories.destroy()
         return ret

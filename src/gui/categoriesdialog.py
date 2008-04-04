@@ -33,7 +33,7 @@ class CategoriesDialog(gtk.Dialog):
             self.set_transient_for(parent)
             self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
-        self.currentrecord = None
+        self.currentrecord = {}
 
         # Set up the UI
         self._initialize_dialog_widgets()
@@ -130,13 +130,18 @@ class CategoriesDialog(gtk.Dialog):
 
     def _populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
-
         # Loops through bills collection
         path = 0
+        found = 0
+
         for rec in records:
             self.list.add(self._formated_row(rec))
+            if rec['categoryname'] == self.currentrecord.get('categoryname', ''):
+                found = path
+            path += 1
 
-        self.list.set_cursor(path)
+        self.list.set_cursor(found)
+
         return
 
     def _formated_row(self, row):
@@ -168,36 +173,36 @@ class CategoriesDialog(gtk.Dialog):
         self.savebutton.set_sensitive(False)
 
     def _get_selected_record(self):
-        """ Returns a tuple from the current selected record """
+        """ Keeps track of the currently selected record """
         if len(self.list.listStore) > 0:
             selection = self.list.get_selection()
             _model, iteration = selection.get_selected()
-            self.currentrecord = (_model.get_value(iteration, 0),
-                                  _model.get_value(iteration, 2),
-                                  _model.get_value(iteration, 3))
+            # The ID for the selected record
+            category_id = _model.get_value(iteration, 0)
+            # Now fetch it from the database
+            self.currentrecord = self.actions.get_categories({'id': category_id})[0]
+        else:
+            self.currentrecord = {}
 
     def _update_fields(self):
         if not self.currentrecord:
             self.name_.set_text("")
             self.color.set_color(gtk.gdk.color_parse("#000"))
             return
-        self.name_.set_text(self.currentrecord[1])
+        self.name_.set_text(self.currentrecord['categoryname'])
         try:
-            color = gtk.gdk.color_parse(self.currentrecord[2])
+            color = gtk.gdk.color_parse(self.currentrecord['color'])
         except ValueError:
             color = gtk.gdk.color_parse("#000")
         self.color.set_color(color)
 
     def reloadTreeView(self, *arg):
         # Update list with updated record
-        path = self.list.get_cursor()[0]
         self.list.listStore.clear()
         self._populateTreeView(self.actions.get_categories(""))
-        if path:
-            self.list.set_cursor(path)
 
     def _on_newbutton_clicked(self, button):
-        self.currentrecord = None
+        self.currentrecord = {}
         self.name_.set_text("")
         self.color.set_color(gtk.gdk.color_parse("#000"))
         self.deletebutton.set_sensitive(False)
@@ -205,7 +210,7 @@ class CategoriesDialog(gtk.Dialog):
         self.name_.grab_focus()
 
     def _on_savebutton_clicked(self, button):
-    # TODO: Verify if already exist another category with the same name
+        # Extract input data
         name =  self.name_.get_text()
         color = self.color.get_color().to_string()
 
@@ -216,24 +221,28 @@ class CategoriesDialog(gtk.Dialog):
             message.ShowError(_("The category %s already exists in the database!") % name, self)
             return
 
+        # We're updating an existing category.
         if self.currentrecord:
-            id = self.currentrecord[0]
+            id = self.currentrecord['id']
             row = self.actions.edit_category({'id': id,
                 'categoryname': name,
                 'color': color})
+        # We're adding a new category.
         else:
             row = self.actions.add_category({'categoryname': name,
                 'color': color})
-        self.savebutton.set_sensitive(False)
+            # Update our local "copy" directly from database
+            self.currentrecord = self.actions.get_categories({'categoryname': name})[0]
+
+        # Repopulate the grid
         self.reloadTreeView()
-        self._on_newbutton_clicked(button)
 
     def _on_deletebutton_clicked(self, button):
-    # TODO: Alert if there is more bills in category and ask confirmation
+    # TODO: Alert if there are more bills in category and ask confirmation
         if self.currentrecord:
-            id = self.currentrecord[0]
+            id = self.currentrecord['id']
             row = self.actions.delete_category(int(id))
-            self.currentrecord = None
+            self.currentrecord = {}
             self.name_.set_text("")
             self.color.set_color(gtk.gdk.color_parse("#000"))
             self.savebutton.set_sensitive(False)

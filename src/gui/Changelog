@@ -1,6 +1,11 @@
+2008-04-04 Og Maciel <ogmaciel@gnome.org>
+
+    * categoriesdialog.py: Simplify the code; automatically select a newly created category. (ref: http://code.google.com/p/billreminder/issues/detail?id=2)
+    * adddialog.py: Expect a category dictionary from categoriesdialog.py.
+
 2008-04-03 Og Maciel <ogmaciel@gnome.org>
 
-    * categoriesdialog.py: Don't allow an existing category to be added. (ref:
+    * categoriesdialog.py: Don't allow an existing category to be added.
     * adddialog.py: Only set the alarm if it is specified in the user's preferences. (ref: http://code.google.com/p/billreminder/issues/detail?id=1)
 
 2008-03-23 Og Maciel <ogmaciel@gnome.org>
