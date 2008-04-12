@@ -43,7 +43,7 @@ def main():
                          {'appname': _("BillReminder Notifier"),
                           'version': common.APPVERSION}
     else:
-        BillReminderd.main()
+        BillReminderd.main(options)
 
 if __name__ == "__main__":
     main()

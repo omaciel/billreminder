@@ -66,9 +66,9 @@ def unlock():
 
 class Daemon(object):
     """ Make the program run like a daemon """
-    def __init__(self):
+    def __init__(self, options):
         """ Detach process and run it as a daemon """
-        if not '--no-daemon' in sys.argv:
+        if not options.app_nodaemon:
             # Fork first child
             try:
                 pid = os.fork()
@@ -94,7 +94,7 @@ class Daemon(object):
                 raise SystemExit
             # Redirect STDIN, STDOUT and STDERR
             sys.stdin.close()
-        if '--verbose' in sys.argv:
+        if options.app_verbose:
             sys.stdout.write('\n')
             sys.stdout = VerboseDevice(type_='stdout')
             sys.stderr = VerboseDevice(type_='stderr')
@@ -106,7 +106,7 @@ class Daemon(object):
 class Program(Daemon):
     """ BillReminder Daemon Main class """
 
-    def __init__(self):
+    def __init__(self, options):
 
         # Verify if Lock File exist and if there is another instance running
         if not lock():
@@ -133,14 +133,14 @@ class Program(Daemon):
             print _('BillReminder Notifier is already running.')
             raise SystemExit
 
-        Daemon.__init__(self)
+        Daemon.__init__(self, options)
 
         self.client_pid = None
 
         self.config = Config()
         self.actions = Actions()
         self.dbus_server = Server(self)
-        if '--open-gui' in sys.argv:
+        if options.app_opengui:
             gui = Popen('billreminder', shell=True)
             self.client_pid = gui.pid
         self.alarm = Alarm(self)
@@ -161,11 +161,11 @@ class Program(Daemon):
         self.mainloop.quit()
         unlock()
 
-def main():
+def main(options):
     gobject.threads_init()
 
     try:
-        Program()
+        Program(options)
     except KeyboardInterrupt:
         unlock()
         print >> stdout_orig, 'Keyboard Interrupt (Ctrl+C)'
