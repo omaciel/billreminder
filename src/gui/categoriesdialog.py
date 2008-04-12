@@ -238,9 +238,19 @@ class CategoriesDialog(gtk.Dialog):
         self.reloadTreeView()
 
     def _on_deletebutton_clicked(self, button):
-    # TODO: Alert if there are more bills in category and ask confirmation
         if self.currentrecord:
             id = self.currentrecord['id']
+            more = self.actions.get_bills({'catId': id})
+            if len(more) > 1:
+                message = Message()
+                confirm = message.ShowQuestionYesNo("%s%s" % (
+                    _("Do you really want to delete this category?\n") ,
+                    ngettext("There is %d more bill in this category.",
+                        "There are %d more bills in this category.",
+                        (len(more) - 1)) % (len(more) - 1)), 
+                    parentWindow=self, title=_("Confirmation"))
+                if not confirm:
+                    return
             row = self.actions.delete_category(int(id))
             self.currentrecord = {}
             self.name_.set_text("")

@@ -65,6 +65,10 @@ class Actions(object):
 
     def delete_category(self, key):
         """ Delete a record in the database """
+        bills = self.get_bills({'catId': key})
+        for bill in bills:
+            bill['catId'] = None
+            self.edit_bill(bill)
         return self.dal.delete(CategoriesTable, key)
 
 
