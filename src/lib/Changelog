@@ -1,10 +1,16 @@
+2008-04-13 Og Maciel <ogmaciel@gnome.org>
+
+	* utils.py: create_pixbuf now does color parsing and uses a cairo-based
+	image to create pixbuf.
+
 2008-03-27 Og Maciel <ogmaciel@gnome.org>
 
     * common.py: Bumped version to 0.3.1
 
 2008-03-23 Og Maciel <ogmaciel@gnome.org>
 
-    * utils.py: Added optional 'index' parameter to global function that selects items in a gtk.ComboBox widget.
+    * utils.py: Added optional 'index' parameter to global function that 
+	selects items in a gtk.ComboBox widget.
 
 2008-03-09 Og Maciel <ogmaciel@gnome.org>
 
@@ -12,4 +18,6 @@
 
 2008-03-06 Og Maciel <ogmaciel@gnome.org>
 
-    * scheduler.py: Fixed a bug that would cause recurring bills not to expand beyond the current year, change make by Luiz Armesto <luiz.armesto@gmail.com> (ref: sourceforge #1908445)
+    * scheduler.py: Fixed a bug that would cause recurring bills not to expand 
+	beyond the current year, change make by Luiz Armesto <luiz.armesto@gmail.com>
+	(ref: sourceforge #1908445)

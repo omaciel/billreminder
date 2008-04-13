@@ -4,10 +4,10 @@ __all__ = ['ContextMenu', 'Message']
 
 import sys
 import os
-import tempfile
+import cairo
 import datetime
 import locale
-import Image
+import StringIO
 
 try:
     import pygtk
@@ -236,21 +236,34 @@ def float_to_currency(number):
 def check_date_format(string):
     pass
 
-def create_pixbuf(size=(16, 16), rgb=(255, 255, 255)):
-    # Our image
-    square = Image.new("RGB", size, rgb)
+def create_pixbuf(height=16, width=16, color='#F5F5F5'):
 
-    try:
-        # Temp storage file
-        fd,sqfile = tempfile.mkstemp()
-        # Store the image into a file
-        square.save(sqfile, "png")
-        # Create the pixbug object
-        pixbuf = gtk.gdk.pixbuf_new_from_file(sqfile)
+    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
+    cr = cairo.Context(surface)
 
-    finally:
-        # clean up
-        os.remove(sqfile)
+    # Parse out color value
+    color = gtk.gdk.color_parse(color)
+    red = float(color.red) / 65536
+    green = float(color.green) / 65536
+    blue = float(color.blue) / 65536
 
-    return pixbuf
+    # Draw a black border for a square
+    cr.set_source_rgb(0, 0, 0)
+    cr.rectangle(0, 0, height, width)
+    cr.stroke()
+    # Draw a smaller colored square inside of previous one
+    cr.set_source_rgb(red, green, blue)
+    cr.rectangle(1, 1, height - 2, width - 2)
+    cr.fill ()
 
+    # Buffer to hold the image
+    buf = StringIO.StringIO()
+    surface.write_to_png(buf)
+
+    # Move pointer to start of buffer
+    buf.seek(0)
+    loader = gtk.gdk.PixbufLoader()
+    loader.write(buf.getvalue())
+    loader.close()
+
+    return loader.get_pixbuf()

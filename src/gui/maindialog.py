@@ -268,16 +268,10 @@ class MainDialog:
                 if records:
                     name = records[0]['categoryname']
                     color = records[0]['color']
-                    color = gtk.gdk.color_parse(color)
-                    red = color.red * 255 / 65535
-                    green = color.green * 255 / 65535
-                    blue = color.blue * 255 / 65535
-                    rgb = (red, green, blue)
                 else:
                     name = _("None")
                     color = "#000"
-                    rgb = (255, 255, 255)
-                formated.append(create_pixbuf((16, 16), rgb))
+                formated.append(create_pixbuf(color=color))
                 formated.append(name)
             else:
                 formated.append(row[key])

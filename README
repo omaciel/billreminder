@@ -28,7 +28,7 @@ DEPENDENCIES
 ============
 python gtk
 python sqlite2
-python image
+python cairo
 
 INSTALLATION
 ============

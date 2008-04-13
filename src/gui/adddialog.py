@@ -310,18 +310,13 @@ class AddDialog(gtk.Dialog):
         records = actions.get_categories("id > 0 ORDER BY categoryname ASC") or []
 
         ret = 0
-        empty_color = create_pixbuf(rgb=(255,255,255))
-        empty_color= empty_color.add_alpha (True, chr(255), chr(255),chr(255))
+        empty_color = create_pixbuf()
         for rec in records:
             #if [rec['categoryname'], rec['id']] not in categories:
             #TODO: Better put color creation in a function
-            color = gtk.gdk.color_parse(rec['color'])
-            red = color.red * 255 / 65535
-            green = color.green * 255 / 65535
-            blue = color.blue * 255 / 65535
-            rgb = (red, green, blue)
+            color = rec['color']
 
-            categories.append([create_pixbuf(rgb=rgb), rec['categoryname'], int(rec['id'])])
+            categories.append([create_pixbuf(color=color), rec['categoryname'], int(rec['id'])])
             if categoryname and categoryname == rec['categoryname']:
                 ret = len(categories) + 1
 
