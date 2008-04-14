@@ -17,6 +17,7 @@ BillReminder 0.3.x
   * Croatian translation by Mario Ðani
 
  Graphical Interface:
+  * Ask user for confirmation before editing an existing category.
   * Added pycairo as a dependency instead of python-Image. Color-coded
   categories now have a border around the colored tile.
 

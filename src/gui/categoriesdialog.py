@@ -214,16 +214,17 @@ class CategoriesDialog(gtk.Dialog):
         rec = self.actions.get_categories("UPPER(categoryname) = '%s'" % name.upper())
         if rec:
             message = Message()
-            message.ShowError(_("The category %s already exists in the database!") % name, self)
-            return
-
-        # We're updating an existing category.
-        if self.currentrecord:
-            id = self.currentrecord['id']
-            row = self.actions.edit_category({'id': id,
-                'categoryname': name,
-                'color': color})
-        # We're adding a new category.
+            if message.ShowQuestionYesNo(_("The category \"%s\" already exists in the database!\n\n"\
+                "Do you want to save your change to the existing category?") % name, self):
+            #message.ShowError(_("The category %s already exists in the database!") % name, self)
+            #return
+                # We're updating an existing category.
+                if self.currentrecord:
+                    id = self.currentrecord['id']
+                    row = self.actions.edit_category({'id': id,
+                        'categoryname': name,
+                        'color': color})
+                # We're adding a new category.
         else:
             row = self.actions.add_category({'categoryname': name,
                 'color': color})
