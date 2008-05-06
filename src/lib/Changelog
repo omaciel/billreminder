@@ -1,3 +1,7 @@
+2008-05-06 Og Maciel <ogmaciel@gnome.org>
+
+    * common.py: Updated project url.
+
 2008-04-13 Og Maciel <ogmaciel@gnome.org>
 
 	* utils.py: create_pixbuf now does color parsing and uses a cairo-based
