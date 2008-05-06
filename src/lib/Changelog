@@ -1,3 +1,8 @@
+2008-05-06 Luiz Armesto <luiz.armesto@gmail.com>
+
+    * common.py: Fixed a bug that would cause the use of wrong paths.
+    (ref: Google Code - Issue 7)
+
 2008-05-06 Og Maciel <ogmaciel@gnome.org>
 
     * common.py: Updated project url.
@@ -13,7 +18,7 @@
 
 2008-03-23 Og Maciel <ogmaciel@gnome.org>
 
-    * utils.py: Added optional 'index' parameter to global function that 
+    * utils.py: Added optional 'index' parameter to global function that
 	selects items in a gtk.ComboBox widget.
 
 2008-03-09 Og Maciel <ogmaciel@gnome.org>
@@ -22,6 +27,6 @@
 
 2008-03-06 Og Maciel <ogmaciel@gnome.org>
 
-    * scheduler.py: Fixed a bug that would cause recurring bills not to expand 
+    * scheduler.py: Fixed a bug that would cause recurring bills not to expand
 	beyond the current year, change make by Luiz Armesto <luiz.armesto@gmail.com>
 	(ref: sourceforge #1908445)

@@ -3,7 +3,11 @@
 import os
 from lib import i18n
 
-datadir = "/usr/share"
+# Get where billreminder is installed
+try:
+    from sysvars import datadir
+except ImportError:
+    datadir = "/usr/share"
 
 # Application info
 APPNAME = _("BillReminder")
