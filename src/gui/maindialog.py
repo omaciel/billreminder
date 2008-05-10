@@ -374,7 +374,8 @@ class MainDialog:
                 if bill:
                     self.list.add(self._formated_row(bill))
                     self._update_statusbar()
-        self.reloadTreeView()
+            # Reload records tree (something changed)
+            self.reloadTreeView()
 
     def edit_bill(self):
         records = dialogs.edit_dialog(parent=self.window,
@@ -393,7 +394,8 @@ class MainDialog:
                     self._update_statusbar(idx)
                 except Exception, e:
                     print str(e)
-        self.reloadTreeView()
+            # Reload records tree (something changed)
+            self.reloadTreeView()
 
     def remove_bill(self):
         try:

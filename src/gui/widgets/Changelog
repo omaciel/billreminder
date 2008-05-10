@@ -1,0 +1,3 @@
+2008-05-10  Og Maciel <ogmaciel@gnome.org>
+
+    *viewbill.py: Display the localized currency symbol in the column header.

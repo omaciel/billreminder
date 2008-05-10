@@ -58,14 +58,13 @@ def add_dialog(parent=None, selectedDate=None):
     return record
 
 def edit_dialog(record, parent=None):
+    record = None
     # Dialog Title
     dialog = AddDialog(title=_("Edit a Record"), parent=parent, record=record)
     response = dialog.run()
     # Checks if the user did not cancel the action
     if response == gtk.RESPONSE_ACCEPT:
         record = dialog.get_record()
-    else:
-        record = [record]
     dialog.destroy()
 
     return record

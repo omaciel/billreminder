@@ -138,7 +138,7 @@ class AddDialog(gtk.Dialog):
         self.payeelabel.set_markup("<b>%s</b> " % _("Payee:"))
         self.payeelabel.set_alignment(0.00, 0.50)
         self.amountlabel = gtk.Label()
-        self.amountlabel.set_markup("<b>%s</b> " % _("Amount:"))
+        self.amountlabel.set_markup("<b>%s</b> (%s) " % (_("Amount:"), locale.localeconv()['currency_symbol']))
         self.amountlabel.set_alignment(0.00, 0.50)
         self.categorylabel = gtk.Label()
         self.categorylabel.set_markup("<b>%s</b> " % _("Category:"))
@@ -460,9 +460,9 @@ class AddDialog(gtk.Dialog):
         message = utils.Message()
         if response_id == gtk.RESPONSE_ACCEPT:
             if not self._get_payee().strip() and \
-                                        not self.amount.get_text().strip():
+                not self.amount.get_text().strip():
                 message.ShowError(_("\"%s\" and \"%s\" are required fields.") \
-                                        % (_("Payee"), _("Amount")), self)
+                    % (_("Payee"), _("Amount")), self)
                 self.emit_stop_by_name("response")
                 self.payee.grab_focus()
             elif not self._get_payee().strip():

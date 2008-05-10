@@ -1,3 +1,8 @@
+2008-05-10 Og Maciel <ogmaciel@gnome.org>
+
+	* adddialog.py: Display the localized currency symbol.
+	* maindialog.py: Only reload the records tree if something has really changed in db.
+
 2008-04-14 Og Maciel <ogmaciel@gnome.org>
 
     * categoriesdialog.py: Ask user for confirmation before editing an existing category.

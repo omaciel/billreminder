@@ -3,6 +3,7 @@
 __all__ = ['ViewBill']
 
 import gtk
+import locale
 import datetime
 
 from gui.widgets.genericlistview import GenericListView
@@ -85,7 +86,7 @@ class ViewBill(GenericListView):
             gtk.CellRendererText(), payee_cell_data_function],
         4: [_('Date'),
             gtk.CellRendererText(), duedate_cell_data_function],
-        5: [_('Amount'),
+        5: ["%s (%s)" % (_('Amount'),locale.localeconv()['currency_symbol']),
             gtk.CellRendererText(), amountdue_cell_data_function],
         6: [_('Notes'),
             gtk.CellRendererText(), notes_cell_data_function],

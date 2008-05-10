@@ -1,3 +1,7 @@
+2008-05-10 Og Maciel <ogmaciel@gnome.org>
+
+    * dialogs.py: Don't return anything if user cancelled editing action.
+
 2008-05-06 Luiz Armesto <luiz.armesto@gmail.com>
 
     * common.py: Fixed a bug that would cause the use of wrong paths.
