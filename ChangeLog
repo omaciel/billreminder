@@ -15,6 +15,7 @@ BillReminder 0.3.x
 
  Translations:
   * Croatian translation by Mario Ðani
+  * Czech translation by Pavel Šefránek
 
  Graphical Interface:
   * Ask user for confirmation before editing an existing category.

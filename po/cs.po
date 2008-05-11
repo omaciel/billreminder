@@ -1,0 +1,593 @@
+# Czech translation of BillReminder.
+# Copyright (C) 2008 Og Maciel
+# This file is distributed under the same license as the BillReminder package.
+# Pavel Šefránek <ps@pjoul.cz>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: BillReminder 0.3.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-26 23:55-0400\n"
+"PO-Revision-Date: 2008-05-11 15:11+0100\n"
+"Last-Translator: Pavel Šefránek <ps@pjoul.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+
+#: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:48
+#: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
+msgid "BillReminder Notifier"
+msgstr "Hlásič BillReminder"
+
+#: ../data/billreminderd.desktop.in.h:2 ../data/billreminder.desktop.in.h:2
+msgid "Bills manager"
+msgstr "Správce účtenek"
+
+#: ../data/billreminderd.desktop.in.h:3 ../data/billreminder.desktop.in.h:3
+msgid "Never forget to pay a bill again!"
+msgstr "Už nikdy nezapomenete zaplatit účty!"
+
+#. Application info
+#: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
+#: ../src/lib/common.py:9 ../src/lib/utils.py:138
+msgid "BillReminder"
+msgstr "BillReminder"
+
+#: ../src/billreminder.py:35
+msgid ""
+"Usage:  billreminder [OPTIONS...]\n"
+"\n"
+"Options:\n"
+"  --help, -h, -?\tShow this message.\n"
+"  --about\t\tAbout this application.\n"
+"  --add\t\t\tAdds a new record to the database.\n"
+"  --standalone\t\tAccess database directly, without daemon.\n"
+"  --version, -v\t\tDisplays the version number for this application.\n"
+msgstr ""
+
+#: ../src/billreminder.py:54 ../src/billreminderd.py:47
+#: ../src/daemon/dbus_manager.py:44
+#, python-format
+msgid "This is %(appname)s - Version: %(version)s"
+msgstr "Toto je %(appname)s - verze: %(version)s"
+
+#: ../src/billreminderd.py:21
+msgid ""
+"Usage:  billreminderd [OPTIONS...]\n"
+"\n"
+"Options:\n"
+"  --help, -h, -?\tShow this message.\n"
+"  --verbose\t\tPrint output messages.\n"
+"  --no-daemon\t\tDon't run as a daemon.\n"
+"  --open-gui\t\tStart daemon and launch GUI.\n"
+"  --stop\t\t\tStop daemon.\n"
+"  --version, -v\t\tDisplays the version number for this application.\n"
+msgstr ""
+
+#: ../src/daemon/alarm.py:61
+#, python-format
+msgid "You have %s outstanding bill to pay!"
+msgid_plural "You have %s outstanding bills to pay!"
+msgstr[0] "Máte nezaplacenou jednu účtenku!"
+msgstr[1] "Máte nezaplaceny %s účtenky!"
+msgstr[2] "Máte nezaplaceno %s účtenek!"
+
+#: ../src/daemon/alarm.py:66
+msgid "Show BillReminder"
+msgstr "Zobrazit BillReminder"
+
+#: ../src/daemon/alarm.py:68 ../src/daemon/alarm.py:123
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: ../src/daemon/alarm.py:96 ../src/daemon/alarm.py:183
+#, python-format
+msgid "The bill %(bill)s will be due at %(day)s."
+msgstr "Splatnost účtenky %(bill)s končí %(day)s."
+
+#: ../src/daemon/alarm.py:99 ../src/daemon/alarm.py:186
+msgid "%Y/%m/%d"
+msgstr "%d. %m. %Y"
+
+#: ../src/daemon/alarm.py:109
+#, python-format
+msgid "The bill %s is due."
+msgstr "Splatnost účtenky „%s“ skončila."
+
+#. Button Title
+#: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:297
+#: ../src/gui/maindialog.py:321 ../src/lib/utils.py:135
+msgid "Mark as paid"
+msgstr "Označit jako zaplacené"
+
+#: ../src/daemon/alarm.py:122 ../src/lib/utils.py:136
+msgid "Edit"
+msgstr "Upravit"
+
+#: ../src/daemon/main.py:117
+#, python-format
+msgid "Lock File found: You have another instance running. (pid=%d)"
+msgstr "Nalezen zámek: aplikace již běží. (číslo procesu: %d)"
+
+#: ../src/daemon/main.py:122
+msgid "Lock File found: Possibly the program was exited unexpectedly."
+msgstr "Nalezen zámek: je možné, že aplikace byla neočekávaně ukončena."
+
+#: ../src/daemon/main.py:125
+msgid "Removing Lock File..."
+msgstr "Odstraňuji zámek..."
+
+#: ../src/daemon/main.py:127
+msgid "Successfully."
+msgstr "úspěšně."
+
+#: ../src/daemon/main.py:129
+msgid "Failed."
+msgstr "nepodařilo se."
+
+#: ../src/daemon/main.py:133
+msgid "BillReminder Notifier is already running."
+msgstr "Hlásič BillReminder již běží."
+
+#: ../src/gui/aboutdialog.py:13
+msgid "translator-credits"
+msgstr "Pavel Šefránek <ps@pjoul.cz>"
+
+#: ../src/gui/aboutdialog.py:36
+msgid "BillReminder Website"
+msgstr "Webová stránka aplikace BillReminder"
+
+#: ../src/gui/adddialog.py:94 ../src/gui/maindialog.py:116
+msgid "Due Date:"
+msgstr "K datu:"
+
+#: ../src/gui/adddialog.py:99
+msgid "Repeat:"
+msgstr "Opakovat:"
+
+#: ../src/gui/adddialog.py:103
+msgid "How many times to repeat this bill."
+msgstr "Kolikrát opakovat tuto účtenku."
+
+#: ../src/gui/adddialog.py:137
+msgid "Payee:"
+msgstr "Věřitel:"
+
+#: ../src/gui/adddialog.py:140
+msgid "Amount:"
+msgstr "Částka:"
+
+#: ../src/gui/adddialog.py:143
+msgid "Category:"
+msgstr "Kategorie:"
+
+#: ../src/gui/adddialog.py:146 ../src/gui/widgets/statusbar.py:26
+msgid "Notes:"
+msgstr "Poznámky:"
+
+#: ../src/gui/adddialog.py:149
+msgid "Alarm:"
+msgstr "Upozornění:"
+
+#: ../src/gui/adddialog.py:172
+msgid "Manage Categories"
+msgstr "Upravit kategorie:"
+
+#: ../src/gui/adddialog.py:193 ../src/gui/widgets/datebutton.py:40
+msgid "Select Date and Time"
+msgstr "Vyberte datum a čas"
+
+#. TRANSLATORS: No date selected
+#: ../src/gui/adddialog.py:330 ../src/gui/adddialog.py:354
+#: ../src/gui/maindialog.py:277 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/widgets/datebutton.py:26 ../src/gui/widgets/datebutton.py:43
+#: ../src/gui/widgets/datebutton.py:69
+msgid "None"
+msgstr "Není"
+
+#: ../src/gui/adddialog.py:336 ../src/gui/categoriesdialog.py:47
+msgid "New Category"
+msgstr "Nová kategorie"
+
+#: ../src/gui/adddialog.py:488
+#, python-format
+msgid "\"%s\" and \"%s\" are required fields."
+msgstr "Položky „%s“ a „%s“ je nutné vyplnit."
+
+#: ../src/gui/adddialog.py:489 ../src/gui/adddialog.py:493
+#: ../src/gui/widgets/viewbill.py:84
+msgid "Payee"
+msgstr "Věřitel"
+
+#: ../src/gui/adddialog.py:489 ../src/gui/adddialog.py:497
+#: ../src/gui/widgets/viewbill.py:88
+msgid "Amount"
+msgstr "Částka"
+
+#: ../src/gui/adddialog.py:493 ../src/gui/adddialog.py:497
+#, python-format
+msgid "\"%s\" is required field."
+msgstr "Položku „%s“ nutné vyplnit."
+
+#: ../src/gui/categoriesdialog.py:22
+msgid "Categories Manager"
+msgstr "Správce kategorií"
+
+#: ../src/gui/categoriesdialog.py:58
+msgid "Categories"
+msgstr "Kategorie"
+
+#: ../src/gui/categoriesdialog.py:81
+msgid "Name:"
+msgstr "Název:"
+
+#: ../src/gui/categoriesdialog.py:84
+msgid "Color:"
+msgstr "Barva:"
+
+#: ../src/gui/maindialog.py:96
+msgid "Bills:"
+msgstr "Účtenky:"
+
+#: ../src/gui/maindialog.py:290
+msgid "New"
+msgstr "Nový"
+
+#: ../src/gui/maindialog.py:290 ../src/gui/maindialog.py:318
+msgid "Add a new record"
+msgstr "Přidat nový záznam"
+
+#: ../src/gui/maindialog.py:292 ../src/gui/maindialog.py:319
+msgid "Edit a record"
+msgstr "Upravit záznam"
+
+#: ../src/gui/maindialog.py:294 ../src/gui/maindialog.py:320
+msgid "Delete selected record"
+msgstr "Odstranit vybraný záznam"
+
+#: ../src/gui/maindialog.py:297 ../src/gui/widgets/viewbill.py:92
+msgid "Paid"
+msgstr "Zaplaceno"
+
+#: ../src/gui/maindialog.py:300
+msgid "Not Paid"
+msgstr "Nezaplaceno"
+
+#: ../src/gui/maindialog.py:300 ../src/gui/maindialog.py:322
+msgid "Mark as not paid"
+msgstr "Označit jako nezaplacené"
+
+#: ../src/gui/maindialog.py:317
+msgid "_File"
+msgstr "_Soubor"
+
+#: ../src/gui/maindialog.py:318 ../src/gui/maindialog.py:515
+msgid "_Add New"
+msgstr "N_ová účtenka"
+
+#: ../src/gui/maindialog.py:321 ../src/gui/maindialog.py:525
+msgid "_Paid"
+msgstr "_Zaplaceno"
+
+#: ../src/gui/maindialog.py:322
+msgid "_Not Paid"
+msgstr "N_ezaplaceno"
+
+#: ../src/gui/maindialog.py:323
+msgid "Edit preferences"
+msgstr "Upravit nastavení"
+
+#: ../src/gui/maindialog.py:324
+msgid "Quit the Program"
+msgstr "Ukončit aplikaci"
+
+#: ../src/gui/maindialog.py:325
+msgid "_View"
+msgstr "_Zobrazit"
+
+#: ../src/gui/maindialog.py:326
+msgid "_Help"
+msgstr "_Nápověda"
+
+#: ../src/gui/maindialog.py:327
+msgid "About the application"
+msgstr "O aplikaci"
+
+#: ../src/gui/maindialog.py:339
+msgid "Show Toolbar"
+msgstr "Panel nástrojů"
+
+#: ../src/gui/maindialog.py:339
+msgid "Show the toolbar"
+msgstr "Zobrazovat panel nástrojů"
+
+#: ../src/gui/maindialog.py:343
+msgid "_Not Paid Only"
+msgstr "Pouze _nezaplacené"
+
+#: ../src/gui/maindialog.py:343
+msgid "Display all unpaid records only"
+msgstr "Zobrazovat pouze nezaplacené účtenky"
+
+#: ../src/gui/maindialog.py:344
+msgid "_Paid Only"
+msgstr "Pouze _zaplacené"
+
+#: ../src/gui/maindialog.py:344
+msgid "Display all paid records only"
+msgstr "Zobrazovat pouze zaplacené účtenky"
+
+#: ../src/gui/maindialog.py:345
+msgid "_All Records"
+msgstr "_Všechny"
+
+#: ../src/gui/maindialog.py:345
+msgid "Display all records"
+msgstr "Zobrazovat všechny záznamy"
+
+#: ../src/gui/maindialog.py:528
+msgid "Not _Paid"
+msgstr "_Nezaplacené"
+
+#: ../src/gui/maindialog.py:555
+#, python-format
+msgid "Do you really want to delete \"%s\"?"
+msgstr "Opravdu chcete odstranit „%s“?"
+
+#: ../src/gui/maindialog.py:557
+msgid "Confirmation"
+msgstr "Potvrzení"
+
+#: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
+msgid "Preferences"
+msgstr "Nastavení"
+
+#. Alert Group
+#: ../src/gui/prefdialog.py:51
+msgid "Alerts"
+msgstr "Výstraha"
+
+#: ../src/gui/prefdialog.py:59
+msgid "Alert before due date:"
+msgstr "Varovat před koncem splatnosti:"
+
+#: ../src/gui/prefdialog.py:64 ../src/gui/prefdialog.py:110
+msgid "day(s)."
+msgstr "den/dny."
+
+#: ../src/gui/prefdialog.py:67
+msgid "Preferred time:"
+msgstr "Čas výstrahy:"
+
+# tohle je jenom popis akce alerts, žádná možnost nebo fce
+#: ../src/gui/prefdialog.py:69
+msgid "Get alerted when individual bills are due."
+msgstr "Nechejte se varovat před koncem splatnosti."
+
+#. Notification Group
+#: ../src/gui/prefdialog.py:91
+msgid "Notifications"
+msgstr "Upozornění"
+
+#: ../src/gui/prefdialog.py:97
+msgid "Define when to be notified of upcoming bills."
+msgstr "Nechejte se upozornit na blížící se datum splatnosti."
+
+#: ../src/gui/prefdialog.py:105
+msgid "Notify before due date:"
+msgstr "Upozorňovat před koncem splatnosti:"
+
+# bublina nebo dialog
+#. Alert Type Group
+#: ../src/gui/prefdialog.py:123
+msgid "Alert Type"
+msgstr "Způsob upozornění"
+
+#: ../src/gui/prefdialog.py:133
+msgid "_Notification Bubble"
+msgstr "_Oznamovací oblast"
+
+#: ../src/gui/prefdialog.py:135
+msgid "Al_ert Dialog"
+msgstr "_Dialogové okno"
+
+#: ../src/gui/prefdialog.py:147
+msgid ""
+"<b>Warning:</b> BillReminder Notifier is \n"
+"not running! You need to start it in order \n"
+" to receive notifications."
+msgstr ""
+"<b>Varování:</b> Hlásič BillReminder \n"
+"neběží! Musíte jej spustit, pokud chcete \n"
+"být upozorňováni na konce splatnosti."
+
+#: ../src/gui/prefdialog.py:154
+msgid "_Start BillReminder Notifier"
+msgstr "_Spustit hlásič BillReminder"
+
+#: ../src/gui/prefdialog.py:226
+msgid "<b>Note:</b> BillReminder Notifier is now running."
+msgstr "<b>Poznámka:</b> Hlásič BillReminder běží."
+
+#: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:61
+msgid "%Y/%m/%d %H:%M"
+msgstr "%d. %m. %Y, %H.%M h"
+
+#: ../src/gui/widgets/datebutton.py:66
+msgid "Select date and time"
+msgstr "Vyberte datum a čas"
+
+#: ../src/gui/widgets/datebutton.py:77
+msgid "Date:"
+msgstr "Datum:"
+
+#. If we do have an existing alarm time, pass it to the widget
+#: ../src/gui/widgets/datebutton.py:81 ../src/gui/widgets/datebutton.py:88
+msgid "Time:"
+msgstr "Čas:"
+
+#: ../src/gui/widgets/statusbar.py:16
+msgid "Records:"
+msgstr "Počet záznamů:"
+
+#: ../src/gui/widgets/timewidget.py:28
+msgid "Hour :"
+msgstr "Hodina :"
+
+#: ../src/gui/widgets/timewidget.py:37
+msgid "Minute :"
+msgstr "Minuta :"
+
+#: ../src/gui/widgets/trayicon.py:42
+msgid "Hide Window"
+msgstr "Skrýt okno"
+
+#: ../src/gui/widgets/trayicon.py:44
+msgid "Show Window"
+msgstr "Zobrazit okno"
+
+#: ../src/gui/widgets/trayicon.py:50
+msgid "About"
+msgstr "O aplikaci"
+
+#: ../src/gui/widgets/trayicon.py:54
+msgid "Quit"
+msgstr "Konec"
+
+#. TRANSLATORS: This is a date format. You can change the order.
+#: ../src/gui/widgets/viewbill.py:45
+msgid "%m/%d"
+msgstr "%d. %m"
+
+#: ../src/gui/widgets/viewbill.py:82 ../src/gui/widgets/viewcategory.py:39
+msgid "Category"
+msgstr "Kategorie"
+
+#: ../src/gui/widgets/viewbill.py:86
+msgid "Date"
+msgstr "Datum"
+
+#: ../src/gui/widgets/viewbill.py:90
+msgid "Notes"
+msgstr "Poznámky"
+
+#: ../src/gui/widgets/viewbill.py:94
+msgid "Alarm"
+msgstr "Upozornění"
+
+#: ../src/lib/common.py:15
+msgid "Developers:"
+msgstr "Vývojáři:"
+
+#: ../src/lib/common.py:19
+msgid "Contributors:"
+msgstr "Přispěvatelé:"
+
+#: ../src/lib/dbus_actions.py:29
+msgid ""
+"An error occurred while connecting to BillReminder Notifier!\n"
+"Do you want to launch it and restart BillReminder?"
+msgstr ""
+"Nepodařilo se připojit k hlásiči BillReminder!\n"
+"Chcete ho spustit a restartovat BillReminder?"
+
+#. Dialog Title
+#: ../src/lib/dialogs.py:51
+msgid "Add a New Record"
+msgstr "Přidat nový záznam"
+
+#. Dialog Title
+#: ../src/lib/dialogs.py:62
+msgid "Edit a Record"
+msgstr "Upravit záznam"
+
+#. Dialog Title
+#: ../src/lib/utils.py:83
+msgid "Question"
+msgstr "Otázka"
+
+#. Dialog Title
+#: ../src/lib/utils.py:96 ../src/lib/utils.py:109
+msgid "Error"
+msgstr "Chyba"
+
+#. Dialog Title
+#: ../src/lib/utils.py:122
+msgid "Information"
+msgstr "Informace"
+
+#: ../src/lib/utils.py:150
+msgid "Close _Without Saving"
+msgstr "Zavřít _bez uložení"
+
+#: ../src/lib/utils.py:156
+msgid "Save changes before closing?"
+msgstr "Uložit změny před zavřením?"
+
+#: ../src/lib/utils.py:157
+msgid "If you close without saving, your changes will be discarded."
+msgstr "Pokud neuložíte změny, budou navždy ztraceny."
+
+#: ../src/lib/scheduler.py:6
+msgid "Once"
+msgstr "Jednou"
+
+#: ../src/lib/scheduler.py:7
+msgid "Weekly"
+msgstr "Týdně"
+
+#: ../src/lib/scheduler.py:8
+msgid "Monthly"
+msgstr "Měsíčně"
+
+#~ msgid "Usage:  billreminder [OPTIONS...]"
+#~ msgstr "Použití:  billreminder [PŘEPÍNAČ...]"
+
+#~ msgid "Displays the version number for this application."
+#~ msgstr "Vypíše označení verze této aplikace."
+
+#~ msgid "About this application."
+#~ msgstr "O této aplikaci."
+
+#~ msgid "Adds a new record to the database."
+#~ msgstr "Přidá nový záznam do databáze."
+
+#~ msgid "Access database directly, without daemon."
+#~ msgstr "Přistupuj k databázi bez použití démona (přímo)."
+
+#~ msgid "This option is not implemented yet."
+#~ msgstr "Tento přepínač ještě nebyl implementován."
+
+#~ msgid "Print output messages."
+#~ msgstr "Vypisovat výstupní zprávy."
+
+#~ msgid "Don't run as a daemon."
+#~ msgstr "Nespouštět jako démona."
+
+#~ msgid "Start daemon and launch GUI."
+#~ msgstr "Spustit démona a grafické uživatelské rozhraní."
+
+#~ msgid "Stop daemon."
+#~ msgstr "Zastavit démona."
+
+#~ msgid ""
+#~ "The category \"%s\" already exists in the database!\n"
+#~ "\n"
+#~ "Do you want to save your change to the existing category?"
+#~ msgstr ""
+#~ "Kategorie „%s“ již existuje!\n"
+#~ "\n"
+#~ "Chcete do ní promítnout provedené změny?"
+
+#~ msgid "Do you really want to delete this category?\n"
+#~ msgstr "Opravdu chcete smazat tuto kategorii?\n"
+
+#~ msgid "There is %d more bill in this category."
+#~ msgid_plural "There are %d more bills in this category."
+#~ msgstr[0] "V této kategorii je ještě jeden další záznam."
+#~ msgstr[1] "V této kategorii jsou ještě %d další záznamy."
+#~ msgstr[2] "V této kategorii je ještě %d dalších záznamů."
