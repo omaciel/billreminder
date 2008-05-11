@@ -226,6 +226,9 @@ class DAL(object):
             try: return rows[0]
             except: None
 
+    def executeSql(self, stmt, param):
+        return self._executeSQL(stmt, param)
+
     def get(self, table, kwargs):
         """ Returns one or more records that meet the criteria passed """
         (stmt, args) = self._create_query_params(kwargs)

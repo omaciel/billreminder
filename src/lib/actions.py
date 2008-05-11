@@ -22,6 +22,27 @@ class Actions(object):
 
         self.dal = databaselayer
 
+    def get_monthly_totals(self, status, month, year):
+        # Return a list of categories and totals for the given month
+        # Delimeters for our search
+        firstOfMonth = scheduler.first_of_month(month, year)
+        lastOfMonth = scheduler.last_of_month(month, year)
+
+        # Determine status criteria
+        status = status < 2 and ' = %s' % status or ' in (0,1)'
+
+        stmt = 'select categoryName, sum(amountDue) as amount, color' \
+            ' from br_billstable, br_categoriestable where' \
+            ' paid %s' \
+            ' and dueDate >= ? and dueDate <= ?' \
+            ' and br_categoriestable.Id = br_billstable.catId' \
+            ' GROUP BY catId, color' \
+            ' ORDER BY dueDate ASC' % status
+        params = [firstOfMonth, lastOfMonth]
+        records = self.dal.executeSql(stmt, params)
+
+        return records
+
     def get_monthly_bills(self, status, month, year):
         # Delimeters for our search
         firstOfMonth = scheduler.first_of_month(month, year)
@@ -30,9 +51,11 @@ class Actions(object):
         # Determine status criteria
         status = status < 2 and ' = %s' % status or ' in (0,1)'
 
-        records = self.get_bills('paid %s' \
+        stmt = 'paid %s' \
             ' and dueDate >= %s and dueDate <= %s' \
-            ' ORDER BY dueDate DESC' % (status, firstOfMonth, lastOfMonth))
+            ' ORDER BY dueDate DESC' % (status, firstOfMonth, lastOfMonth)
+        records = self.get_bills(stmt)
+
         return records
 
     def get_bills(self, kwargs):

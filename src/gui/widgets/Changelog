@@ -1,3 +1,7 @@
+2008-05-11  Og Maciel <ogmaciel@gnome.org>
+
+    * statusbar.py: Added tooltip to notes.
+
 2008-05-10  Og Maciel <ogmaciel@gnome.org>
 
-    *viewbill.py: Display the localized currency symbol in the column header.
+    * viewbill.py: Display the localized currency symbol in the column header.

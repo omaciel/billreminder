@@ -38,7 +38,10 @@ class Statusbar(gtk.HBox):
 
     def Notes(self, notes=''):
         if notes:
+            # Add notes to status bar...
             self.noteValue.set_markup("%(notes)s" % \
-                                      {'notes': notes.replace('\n', ' ')})
+                {'notes': notes.replace('\n', ' ')})
+            # ... and a tooltip.
+            self.noteValue.set_tooltip_text(notes.replace('\n', ' '))
         else:
             self.noteValue.set_markup('')

@@ -1,3 +1,8 @@
+2008-05-11 Og Maciel <ogmaciel@gnome.org>
+
+    * actions.py: added get_monthly_totals method.
+    * dal.py: Added public executeSql method.
+
 2008-05-10 Og Maciel <ogmaciel@gnome.org>
 
     * dialogs.py: Don't return anything if user cancelled editing action.
