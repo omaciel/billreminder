@@ -3,19 +3,18 @@
 # This file is distributed under the same license as the billreminder package.
 # giopas <linux@giopas.eu>, 2008.
 #
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-14 20:07-0400\n"
-"PO-Revision-Date: 2008-05-13 23:23+0100\n"
+"PO-Revision-Date: 2008-05-15 20:00+0200\n"
 "Last-Translator: giopas <linux@giopas.eu>\n"
-"Language-Team: (none)\n"
+"Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;\n"
+"Plural-Forms: nplurals=2; plural=n>1;"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
@@ -28,7 +27,7 @@ msgstr "Gestore delle fatture"
 
 #: ../data/billreminderd.desktop.in.h:3 ../data/billreminder.desktop.in.h:3
 msgid "Never forget to pay a bill again!"
-msgstr "Non dimenticare piÃ¹ di pagare le fatture!"
+msgstr "Non dimenticare più di pagare le fatture!"
 
 #. Application info
 #: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
@@ -38,57 +37,55 @@ msgstr "BillReminder"
 
 #: ../src/billreminder.py:39 ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
-msgstr ""
+msgstr "Utilizzo:  billreminder.[OPZIONI...]"
 
 #: ../src/billreminder.py:40 ../src/billreminderd.py:24
 msgid "Displays the version number for this application."
-msgstr ""
+msgstr "Mostra il numero di versione di questo programma."
 
 #: ../src/billreminder.py:41
-#, fuzzy
 msgid "About this application."
-msgstr "Informazioni sul programma"
+msgstr "Informazioni sul programma."
 
 #: ../src/billreminder.py:42
-#, fuzzy
 msgid "Adds a new record to the database."
-msgstr "Aggiungi una nuova voce"
+msgstr "Aggiungi una nuova voce alla basedati."
 
 #: ../src/billreminder.py:43
 msgid "Access database directly, without daemon."
-msgstr ""
+msgstr "Accedi alla basedati direttamente senza demone."
 
 #: ../src/billreminder.py:52
 msgid "This option is not implemented yet."
-msgstr ""
+msgstr "Questa opzione non è stata ancora implementata."
 
 #: ../src/billreminder.py:54 ../src/billreminderd.py:42
 #: ../src/daemon/dbus_manager.py:44
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
-msgstr "Programma : %(appname)s - Versione : %(version)s"
+msgstr "Questo è %(appname)s - Versione: %(version)s"
 
 #: ../src/billreminderd.py:25
 msgid "Print output messages."
-msgstr ""
+msgstr "Stampa i messaggi di uscita."
 
 #: ../src/billreminderd.py:26
 msgid "Don't run as a daemon."
-msgstr ""
+msgstr "Non eseguire come demone."
 
 #: ../src/billreminderd.py:27
 msgid "Start daemon and launch GUI."
-msgstr ""
+msgstr "Avvia il demone e lancia la GUI."
 
 #: ../src/billreminderd.py:28
 msgid "Stop daemon."
-msgstr ""
+msgstr "Ferma il demone."
 
 #: ../src/daemon/alarm.py:61
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
-msgstr[0] "Hai %s fattura in sospeso da pagare"
+msgstr[0] "Hai %s fattura in sospeso da pagare!"
 msgstr[1] "Hai %s fatture in sospeso da pagare"
 
 #: ../src/daemon/alarm.py:66
@@ -102,7 +99,7 @@ msgstr "Annulla"
 #: ../src/daemon/alarm.py:96 ../src/daemon/alarm.py:183
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
-msgstr "La fattura %(bill)s scade il %(day)s"
+msgstr "La fattura %(bill)s scade il %(day)s."
 
 #: ../src/daemon/alarm.py:99 ../src/daemon/alarm.py:186
 msgid "%Y/%m/%d"
@@ -111,7 +108,7 @@ msgstr "%Y/%m/%d"
 #: ../src/daemon/alarm.py:109
 #, python-format
 msgid "The bill %s is due."
-msgstr "La fattura %s Ã¨ scaduta"
+msgstr "La fattura %s è scaduta."
 
 #. Button Title
 #: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:291
@@ -126,12 +123,12 @@ msgstr "Modifica"
 #: ../src/daemon/main.py:117
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr "File di Lock trovato: un'altra sessione Ã¨ in corso. (pid=%d"
+msgstr "File di Lock trovato: un'altra sessione è in corso. (pid=%d)"
 
 #: ../src/daemon/main.py:122
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr ""
-"File di Lock trovato: probabilmente il programma Ã¨ uscito improvvisamente"
+"File di Lock trovato: probabilmente il programma è uscito improvvisamente."
 
 #: ../src/daemon/main.py:125
 msgid "Removing Lock File..."
@@ -147,11 +144,11 @@ msgstr "Fallito."
 
 #: ../src/daemon/main.py:133
 msgid "BillReminder Notifier is already running."
-msgstr "Il sistema di notifica BillReminder Ã¨ giÃ  in esecuzione"
+msgstr "Il sistema di notifica BillReminder è già in esecuzione."
 
 #: ../src/gui/aboutdialog.py:13
 msgid "translator-credits"
-msgstr "giopas <linux@giopas.eu>, 2008"
+msgstr "Ringraziamenti per la traduzione"
 
 #: ../src/gui/aboutdialog.py:36
 msgid "BillReminder Website"
@@ -163,31 +160,31 @@ msgstr "Data di scadenza:"
 
 #: ../src/gui/adddialog.py:100
 msgid "Repeat:"
-msgstr "PeriodicitÃ :"
+msgstr "Periodicità:"
 
 #: ../src/gui/adddialog.py:104
 msgid "How many times to repeat this bill."
-msgstr "Numero di ripetizione di questa fattura"
+msgstr "Numero di ripetizione di questa fattura."
 
 #: ../src/gui/adddialog.py:138
 msgid "Payee:"
-msgstr "Beneficiario"
+msgstr "Beneficiario:"
 
 #: ../src/gui/adddialog.py:141
 msgid "Amount:"
-msgstr "Importo"
+msgstr "Importo:"
 
 #: ../src/gui/adddialog.py:144
 msgid "Category:"
-msgstr "Categoria"
+msgstr "Categoria:"
 
 #: ../src/gui/adddialog.py:147 ../src/gui/widgets/statusbar.py:26
 msgid "Notes:"
-msgstr "Note"
+msgstr "Note:"
 
 #: ../src/gui/adddialog.py:150
 msgid "Alarm:"
-msgstr "Avviso"
+msgstr "Avviso:"
 
 #: ../src/gui/adddialog.py:173
 msgid "Manage Categories"
@@ -227,7 +224,7 @@ msgstr "Importo"
 #: ../src/gui/adddialog.py:469 ../src/gui/adddialog.py:473
 #, python-format
 msgid "\"%s\" is required field."
-msgstr "\"%s\" Ã¨ un campo necessario."
+msgstr "\"%s\" è un campo necessario."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -239,7 +236,7 @@ msgstr "Categorie"
 
 #: ../src/gui/categoriesdialog.py:82
 msgid "Name:"
-msgstr "Nome"
+msgstr "Nome:"
 
 #: ../src/gui/categoriesdialog.py:85
 msgid "Color:"
@@ -251,18 +248,19 @@ msgid ""
 "The category \"%s\" already exists in the database!\n"
 "\n"
 "Do you want to save your change to the existing category?"
-msgstr ""
+msgstr "La categoria \"%s\" esiste già nella basedati!\n"
+"\n"
+"Vuoi salvare le modifiche nella categoria esistente?"
 
 #: ../src/gui/categoriesdialog.py:244
-#, fuzzy
 msgid "Do you really want to delete this category?\n"
-msgstr "Veramente vuoi cancellare \"%s\"?"
+msgstr "Vuoi veramente cancellare questa categoria?\n"
 
 #: ../src/gui/categoriesdialog.py:245
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] ""
+msgstr[0] "Ci sono ancora %d fatture in questa categoria."
 msgstr[1] ""
 
 #: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:553
@@ -389,11 +387,11 @@ msgstr "Allarmi"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
-msgstr "Avverti prima della scadenza"
+msgstr "Avverti prima della scadenza:"
 
 #: ../src/gui/prefdialog.py:64 ../src/gui/prefdialog.py:110
 msgid "day(s)."
-msgstr "giorno(i)"
+msgstr "giorno(i)."
 
 #: ../src/gui/prefdialog.py:67
 msgid "Preferred time:"
@@ -410,7 +408,7 @@ msgstr "Notifiche"
 
 #: ../src/gui/prefdialog.py:97
 msgid "Define when to be notified of upcoming bills."
-msgstr "Indica quando essere avvertito delle fatture in scadenza"
+msgstr "Indica quando essere avvertito delle fatture in scadenza."
 
 #: ../src/gui/prefdialog.py:105
 msgid "Notify before due date:"
@@ -435,9 +433,9 @@ msgid ""
 "not running! You need to start it in order \n"
 " to receive notifications."
 msgstr ""
-"<b>InformazioneÂ :</b> il sistema di notifica \n"
-"BillReminder non Ã¨ avviatoÂ ! Devi \n"
-"avviarlo per ricevere le notifiche."
+"<b>Informazione :</b> il sistema di notifica \n"
+"BillReminder non è avviato! Devi avviarlo\n"
+" per ricevere le notifiche."
 
 #: ../src/gui/prefdialog.py:154
 msgid "_Start BillReminder Notifier"
@@ -445,7 +443,7 @@ msgstr "_Avvia il sistema di notifica BillReminder"
 
 #: ../src/gui/prefdialog.py:226
 msgid "<b>Note:</b> BillReminder Notifier is now running."
-msgstr "<b>Nota:</b> il sistema di notifica BillReminder Ã¨ ora avviato."
+msgstr "<b>Nota:</b> il sistema di notifica BillReminder è ora avviato."
 
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:61
 msgid "%Y/%m/%d %H:%M"
@@ -474,7 +472,7 @@ msgstr "Ora :"
 
 #: ../src/gui/widgets/timewidget.py:37
 msgid "Minute :"
-msgstr "Minuto : "
+msgstr "Minuti :"
 
 #: ../src/gui/widgets/trayicon.py:42
 msgid "Hide Window"
@@ -526,9 +524,8 @@ msgid ""
 "An error occurred while connecting to BillReminder Notifier!\n"
 "Do you want to launch it and restart BillReminder?"
 msgstr ""
-"Un errore Ã¨ avvenuto al momendo della connessione al sistema di notifica "
-"BillReminderÂ !\n"
-"Vuoi avviarlo e riavviare BillReminderÂ ?"
+"Un errore è avvenuto al momendo della connessione al sistema\n"
+" di notifica BillReminder! Vuoi avviarlo e riavviare BillReminder ?"
 
 #. Dialog Title
 #: ../src/lib/dialogs.py:51
@@ -589,15 +586,15 @@ msgstr "Mensilmente"
 #~ "  --standalone\t\tAccess database directly, without daemon.\n"
 #~ "  --version, -v\t\tDisplays the version number for this application.\n"
 #~ msgstr ""
-#~ "UtilizzoÂ :  billreminder [OPTIONI...]\n"
+#~ "Utilizzo:  billreminder [OPTIONI...]\n"
 #~ "\n"
-#~ "OptioniÂ :\n"
+#~ "Opzioni:\n"
 #~ "  --help, -h, -?\tMostra questo messaggio.\n"
 #~ "  --about\t\tRiguardo questo programma.\n"
 #~ "  --add\t\t\tAggiungi una nuova voce alla basedati.\n"
 #~ "  --standalone\t\tAccesso diretto alla base dati, senza demone.\n"
 #~ "  --version, -v\t\tMostra il numedo di versione del programma.\n"
-
+ 
 #~ msgid ""
 #~ "Usage:  billreminderd [OPTIONS...]\n"
 #~ "\n"
