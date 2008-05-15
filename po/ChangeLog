@@ -1,3 +1,8 @@
+2008-05-14  Og Maciel <ogmaciel@gnome.org>
+
+    * billreminder.pot: Updated message catalog
+    * *.po: Merged all translations with newer pot
+
 2008-05-13  Og Maciel <ogmaciel@gnome.org>
 
     * it.po: Added Italian translation by

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BillReminder VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-26 23:55-0400\n"
+"POT-Creation-Date: 2008-05-14 20:07-0400\n"
 "PO-Revision-Date: 2008-02-27 11:09+0100\n"
 "Last-Translator: Tommy Mikkelsen <tamikkelsen@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:48
+#: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
 msgid "BillReminder Notifier"
 msgstr "BillReminder"
@@ -30,57 +30,57 @@ msgstr "Aldri glem å betale en regning igjen!"
 
 #. Application info
 #: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
-#: ../src/lib/common.py:9 ../src/lib/utils.py:138
+#: ../src/lib/common.py:13 ../src/lib/utils.py:138
 msgid "BillReminder"
 msgstr "BillReminder"
 
-#: ../src/billreminder.py:35
-msgid ""
-"Usage:  billreminder [OPTIONS...]\n"
-"\n"
-"Options:\n"
-"  --help, -h, -?\tShow this message.\n"
-"  --about\t\tAbout this application.\n"
-"  --add\t\t\tAdds a new record to the database.\n"
-"  --standalone\t\tAccess database directly, without daemon.\n"
-"  --version, -v\t\tDisplays the version number for this application.\n"
+#: ../src/billreminder.py:39 ../src/billreminderd.py:23
+msgid "Usage:  billreminder [OPTIONS...]"
 msgstr ""
-"Bruk:  bilreminder [VALG...]\n"
-"\n"
-"Valg:\n"
-"  --help, -h, -?\tVis denne beskjeden.\n"
-"  --about\t\tOm Dette programmet.\n"
-"  --add\t\t\tLegger til ny informasjon i databasen.\n"
-"  --standalone\t\tGå til databasen directe uten nisse.\n"
-"  --version, -v\t\tVis versjons nummeret for programmet\n"
 
-#: ../src/billreminder.py:54 ../src/billreminderd.py:47
+#: ../src/billreminder.py:40 ../src/billreminderd.py:24
+msgid "Displays the version number for this application."
+msgstr ""
+
+#: ../src/billreminder.py:41
+#, fuzzy
+msgid "About this application."
+msgstr "Om Programmet"
+
+#: ../src/billreminder.py:42
+#, fuzzy
+msgid "Adds a new record to the database."
+msgstr "Legg til ny"
+
+#: ../src/billreminder.py:43
+msgid "Access database directly, without daemon."
+msgstr ""
+
+#: ../src/billreminder.py:52
+msgid "This option is not implemented yet."
+msgstr ""
+
+#: ../src/billreminder.py:54 ../src/billreminderd.py:42
 #: ../src/daemon/dbus_manager.py:44
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
 msgstr "Dette er %(appname)s - Versjon: %(version)s"
 
-#: ../src/billreminderd.py:21
-msgid ""
-"Usage:  billreminderd [OPTIONS...]\n"
-"\n"
-"Options:\n"
-"  --help, -h, -?\tShow this message.\n"
-"  --verbose\t\tPrint output messages.\n"
-"  --no-daemon\t\tDon't run as a daemon.\n"
-"  --open-gui\t\tStart daemon and launch GUI.\n"
-"  --stop\t\t\tStop daemon.\n"
-"  --version, -v\t\tDisplays the version number for this application.\n"
+#: ../src/billreminderd.py:25
+msgid "Print output messages."
 msgstr ""
-"Usage:··billreminderd·[VALG...]\n"
-"\n"
-"VALG:\n"
-"··--help,·-h,·-?\tVis denne beskjeden.\n"
-"··--verbose\t\tSkrivut informasjons beskjeder.\n"
-"··--no-daemon\t\tIkke kjør som nisse.\n"
-"··--open-gui\t\tStart·nisse og kjør programmet grafisk.\n"
-"··--stop\t\t\tStopp nisse.\n"
-"··--version,·-v\t\tVis versjons nummeret for dette programmet.\n"
+
+#: ../src/billreminderd.py:26
+msgid "Don't run as a daemon."
+msgstr ""
+
+#: ../src/billreminderd.py:27
+msgid "Start daemon and launch GUI."
+msgstr ""
+
+#: ../src/billreminderd.py:28
+msgid "Stop daemon."
+msgstr ""
 
 #: ../src/daemon/alarm.py:61
 #, python-format
@@ -112,8 +112,8 @@ msgid "The bill %s is due."
 msgstr "Regningen %s er forfalt."
 
 #. Button Title
-#: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:297
-#: ../src/gui/maindialog.py:321 ../src/lib/utils.py:135
+#: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:291
+#: ../src/gui/maindialog.py:315 ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Marker som betalt"
 
@@ -154,206 +154,226 @@ msgstr "oversetter-bidrag"
 msgid "BillReminder Website"
 msgstr "BillReminder Webside"
 
-#: ../src/gui/adddialog.py:94 ../src/gui/maindialog.py:116
+#: ../src/gui/adddialog.py:95 ../src/gui/maindialog.py:116
 msgid "Due Date:"
 msgstr "Forfalls dato:"
 
-#: ../src/gui/adddialog.py:99
+#: ../src/gui/adddialog.py:100
 msgid "Repeat:"
 msgstr "Gjenta:"
 
-#: ../src/gui/adddialog.py:103
+#: ../src/gui/adddialog.py:104
 msgid "How many times to repeat this bill."
 msgstr "Hvor mange ganger regningen skal gjentas."
 
-#: ../src/gui/adddialog.py:137
+#: ../src/gui/adddialog.py:138
 msgid "Payee:"
 msgstr "Betale til:"
 
-#: ../src/gui/adddialog.py:140
+#: ../src/gui/adddialog.py:141
 msgid "Amount:"
 msgstr "Sum:"
 
-#: ../src/gui/adddialog.py:143
+#: ../src/gui/adddialog.py:144
 msgid "Category:"
 msgstr "Kategori:"
 
-#: ../src/gui/adddialog.py:146 ../src/gui/widgets/statusbar.py:26
+#: ../src/gui/adddialog.py:147 ../src/gui/widgets/statusbar.py:26
 msgid "Notes:"
 msgstr "Notater:"
 
-#: ../src/gui/adddialog.py:149
+#: ../src/gui/adddialog.py:150
 msgid "Alarm:"
 msgstr "Alarm:"
 
-#: ../src/gui/adddialog.py:172
+#: ../src/gui/adddialog.py:173
 msgid "Manage Categories"
 msgstr "Behandle Kategorier"
 
-#: ../src/gui/adddialog.py:193 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:194 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Velg Dato og Tid"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:330 ../src/gui/adddialog.py:354
-#: ../src/gui/maindialog.py:277 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:326 ../src/gui/adddialog.py:350
+#: ../src/gui/maindialog.py:272 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26 ../src/gui/widgets/datebutton.py:43
 #: ../src/gui/widgets/datebutton.py:69
 msgid "None"
 msgstr "Ingen"
 
-#: ../src/gui/adddialog.py:336 ../src/gui/categoriesdialog.py:47
+#: ../src/gui/adddialog.py:332 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Ny Kategori"
 
-#: ../src/gui/adddialog.py:488
+#: ../src/gui/adddialog.py:464
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" og \"%s\" feltene må fylles ut."
 
-#: ../src/gui/adddialog.py:489 ../src/gui/adddialog.py:493
-#: ../src/gui/widgets/viewbill.py:84
+#: ../src/gui/adddialog.py:465 ../src/gui/adddialog.py:469
+#: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Betale til"
 
-#: ../src/gui/adddialog.py:489 ../src/gui/adddialog.py:497
-#: ../src/gui/widgets/viewbill.py:88
+#: ../src/gui/adddialog.py:465 ../src/gui/adddialog.py:473
+#: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Sum"
 
-#: ../src/gui/adddialog.py:493 ../src/gui/adddialog.py:497
+#: ../src/gui/adddialog.py:469 ../src/gui/adddialog.py:473
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" feltet må fylles ut."
 
-#: ../src/gui/categoriesdialog.py:22
+#: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
 msgstr "Kategori Behandler"
 
-#: ../src/gui/categoriesdialog.py:58
+#: ../src/gui/categoriesdialog.py:59
 msgid "Categories"
 msgstr "Kategori"
 
-#: ../src/gui/categoriesdialog.py:81
+#: ../src/gui/categoriesdialog.py:82
 msgid "Name:"
 msgstr "Navn:"
 
-#: ../src/gui/categoriesdialog.py:84
+#: ../src/gui/categoriesdialog.py:85
 msgid "Color:"
 msgstr "Farge:"
+
+#: ../src/gui/categoriesdialog.py:217
+#, python-format
+msgid ""
+"The category \"%s\" already exists in the database!\n"
+"\n"
+"Do you want to save your change to the existing category?"
+msgstr ""
+
+#: ../src/gui/categoriesdialog.py:244
+#, fuzzy
+msgid "Do you really want to delete this category?\n"
+msgstr "Vil du virkelig slette \"%s\"?"
+
+#: ../src/gui/categoriesdialog.py:245
+#, python-format
+msgid "There is %d more bill in this category."
+msgid_plural "There are %d more bills in this category."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:553
+msgid "Confirmation"
+msgstr "Bekreftelse"
 
 #: ../src/gui/maindialog.py:96
 msgid "Bills:"
 msgstr "Regning:"
 
-#: ../src/gui/maindialog.py:290
+#: ../src/gui/maindialog.py:284
 msgid "New"
 msgstr "Ny"
 
-#: ../src/gui/maindialog.py:290 ../src/gui/maindialog.py:318
+#: ../src/gui/maindialog.py:284 ../src/gui/maindialog.py:312
 msgid "Add a new record"
 msgstr "Legg til ny"
 
-#: ../src/gui/maindialog.py:292 ../src/gui/maindialog.py:319
+#: ../src/gui/maindialog.py:286 ../src/gui/maindialog.py:313
 msgid "Edit a record"
 msgstr "Rediger en registrering"
 
-#: ../src/gui/maindialog.py:294 ../src/gui/maindialog.py:320
+#: ../src/gui/maindialog.py:288 ../src/gui/maindialog.py:314
 msgid "Delete selected record"
 msgstr "Slett valgt registrering"
 
-#: ../src/gui/maindialog.py:297 ../src/gui/widgets/viewbill.py:92
+#: ../src/gui/maindialog.py:291 ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
 msgstr "Betalt"
 
-#: ../src/gui/maindialog.py:300
+#: ../src/gui/maindialog.py:294
 msgid "Not Paid"
 msgstr "Ikke Betalt"
 
-#: ../src/gui/maindialog.py:300 ../src/gui/maindialog.py:322
+#: ../src/gui/maindialog.py:294 ../src/gui/maindialog.py:316
 msgid "Mark as not paid"
 msgstr "Marker som ikke betalt"
 
-#: ../src/gui/maindialog.py:317
+#: ../src/gui/maindialog.py:311
 msgid "_File"
 msgstr "_Fil"
 
-#: ../src/gui/maindialog.py:318 ../src/gui/maindialog.py:515
+#: ../src/gui/maindialog.py:312 ../src/gui/maindialog.py:511
 msgid "_Add New"
 msgstr "Legg til Ny"
 
-#: ../src/gui/maindialog.py:321 ../src/gui/maindialog.py:525
+#: ../src/gui/maindialog.py:315 ../src/gui/maindialog.py:521
 msgid "_Paid"
 msgstr "_Betalt"
 
-#: ../src/gui/maindialog.py:322
+#: ../src/gui/maindialog.py:316
 msgid "_Not Paid"
 msgstr "Ikke Betalt"
 
-#: ../src/gui/maindialog.py:323
+#: ../src/gui/maindialog.py:317
 msgid "Edit preferences"
 msgstr "Rediger Brukervalg"
 
-#: ../src/gui/maindialog.py:324
+#: ../src/gui/maindialog.py:318
 msgid "Quit the Program"
 msgstr "Avslutt Programmet"
 
-#: ../src/gui/maindialog.py:325
+#: ../src/gui/maindialog.py:319
 msgid "_View"
 msgstr "_Vis"
 
-#: ../src/gui/maindialog.py:326
+#: ../src/gui/maindialog.py:320
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: ../src/gui/maindialog.py:327
+#: ../src/gui/maindialog.py:321
 msgid "About the application"
 msgstr "Om Programmet"
 
-#: ../src/gui/maindialog.py:339
+#: ../src/gui/maindialog.py:333
 msgid "Show Toolbar"
 msgstr "Vis Verktøylinje"
 
-#: ../src/gui/maindialog.py:339
+#: ../src/gui/maindialog.py:333
 msgid "Show the toolbar"
 msgstr "Vis Verktøylinjen"
 
-#: ../src/gui/maindialog.py:343
+#: ../src/gui/maindialog.py:337
 msgid "_Not Paid Only"
 msgstr "Bare Ikke Betalt"
 
-#: ../src/gui/maindialog.py:343
+#: ../src/gui/maindialog.py:337
 msgid "Display all unpaid records only"
 msgstr "Vis kun alle ikkebetalte registreringer"
 
-#: ../src/gui/maindialog.py:344
+#: ../src/gui/maindialog.py:338
 msgid "_Paid Only"
 msgstr "Bare Betalt"
 
-#: ../src/gui/maindialog.py:344
+#: ../src/gui/maindialog.py:338
 msgid "Display all paid records only"
 msgstr "Vis kun alle betalte registreringer"
 
-#: ../src/gui/maindialog.py:345
+#: ../src/gui/maindialog.py:339
 msgid "_All Records"
 msgstr "Alle Registrerte"
 
-#: ../src/gui/maindialog.py:345
+#: ../src/gui/maindialog.py:339
 msgid "Display all records"
 msgstr "Vis alle registreringer"
 
-#: ../src/gui/maindialog.py:528
+#: ../src/gui/maindialog.py:524
 msgid "Not _Paid"
 msgstr "Ikke Betalt"
 
-#: ../src/gui/maindialog.py:555
+#: ../src/gui/maindialog.py:551
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Vil du virkelig slette \"%s\"?"
-
-#: ../src/gui/maindialog.py:557
-msgid "Confirmation"
-msgstr "Bekreftelse"
 
 #: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
 msgid "Preferences"
@@ -470,31 +490,31 @@ msgid "Quit"
 msgstr "Avslutt"
 
 #. TRANSLATORS: This is a date format. You can change the order.
-#: ../src/gui/widgets/viewbill.py:45
+#: ../src/gui/widgets/viewbill.py:46
 msgid "%m/%d"
 msgstr "%m/%d"
 
-#: ../src/gui/widgets/viewbill.py:82 ../src/gui/widgets/viewcategory.py:39
+#: ../src/gui/widgets/viewbill.py:83 ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
 msgstr "Kategori"
 
-#: ../src/gui/widgets/viewbill.py:86
+#: ../src/gui/widgets/viewbill.py:87
 msgid "Date"
 msgstr "Dato"
 
-#: ../src/gui/widgets/viewbill.py:90
+#: ../src/gui/widgets/viewbill.py:91
 msgid "Notes"
 msgstr "Notater"
 
-#: ../src/gui/widgets/viewbill.py:94
+#: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr "Alarm"
 
-#: ../src/lib/common.py:15
+#: ../src/lib/common.py:19
 msgid "Developers:"
 msgstr "Utviklere:"
 
-#: ../src/lib/common.py:19
+#: ../src/lib/common.py:23
 msgid "Contributors:"
 msgstr "Bidragsytere:"
 
@@ -512,7 +532,7 @@ msgid "Add a New Record"
 msgstr "Legg til Ny"
 
 #. Dialog Title
-#: ../src/lib/dialogs.py:62
+#: ../src/lib/dialogs.py:63
 msgid "Edit a Record"
 msgstr "Rediger en Registrering"
 
@@ -554,6 +574,46 @@ msgstr "Ukentlig"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Månedlig"
+
+#~ msgid ""
+#~ "Usage:  billreminder [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --about\t\tAbout this application.\n"
+#~ "  --add\t\t\tAdds a new record to the database.\n"
+#~ "  --standalone\t\tAccess database directly, without daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Bruk:  bilreminder [VALG...]\n"
+#~ "\n"
+#~ "Valg:\n"
+#~ "  --help, -h, -?\tVis denne beskjeden.\n"
+#~ "  --about\t\tOm Dette programmet.\n"
+#~ "  --add\t\t\tLegger til ny informasjon i databasen.\n"
+#~ "  --standalone\t\tGå til databasen directe uten nisse.\n"
+#~ "  --version, -v\t\tVis versjons nummeret for programmet\n"
+
+#~ msgid ""
+#~ "Usage:  billreminderd [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --verbose\t\tPrint output messages.\n"
+#~ "  --no-daemon\t\tDon't run as a daemon.\n"
+#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
+#~ "  --stop\t\t\tStop daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Usage:··billreminderd·[VALG...]\n"
+#~ "\n"
+#~ "VALG:\n"
+#~ "··--help,·-h,·-?\tVis denne beskjeden.\n"
+#~ "··--verbose\t\tSkrivut informasjons beskjeder.\n"
+#~ "··--no-daemon\t\tIkke kjør som nisse.\n"
+#~ "··--open-gui\t\tStart·nisse og kjør programmet grafisk.\n"
+#~ "··--stop\t\t\tStopp nisse.\n"
+#~ "··--version,·-v\t\tVis versjons nummeret for dette programmet.\n"
 
 #~ msgid "Due Date"
 #~ msgstr "Forfalls dato"
