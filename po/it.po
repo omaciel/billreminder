@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
@@ -248,7 +248,8 @@ msgid ""
 "The category \"%s\" already exists in the database!\n"
 "\n"
 "Do you want to save your change to the existing category?"
-msgstr "La categoria \"%s\" esiste già nella basedati!\n"
+msgstr ""
+"La categoria \"%s\" esiste già nella basedati!\n"
 "\n"
 "Vuoi salvare le modifiche nella categoria esistente?"
 
@@ -260,8 +261,8 @@ msgstr "Vuoi veramente cancellare questa categoria?\n"
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] "Ci sono ancora %d fatture in questa categoria."
-msgstr[1] ""
+msgstr[0] "C'è ancora %d fattura in questa categoria."
+msgstr[1] "Ci sono ancora %d fatture in questa categoria."
 
 #: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:553
 msgid "Confirmation"
@@ -594,7 +595,7 @@ msgstr "Mensilmente"
 #~ "  --add\t\t\tAggiungi una nuova voce alla basedati.\n"
 #~ "  --standalone\t\tAccesso diretto alla base dati, senza demone.\n"
 #~ "  --version, -v\t\tMostra il numedo di versione del programma.\n"
- 
+
 #~ msgid ""
 #~ "Usage:  billreminderd [OPTIONS...]\n"
 #~ "\n"
