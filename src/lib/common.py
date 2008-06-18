@@ -11,7 +11,7 @@ except ImportError:
 
 # Application info
 APPNAME = _("BillReminder")
-APPVERSION = "0.3.1"
+APPVERSION = "0.3.2"
 COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
              "Og Maciel <ogmaciel@gnome.org>" % APPNAME
 WEBSITE = "http://code.google.com/p/billreminder/"

@@ -1,11 +1,12 @@
 ===============================
-BillReminder 0.3.1
+BillReminder 0.3.2
 ==============================
 
-2008-03-27  Og Maciel <ogmaciel@gnome.org>
+2008-06-18  Og Maciel <ogmaciel@gnome.org>
 
- * This is a minor release where a couple of bugs have been closed and
- some UI work was done to improve the workflow. It is worth to mention
- the new French translation, courtesy of Robert-André Mauchin, updated
- Dutch translation, courtesy of Daniel van Eeden, and some UI work done
- by Laudeci Oliveira.
+* Another minor release with a couple of bug fixes to handle how categories and alarms
+are handled. We've also added better handle for command line parsing and added pycairo
+as a new dependency, removing the previous dependency to python-image. This will allow
+us to add some really nice reporting utilities and general user interface improvements
+in a future release. Finally, we've added 3 new translations: Croatian, Czech and 
+Italian!
