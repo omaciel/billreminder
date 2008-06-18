@@ -1,17 +1,16 @@
 2008-06-18  Og Maciel <ogmaciel@gnome.org>
 
-    * es.po: Updated Spanish translation by
-    Gilberto Miralla <xyhthyx@gmail.com>
+    * es.po: Updated Spanish translation by Gilberto Miralla <xyhthyx@gmail.com>
+    * nl.po: Updated Dutch translation by Daniel van Eeden <translation@myname.nl>
+    * pt_BR.po: Updated Brazilian Portuguese translation by Og Maciel <ogmaciel@gnome.org>
 
 2008-06-12  Og Maciel <ogmaciel@gnome.org>
 
-    * it.po: Updated Italian translation by
-    giopas <linux@giopas.eu>
+    * it.po: Updated Italian translation by giopas <linux@giopas.eu>
 
 2008-05-15  Og Maciel <ogmaciel@gnome.org>
 
-    * it.po: Updated Italian translation by
-    giopas <linux@giopas.eu>
+    * it.po: Updated Italian translation by giopas <linux@giopas.eu>
 
 2008-05-14  Og Maciel <ogmaciel@gnome.org>
 
@@ -20,18 +19,15 @@
 
 2008-05-13  Og Maciel <ogmaciel@gnome.org>
 
-    * it.po: Added Italian translation by
-    giopas <linux@giopas.eu>
+    * it.po: Added Italian translation by giopas <linux@giopas.eu>
 
 2008-05-11  Og Maciel <ogmaciel@gnome.org>
 
-    * cs.po: Added Czech translation by 
-    Pavel Šefránek <ps@pjoul.cz>
+    * cs.po: Added Czech translation by Pavel Šefránek <ps@pjoul.cz>
 
 2008-04-01  Og Maciel <ogmaciel@gnome.org>
 
-    * hr.po: Added Croatian translation by 
-    Mario Ðani <mario.danic@gmail.com>
+    * hr.po: Added Croatian translation by Mario Ðani <mario.danic@gmail.com>
 
 2008-03-26  Og Maciel <ogmaciel@gnome.org>
 
@@ -40,39 +36,30 @@
 
 2008-03-09  Og Maciel <ogmaciel@gnome.org>
 
-    * nl.po: Dutch translation updated by
-    Daniel van Eeden <Daniel.van.Eeden@myname.nl>
+    * nl.po: Dutch translation updated by Daniel van Eeden <Daniel.van.Eeden@myname.nl>
 
 2008-03-02  Og Maciel <ogmaciel@gnome.org>
 
-    * fr.po: French translation added by
-    Robert-André Mauchin <zebob.m@pengzone.org>
+    * fr.po: French translation added by Robert-André Mauchin <zebob.m@pengzone.org>
 
 2008-02-28  Og Maciel <ogmaciel@gnome.org>
 
-    * no.po: Nordic translation updated by
-    Tommy Mikkelsen <tamikkelsen@gmail.com>
-    * no_NB.po: Nordic translation updated by
-    Tommy Mikkelsen <tamikkelsen@gmail.com>
+    * no.po: Nordic translation updated by Tommy Mikkelsen <tamikkelsen@gmail.com>
+    * no_NB.po: Nordic translation updated by Tommy Mikkelsen <tamikkelsen@gmail.com>
 
 2008-02-24  Og Maciel <ogmaciel@gnome.org>
 
-    * es.po: Spanish translation updated by
-    Gilberto J. Miralla <xyhthyx@gmail.com>
+    * es.po: Spanish translation updated by Gilberto J. Miralla <xyhthyx@gmail.com>
 
 2008-02-23  Og Maciel <ogmaciel@gnome.org>
 
-    * de.po: German translation updated by 
-    Sebastian Haselbeck <sebastian.haselbeck@gmx.com>
-    * sv.po: Swedish translation updated by
-    Daniel Nylander <po@danielnylander.se>
-    * es.po: Spanish translation updated by
-    Gilberto J. Miralla <xyhthyx@gmail.com>
+    * de.po: German translation updated by Sebastian Haselbeck <sebastian.haselbeck@gmx.com>
+    * sv.po: Swedish translation updated by Daniel Nylander <po@danielnylander.se>
+    * es.po: Spanish translation updated by Gilberto J. Miralla <xyhthyx@gmail.com>
 
 2008-02-22  Og Maciel <ogmaciel@gnome.org>
 
-    * pt_BR.po: Brazilian Portuguese translation updated by
-    Fábio Nogueira <deb-user-ba@ubuntu.com>
+    * pt_BR.po: Brazilian Portuguese translation updated by Fábio Nogueira <deb-user-ba@ubuntu.com>
 
 2008-02-22  Og Maciel <ogmaciel@gnome.org>
 

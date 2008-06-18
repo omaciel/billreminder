@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: BillReminder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-14 20:07-0400\n"
-"PO-Revision-Date: 2008-03-09 15:25+0100\n"
+"PO-Revision-Date: 2008-06-12 17:09+0100\n"
 "Last-Translator: Daniel van Eeden <translation@myname.nl>\n"
 "Language-Team: Nederlands <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -41,29 +41,27 @@ msgstr "BillReminder"
 
 #: ../src/billreminder.py:39 ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
-msgstr ""
+msgstr "Gebruik:  billreminder [OPTIES...]"
 
 #: ../src/billreminder.py:40 ../src/billreminderd.py:24
 msgid "Displays the version number for this application."
-msgstr ""
+msgstr "Toont het versienummer voor deze toepassing"
 
 #: ../src/billreminder.py:41
-#, fuzzy
 msgid "About this application."
-msgstr "Over het programma"
+msgstr "Over deze toepassing."
 
 #: ../src/billreminder.py:42
-#, fuzzy
 msgid "Adds a new record to the database."
-msgstr "Nieuw record toevoegen"
+msgstr "Nieuw record toevoegen aan de database."
 
 #: ../src/billreminder.py:43
 msgid "Access database directly, without daemon."
-msgstr ""
+msgstr "Directe toegang tot de database, zonder daemon."
 
 #: ../src/billreminder.py:52
 msgid "This option is not implemented yet."
-msgstr ""
+msgstr "Deze optie is nog niet geïmplementeerd"
 
 #: ../src/billreminder.py:54 ../src/billreminderd.py:42
 #: ../src/daemon/dbus_manager.py:44
@@ -73,19 +71,19 @@ msgstr "Dit is %(appname)s - Versie: %(version)s"
 
 #: ../src/billreminderd.py:25
 msgid "Print output messages."
-msgstr ""
+msgstr "Toon uitvoer berichten."
 
 #: ../src/billreminderd.py:26
 msgid "Don't run as a daemon."
-msgstr ""
+msgstr "Niet als daemon draaien."
 
 #: ../src/billreminderd.py:27
 msgid "Start daemon and launch GUI."
-msgstr ""
+msgstr "Start de daemon en de GUI"
 
 #: ../src/billreminderd.py:28
 msgid "Stop daemon."
-msgstr ""
+msgstr "Stop daemon."
 
 #: ../src/daemon/alarm.py:61
 #, python-format
@@ -258,11 +256,13 @@ msgid ""
 "\n"
 "Do you want to save your change to the existing category?"
 msgstr ""
+"De categorie \"%s\" bestaat al in de database!\n"
+"\n"
+"Wilt u de veranderingen in de bestaande categorie plaatsen?"
 
 #: ../src/gui/categoriesdialog.py:244
-#, fuzzy
 msgid "Do you really want to delete this category?\n"
-msgstr "Weet u zeker dat u  \"%s\" wilt verwijderen?"
+msgstr "Weet u zeker dat u deze categorie wilt verwijderen?\n"
 
 #: ../src/gui/categoriesdialog.py:245
 #, python-format
