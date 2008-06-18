@@ -14,9 +14,13 @@ BillReminder 0.3.x
    ref: http://code.google.com/p/billreminder/issues/detail?id=3
 
  Translations:
+  New:
   * Croatian translation by Mario Ðani
   * Czech translation by Pavel Šefránek
   * Italian translation by giopas
+
+  Updated:
+  * Spanish by Gilberto Miralla
 
  Graphical Interface:
   * Ask user for confirmation before editing an existing category.

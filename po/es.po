@@ -1,7 +1,7 @@
 # Spanish translation for billreminder
 # Copyright (C) 2007 Og Maciel
 # This file is distributed under the same license as the billreminder package.
-# Rolando Espinoza La Fuente <darkrho@gmail.com>, 2007."
+# Rolando Espinoza La Fuente <darkrho@gmail.com>, 2007.
 # Gilberto Miralla <xyhthyx@gmail.com>, 2007, 2008.
 # 
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-14 20:07-0400\n"
-"PO-Revision-Date: 2007-04-04 11:35-0400\n"
+"PO-Revision-Date: 2008-06-18 17:55-0400\n"
 "Last-Translator: Gilberto Miralla <xyhthyx@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,29 +38,27 @@ msgstr "RecuerdaFacturas"
 
 #: ../src/billreminder.py:39 ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
-msgstr ""
+msgstr "Uso: billreminder [OPCIONES...]"
 
 #: ../src/billreminder.py:40 ../src/billreminderd.py:24
 msgid "Displays the version number for this application."
-msgstr ""
+msgstr "Muestra la versión de esta aplicación."
 
 #: ../src/billreminder.py:41
-#, fuzzy
 msgid "About this application."
-msgstr "Acerca de esta aplicación"
+msgstr "Acerca de esta aplicación."
 
 #: ../src/billreminder.py:42
-#, fuzzy
 msgid "Adds a new record to the database."
-msgstr "Añadir un registro nuevo"
+msgstr "Añadir un registro nuevo a la base de datos."
 
 #: ../src/billreminder.py:43
 msgid "Access database directly, without daemon."
-msgstr ""
+msgstr "Acceder a la base de datos directamente, sin demonio."
 
 #: ../src/billreminder.py:52
 msgid "This option is not implemented yet."
-msgstr ""
+msgstr "Esta opción aún no está implementada."
 
 #: ../src/billreminder.py:54 ../src/billreminderd.py:42
 #: ../src/daemon/dbus_manager.py:44
@@ -70,26 +68,26 @@ msgstr "Esto es %(appname)s - Versión: %(version)s"
 
 #: ../src/billreminderd.py:25
 msgid "Print output messages."
-msgstr ""
+msgstr "Imprimir mensajes de salida."
 
 #: ../src/billreminderd.py:26
 msgid "Don't run as a daemon."
-msgstr ""
+msgstr "No correr como un demonio."
 
 #: ../src/billreminderd.py:27
 msgid "Start daemon and launch GUI."
-msgstr ""
+msgstr "Comenzar demonio y iniciar el GUI."
 
 #: ../src/billreminderd.py:28
 msgid "Stop daemon."
-msgstr ""
+msgstr "Parar demonio."
 
 #: ../src/daemon/alarm.py:61
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] "¡Te queda %s factura por pagar!"
-msgstr[1] "¡Te quedan %s factura por pagar!"
+msgstr[1] "¡Te quedan %s facturas por pagar!"
 
 #: ../src/daemon/alarm.py:66
 msgid "Show BillReminder"
@@ -126,15 +124,11 @@ msgstr "Editar"
 #: ../src/daemon/main.py:117
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr ""
-"Archivo de Bloqueo encontrado: Tienes una instancia corriendo. (pid=%d)"
+msgstr "Archivo de Bloqueo encontrado: Tienes una instancia corriendo. (pid=%d)"
 
 #: ../src/daemon/main.py:122
 msgid "Lock File found: Possibly the program was exited unexpectedly."
-msgstr ""
-"Archivo de Bloqueo encontrado: Posiblemente el programa cerró "
-"inesperadamente.Archivo de Bloqueo encontrado: Posiblemente el programa "
-"cerró inesperadamente."
+msgstr "Archivo de Bloqueo encontrado: Posiblemente el programa cerró inesperadamente."
 
 #: ../src/daemon/main.py:125
 msgid "Removing Lock File..."
@@ -154,7 +148,9 @@ msgstr "El Notificador de RecuerdaFacturas ya está corriendo."
 
 #: ../src/gui/aboutdialog.py:13
 msgid "translator-credits"
-msgstr "créditos-traductor"
+msgstr ""
+"Rolando Espinoza La Fuente <darkrho@gmail.com>\n"
+"# Gilberto Miralla <xyhthyx@gmail.com>"
 
 #: ../src/gui/aboutdialog.py:36
 msgid "BillReminder Website"
@@ -255,18 +251,20 @@ msgid ""
 "\n"
 "Do you want to save your change to the existing category?"
 msgstr ""
+"¡La categoría \"%s\" ya existe en la base de datos!"
+"\n"
+"¿Quieres guardar el cambio a la categoría existente?"
 
 #: ../src/gui/categoriesdialog.py:244
-#, fuzzy
 msgid "Do you really want to delete this category?\n"
-msgstr "¿Seguro que quieres eliminar \"%s\"?"
+msgstr "¿Seguro que quieres eliminar esta categoría?\n"
 
 #: ../src/gui/categoriesdialog.py:245
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Queda %d cuenta en esta categoría."
+msgstr[1] "Quedan %d cuentas en esta categoría."
 
 #: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:553
 msgid "Confirmation"
@@ -354,7 +352,7 @@ msgstr "_No Pagado Solamente"
 
 #: ../src/gui/maindialog.py:337
 msgid "Display all unpaid records only"
-msgstr "Solo mostrar registros no pagados"
+msgstr "Solo mostrar registros sin pagar"
 
 #: ../src/gui/maindialog.py:338
 msgid "_Paid Only"
@@ -438,7 +436,7 @@ msgid ""
 "not running! You need to start it in order \n"
 " to receive notifications."
 msgstr ""
-"<b>Alerta:</b> El Notificador de RecuerdaFacturas no \n"
+"<b>Alerta:</b> ¡El Notificador de RecuerdaFacturas no \n"
 "está corriendo! Necesitas iniciarlo para poder \n"
 " recibir notificaciones."
 
