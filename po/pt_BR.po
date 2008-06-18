@@ -283,7 +283,7 @@ msgstr ""
 
 #: ../src/gui/categoriesdialog.py:244
 msgid "Do you really want to delete this category?\n"
-msgstr "Você deseja realmente excluir esta categoria?]n"
+msgstr "Você deseja realmente excluir esta categoria?\n"
 
 #: ../src/gui/categoriesdialog.py:245
 #, python-format
