@@ -1,3 +1,8 @@
+2008-06-19  Og Maciel <ogmaciel@gnome.org>
+
+    * hr.po, it.po, no.po, no_NB.po: converted from iso-8859-1 to utf-8
+    * de.po: Updated translation by Sebastian <haselbeck@gmx.net>
+
 2008-06-18  Og Maciel <ogmaciel@gnome.org>
 
     * es.po: Updated Spanish translation by Gilberto Miralla <xyhthyx@gmail.com>
