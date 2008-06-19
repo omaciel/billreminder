@@ -1,3 +1,7 @@
+2008-06-19 Og Maciel <ogmaciel@gnome.org>
+
+    * Makefile.am: Set a default target
+
 2008-05-11 Og Maciel <ogmaciel@gnome.org>
 
     * actions.py: added get_monthly_totals method.

@@ -17,6 +17,8 @@ billreminder_lib_PYTHON = \
 	sysvars.py \
 	utils.py
 
+all: sysvars.py
+
 sysvars.py: sysvars.py.in
 	sed -e s!\@datadir\@!$(datadir)! \
 		< $< > $@
