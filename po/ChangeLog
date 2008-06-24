@@ -1,3 +1,12 @@
+2008-06-24  Og Maciel <ogmaciel@gnome.org>
+
+    * en_CA: Added Canadian English translation by Rosetta Contributors and Canonical Ltd
+    * fi.po: Added Finish translation by Rosetta Contributors and Canonical Ltd
+    * pl.po: Added Polish translation by Rosetta Contributors and Canonical Ltd
+    * pt.po: Added European Portuguese translation by Rosetta Contributors and Canonical Ltd
+    * ru.po: Added Russian translation by Rosetta Contributors and Canonical Ltd
+    * tr.po: Added Turkish translation by Rosetta Contributors and Canonical Ltd
+
 2008-06-19  Og Maciel <ogmaciel@gnome.org>
 
     * hr.po, it.po, no.po, no_NB.po: converted from iso-8859-1 to utf-8
