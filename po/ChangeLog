@@ -1,5 +1,15 @@
 2008-06-24  Og Maciel <ogmaciel@gnome.org>
 
+    * LINGUAS: Added translations and changed no_NB to nb
+    * cs.po: Updated translation by Rosetta Contributors and Canonical Ltd
+    * fr.po: Updated translation by Rosetta Contributors and Canonical Ltd
+    * es.po: Updated translation by Rosetta Contributors and Canonical Ltd
+    * hr.po: Updated translation by Rosetta Contributors and Canonical Ltd
+    * nl.po: Updated translation by Rosetta Contributors and Canonical Ltd
+    * it.po: Updated translation by Rosetta Contributors and Canonical Ltd
+    * de.po: Updated translation by Rosetta Contributors and Canonical Ltd
+    * sv.po: Updated translation by Rosetta Contributors and Canonical Ltd
+
     * en_CA: Added Canadian English translation by Rosetta Contributors and Canonical Ltd
     * fi.po: Added Finish translation by Rosetta Contributors and Canonical Ltd
     * pl.po: Added Polish translation by Rosetta Contributors and Canonical Ltd
