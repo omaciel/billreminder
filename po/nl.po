@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BillReminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-14 20:07-0400\n"
+"POT-Creation-Date: 2008-06-24 21:27-0400\n"
 "PO-Revision-Date: 2008-06-24 14:04+0000\n"
 "Last-Translator: Daniel van Eeden <Unknown>\n"
 "Language-Team: Nederlands <vertaling@nl.linux.org>\n"
@@ -21,124 +21,6 @@ msgstr ""
 "X-Poedit-Country: NETHERLANDS\n"
 "X-Poedit-Language: Dutch\n"
 "X-Poedit-Basepath: /home/reinout/devel/\n"
-
-#~ msgid ""
-#~ "Usage:  billreminder [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --about\t\tAbout this application.\n"
-#~ "  --add\t\t\tAdds a new record to the database.\n"
-#~ "  --standalone\t\tAccess database directly, without daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Gebruik:  billreminder [OPTIES...]\n"
-#~ "\n"
-#~ "Opties:\n"
-#~ "  --help, -h, -?\tDit bericht tonen.\n"
-#~ "  --about\t\tOver dit programma.\n"
-#~ "  --add\t\t\tNieuw record toevoegen aan de database.\n"
-#~ "  --standalone\t\tDirect de database benaderen zonder daemon.\n"
-#~ "  --version, -v\t\tVersie tonen voor dit programma.\n"
-
-#~ msgid ""
-#~ "Usage:  billreminderd [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --verbose\t\tPrint output messages.\n"
-#~ "  --no-daemon\t\tDon't run as a daemon.\n"
-#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Gebruik:  billreminderd [OPTIES...]\n"
-#~ "\n"
-#~ "Opties:\n"
-#~ "  --help, -h, -?\tDit bericht tonen.\n"
-#~ "  --verbose\t\tUitvoer berichten tonen.\n"
-#~ "  --no-daemon\t\tNiet draaien als een daemon.\n"
-#~ "  --open-gui\t\tAls een daemon starten en de GUI starten.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tVersie tonen voor dit programma.\n"
-
-#~ msgid "Due Date"
-#~ msgstr "Uiterlijke datum"
-
-#~ msgid "Amount Due"
-#~ msgstr "Verschuldigd bedrag"
-
-#~ msgid "<b>Due Date:</b>"
-#~ msgstr "<b>Verloopdatum:</b>"
-
-#~ msgid "<b>Payee:</b>"
-#~ msgstr "<b>Begunstigde:</b>"
-
-#~ msgid "<b>Amount:</b>"
-#~ msgstr "<b>Bedrag:</b>"
-
-#~ msgid "<b>Note:</b>"
-#~ msgstr "<b>Opmerking:</b>"
-
-#~ msgid "Remove"
-#~ msgstr "Verwijderen"
-
-#, fuzzy
-#~ msgid "<b>0</b>"
-#~ msgstr "<b>Opmerking:</b>"
-
-#, fuzzy
-#~ msgid "<b>Notes: </b>"
-#~ msgstr "<b>Opmerking:</b>"
-
-#, fuzzy
-#~ msgid "<b>%(payee)s</b>"
-#~ msgstr "<b>Begunstigde:</b>"
-
-#~ msgid "Editing bill '%s'"
-#~ msgstr "Bewerken van rekening '%s'"
-
-#~ msgid "You have 1 outstanding bill to pay!"
-#~ msgstr "U heeft 1 openstaande rekening!"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid ""
-#~ "do you really want to remove it?\n"
-#~ "\n"
-#~ " <b>%(payee)s - %(amount)0.2f </b>"
-#~ msgstr ""
-#~ "Weet u zeker dat u het wilt verwijderen?\n"
-#~ "\n"
-#~ " <b>%(payee)s - %(amount)0.2f </b>"
-
-#~ msgid "<big><b>Are you sure you want to quit?</b></big>"
-#~ msgstr "<big><b>Weet u zeker dat u wilt afsluiten?</b></big>"
-
-#~ msgid "The following bill was removed:\n"
-#~ msgstr "De volgende rekening is verwijderd:\n"
-
-#~ msgid "Item deleted."
-#~ msgstr "Item verwijderd."
-
-#~ msgid "Bill '%s' not deleted."
-#~ msgstr "Rekening '%s' niet verwijderd."
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid "<b>Info:</b>"
-#~ msgstr "<b>Info:</b>"
-
-#~ msgid "Mostrar Janela"
-#~ msgstr "Mostrar Janela"
-
-#~ msgid "N_ot Paid"
-#~ msgstr "_Niet betaald"
-
-#~ msgid "_Edit"
-#~ msgstr "Be_werken"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
@@ -251,8 +133,7 @@ msgstr "Lock bestand gevonden: Er draait al een andere instantie. (pid=%d)"
 
 #: ../src/daemon/main.py:122
 msgid "Lock File found: Possibly the program was exited unexpectedly."
-msgstr ""
-"Lock bestand gevonden: Mogelijk is het programma onverwachts gestopt."
+msgstr "Lock bestand gevonden: Mogelijk is het programma onverwachts gestopt."
 
 #: ../src/daemon/main.py:125
 msgid "Removing Lock File..."
@@ -514,8 +395,9 @@ msgstr "Voorkeuren"
 
 #. Alert Group
 #: ../src/gui/prefdialog.py:51
-msgid "Alerts"
-msgstr "Waarschuwingen"
+#, fuzzy
+msgid "Alarms"
+msgstr "Waarschuwing"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
@@ -540,8 +422,7 @@ msgstr "Notificaties"
 
 #: ../src/gui/prefdialog.py:97
 msgid "Define when to be notified of upcoming bills."
-msgstr ""
-"Definieer wanneer er voor nieuwe rekeningen gewaarschuwd moet worden."
+msgstr "Definieer wanneer er voor nieuwe rekeningen gewaarschuwd moet worden."
 
 #: ../src/gui/prefdialog.py:105
 msgid "Notify before due date:"
@@ -710,3 +591,124 @@ msgstr "Wekelijk"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Maandelijks"
+
+#~ msgid ""
+#~ "Usage:  billreminder [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --about\t\tAbout this application.\n"
+#~ "  --add\t\t\tAdds a new record to the database.\n"
+#~ "  --standalone\t\tAccess database directly, without daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Gebruik:  billreminder [OPTIES...]\n"
+#~ "\n"
+#~ "Opties:\n"
+#~ "  --help, -h, -?\tDit bericht tonen.\n"
+#~ "  --about\t\tOver dit programma.\n"
+#~ "  --add\t\t\tNieuw record toevoegen aan de database.\n"
+#~ "  --standalone\t\tDirect de database benaderen zonder daemon.\n"
+#~ "  --version, -v\t\tVersie tonen voor dit programma.\n"
+
+#~ msgid ""
+#~ "Usage:  billreminderd [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --verbose\t\tPrint output messages.\n"
+#~ "  --no-daemon\t\tDon't run as a daemon.\n"
+#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
+#~ "  --stop\t\t\tStop daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Gebruik:  billreminderd [OPTIES...]\n"
+#~ "\n"
+#~ "Opties:\n"
+#~ "  --help, -h, -?\tDit bericht tonen.\n"
+#~ "  --verbose\t\tUitvoer berichten tonen.\n"
+#~ "  --no-daemon\t\tNiet draaien als een daemon.\n"
+#~ "  --open-gui\t\tAls een daemon starten en de GUI starten.\n"
+#~ "  --stop\t\t\tStop daemon.\n"
+#~ "  --version, -v\t\tVersie tonen voor dit programma.\n"
+
+#~ msgid "Due Date"
+#~ msgstr "Uiterlijke datum"
+
+#~ msgid "Amount Due"
+#~ msgstr "Verschuldigd bedrag"
+
+#~ msgid "<b>Due Date:</b>"
+#~ msgstr "<b>Verloopdatum:</b>"
+
+#~ msgid "<b>Payee:</b>"
+#~ msgstr "<b>Begunstigde:</b>"
+
+#~ msgid "<b>Amount:</b>"
+#~ msgstr "<b>Bedrag:</b>"
+
+#~ msgid "<b>Note:</b>"
+#~ msgstr "<b>Opmerking:</b>"
+
+#~ msgid "Remove"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "<b>0</b>"
+#~ msgstr "<b>Opmerking:</b>"
+
+#, fuzzy
+#~ msgid "<b>Notes: </b>"
+#~ msgstr "<b>Opmerking:</b>"
+
+#, fuzzy
+#~ msgid "<b>%(payee)s</b>"
+#~ msgstr "<b>Begunstigde:</b>"
+
+#~ msgid "Editing bill '%s'"
+#~ msgstr "Bewerken van rekening '%s'"
+
+#~ msgid "You have 1 outstanding bill to pay!"
+#~ msgstr "U heeft 1 openstaande rekening!"
+
+#~ msgid "Id"
+#~ msgstr "Id"
+
+#~ msgid ""
+#~ "do you really want to remove it?\n"
+#~ "\n"
+#~ " <b>%(payee)s - %(amount)0.2f </b>"
+#~ msgstr ""
+#~ "Weet u zeker dat u het wilt verwijderen?\n"
+#~ "\n"
+#~ " <b>%(payee)s - %(amount)0.2f </b>"
+
+#~ msgid "<big><b>Are you sure you want to quit?</b></big>"
+#~ msgstr "<big><b>Weet u zeker dat u wilt afsluiten?</b></big>"
+
+#~ msgid "The following bill was removed:\n"
+#~ msgstr "De volgende rekening is verwijderd:\n"
+
+#~ msgid "Item deleted."
+#~ msgstr "Item verwijderd."
+
+#~ msgid "Bill '%s' not deleted."
+#~ msgstr "Rekening '%s' niet verwijderd."
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "<b>Info:</b>"
+#~ msgstr "<b>Info:</b>"
+
+#~ msgid "Mostrar Janela"
+#~ msgstr "Mostrar Janela"
+
+#~ msgid "N_ot Paid"
+#~ msgstr "_Niet betaald"
+
+#~ msgid "_Edit"
+#~ msgstr "Be_werken"
+
+#~ msgid "Alerts"
+#~ msgstr "Waarschuwingen"

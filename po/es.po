@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-14 20:07-0400\n"
+"POT-Creation-Date: 2008-06-24 21:27-0400\n"
 "PO-Revision-Date: 2008-06-24 20:49+0000\n"
 "Last-Translator: NachoCarretero <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -18,123 +18,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2008-06-24 22:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-
-#~ msgid ""
-#~ "Usage:  billreminder [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --about\t\tAbout this application.\n"
-#~ "  --add\t\t\tAdds a new record to the database.\n"
-#~ "  --standalone\t\tAccess database directly, without daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Uso:  billreminder [OPCIONES...]\n"
-#~ "\n"
-#~ "  --help, -h, -?\tMostrar este mensaje.\n"
-#~ "  --about\t\tAcerca de esta aplicación.\n"
-#~ "  --add\t\t\tAñade un registro nuevo a la base de datos.\n"
-#~ "  --standalone\t\tAcceso a la base de datos directo, sin demonio.\n"
-#~ "  --version, -v\t\tMuestra el número de versión de esta aplicación.\n"
-
-#~ msgid ""
-#~ "Usage:  billreminderd [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --verbose\t\tPrint output messages.\n"
-#~ "  --no-daemon\t\tDon't run as a daemon.\n"
-#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Uso:  billreminderd [OPCIONES...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tMostrar este mensaje.\n"
-#~ "  --verbose\t\tImprimir mensajes de salida.\n"
-#~ "  --no-daemon\t\tNo correr como un demonio.\n"
-#~ "  --open-gui\t\tIniciar demonio y lanzar el GUI.\n"
-#~ "  --stop\t\t\tParar el demonio.\n"
-#~ "  --version, -v\t\tMuestra el número de versión de esta aplicación\n"
-
-#~ msgid "Due Date"
-#~ msgstr "Fecha de Vencimiento"
-
-#~ msgid "Amount Due"
-#~ msgstr "Cantidad Debida"
-
-#~ msgid "<b>Due Date:</b>"
-#~ msgstr "<b>Fecha de Vencimiento:</b>"
-
-#~ msgid "<b>Payee:</b>"
-#~ msgstr "<b>Beneficario:</b>"
-
-#~ msgid "<b>Amount:</b>"
-#~ msgstr "<b>Cantidad:</b>"
-
-#~ msgid "<b>Note:</b>"
-#~ msgstr "<b>Nota:</b>"
-
-#~ msgid "Remove"
-#~ msgstr "Eliminar"
-
-#, fuzzy
-#~ msgid "<b>0</b>"
-#~ msgstr "<b>0</b>"
-
-#, fuzzy
-#~ msgid "<b>Notes: </b>"
-#~ msgstr "<b>Nota: </b>"
-
-#, fuzzy
-#~ msgid "<b>%(payee)s</b>"
-#~ msgstr "<b>Beneficario</b>"
-
-#~ msgid "Editing bill '%s'"
-#~ msgstr "Editando la factura %s"
-
-#~ msgid "You have 1 outstanding bill to pay!"
-#~ msgstr "¡Te queda 1 factura por pagar!"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid ""
-#~ "do you really want to remove it?\n"
-#~ "\n"
-#~ " <b>%(payee)s - %(amount)0.2f </b>"
-#~ msgstr ""
-#~ "seguro que quieres eliminarlo?\n"
-#~ "\n"
-#~ " <b>%(payee)s - %(amount)0.2f </b>"
-
-#~ msgid "<big><b>Are you sure you want to quit?</b></big>"
-#~ msgstr "<big><b>¿Seguro que quieres salir?</b></big>"
-
-#~ msgid "The following bill was removed:\n"
-#~ msgstr "La siguiente factura fue eliminada:\n"
-
-#~ msgid "Item deleted."
-#~ msgstr "Artículo eliminado."
-
-#~ msgid "Bill '%s' not deleted."
-#~ msgstr "La factura '%s' no fue eliminada."
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid "<b>Info:</b>"
-#~ msgstr "<b>Información:</b>"
-
-#~ msgid "Mostrar Janela"
-#~ msgstr "Mostrar Janela"
-
-#~ msgid "N_ot Paid"
-#~ msgstr "N_o Pagado"
-
-#~ msgid "_Edit"
-#~ msgstr "_Editar"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
@@ -513,8 +396,9 @@ msgstr "Preferencias"
 
 #. Alert Group
 #: ../src/gui/prefdialog.py:51
-msgid "Alerts"
-msgstr "Alertas"
+#, fuzzy
+msgid "Alarms"
+msgstr "Alarma"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
@@ -706,3 +590,123 @@ msgstr "Semanal"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Mensual"
+
+#~ msgid ""
+#~ "Usage:  billreminder [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --about\t\tAbout this application.\n"
+#~ "  --add\t\t\tAdds a new record to the database.\n"
+#~ "  --standalone\t\tAccess database directly, without daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Uso:  billreminder [OPCIONES...]\n"
+#~ "\n"
+#~ "  --help, -h, -?\tMostrar este mensaje.\n"
+#~ "  --about\t\tAcerca de esta aplicación.\n"
+#~ "  --add\t\t\tAñade un registro nuevo a la base de datos.\n"
+#~ "  --standalone\t\tAcceso a la base de datos directo, sin demonio.\n"
+#~ "  --version, -v\t\tMuestra el número de versión de esta aplicación.\n"
+
+#~ msgid ""
+#~ "Usage:  billreminderd [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --verbose\t\tPrint output messages.\n"
+#~ "  --no-daemon\t\tDon't run as a daemon.\n"
+#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
+#~ "  --stop\t\t\tStop daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Uso:  billreminderd [OPCIONES...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tMostrar este mensaje.\n"
+#~ "  --verbose\t\tImprimir mensajes de salida.\n"
+#~ "  --no-daemon\t\tNo correr como un demonio.\n"
+#~ "  --open-gui\t\tIniciar demonio y lanzar el GUI.\n"
+#~ "  --stop\t\t\tParar el demonio.\n"
+#~ "  --version, -v\t\tMuestra el número de versión de esta aplicación\n"
+
+#~ msgid "Due Date"
+#~ msgstr "Fecha de Vencimiento"
+
+#~ msgid "Amount Due"
+#~ msgstr "Cantidad Debida"
+
+#~ msgid "<b>Due Date:</b>"
+#~ msgstr "<b>Fecha de Vencimiento:</b>"
+
+#~ msgid "<b>Payee:</b>"
+#~ msgstr "<b>Beneficario:</b>"
+
+#~ msgid "<b>Amount:</b>"
+#~ msgstr "<b>Cantidad:</b>"
+
+#~ msgid "<b>Note:</b>"
+#~ msgstr "<b>Nota:</b>"
+
+#~ msgid "Remove"
+#~ msgstr "Eliminar"
+
+#, fuzzy
+#~ msgid "<b>0</b>"
+#~ msgstr "<b>0</b>"
+
+#, fuzzy
+#~ msgid "<b>Notes: </b>"
+#~ msgstr "<b>Nota: </b>"
+
+#, fuzzy
+#~ msgid "<b>%(payee)s</b>"
+#~ msgstr "<b>Beneficario</b>"
+
+#~ msgid "Editing bill '%s'"
+#~ msgstr "Editando la factura %s"
+
+#~ msgid "You have 1 outstanding bill to pay!"
+#~ msgstr "¡Te queda 1 factura por pagar!"
+
+#~ msgid "Id"
+#~ msgstr "Id"
+
+#~ msgid ""
+#~ "do you really want to remove it?\n"
+#~ "\n"
+#~ " <b>%(payee)s - %(amount)0.2f </b>"
+#~ msgstr ""
+#~ "seguro que quieres eliminarlo?\n"
+#~ "\n"
+#~ " <b>%(payee)s - %(amount)0.2f </b>"
+
+#~ msgid "<big><b>Are you sure you want to quit?</b></big>"
+#~ msgstr "<big><b>¿Seguro que quieres salir?</b></big>"
+
+#~ msgid "The following bill was removed:\n"
+#~ msgstr "La siguiente factura fue eliminada:\n"
+
+#~ msgid "Item deleted."
+#~ msgstr "Artículo eliminado."
+
+#~ msgid "Bill '%s' not deleted."
+#~ msgstr "La factura '%s' no fue eliminada."
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "<b>Info:</b>"
+#~ msgstr "<b>Información:</b>"
+
+#~ msgid "Mostrar Janela"
+#~ msgstr "Mostrar Janela"
+
+#~ msgid "N_ot Paid"
+#~ msgstr "N_o Pagado"
+
+#~ msgid "_Edit"
+#~ msgstr "_Editar"
+
+#~ msgid "Alerts"
+#~ msgstr "Alertas"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-05-14 20:07-0400\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-06-24 21:27-0400\n"
 "PO-Revision-Date: 2008-06-24 19:25+0000\n"
 "Last-Translator: Stuart Read <Unknown>\n"
 "Language-Team: English (Canada) <en_CA@li.org>\n"
@@ -392,8 +392,9 @@ msgstr "Preferences"
 
 #. Alert Group
 #: ../src/gui/prefdialog.py:51
-msgid "Alerts"
-msgstr "Alerts"
+#, fuzzy
+msgid "Alarms"
+msgstr "Alarm"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
@@ -586,3 +587,6 @@ msgstr "Weekly"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Monthly"
+
+#~ msgid "Alerts"
+#~ msgstr "Alerts"

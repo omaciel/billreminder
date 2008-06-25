@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BillReminder 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-14 20:07-0400\n"
+"POT-Creation-Date: 2008-06-24 21:26-0400\n"
 "PO-Revision-Date: 2008-06-24 16:49+0000\n"
 "Last-Translator: Johannes Steidl <mail@jsteidl.net>\n"
 "Language-Team: none\n"
@@ -19,93 +19,6 @@ msgstr ""
 "X-Launchpad-Export-Date: 2008-06-24 22:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Language: English\n"
-
-#~ msgid ""
-#~ "Usage:  billreminder [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --about\t\tAbout this application.\n"
-#~ "  --add\t\t\tAdds a new record to the database.\n"
-#~ "  --standalone\t\tAccess database directly, without daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Benutzung:  billreminder [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tZeige diese Nachricht an.\n"
-#~ "  --about\t\tÜber diese Anwendung.\n"
-#~ "  --add\t\t\tErzeugt einen neuen Eintrag in der Datenbank.\n"
-#~ "  --standalone\t\tDirekt auf Datenbank zugreifen, ohne daemon.\n"
-#~ "  --version, -v\t\tZeigt die Versionsnummer dieser Anwendung.\n"
-
-#~ msgid ""
-#~ "Usage:  billreminderd [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --verbose\t\tPrint output messages.\n"
-#~ "  --no-daemon\t\tDon't run as a daemon.\n"
-#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Benutzung:  billreminderd [OPTIONEN...]\n"
-#~ "\n"
-#~ "Optionen:\n"
-#~ "  --help, -h, -?\tDiese Nachricht anzeigen.\n"
-#~ "  --verbose\t\tAusgabenachrichten ausdrucken.\n"
-#~ "  --no-daemon\t\tNicht als daemon ausführen.\n"
-#~ "  --open-gui\t\tDaemon starten und GUI öffnen.\n"
-#~ "  --stop\t\t\tDaemon stoppen.\n"
-#~ "  --version, -v\t\tZeigt die Versionsnummer dieser Anwendung an.\n"
-
-#~ msgid "1 hour"
-#~ msgstr "1 Stunde"
-
-#~ msgid "%d minute"
-#~ msgid_plural "%d minutes"
-#~ msgstr[0] "%d Minute"
-#~ msgstr[1] "%d Minuten"
-
-#~ msgid "Due Date"
-#~ msgstr "Fälligkeitsdatum"
-
-#~ msgid "Amount Due"
-#~ msgstr "Fälliger Betrag"
-
-#~ msgid "Startup"
-#~ msgstr "Startup"
-
-#~ msgid "_Show notifications when user login"
-#~ msgstr "_Benachrichtigungen beim einloggen anzeigen"
-
-#~ msgid "Delay:"
-#~ msgstr "Verzögerung:"
-
-#~ msgid "Open BillReminder _minimized in notification area"
-#~ msgstr "BillReminder Öffnen _minimiert nach Tray"
-
-#~ msgid "Show notification for bills that will be due _before %d days"
-#~ msgstr ""
-#~ "Benachrichtigungen anzeigen für Rechnungen die _innerhalb %d Tagen fällig "
-#~ "sind"
-
-#~ msgid "Show _alert %(days)d days before due date, at %(hours)s"
-#~ msgstr "Alarm %(days)d  Tage vor Fälligkeitsdatum anzeigen, um %(hours)s"
-
-#~ msgid "Show alert for bills that are _due"
-#~ msgstr "Alarm für fällige Rechnungen anzeigen"
-
-#~ msgid "%H:%M"
-#~ msgstr "%H:%M"
-
-#~ msgid ""
-#~ "<b>Note:</b> BillReminder Notifier now is running.\n"
-#~ "It is needed to show notifications."
-#~ msgstr ""
-#~ "<b>Hinweis:</b> BillReminder Notifier läuft jetzt.\n"
-#~ "Dies ist notwendig um Benachrichtigungen anzuzeigen."
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
@@ -219,8 +132,8 @@ msgstr "Bearbeiten"
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
 msgstr ""
-"Sperrdatei gefunden: Eine andere Instanz des Programms läuft bereits. "
-"(pid=%d)"
+"Sperrdatei gefunden: Eine andere Instanz des Programms läuft bereits. (pid=%"
+"d)"
 
 #: ../src/daemon/main.py:122
 msgid "Lock File found: Possibly the program was exited unexpectedly."
@@ -485,8 +398,9 @@ msgstr "Einstellungen"
 
 #. Alert Group
 #: ../src/gui/prefdialog.py:51
-msgid "Alerts"
-msgstr "Alarmarten"
+#, fuzzy
+msgid "Alarms"
+msgstr "Alarm"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
@@ -682,3 +596,93 @@ msgstr "Wöchentlich"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Monatlich"
+
+#~ msgid ""
+#~ "Usage:  billreminder [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --about\t\tAbout this application.\n"
+#~ "  --add\t\t\tAdds a new record to the database.\n"
+#~ "  --standalone\t\tAccess database directly, without daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Benutzung:  billreminder [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tZeige diese Nachricht an.\n"
+#~ "  --about\t\tÜber diese Anwendung.\n"
+#~ "  --add\t\t\tErzeugt einen neuen Eintrag in der Datenbank.\n"
+#~ "  --standalone\t\tDirekt auf Datenbank zugreifen, ohne daemon.\n"
+#~ "  --version, -v\t\tZeigt die Versionsnummer dieser Anwendung.\n"
+
+#~ msgid ""
+#~ "Usage:  billreminderd [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --verbose\t\tPrint output messages.\n"
+#~ "  --no-daemon\t\tDon't run as a daemon.\n"
+#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
+#~ "  --stop\t\t\tStop daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Benutzung:  billreminderd [OPTIONEN...]\n"
+#~ "\n"
+#~ "Optionen:\n"
+#~ "  --help, -h, -?\tDiese Nachricht anzeigen.\n"
+#~ "  --verbose\t\tAusgabenachrichten ausdrucken.\n"
+#~ "  --no-daemon\t\tNicht als daemon ausführen.\n"
+#~ "  --open-gui\t\tDaemon starten und GUI öffnen.\n"
+#~ "  --stop\t\t\tDaemon stoppen.\n"
+#~ "  --version, -v\t\tZeigt die Versionsnummer dieser Anwendung an.\n"
+
+#~ msgid "1 hour"
+#~ msgstr "1 Stunde"
+
+#~ msgid "%d minute"
+#~ msgid_plural "%d minutes"
+#~ msgstr[0] "%d Minute"
+#~ msgstr[1] "%d Minuten"
+
+#~ msgid "Due Date"
+#~ msgstr "Fälligkeitsdatum"
+
+#~ msgid "Amount Due"
+#~ msgstr "Fälliger Betrag"
+
+#~ msgid "Startup"
+#~ msgstr "Startup"
+
+#~ msgid "_Show notifications when user login"
+#~ msgstr "_Benachrichtigungen beim einloggen anzeigen"
+
+#~ msgid "Delay:"
+#~ msgstr "Verzögerung:"
+
+#~ msgid "Open BillReminder _minimized in notification area"
+#~ msgstr "BillReminder Öffnen _minimiert nach Tray"
+
+#~ msgid "Show notification for bills that will be due _before %d days"
+#~ msgstr ""
+#~ "Benachrichtigungen anzeigen für Rechnungen die _innerhalb %d Tagen fällig "
+#~ "sind"
+
+#~ msgid "Show _alert %(days)d days before due date, at %(hours)s"
+#~ msgstr "Alarm %(days)d  Tage vor Fälligkeitsdatum anzeigen, um %(hours)s"
+
+#~ msgid "Show alert for bills that are _due"
+#~ msgstr "Alarm für fällige Rechnungen anzeigen"
+
+#~ msgid "%H:%M"
+#~ msgstr "%H:%M"
+
+#~ msgid ""
+#~ "<b>Note:</b> BillReminder Notifier now is running.\n"
+#~ "It is needed to show notifications."
+#~ msgstr ""
+#~ "<b>Hinweis:</b> BillReminder Notifier läuft jetzt.\n"
+#~ "Dies ist notwendig um Benachrichtigungen anzuzeigen."
+
+#~ msgid "Alerts"
+#~ msgstr "Alarmarten"

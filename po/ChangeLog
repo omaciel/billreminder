@@ -1,5 +1,10 @@
 2008-06-24  Og Maciel <ogmaciel@gnome.org>
 
+    * billreminder.pot: Updated message catalog
+    * *.po: Merged all translations with newer pot
+
+2008-06-24  Og Maciel <ogmaciel@gnome.org>
+
     * LINGUAS: Added translations and changed no_NB to nb
     * cs.po: Updated translation by Rosetta Contributors and Canonical Ltd
     * fr.po: Updated translation by Rosetta Contributors and Canonical Ltd

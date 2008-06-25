@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BillReminder 0.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-14 20:07-0400\n"
+"POT-Creation-Date: 2008-06-24 21:26-0400\n"
 "PO-Revision-Date: 2008-06-24 14:00+0000\n"
 "Last-Translator: Pavel Šefránek <ps@pjoul.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -392,8 +392,9 @@ msgstr "Nastavení"
 
 #. Alert Group
 #: ../src/gui/prefdialog.py:51
-msgid "Alerts"
-msgstr "Výstraha"
+#, fuzzy
+msgid "Alarms"
+msgstr "Upozornění"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
@@ -587,3 +588,6 @@ msgstr "Týdně"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Měsíčně"
+
+#~ msgid "Alerts"
+#~ msgstr "Výstraha"

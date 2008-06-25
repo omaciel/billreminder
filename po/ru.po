@@ -6,16 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-05-14 20:07-0400\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-06-24 21:28-0400\n"
 "PO-Revision-Date: 2008-06-24 21:06+0000\n"
 "Last-Translator: Rail Aliev <rail@i-rs.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2008-06-24 22:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
@@ -392,8 +392,9 @@ msgstr "Настройки"
 
 #. Alert Group
 #: ../src/gui/prefdialog.py:51
-msgid "Alerts"
-msgstr "Предупреждения"
+#, fuzzy
+msgid "Alarms"
+msgstr "Сигнал"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
@@ -580,3 +581,6 @@ msgstr "Еженедельно"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Ежемесячно"
+
+#~ msgid "Alerts"
+#~ msgstr "Предупреждения"

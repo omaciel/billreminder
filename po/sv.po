@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-14 20:07-0400\n"
+"POT-Creation-Date: 2008-06-24 21:28-0400\n"
 "PO-Revision-Date: 2008-06-24 21:34+0000\n"
 "Last-Translator: Mårten Woxberg <marten.woxberg@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -17,131 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2008-06-24 22:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-
-#~ msgid ""
-#~ "Usage:  billreminder [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --about\t\tAbout this application.\n"
-#~ "  --add\t\t\tAdds a new record to the database.\n"
-#~ "  --standalone\t\tAccess database directly, without daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Användning:  billreminder [FLAGGOR...]\n"
-#~ "\n"
-#~ "Flaggor:\n"
-#~ "  --help, -h, -?\tVisa detta meddelande.\n"
-#~ "  --about\t\tOm detta program.\n"
-#~ "  --add\t\t\tLägger till en ny post i databasen.\n"
-#~ "  --standalone\t\tDirektåtkomst till databasen, utan demon.\n"
-#~ "  --version, -v\t\tVisar versionsnumret för detta program.\n"
-
-#~ msgid ""
-#~ "Usage:  billreminderd [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --verbose\t\tPrint output messages.\n"
-#~ "  --no-daemon\t\tDon't run as a daemon.\n"
-#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Användning:  billreminderd [FLAGGOR...]\n"
-#~ "\n"
-#~ "Flaggor:\n"
-#~ "  --help, -h, -?\tVisa detta meddelande.\n"
-#~ "  --verbose\t\tSkriv ut utdatameddelanden.\n"
-#~ "  --no-daemon\t\tKör inte som en demon.\n"
-#~ "  --open-gui\t\tStarta demon och starta grafiskt gränssnitt.\n"
-#~ "  --stop\t\t\tStoppa demon.\n"
-#~ "  --version, -v\t\tVisar versionsnumret för detta program.\n"
-
-#~ msgid "Due Date"
-#~ msgstr "Betalningsdatum"
-
-#~ msgid "Amount Due"
-#~ msgstr "Summa"
-
-#, fuzzy
-#~ msgid "<b>Due Date:</b>"
-#~ msgstr "<b>Anteckning:</b>"
-
-#~ msgid "<b>Payee:</b>"
-#~ msgstr "<b>Betalningsmottagare:</b>"
-
-#~ msgid "<b>Amount:</b>"
-#~ msgstr "<b>Summa:</b>"
-
-#~ msgid "<b>Note:</b>"
-#~ msgstr "<b>Anteckning:</b>"
-
-#~ msgid "Remove"
-#~ msgstr "Ta bort"
-
-#, fuzzy
-#~ msgid "<b>0</b>"
-#~ msgstr "<b>Anteckning:</b>"
-
-#, fuzzy
-#~ msgid "<b>Notes: </b>"
-#~ msgstr "<b>Anteckning:</b>"
-
-#, fuzzy
-#~ msgid "<b>%(payee)s</b>"
-#~ msgstr "<b>Betalningsmottagare:</b>"
-
-#~ msgid "Editing bill '%s'"
-#~ msgstr "Redigerar räkningen \"%s\""
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid ""
-#~ "do you really want to remove it?\n"
-#~ "\n"
-#~ " <b>%(payee)s - %(amount)0.2f </b>"
-#~ msgstr ""
-#~ "Vill du verkligen ta bort den?\n"
-#~ "\n"
-#~ " <b>%(payee)s - %(amount)0.2f </b>"
-
-#~ msgid "<big><b>Are you sure you want to quit?</b></big>"
-#~ msgstr "<big><b>Är du säker på att du vill avsluta?</b></big>"
-
-#~ msgid "The following bill was removed:\n"
-#~ msgstr "Följande räkning togs bort:\n"
-
-#~ msgid "Item deleted."
-#~ msgstr "Objektet borttaget."
-
-#~ msgid "Bill '%s' not deleted."
-#~ msgstr "Räkningen \"%s\" inte borttagen."
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid "<b>Info:</b>"
-#~ msgstr "<b>Info:</b>"
-
-#~ msgid "Mostrar Janela"
-#~ msgstr "Mostrar Janela"
-
-#~ msgid "N_ot Paid"
-#~ msgstr "In_te betald"
-
-#~ msgid "_Edit"
-#~ msgstr "R_edigera"
-
-#~ msgid "<b><big>Bills Due Today</big></b>"
-#~ msgstr "<b><big>Räkningar att betala idag</big></b>"
-
-#~ msgid "<b><big>Bills Due</big></b>"
-#~ msgstr "<b><big>Aktuella räkningar</big></b>"
-
-#~ msgid "<b><big>Bills Not Due</big></b>"
-#~ msgstr "<b><big>Räkningar inte aktuella</big></b>"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
@@ -518,7 +393,8 @@ msgstr "Inställningar"
 
 #. Alert Group
 #: ../src/gui/prefdialog.py:51
-msgid "Alerts"
+#, fuzzy
+msgid "Alarms"
 msgstr "Alarm"
 
 #: ../src/gui/prefdialog.py:59
@@ -711,3 +587,131 @@ msgstr "Veckoligen"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Månatligen"
+
+#~ msgid ""
+#~ "Usage:  billreminder [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --about\t\tAbout this application.\n"
+#~ "  --add\t\t\tAdds a new record to the database.\n"
+#~ "  --standalone\t\tAccess database directly, without daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Användning:  billreminder [FLAGGOR...]\n"
+#~ "\n"
+#~ "Flaggor:\n"
+#~ "  --help, -h, -?\tVisa detta meddelande.\n"
+#~ "  --about\t\tOm detta program.\n"
+#~ "  --add\t\t\tLägger till en ny post i databasen.\n"
+#~ "  --standalone\t\tDirektåtkomst till databasen, utan demon.\n"
+#~ "  --version, -v\t\tVisar versionsnumret för detta program.\n"
+
+#~ msgid ""
+#~ "Usage:  billreminderd [OPTIONS...]\n"
+#~ "\n"
+#~ "Options:\n"
+#~ "  --help, -h, -?\tShow this message.\n"
+#~ "  --verbose\t\tPrint output messages.\n"
+#~ "  --no-daemon\t\tDon't run as a daemon.\n"
+#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
+#~ "  --stop\t\t\tStop daemon.\n"
+#~ "  --version, -v\t\tDisplays the version number for this application.\n"
+#~ msgstr ""
+#~ "Användning:  billreminderd [FLAGGOR...]\n"
+#~ "\n"
+#~ "Flaggor:\n"
+#~ "  --help, -h, -?\tVisa detta meddelande.\n"
+#~ "  --verbose\t\tSkriv ut utdatameddelanden.\n"
+#~ "  --no-daemon\t\tKör inte som en demon.\n"
+#~ "  --open-gui\t\tStarta demon och starta grafiskt gränssnitt.\n"
+#~ "  --stop\t\t\tStoppa demon.\n"
+#~ "  --version, -v\t\tVisar versionsnumret för detta program.\n"
+
+#~ msgid "Due Date"
+#~ msgstr "Betalningsdatum"
+
+#~ msgid "Amount Due"
+#~ msgstr "Summa"
+
+#, fuzzy
+#~ msgid "<b>Due Date:</b>"
+#~ msgstr "<b>Anteckning:</b>"
+
+#~ msgid "<b>Payee:</b>"
+#~ msgstr "<b>Betalningsmottagare:</b>"
+
+#~ msgid "<b>Amount:</b>"
+#~ msgstr "<b>Summa:</b>"
+
+#~ msgid "<b>Note:</b>"
+#~ msgstr "<b>Anteckning:</b>"
+
+#~ msgid "Remove"
+#~ msgstr "Ta bort"
+
+#, fuzzy
+#~ msgid "<b>0</b>"
+#~ msgstr "<b>Anteckning:</b>"
+
+#, fuzzy
+#~ msgid "<b>Notes: </b>"
+#~ msgstr "<b>Anteckning:</b>"
+
+#, fuzzy
+#~ msgid "<b>%(payee)s</b>"
+#~ msgstr "<b>Betalningsmottagare:</b>"
+
+#~ msgid "Editing bill '%s'"
+#~ msgstr "Redigerar räkningen \"%s\""
+
+#~ msgid "Id"
+#~ msgstr "Id"
+
+#~ msgid ""
+#~ "do you really want to remove it?\n"
+#~ "\n"
+#~ " <b>%(payee)s - %(amount)0.2f </b>"
+#~ msgstr ""
+#~ "Vill du verkligen ta bort den?\n"
+#~ "\n"
+#~ " <b>%(payee)s - %(amount)0.2f </b>"
+
+#~ msgid "<big><b>Are you sure you want to quit?</b></big>"
+#~ msgstr "<big><b>Är du säker på att du vill avsluta?</b></big>"
+
+#~ msgid "The following bill was removed:\n"
+#~ msgstr "Följande räkning togs bort:\n"
+
+#~ msgid "Item deleted."
+#~ msgstr "Objektet borttaget."
+
+#~ msgid "Bill '%s' not deleted."
+#~ msgstr "Räkningen \"%s\" inte borttagen."
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "<b>Info:</b>"
+#~ msgstr "<b>Info:</b>"
+
+#~ msgid "Mostrar Janela"
+#~ msgstr "Mostrar Janela"
+
+#~ msgid "N_ot Paid"
+#~ msgstr "In_te betald"
+
+#~ msgid "_Edit"
+#~ msgstr "R_edigera"
+
+#~ msgid "<b><big>Bills Due Today</big></b>"
+#~ msgstr "<b><big>Räkningar att betala idag</big></b>"
+
+#~ msgid "<b><big>Bills Due</big></b>"
+#~ msgstr "<b><big>Aktuella räkningar</big></b>"
+
+#~ msgid "<b><big>Bills Not Due</big></b>"
+#~ msgstr "<b><big>Räkningar inte aktuella</big></b>"
+
+#~ msgid "Alerts"
+#~ msgstr "Alarm"

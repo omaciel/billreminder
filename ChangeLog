@@ -2,6 +2,8 @@ BillReminder 0.3.2
 ==================
 
  Bugs:
+  * Ambiguity with Alerts and Alarms in preferences dialog
+   ref  http://code.google.com/p/billreminder/issues/detail?id=11
   * Make category names a unique field.
    ref: http://code.google.com/p/billreminder/issues/detail?id=1
   * Newly added categories should be selected automatically

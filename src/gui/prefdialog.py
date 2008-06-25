@@ -48,7 +48,7 @@ class PrefDialog(gtk.Dialog):
         self.topcontainer = gtk.VBox(homogeneous=False, spacing=10)
 
         # Alert Group
-        alertFrame = gtk.Frame(label="<b>%s</b>" % _("Alerts"))
+        alertFrame = gtk.Frame(label="<b>%s</b>" % _("Alarms"))
         alertFrame.props.label_widget.set_use_markup(True)
         alertFrame.set_shadow_type(gtk.SHADOW_NONE)
         alertAlignment = gtk.Alignment()
