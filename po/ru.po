@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-24 21:28-0400\n"
-"PO-Revision-Date: 2008-06-24 21:06+0000\n"
-"Last-Translator: Rail Aliev <rail@i-rs.ru>\n"
+"PO-Revision-Date: 2008-06-25 01:02+0000\n"
+"Last-Translator: Stepan Zastupov <redchrom@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2008-06-24 22:48+0000\n"
+"X-Launchpad-Export-Date: 2008-06-25 01:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
@@ -82,7 +82,7 @@ msgstr "Запустить дэймон и графическую оболочк
 
 #: ../src/billreminderd.py:28
 msgid "Stop daemon."
-msgstr "Остановить демон."
+msgstr "Остановить дэймон."
 
 #: ../src/daemon/alarm.py:61
 #, python-format
@@ -103,11 +103,11 @@ msgstr "Отмена"
 #: ../src/daemon/alarm.py:96 ../src/daemon/alarm.py:183
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
-msgstr ""
+msgstr "Счёт %(bill)s должен быть взнесён %(day)s."
 
 #: ../src/daemon/alarm.py:99 ../src/daemon/alarm.py:186
 msgid "%Y/%m/%d"
-msgstr "%г/%м/%д"
+msgstr "%Y/%m/%d"
 
 #: ../src/daemon/alarm.py:109
 #, python-format
@@ -127,15 +127,15 @@ msgstr "Правка"
 #: ../src/daemon/main.py:117
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr ""
+msgstr "Похоже программа уже запущена (pid=%d)"
 
 #: ../src/daemon/main.py:122
 msgid "Lock File found: Possibly the program was exited unexpectedly."
-msgstr ""
+msgstr "Найден файл блокировки: Возможно программы завершилась аварийно."
 
 #: ../src/daemon/main.py:125
 msgid "Removing Lock File..."
-msgstr ""
+msgstr "Удаляем файл блокировки..."
 
 #: ../src/daemon/main.py:127
 msgid "Successfully."
@@ -147,7 +147,7 @@ msgstr "Ошибка."
 
 #: ../src/daemon/main.py:133
 msgid "BillReminder Notifier is already running."
-msgstr ""
+msgstr "Напоминатель BillReminder уже запущен."
 
 #: ../src/gui/aboutdialog.py:13
 msgid "translator-credits"
@@ -155,12 +155,12 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Ilya B https://launchpad.net/~conscious-mail\n"
 "  Rail Aliev https://launchpad.net/~rail\n"
-"  Vadim Peretokin https://launchpad.net/~vperetokin\n"
-"  redchrom https://launchpad.net/~redchrom"
+"  Stepan Zastupov https://launchpad.net/~redchrom\n"
+"  Vadim Peretokin https://launchpad.net/~vperetokin"
 
 #: ../src/gui/aboutdialog.py:36
 msgid "BillReminder Website"
-msgstr "BillReminder вебсайт"
+msgstr "Сайт BillReminder"
 
 #: ../src/gui/adddialog.py:95 ../src/gui/maindialog.py:116
 msgid "Due Date:"
@@ -192,7 +192,7 @@ msgstr "Примечания:"
 
 #: ../src/gui/adddialog.py:150
 msgid "Alarm:"
-msgstr ""
+msgstr "Внимание:"
 
 #: ../src/gui/adddialog.py:173
 msgid "Manage Categories"
@@ -398,11 +398,11 @@ msgstr "Сигнал"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
-msgstr ""
+msgstr "Тревожить перед датой платежа:"
 
 #: ../src/gui/prefdialog.py:64 ../src/gui/prefdialog.py:110
 msgid "day(s)."
-msgstr ""
+msgstr "дни"
 
 #: ../src/gui/prefdialog.py:67
 msgid "Preferred time:"
@@ -410,7 +410,7 @@ msgstr "Предпочённое время:"
 
 #: ../src/gui/prefdialog.py:69
 msgid "Get alerted when individual bills are due."
-msgstr ""
+msgstr "Уведомлять когда индивидуальные платежи оплачены."
 
 #. Notification Group
 #: ../src/gui/prefdialog.py:91
@@ -423,7 +423,7 @@ msgstr ""
 
 #: ../src/gui/prefdialog.py:105
 msgid "Notify before due date:"
-msgstr ""
+msgstr "Напоминать перед датой платежа:"
 
 #. Alert Type Group
 #: ../src/gui/prefdialog.py:123

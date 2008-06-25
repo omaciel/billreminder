@@ -8,21 +8,22 @@ msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-24 21:28-0400\n"
-"PO-Revision-Date: 2008-06-24 18:16+0000\n"
-"Last-Translator: verin <Unknown>\n"
+"PO-Revision-Date: 2008-06-25 00:02+0000\n"
+"Last-Translator: Michał Sawicz <michal@sawicz.net>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2008-06-24 22:48+0000\n"
+"X-Launchpad-Export-Date: 2008-06-25 01:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
+#, fuzzy
 msgid "BillReminder Notifier"
-msgstr ""
+msgstr "Powiadomenia BillRemindera"
 
 #: ../data/billreminderd.desktop.in.h:2 ../data/billreminder.desktop.in.h:2
 msgid "Bills manager"
@@ -69,12 +70,13 @@ msgid "This is %(appname)s - Version: %(version)s"
 msgstr "To jest %(appname)s - Wersja: %(version)s"
 
 #: ../src/billreminderd.py:25
+#, fuzzy
 msgid "Print output messages."
-msgstr ""
+msgstr "Drukuj wiadomości wyjściowe."
 
 #: ../src/billreminderd.py:26
 msgid "Don't run as a daemon."
-msgstr ""
+msgstr "Nie działaj w tle."
 
 #: ../src/billreminderd.py:27
 msgid "Start daemon and launch GUI."
@@ -103,7 +105,7 @@ msgstr "Anuluj"
 #: ../src/daemon/alarm.py:96 ../src/daemon/alarm.py:183
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
-msgstr ""
+msgstr "Rachunek %(bill)s będzie do zapłacenia za %(day)s dni."
 
 #: ../src/daemon/alarm.py:99 ../src/daemon/alarm.py:186
 msgid "%Y/%m/%d"
@@ -112,7 +114,7 @@ msgstr "%d-%m-%Y"
 #: ../src/daemon/alarm.py:109
 #, python-format
 msgid "The bill %s is due."
-msgstr ""
+msgstr "Rachunek %s jest do zapłacenia."
 
 #. Button Title
 #: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:291
@@ -127,11 +129,13 @@ msgstr "Edycja"
 #: ../src/daemon/main.py:117
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr ""
+msgstr "Znaleziono plik blokady: działa inna instancja programu. (pid=%d)"
 
 #: ../src/daemon/main.py:122
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr ""
+"Znaleziono plik blokady: prawdopodobnie program niespodziewanie zakończył "
+"pracę."
 
 #: ../src/daemon/main.py:125
 msgid "Removing Lock File..."
@@ -147,12 +151,13 @@ msgstr "Błąd."
 
 #: ../src/daemon/main.py:133
 msgid "BillReminder Notifier is already running."
-msgstr ""
+msgstr "Powiadomienia BillRemindera sa już włączone."
 
 #: ../src/gui/aboutdialog.py:13
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Michał Sawicz https://launchpad.net/~saviq\n"
 "  Swistak https://launchpad.net/~swistakers\n"
 "  bogus https://launchpad.net/~tomczak-jakub\n"
 "  verin https://launchpad.net/~verin-darthirii-gmail\n"
@@ -164,7 +169,7 @@ msgstr "Strona internetowa BillReminder"
 
 #: ../src/gui/adddialog.py:95 ../src/gui/maindialog.py:116
 msgid "Due Date:"
-msgstr ""
+msgstr "Data do zaplacenia:"
 
 #: ../src/gui/adddialog.py:100
 msgid "Repeat:"
@@ -172,11 +177,12 @@ msgstr "Powtarzanie:"
 
 #: ../src/gui/adddialog.py:104
 msgid "How many times to repeat this bill."
-msgstr ""
+msgstr "Ile razy powtórzyć ten rachunek."
 
 #: ../src/gui/adddialog.py:138
+#, fuzzy
 msgid "Payee:"
-msgstr ""
+msgstr "Płacący:"
 
 #: ../src/gui/adddialog.py:141
 msgid "Amount:"
@@ -192,7 +198,7 @@ msgstr "Notatki:"
 
 #: ../src/gui/adddialog.py:150
 msgid "Alarm:"
-msgstr ""
+msgstr "Powiadomienie:"
 
 #: ../src/gui/adddialog.py:173
 msgid "Manage Categories"
@@ -328,7 +334,7 @@ msgstr "_Nie zapłacony"
 
 #: ../src/gui/maindialog.py:317
 msgid "Edit preferences"
-msgstr ""
+msgstr "Edytuj ustawienia"
 
 #: ../src/gui/maindialog.py:318
 msgid "Quit the Program"
@@ -360,7 +366,7 @@ msgstr "Tylko _niezapłacone"
 
 #: ../src/gui/maindialog.py:337
 msgid "Display all unpaid records only"
-msgstr ""
+msgstr "Pokaż tylko niezapłacone wpisy"
 
 #: ../src/gui/maindialog.py:338
 msgid "_Paid Only"
@@ -368,7 +374,7 @@ msgstr "Tylko za_płacone"
 
 #: ../src/gui/maindialog.py:338
 msgid "Display all paid records only"
-msgstr ""
+msgstr "Pokaż tylko zapłacone wpisy"
 
 #: ../src/gui/maindialog.py:339
 msgid "_All Records"
@@ -380,7 +386,7 @@ msgstr "Wyświetlaj wszystkie wpisy"
 
 #: ../src/gui/maindialog.py:524
 msgid "Not _Paid"
-msgstr ""
+msgstr "Nie za_płacone"
 
 #: ../src/gui/maindialog.py:551
 #, python-format
@@ -399,11 +405,11 @@ msgstr "Alarm"
 
 #: ../src/gui/prefdialog.py:59
 msgid "Alert before due date:"
-msgstr ""
+msgstr "Powiadom przed dniem zaplaty:"
 
 #: ../src/gui/prefdialog.py:64 ../src/gui/prefdialog.py:110
 msgid "day(s)."
-msgstr ""
+msgstr "dzień (dni)"
 
 #: ../src/gui/prefdialog.py:67
 #, fuzzy
@@ -412,7 +418,7 @@ msgstr "Preferowany czas:"
 
 #: ../src/gui/prefdialog.py:69
 msgid "Get alerted when individual bills are due."
-msgstr ""
+msgstr "Powiadomienie gdy do zapłacenia pojedyncze rachunki."
 
 #. Notification Group
 #: ../src/gui/prefdialog.py:91
@@ -421,11 +427,11 @@ msgstr "Powiadomienia"
 
 #: ../src/gui/prefdialog.py:97
 msgid "Define when to be notified of upcoming bills."
-msgstr ""
+msgstr "Ustaw powiadomienia dla nadchodzących rachunków."
 
 #: ../src/gui/prefdialog.py:105
 msgid "Notify before due date:"
-msgstr ""
+msgstr "Powiadomienie przed dniem zapłaty:"
 
 #. Alert Type Group
 #: ../src/gui/prefdialog.py:123
@@ -434,26 +440,30 @@ msgstr "Rodzaj przypomnienia"
 
 #: ../src/gui/prefdialog.py:133
 msgid "_Notification Bubble"
-msgstr ""
+msgstr "Dymek powiadomie_nia"
 
 #: ../src/gui/prefdialog.py:135
 msgid "Al_ert Dialog"
-msgstr ""
+msgstr "Dialog powiadomi_enia"
 
 #: ../src/gui/prefdialog.py:147
+#, fuzzy
 msgid ""
 "<b>Warning:</b> BillReminder Notifier is \n"
 "not running! You need to start it in order \n"
 " to receive notifications."
 msgstr ""
+"<b>Uwaga:</b> Powiadomienia BillRemindera \n"
+"nie są włączone. Musisz je uruchomić by otrzymywać \n"
+" powiadomienia."
 
 #: ../src/gui/prefdialog.py:154
 msgid "_Start BillReminder Notifier"
-msgstr ""
+msgstr "Uruchom Powiadomienia BillRemindera"
 
 #: ../src/gui/prefdialog.py:226
 msgid "<b>Note:</b> BillReminder Notifier is now running."
-msgstr ""
+msgstr "<b>Uwaga:</b> uruchomiono Powiadomienia BillRemindera."
 
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:61
 msgid "%Y/%m/%d %H:%M"
@@ -534,6 +544,8 @@ msgid ""
 "An error occurred while connecting to BillReminder Notifier!\n"
 "Do you want to launch it and restart BillReminder?"
 msgstr ""
+"Wystąpił błąd podczas podłączania do Powiadomień BillRemindera!\n"
+"Czy chcesz je uruchomić i ponownie uruchomić program?"
 
 #. Dialog Title
 #: ../src/lib/dialogs.py:51
@@ -578,7 +590,7 @@ msgstr "Raz"
 
 #: ../src/lib/scheduler.py:7
 msgid "Weekly"
-msgstr ""
+msgstr "Co tydzień"
 
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"

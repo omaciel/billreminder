@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-24 21:27-0400\n"
-"PO-Revision-Date: 2008-06-24 18:40+0000\n"
+"POT-Creation-Date: 2008-06-24 21:28-0400\n"
+"PO-Revision-Date: 2008-06-24 23:48+0000\n"
 "Last-Translator: Tero Keinänen <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2008-06-24 22:48+0000\n"
+"X-Launchpad-Export-Date: 2008-06-25 01:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
@@ -116,7 +116,7 @@ msgstr ""
 #: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:291
 #: ../src/gui/maindialog.py:315 ../src/lib/utils.py:135
 msgid "Mark as paid"
-msgstr ""
+msgstr "Merkitse maksetuksi"
 
 #: ../src/daemon/alarm.py:122 ../src/lib/utils.py:136
 msgid "Edit"
@@ -133,7 +133,7 @@ msgstr ""
 
 #: ../src/daemon/main.py:125
 msgid "Removing Lock File..."
-msgstr ""
+msgstr "Poistetaan lukkotiedosto..."
 
 #: ../src/daemon/main.py:127
 msgid "Successfully."
@@ -478,11 +478,11 @@ msgstr ""
 
 #: ../src/gui/widgets/trayicon.py:42
 msgid "Hide Window"
-msgstr ""
+msgstr "Piilota ikkuna"
 
 #: ../src/gui/widgets/trayicon.py:44
 msgid "Show Window"
-msgstr ""
+msgstr "Näytä ikkuna"
 
 #: ../src/gui/widgets/trayicon.py:50
 msgid "About"
@@ -490,7 +490,7 @@ msgstr ""
 
 #: ../src/gui/widgets/trayicon.py:54
 msgid "Quit"
-msgstr ""
+msgstr "Lopeta"
 
 #. TRANSLATORS: This is a date format. You can change the order.
 #: ../src/gui/widgets/viewbill.py:46
@@ -515,7 +515,7 @@ msgstr "Muistutus"
 
 #: ../src/lib/common.py:19
 msgid "Developers:"
-msgstr ""
+msgstr "Kehittäjät:"
 
 #: ../src/lib/common.py:23
 msgid "Contributors:"
@@ -540,12 +540,12 @@ msgstr ""
 #. Dialog Title
 #: ../src/lib/utils.py:83
 msgid "Question"
-msgstr ""
+msgstr "Kysymys"
 
 #. Dialog Title
 #: ../src/lib/utils.py:96 ../src/lib/utils.py:109
 msgid "Error"
-msgstr ""
+msgstr "Virhe"
 
 #. Dialog Title
 #: ../src/lib/utils.py:122
@@ -566,12 +566,12 @@ msgstr ""
 
 #: ../src/lib/scheduler.py:6
 msgid "Once"
-msgstr ""
+msgstr "Kerran"
 
 #: ../src/lib/scheduler.py:7
 msgid "Weekly"
-msgstr ""
+msgstr "Viikottain"
 
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
-msgstr ""
+msgstr "Kuukausittain"
