@@ -33,7 +33,7 @@ ARTISTS = [
 ]
 
 
-LICENSE = _("""
+LICENSE = """
 This application is distributed under the BSD
 Licensing scheme.  An online version of the
 license can be obtained from
@@ -41,7 +41,7 @@ http://www.opensource.org/licenses/bsd-license.html.
 
 Copyright (c) 2006-2008 Og Maciel
 All rights reserved.
-""")
+"""
 
 # Media path
 if os.path.exists(os.path.abspath('../data/images/')):
