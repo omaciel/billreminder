@@ -1,3 +1,8 @@
+2008-07-10 Og Maciel <ogmaciel@gnome.org>
+
+    * Makefile.am: Require gconf-2
+    * billreminder.schemas: Gconf schema
+
 2008-03-08 Og Maciel <ogmaciel@gnome.org>
 
     * billreminder.desktop.in: Changed version attribute to 0.3.

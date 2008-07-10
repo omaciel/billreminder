@@ -12,6 +12,8 @@ BillReminder 0.3.2
    ref: http://code.google.com/p/billreminder/issues/detail?id=4
 
  Backend:
+  * Changed BillReminder to use GConf for is configuration values.
+    Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
   * Changed BillReminder's command line parsing to use OptionParser.
    ref: http://code.google.com/p/billreminder/issues/detail?id=3
 

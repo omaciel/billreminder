@@ -1,3 +1,9 @@
+2008-07-10 Og Maciel <ogmaciel@gnome.org>
+
+    * common.py:  Make use of gconf values
+    * config.py: Make use of gconf values
+    * migrate_to_gconf.py: Method to migrate applicatio to use gconf values
+
 2008-06-19 Og Maciel <ogmaciel@gnome.org>
 
     * Makefile.am: Set a default target

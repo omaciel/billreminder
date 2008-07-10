@@ -5,6 +5,7 @@ __all__ = ['AddDialog']
 import pygtk
 pygtk.require('2.0')
 import gtk
+import gconf
 import datetime
 import locale
 import gobject
@@ -14,11 +15,11 @@ from lib import common
 from lib import scheduler
 from lib.bill import Bill
 from lib.actions import Actions
-from lib.config import Config
 from lib.utils import create_pixbuf
 from lib import i18n
 from gui.widgets.datebutton import DateButton
 from gui.categoriesdialog import CategoriesDialog
+from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
 
 class AddDialog(gtk.Dialog):
     """
@@ -40,11 +41,7 @@ class AddDialog(gtk.Dialog):
             selectedDate = datetime.datetime.today()
         self.selectedDate = selectedDate
 
-        # Configuration data
-        if self.parent and self.parent.config:
-            self.config = self.parent.config
-        else:
-            self.config = Config()
+        self.gconf_client = gconf.client_get_default()
 
         # Private copy of any record passed
         self.currentrecord = record
@@ -71,9 +68,9 @@ class AddDialog(gtk.Dialog):
 
         else:
             # Use alarm values from preferences
-            if self.config.get('Alarm', 'show_alarm') == 'true':
-                atime = self.config.get('Alarm', 'show_alarm_at_time')
-                adays = self.config.getint('Alarm', 'show_alarm_before_days')
+            if self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_alarm') == 'true':
+                atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
+                adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
                 alarmDate = scheduler.get_alarm_timestamp(adays, atime, selectedDate)
                 self.alarmbutton.set_date(alarmDate)
 
@@ -478,8 +475,8 @@ class AddDialog(gtk.Dialog):
         # Only reprogram alarm if it is not None
         if self.alarmbutton.get_date():
             # Use alarm values from preferences
-            atime = self.config.get('Alarm', 'show_alarm_at_time')
-            adays = self.config.getint('Alarm', 'show_alarm_before_days')
+            atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
+            adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
             # Extracts the date off the calendar widget
             selDate = self.calendar.get_date()
             selDate = scheduler.time_from_calendar(selDate)

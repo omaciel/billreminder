@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<gconfschemafile><schemalist>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/interval</key>
+      <applyto>/apps/billreminder/alarm/interval</applyto>
+      <owner>interval</owner>
+      <type>int</type>
+      <default>60</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/show_startup_notification</key>
+      <applyto>/apps/billreminder/alarm/show_startup_notification</applyto>
+      <owner>billreminder</owner>
+      <type>bool</type>
+      <default>true</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/use_alert_dialog</key>
+      <applyto>/apps/billreminder/alarm/use_alert_dialog</applyto>
+      <owner>billreminder</owner>
+      <type>bool</type>
+      <default>false</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/show_before_alarm</key>
+      <applyto>/apps/billreminder/alarm/show_before_alarm</applyto>
+      <owner>billreminder</owner>
+      <type>bool</type>
+      <default>true</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/show_pay_notification</key>
+      <applyto>/apps/billreminder/alarm/show_pay_notification</applyto>
+      <owner>billreminder</owner>
+      <type>bool</type>
+      <default>true</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/show_alarm</key>
+      <applyto>/apps/billreminder/alarm/show_alarm</applyto>
+      <owner>billreminder</owner>
+      <type>bool</type>
+      <default>true</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/notification_days_limit</key>
+      <applyto>/apps/billreminder/alarm/notification_days_limit</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+      <default>15</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/show_alarm_before_days</key>
+      <applyto>/apps/billreminder/alarm/show_alarm_before_days</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+      <default>3</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/alarm/show_alarm_at_time</key>
+      <applyto>/apps/billreminder/alarm/show_alarm_at_time</applyto>
+      <owner>billreminder</owner>
+      <type>string</type>
+      <default>13:00</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/gui/due_date</key>
+      <applyto>/apps/billreminder/gui/due_date</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+      <default>0</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/gui/show_menubar</key>
+      <applyto>/apps/billreminder/gui/show_menubar</applyto>
+      <owner>billreminder</owner>
+      <type>bool</type>
+      <default>false</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/gui/show_paid_bills</key>
+      <applyto>/apps/billreminder/gui/show_paid_bills</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+      <default>2</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/gui/show_toolbar</key>
+      <applyto>/apps/billreminder/gui/show_toolbar</applyto>
+      <owner>billreminder</owner>
+      <type>bool</type>
+      <default>true</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/gui/width</key>
+      <applyto>/apps/billreminder/gui/width</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+      <default>385</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/gui/height</key>
+      <applyto>/apps/billreminder/gui/height</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+      <default>380</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/gui/x</key>
+      <applyto>/apps/billreminder/gui/x</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/gui/y</key>
+      <applyto>/apps/billreminder/gui/y</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+   <schema>
+      <key>/schemas/apps/billreminder/delay</key>
+      <applyto>/apps/billreminder/delay</applyto>
+      <owner>billreminder</owner>
+      <type>int</type>
+      <default>1</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/billreminder/start_in_tray</key>
+      <applyto>/apps/billreminder/start_in_tray</applyto>
+      <owner>billreminder</owner>
+      <type>bool</type>
+      <default>false</default>
+
+      <locale name="C">
+        <short>Fill Here</short>
+        <long>Fill Here</long>
+      </locale>
+    </schema>
+
+</schemalist></gconfschemafile>

@@ -2,10 +2,6 @@
 
 SUBDIRS = images
 
-configdir = $(datadir)/billreminder
-config_DATA = billreminder.cfg
-EXTRA_DIST = $(config_DATA)
-
 servicedir = $(DBUS_SERVICES_DIR)
 service_in_files = billreminder.service.in
 service_DATA = billreminder.service
@@ -30,4 +26,7 @@ autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 EXTRA_DIST += $(autostart_in_files)
 CLEANFILES += $(autostart_DATA)
 
+schemadir = $(sysconfdir)/gconf/schemas
+schema_DATA = openlh-server.schemas
+EXTRA_DIST = $(schema_DATA)
 

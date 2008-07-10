@@ -5,6 +5,7 @@ __all__ = ['PrefDialog']
 import pygtk
 pygtk.require('2.0')
 import gtk
+import gconf
 import time
 import datetime
 import locale
@@ -14,9 +15,8 @@ from subprocess import Popen
 from lib import common
 from lib import utils
 from lib import i18n
-from lib.config import Config
 from widgets.timewidget import TimeWidget
-
+from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
 
 class PrefDialog(gtk.Dialog):
     """
@@ -32,12 +32,8 @@ class PrefDialog(gtk.Dialog):
 
         self.props.skip_taskbar_hint = True
         self.set_border_width(5)
-
-        if self.parent and self.parent.config:
-            self.config = self.parent.config
-        else:
-            self.config = Config()
-
+        
+        self.gconf_client = gconf.client_get_default()
 
         self._initialize_dialog_widgets()
         self._populate_fields()
@@ -172,21 +168,19 @@ class PrefDialog(gtk.Dialog):
     def _populate_fields(self):
 
         self.notifyCheckbox.set_active( \
-            self.config.getboolean('Alarm', 'show_before_alarm'))
+            self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_before_alarm'))
         self.alertCheckbox.set_active( \
-            self.config.getboolean('Alarm', 'show_alarm'))
+            self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_alarm'))
 
-        if not self.config.getboolean('Alarm', 'use_alert_dialog'):
+        if not self.gconf_client.get_bool(GCONF_ALARM_PATH + 'use_alert_dialog'):
             self.alertBubble.set_active(True)
         else:
             self.alertDialog.set_active(True)
 
-        self.notifySpinButton.set_value(self.config.getint('Alarm',
-            'notification_days_limit'))
-        self.alertSpinButton.set_value(self.config.getint('Alarm',
-            'show_alarm_before_days'))
+        self.notifySpinButton.set_value(self.gconf_client.get_int(GCONF_ALARM_PATH + 'notification_days_limit'))
+        self.alertSpinButton.set_value(self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days'))
 
-        atime = self.config.get('Alarm', 'show_alarm_at_time')
+        atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
         atime = atime.split(":")
         self.notificationTime.setHourMinute(atime[0], atime[1])
 
@@ -195,30 +189,27 @@ class PrefDialog(gtk.Dialog):
         self.notificationTime.hourSpinner.connect("value_changed", self._on_time_changed)
         self.notificationTime.minuteSpinner.connect("value_changed", self._on_time_changed)
         self.notifyCheckbox.connect("toggled",
-            self._on_checkbox_toggled, 'Alarm', 'show_before_alarm')
+            self._on_checkbox_toggled, 'show_before_alarm')
         self.alertCheckbox.connect("toggled",
-            self._on_checkbox_toggled, 'Alarm', 'show_alarm')
+            self._on_checkbox_toggled, 'show_alarm')
         self.notifySpinButton.connect("changed",
-            self._on_entry_changed, 'Alarm', 'notification_days_limit')
+            self._on_spin_changed, 'notification_days_limit')
         self.alertSpinButton.connect("changed",
-            self._on_entry_changed, 'Alarm', 'show_alarm_before_days')
+            self._on_spin_changed, 'show_alarm_before_days')
         self.alertDialog.connect("toggled",
-            self._on_checkbox_toggled, 'Alarm', 'use_alert_dialog')
+            self._on_checkbox_toggled, 'use_alert_dialog')
         self.daemonButton.connect("clicked", self._launch_daemon)
 
     def _on_time_changed(self, spin):
         alarm = self.notificationTime.getTime()
         alarm = ":".join(["%.02d" % x for x in alarm])
-        self.config.set('Alarm', 'show_alarm_at_time', alarm)
-        self.config.save()
+        self.gconf_client.set_string(GCONF_ALARM_PATH + 'show_alarm_at_time', alarm)
 
-    def _on_checkbox_toggled(self, togglebutton, category, item):
-        self.config.set(category, item, togglebutton.get_active())
-        self.config.save()
+    def _on_checkbox_toggled(self, togglebutton, item):
+        self.gconf_client.set_bool(GCONF_ALARM_PATH + item, togglebutton.get_active())
 
-    def _on_entry_changed(self, editable, category, item):
-        self.config.set(category, item, editable.get_text())
-        self.config.save()
+    def _on_spin_changed(self, obj, item):
+        self.gconf_client.set_int(GCONF_ALARM_PATH + item, int(obj.get_value()))
 
     def _launch_daemon(self, button):
         Popen('billreminderd', shell=True)

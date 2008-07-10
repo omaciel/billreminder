@@ -1,0 +1,5 @@
+2008-07-10  Og Maciel <ogmaciel@gnome.org>
+
+    * alarm.py: Make use of gconf values
+    * main.py: Make use of gconf values
+    * dbus_manager.py: Make use of gconf values

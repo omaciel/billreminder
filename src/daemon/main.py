@@ -26,7 +26,6 @@ from lib import common
 from lib import i18n
 from lib.utils import verify_pid
 from lib.actions import Actions
-from lib.config import Config
 from alarm import Alarm
 from dbus_manager import Server
 from dbus_manager import verify_service
@@ -137,7 +136,6 @@ class Program(Daemon):
 
         self.client_pid = None
 
-        self.config = Config()
         self.actions = Actions()
         self.dbus_server = Server(self)
         if options.app_opengui:

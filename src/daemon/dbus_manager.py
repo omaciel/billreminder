@@ -157,10 +157,6 @@ class Server(dbus.service.Object):
         self.parent.alarm.show_notification(title, msg)
         return True
 
-    @dbus.service.method(common.DBUS_INTERFACE)
-    def reload_config(self):
-        self.parent.config.reload()
-
     # DBus Signals
     @dbus.service.signal(common.DBUS_INTERFACE, signature='a{ss}')
     def bill_added(self, kwargs):

@@ -5,6 +5,7 @@ __all__ = ['MainDialog']
 import pygtk
 pygtk.require('2.0')
 import gtk
+import gconf
 import time
 import datetime
 from gobject import timeout_add
@@ -31,8 +32,11 @@ from lib.utils import get_dbus_interface
 from lib.utils import force_string
 from lib.utils import create_pixbuf
 from lib import i18n
-from lib.config import Config
 
+from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
+from lib.common import CFG_NAME
+from lib.common import USER_CFG_PATH
+from os.path import exists, join
 
 class MainDialog:
 
@@ -51,6 +55,12 @@ class MainDialog:
                 <separator/>
                 <menuitem action="Quit"/>
               </menu>
+              <menu action="EditMenu">
+                <menuitem action="Paid"/>
+                <menuitem action="NotPaid"/>
+                <separator/>
+                <menuitem action="Preferences"/>
+              </menu>
               <menu action="View">
                 <menuitem action="ShowToolbar"/>
                 <separator/>
@@ -65,7 +75,11 @@ class MainDialog:
         </ui>'''
 
     def __init__(self):
-        self.config = Config()
+        if exists(join(USER_CFG_PATH, CFG_NAME)):
+            from lib.migrate_to_gconf import migrate
+            migrate(join(USER_CFG_PATH, CFG_NAME))
+        
+        self.gconf_client = gconf.client_get_default()
         self.message = Message()
 
         # Create a new window
@@ -139,10 +153,10 @@ class MainDialog:
         self.window.add(self.box)
 
         # Restore position and size of window
-        width = self.config.getint('GUI', 'width')
-        height = self.config.getint('GUI', 'height')
-        x = self.config.getint('GUI', 'x')
-        y = self.config.getint('GUI', 'y')
+        width = self.gconf_client.get_int(GCONF_GUI_PATH + 'width')
+        height = self.gconf_client.get_int(GCONF_GUI_PATH + 'height')
+        x = self.gconf_client.get_int(GCONF_GUI_PATH + 'x')
+        y = self.gconf_client.get_int(GCONF_GUI_PATH + 'y')
         if width and height:
             self.window.resize(width, height)
         if x and y:
@@ -153,7 +167,7 @@ class MainDialog:
         self._on_show_toolbar(self.showToolbar)
         self.list.grab_focus()
 
-        if self.config.getboolean('General', 'start_in_tray'):
+        if self.gconf_client.get_bool(GCONF_PATH + 'start_in_tray'):
             self.window.hide()
 
         self.toggle_buttons()
@@ -189,8 +203,8 @@ class MainDialog:
 
     def _change_view(self, action, current):
         #TODO: Change the records selection based on option chose
-        self.config.set("GUI", "show_paid_bills", str(current.get_current_value()))
-        self.config.save()
+        self.gconf_client.set_int(GCONF_GUI_PATH + 'show_paid_bills',
+                                  str(current.get_current_value()))
         self.reloadTreeView()
         return True
 
@@ -235,7 +249,7 @@ class MainDialog:
 
     def reloadTreeView(self, *arg):
         # Update list with updated record
-        status = self.config.getint('GUI', 'show_paid_bills')
+        status = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
         month = self.calendar.get_date()[1] + 1
         year = self.calendar.get_date()[0]
 
@@ -312,6 +326,7 @@ class MainDialog:
             ('New', gtk.STOCK_NEW, _("_Add New"), '<Control>n', _("Add a new record"), self.on_btnNew_clicked),
             ('Edit', gtk.STOCK_EDIT, None, '<Control>e', _("Edit a record"), self.on_btnEdit_clicked),
             ('Delete', gtk.STOCK_DELETE, None, '<Control>d', _("Delete selected record"), self.on_btnDelete_clicked),
+            ('EditMenu', None, _("_Edit")),
             ('Paid', gtk.STOCK_APPLY, _("_Paid"), '<Control>p', _("Mark as paid"), self.on_btnPaid_clicked),
             ('NotPaid', gtk.STOCK_UNDO, _("_Not Paid"), '<Control>u', _("Mark as not paid"), self.on_btnPaid_clicked),
             ('Preferences', gtk.STOCK_PREFERENCES, None, None, _("Edit preferences"), self.on_btnPref_clicked),
@@ -321,13 +336,11 @@ class MainDialog:
             ('About', gtk.STOCK_ABOUT, None, None, _("About the application"), self.on_btnAbout_clicked),
             ])
 
-        # Prevent crash when using old config file
         try:
-            saved_view = self.config.getint('GUI', 'show_paid_bills')
+            saved_view = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
         except:
             saved_view = 1
-            self.config.set("GUI", "show_paid_bills", str(saved_view))
-            self.config.save()
+            self.gconf_client.set_int(GCONF_GUI_PATH + "show_paid_bills", saved_view)
 
         actiongroup.add_toggle_actions([
             ('ShowToolbar', None, _("Show Toolbar"), None, _("Show the toolbar"), self._on_show_toolbar)
@@ -355,8 +368,7 @@ class MainDialog:
         self.menuUnpaid = self.uimanager.get_widget('/MenuBar/File/NotPaid')
         # Check whether we display the toolbar or not
         self.showToolbar = actiongroup.get_action('ShowToolbar')
-        self.showToolbar.set_active(self.config.getboolean('GUI', 'show_toolbar'))
-
+        self.showToolbar.set_active(self.gconf_client.get_bool(GCONF_GUI_PATH + 'show_toolbar'))
 
         # Pack it
         self.box.pack_start(menubar, expand=False, fill=True, padding=0)
@@ -425,9 +437,6 @@ class MainDialog:
 
     def preferences(self):
         dialogs.preferences_dialog(parent=self.window)
-        self.config.reload()
-        if self.iface:
-            self.iface.reload_config()
 
     # Methods
     def _quit_application(self):
@@ -438,15 +447,13 @@ class MainDialog:
 
     def save_position(self):
         x, y = self.window.get_position()
-        self.config.set('GUI', 'x', x)
-        self.config.set('GUI', 'y', y)
-        self.config.save()
+        self.gconf_client.set_int(GCONF_GUI_PATH + 'x', x)
+        self.gconf_client.set_int(GCONF_GUI_PATH + 'y', y)
 
     def save_size(self):
         width, height = self.window.get_size()
-        self.config.set('GUI', 'width', width)
-        self.config.set('GUI', 'height', height)
-        self.config.save()
+        self.gconf_client.set_int(GCONF_GUI_PATH + 'width', width)
+        self.gconf_client.set_int(GCONF_GUI_PATH + 'height', height)
 
     def toggle_buttons(self, paid=None):
         """ Toggles all buttons conform number of records present and
@@ -580,10 +587,10 @@ class MainDialog:
         # Toggle toolbar's visibility
         if action.get_active():
             self.toolbar.show_all()
-            self.config.set("GUI", "show_toolbar", True)
+            self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", True)
         else:
             self.toolbar.hide_all()
-            self.config.set("GUI", "show_toolbar", False)
+            self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", False)
 
 def main():
     gtk.main()

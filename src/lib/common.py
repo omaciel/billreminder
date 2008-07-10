@@ -33,7 +33,7 @@ ARTISTS = [
 ]
 
 
-LICENSE = """
+LICENSE = _("""
 This application is distributed under the BSD
 Licensing scheme.  An online version of the
 license can be obtained from
@@ -41,7 +41,7 @@ http://www.opensource.org/licenses/bsd-license.html.
 
 Copyright (c) 2006-2008 Og Maciel
 All rights reserved.
-"""
+""")
 
 # Media path
 if os.path.exists(os.path.abspath('../data/images/')):
@@ -77,3 +77,8 @@ NOTIFICATION_PATH = '/org/freedesktop/Notifications'
 # Daemon files
 DAEMON_LOCK_FILE = '/tmp/billreminderd.pid'
 DAEMON_LOG_FILE = '/tmp/billreminderd.log'
+
+#GConf info
+GCONF_PATH = '/apps/billreminder/'
+GCONF_ALARM_PATH = GCONF_PATH + 'alarm/'
+GCONF_GUI_PATH = GCONF_PATH + 'gui/'

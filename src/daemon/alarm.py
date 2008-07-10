@@ -5,6 +5,7 @@ __all__ = ['Alarm']
 
 import datetime
 import time
+import gconf
 from sys import stderr
 from gobject import timeout_add
 from subprocess import Popen
@@ -19,6 +20,7 @@ from lib.bubble import NotifyMessage
 from lib.utils import verify_pid
 from lib.utils import Message
 from lib.bill import Bill
+from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
 
 class Alarm(object):
 
@@ -28,14 +30,15 @@ class Alarm(object):
         self.parent = parent
         self.tray_hints = {}
         self.start()
+        self.gconf_client = gconf.client_get_default()
 
     def start(self):
-        start_delay = self.parent.config.getint('General', 'delay') * 60000
+        start_delay = self.gconf_client.get_int(GCONF_PATH + 'delay') * 60000
         print start_delay
-        if self.parent.config.getboolean('Alarm', 'show_startup_notification'):
+        if self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_startup_notification'):
             timeout_add(start_delay, self.show_pay_notification)
             timeout_add(start_delay + 12000, self.verify_due)
-        interval = self.parent.config.getint('Alarm', 'interval') * 1000
+        interval = self.gconf_client.get_int(GCONF_ALARM_PATH + 'interval') * 1000
         if interval:
             timeout_add(interval, self.timer)
 
@@ -50,8 +53,7 @@ class Alarm(object):
 
     def show_pay_notification(self):
         today = time.mktime(datetime.date.today().timetuple())
-        limit = self.parent.config.getint('Alarm',
-                                          'notification_days_limit') * 86400.0
+        limit = self.gconf_client.get_int(GCONF_ALARM_PATH + 'notification_days_limit') * 86400.0
         if limit:
             records = self.parent.actions.get_bills('dueDate <= %s AND ' \
                                                'paid = 0' % (today + limit))
@@ -71,7 +73,7 @@ class Alarm(object):
         return False
 
     def verify_due(self, sum=0):
-        if not self.parent.config.getboolean('Alarm', 'show_due_alarm'):
+        if not self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_due_alarm'):
             return
         today = time.mktime(datetime.date.today().timetuple())
         if sum > 0:
@@ -87,7 +89,7 @@ class Alarm(object):
                                                     today)
 
         i = 1
-        use_dialog = self.parent.config.getboolean('Alarm', 'use_alert_dialog')
+        use_dialog = self.gconf_client.get_bool(GCONF_ALARM_PATH + 'use_alert_dialog')
         # TODO: use only one dialog for all bills, if use_dialog == True
         for bill in records:
             if sum > 0:
@@ -156,10 +158,10 @@ class Alarm(object):
 
     def timer(self):
 
-        interval = self.parent.config.getint('Alarm', 'interval')
+        interval = self.gconf_client.get_int(GCONF_ALARM_PATH + 'interval')
         now = datetime.datetime.now()
-        alert_hour, alert_minute = self.parent.config.get('Alarm',
-            'show_alarm_at_time').split(':')
+        alert_hour, alert_minute = self.gconf_client.get_string(GCONF_ALARM_PATH + \
+                                        'show_alarm_at_time').split(':')
         alert_hour = int(alert_hour)
         alert_minute = int(alert_minute)
         alert = datetime.datetime(now.year, now.month, now.day,
@@ -167,9 +169,9 @@ class Alarm(object):
         now = int(time.mktime(now.timetuple()))
         alert = int(time.mktime(alert.timetuple()))
         # Alarm for bills which will be due before n days
-        if self.parent.config.getboolean('Alarm', 'show_before_alarm') \
+        if self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_before_alarm') \
            and alert >= (now - interval/2) and alert < (now + interval/2):
-            days = self.parent.config.getint('Alarm', 'show_alarm_before_days')
+            days = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
             self.verify_due(days)
 
         records = self.parent.actions.get_bills('alarm >= %d AND ' \
@@ -177,7 +179,7 @@ class Alarm(object):
                         % (now - interval/2, now + interval/2))
 
         i = 0
-        use_dialog = self.parent.config.getboolean('Alarm', 'use_alert_dialog')
+        use_dialog = self.gconf_client.get_bool(GCONF_ALARM_PATH + 'use_alert_dialog')
         for bill in records:
             timeout_add(i * 12000, self.show_bill_notification, bill,
                     _("The bill %(bill)s will be due at %(day)s.") %\
