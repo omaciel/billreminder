@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from lib import i18n
+import i18n
 
 # Get where billreminder is installed
 try:
@@ -10,7 +10,7 @@ except ImportError:
     datadir = "/usr/share"
 
 # Application info
-APPNAME = _("BillReminder")
+APPNAME = "BillReminder"
 APPVERSION = "0.3.2"
 COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
              "Og Maciel <ogmaciel@gnome.org>" % APPNAME
