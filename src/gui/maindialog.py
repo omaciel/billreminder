@@ -48,11 +48,6 @@ class MainDialog:
                 <menuitem action="Edit"/>
                 <menuitem action="Delete"/>
                 <separator/>
-                <menuitem action="Paid"/>
-                <menuitem action="NotPaid"/>
-                <separator/>
-                <menuitem action="Preferences"/>
-                <separator/>
                 <menuitem action="Quit"/>
               </menu>
               <menu action="EditMenu">
@@ -364,8 +359,8 @@ class MainDialog:
         self.menuNew = self.uimanager.get_widget('/MenuBar/File/New')
         self.menuEdit = self.uimanager.get_widget('/MenuBar/File/Edit')
         self.menuRemove = self.uimanager.get_widget('/MenuBar/File/Delete')
-        self.menuPaid = self.uimanager.get_widget('/MenuBar/File/Paid')
-        self.menuUnpaid = self.uimanager.get_widget('/MenuBar/File/NotPaid')
+        self.menuPaid = self.uimanager.get_widget('/MenuBar/EditMenu/Paid')
+        self.menuUnpaid = self.uimanager.get_widget('/MenuBar/EditMenu/NotPaid')
         # Check whether we display the toolbar or not
         self.showToolbar = actiongroup.get_action('ShowToolbar')
         self.showToolbar.set_active(self.gconf_client.get_bool(GCONF_GUI_PATH + 'show_toolbar'))

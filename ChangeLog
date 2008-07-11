@@ -2,6 +2,8 @@ BillReminder 0.3.2
 ==================
 
  Bugs:
+  * Paid/Not Paid entries exist in File and Edit menus; Make them toggle/untoggle appropriately
+   ref http://code.google.com/p/billreminder/issues/detail?id=13
   * Ambiguity with Alerts and Alarms in preferences dialog
    ref  http://code.google.com/p/billreminder/issues/detail?id=11
   * Make category names a unique field.

@@ -27,6 +27,6 @@ EXTRA_DIST += $(autostart_in_files)
 CLEANFILES += $(autostart_DATA)
 
 schemadir = $(sysconfdir)/gconf/schemas
-schema_DATA = openlh-server.schemas
+schema_DATA = openlh-server.schemas:billreminder.schemas
 EXTRA_DIST = $(schema_DATA)
 
