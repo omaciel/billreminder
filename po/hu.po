@@ -1,243 +1,235 @@
-# Portuguese translations for BillReminder package.
-# Copyright (C) 2007 Og Maciel
-# This file is distributed under the same license as the BillReminder package.
-# Luiz Fernando" <luiz.armesto@gmail.com>d, 2007-2008.
-# Fábio Nogueira <deb-user-ba@ubuntu.com>, 2008.
+# Hungarian translation for billreminder
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the billreminder package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-11 20:56-0400\n"
-"PO-Revision-Date: 2008-07-03 14:42+0000\n"
-"Last-Translator: Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
-"Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
+"PO-Revision-Date: 2008-06-30 14:13+0000\n"
+"Last-Translator: HORVATH, Akos <Unknown>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2008-07-12 02:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../src/billreminderd.py:23 ../src/billreminder.py:39
 msgid "Usage:  billreminder [OPTIONS...]"
-msgstr "Uso: billreminder [OPÇÕES...]"
+msgstr "Használat: billreminder [OPCIÓK...]"
 
 #: ../src/billreminderd.py:24 ../src/billreminder.py:40
 msgid "Displays the version number for this application."
-msgstr "Mostra o número da versão para esta aplicação."
+msgstr "Megjeleníti az alkalmazás verziószámát"
 
 #: ../src/billreminderd.py:25
 msgid "Print output messages."
-msgstr "Imprime mensagens de saída."
+msgstr "Programüzenetek nyomtatása"
 
 #: ../src/billreminderd.py:26
 msgid "Don't run as a daemon."
-msgstr "Não executar como serviço."
+msgstr "Ne fusson daemonként"
 
 #: ../src/billreminderd.py:27
 msgid "Start daemon and launch GUI."
-msgstr "Inicia o serviço e executa a interface gráfica."
+msgstr "A daemon és a grafikus kezelőfelület elindítása"
 
 #: ../src/billreminderd.py:28
 msgid "Stop daemon."
-msgstr "Para o serviço."
+msgstr "A daemon leállítása"
 
 #: ../src/billreminderd.py:42 ../src/billreminder.py:54
 #: ../src/daemon/dbus_manager.py:44
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
-msgstr "Este é o %(appname)s - Versão: %(version)s"
+msgstr "%(appname)s - %(version)s verzió"
 
 #: ../src/billreminderd.py:43 ../src/daemon/alarm.py:115
 #: ../src/daemon/dbus_manager.py:45
 msgid "BillReminder Notifier"
-msgstr "Notificador do BillReminder"
+msgstr "BillReminder Értesítő"
 
 #: ../src/billreminder.py:41
 msgid "About this application."
-msgstr "Sobre esta aplicação."
+msgstr "A BillReminder névjegye"
 
 #: ../src/billreminder.py:42
 msgid "Adds a new record to the database."
-msgstr "Adiciona um novo registro no banco de dados."
+msgstr "Új bejegyzést visz fel az adatbázisba"
 
 #: ../src/billreminder.py:43
 msgid "Access database directly, without daemon."
-msgstr "Acessa o banco de dados diretamente, sem o serviço."
+msgstr "Az adatbázis daemon nélküli közvetlen elérése"
 
 #: ../src/billreminder.py:52
 msgid "This option is not implemented yet."
-msgstr "Esta opção ainda não está implementada."
+msgstr "Ez a funkció még nem működik"
 
 #: ../src/daemon/alarm.py:63
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
-msgstr[0] "Você tem %s conta a pagar!"
-msgstr[1] "Você tem %s contas a pagar!"
+msgstr[0] "Önnek %s befizetetlen számlája van."
+msgstr[1] "Önnek %s befizetetlen számlája van."
 
 #: ../src/daemon/alarm.py:68
 msgid "Show BillReminder"
-msgstr "Exibir BillReminder"
+msgstr "A BillReminder mutatása"
 
 #: ../src/daemon/alarm.py:70 ../src/daemon/alarm.py:125
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Mégsem"
 
 #: ../src/daemon/alarm.py:98 ../src/daemon/alarm.py:185
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
-msgstr "A conta %(bill)s estará vencida dia %(day)s."
+msgstr "A(z) %(bill)s számla befizetése %(day)s-n esedékes."
 
 #: ../src/daemon/alarm.py:101 ../src/daemon/alarm.py:188
 msgid "%Y/%m/%d"
-msgstr "%d/%m/%Y"
+msgstr "%Y. %m. %d."
 
 #: ../src/daemon/alarm.py:111
 #, python-format
 msgid "The bill %s is due."
-msgstr "A conta %s está vencida."
+msgstr "A %s számla befizetése most esedékes."
 
 #: ../src/daemon/alarm.py:122 ../src/gui/maindialog.py:300
 #: ../src/gui/maindialog.py:325 ../src/lib/utils.py:135
 msgid "Mark as paid"
-msgstr "Marca como Pago"
+msgstr "Befizetettnek jelöl"
 
 #: ../src/daemon/alarm.py:124 ../src/lib/utils.py:136
 msgid "Edit"
-msgstr "Editar"
+msgstr "Szerkeszt"
 
 #: ../src/daemon/main.py:116
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr ""
-"Arquivo de Tranca encontrado: Você tem uma outra instância executando. (pid=%"
-"d)"
+msgstr "Létezik a lock fájl. Már fut az alkalmazás egy példánya. (pid=%d)"
 
 #: ../src/daemon/main.py:121
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr ""
-"Arquivo de Tranca encontrado: Provavelmente o programa fechou "
-"inesperadamente."
+"Létezik a lock fájl. Elképzelhető, hogy az alkalmazás futása váratlanul ért "
+"véget."
 
 #: ../src/daemon/main.py:124
 msgid "Removing Lock File..."
-msgstr "Removendo Arquivo de Tranca."
+msgstr "A lock fájl eltávolítása"
 
 #: ../src/daemon/main.py:126
 msgid "Successfully."
-msgstr "Com sucesso."
+msgstr "Rendben"
 
 #: ../src/daemon/main.py:128
 msgid "Failed."
-msgstr "Falhou."
+msgstr "Sikertelen."
 
 #: ../src/daemon/main.py:132
 msgid "BillReminder Notifier is already running."
-msgstr "Notificador do BillReminder já está sendo executado."
+msgstr "A BillReminder emlékeztető már fut."
 
 #: ../src/gui/aboutdialog.py:13
 msgid "translator-credits"
 msgstr ""
-"Og Maciel <og.maciel@gnome.org>\n"
-"Luiz Armesto <luiz.armesto@gmail.com>\n"
-"Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
-"\n"
 "Launchpad Contributions:\n"
-"  Fábio Nogueira https://launchpad.net/~deb-user-ba\n"
-"  Og Maciel https://launchpad.net/~ogmaciel-gnome"
+"  HORVATH, Akos https://launchpad.net/~akos-horvath"
 
 #: ../src/gui/aboutdialog.py:36
 msgid "BillReminder Website"
-msgstr "Website do BillReminder"
+msgstr "A BillReminder weboldala"
 
 #: ../src/gui/adddialog.py:92 ../src/gui/maindialog.py:125
 msgid "Due Date:"
-msgstr "Data de Vencimento:"
+msgstr "Esedékesség napja:"
 
 #: ../src/gui/adddialog.py:97
 msgid "Repeat:"
-msgstr "Repetir:"
+msgstr "Ismétlés:"
 
 #: ../src/gui/adddialog.py:101
 msgid "How many times to repeat this bill."
-msgstr "Repetir quantas vezes esta conta."
+msgstr "Hányszor ismétlődjön ez a számla"
 
 #: ../src/gui/adddialog.py:135
 msgid "Payee:"
-msgstr "Titular:"
+msgstr "Kiállító"
 
 #: ../src/gui/adddialog.py:138
 msgid "Amount:"
-msgstr "Valor:"
+msgstr "Összeg:"
 
 #: ../src/gui/adddialog.py:141
 msgid "Category:"
-msgstr "Categoria:"
+msgstr "Kategória:"
 
 #: ../src/gui/adddialog.py:144 ../src/gui/widgets/statusbar.py:26
 msgid "Notes:"
-msgstr "Anotações:"
+msgstr "Megjegyzések:"
 
 #: ../src/gui/adddialog.py:147
 msgid "Alarm:"
-msgstr "Alarme:"
+msgstr "Riasztás"
 
 #: ../src/gui/adddialog.py:170
 msgid "Manage Categories"
-msgstr "Gerencia as Categorias"
+msgstr "Kategóriák kezelése"
 
 #: ../src/gui/adddialog.py:191 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
-msgstr "Selecione a Data e Hora"
+msgstr "Dátum és idő megadása"
 
 #: ../src/gui/adddialog.py:323 ../src/gui/adddialog.py:347
 #: ../src/gui/maindialog.py:281 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26 ../src/gui/widgets/datebutton.py:43
 #: ../src/gui/widgets/datebutton.py:69
 msgid "None"
-msgstr "Nenhum"
+msgstr "Nincs"
 
 #: ../src/gui/adddialog.py:329 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
-msgstr "Nova Categoria"
+msgstr "Új kategória"
 
 #: ../src/gui/adddialog.py:461
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
-msgstr "\"%s\" e \"%s\" são campos necessários."
+msgstr "\"%s\" és \"%s\" mezőket ki kell tölteni"
 
 #: ../src/gui/adddialog.py:462 ../src/gui/adddialog.py:466
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
-msgstr "Titular"
+msgstr "Kiállító"
 
 #: ../src/gui/adddialog.py:462 ../src/gui/adddialog.py:470
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
-msgstr "Valor"
+msgstr "Összeg"
 
 #: ../src/gui/adddialog.py:466 ../src/gui/adddialog.py:470
 #, python-format
 msgid "\"%s\" is required field."
-msgstr "\"%s\" é um campo necessário."
+msgstr "\"%s\" mezőt ki kell tölteni"
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
-msgstr "Gerenciador de Categorias"
+msgstr "Kategóriák kezelése"
 
 #: ../src/gui/categoriesdialog.py:59
 msgid "Categories"
-msgstr "Categorias"
+msgstr "Kategóriák"
 
 #: ../src/gui/categoriesdialog.py:82
 msgid "Name:"
-msgstr "Nome:"
+msgstr "Név:"
 
 #: ../src/gui/categoriesdialog.py:85
 msgid "Color:"
-msgstr "Cor:"
+msgstr "Szín:"
 
 #: ../src/gui/categoriesdialog.py:217
 #, python-format
@@ -246,186 +238,186 @@ msgid ""
 "\n"
 "Do you want to save your change to the existing category?"
 msgstr ""
-"A categoria \"%s\" já existe no banco de dados!\n"
+"Az adatbázis már tartalmaz \"%s\" kategóriát.\n"
 "\n"
-"Você deseja salvar suas modificações da categoria atual?"
+"Akarja a változásokat a már meglévő kategóriára alkalmazni?"
 
 #: ../src/gui/categoriesdialog.py:244
 msgid "Do you really want to delete this category?\n"
-msgstr "Você deseja realmente excluir esta categoria?\n"
+msgstr "Valóban törli ezt a kategóriát?\n"
 
 #: ../src/gui/categoriesdialog.py:245
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] "Existe %d mais conta nesta categoria"
-msgstr[1] "Existem %d mais contas nesta categoria"
+msgstr[0] "Még %d számla van ebben a kategóriában."
+msgstr[1] "Még %d számla van ebben a kategóriában."
 
 #: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:555
 msgid "Confirmation"
-msgstr "Confirmação"
+msgstr "Jóváhagyás"
 
 #: ../src/gui/maindialog.py:105
 msgid "Bills:"
-msgstr "Contas:"
+msgstr "Számlák:"
 
 #: ../src/gui/maindialog.py:293
 msgid "New"
-msgstr "Nova"
+msgstr "Új"
 
 #: ../src/gui/maindialog.py:293 ../src/gui/maindialog.py:321
 msgid "Add a new record"
-msgstr "Adiciona um novo registro"
+msgstr "Új bejegyzés felvitele"
 
 #: ../src/gui/maindialog.py:295 ../src/gui/maindialog.py:322
 msgid "Edit a record"
-msgstr "Edita um registro"
+msgstr "Bejegyzés szerkesztése"
 
 #: ../src/gui/maindialog.py:297 ../src/gui/maindialog.py:323
 msgid "Delete selected record"
-msgstr "Exclui o registro selecionado"
+msgstr "A kiválasztott bejegyzés törlése"
 
 #: ../src/gui/maindialog.py:300 ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
-msgstr "Pago"
+msgstr "Befizetett"
 
 #: ../src/gui/maindialog.py:303
 msgid "Not Paid"
-msgstr "Não Pago"
+msgstr "Befizetetlen"
 
 #: ../src/gui/maindialog.py:303 ../src/gui/maindialog.py:326
 msgid "Mark as not paid"
-msgstr "Marca como não pago"
+msgstr "Befizetetlenné jelöl"
 
 #: ../src/gui/maindialog.py:320
 msgid "_File"
-msgstr "_Arquivo"
+msgstr "_Fájl"
 
 #: ../src/gui/maindialog.py:321 ../src/gui/maindialog.py:513
 msgid "_Add New"
-msgstr "_Adicionar Nova"
+msgstr "Új _felvitele"
 
 #: ../src/gui/maindialog.py:324
 #, fuzzy
 msgid "_Edit"
-msgstr "Editar"
+msgstr "Szerkeszt"
 
 #: ../src/gui/maindialog.py:325 ../src/gui/maindialog.py:523
 msgid "_Paid"
-msgstr "_Pago"
+msgstr "Befizetet_t"
 
 #: ../src/gui/maindialog.py:326
 msgid "_Not Paid"
-msgstr "_Não Pago"
+msgstr "Befizetet_len"
 
 #: ../src/gui/maindialog.py:327
 msgid "Edit preferences"
-msgstr "Edita as preferências"
+msgstr "Beállítások szerkesztése"
 
 #: ../src/gui/maindialog.py:328
 msgid "Quit the Program"
-msgstr "Fecha o Programa"
+msgstr "Kilépés az alkalmazásból"
 
 #: ../src/gui/maindialog.py:329
 msgid "_View"
-msgstr "_Ver"
+msgstr "_Nézet"
 
 #: ../src/gui/maindialog.py:330
 msgid "_Help"
-msgstr "Aj_uda"
+msgstr "_Súgó"
 
 #: ../src/gui/maindialog.py:331
 msgid "About the application"
-msgstr "Sobre a aplicação"
+msgstr "Az alkalmazásról"
 
 #: ../src/gui/maindialog.py:341
 msgid "Show Toolbar"
-msgstr "Mostrar Barra de ferramenta"
+msgstr "Az eszköztár megjelenítése"
 
 #: ../src/gui/maindialog.py:341
 msgid "Show the toolbar"
-msgstr "Mostra a barra de ferramenta"
+msgstr "Látszódjon az eszköztár"
 
 #: ../src/gui/maindialog.py:345
 msgid "_Not Paid Only"
-msgstr "Apenas as _Não Pagas"
+msgstr "Csak a befizetet_lenek"
 
 #: ../src/gui/maindialog.py:345
 msgid "Display all unpaid records only"
-msgstr "Exibe apenas as contas não pagas"
+msgstr "Csak az összes befizetetlen megjelenítése"
 
 #: ../src/gui/maindialog.py:346
 msgid "_Paid Only"
-msgstr "Apenas as _Pagas"
+msgstr "Csak a befizetet_tek"
 
 #: ../src/gui/maindialog.py:346
 msgid "Display all paid records only"
-msgstr "Exibe apenas as contas pagas"
+msgstr "Csak az összes befizetett megjelenítése"
 
 #: ../src/gui/maindialog.py:347
 msgid "_All Records"
-msgstr "_Todas as Contas"
+msgstr "Összes _bejegyzés"
 
 #: ../src/gui/maindialog.py:347
 msgid "Display all records"
-msgstr "Exibe todas as contas"
+msgstr "Minden bejegyzés megjelenítése"
 
 #: ../src/gui/maindialog.py:526
 msgid "Not _Paid"
-msgstr "Não _Pago"
+msgstr "Befizete_tlen"
 
 #: ../src/gui/maindialog.py:553
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
-msgstr "Deseja realmente apagar \"%s\"?"
+msgstr "Valóban törli a következőt: \"%s\"?"
 
 #: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
 msgid "Preferences"
-msgstr "Preferências"
+msgstr "Beállítások"
 
 #: ../src/gui/prefdialog.py:47
 msgid "Alarms"
-msgstr "Alarmes"
+msgstr "Emlékeztetők"
 
 #: ../src/gui/prefdialog.py:55
 msgid "Alert before due date:"
-msgstr "Alerta antes da data de prazo:"
+msgstr "Figyelmeztetés az esedékesség dátuma előtt"
 
 #: ../src/gui/prefdialog.py:60 ../src/gui/prefdialog.py:106
 msgid "day(s)."
-msgstr "dia(s)."
+msgstr "nap."
 
 #: ../src/gui/prefdialog.py:63
 msgid "Preferred time:"
-msgstr "Horário preferido:"
+msgstr "Az alábbi időpontban:"
 
 #: ../src/gui/prefdialog.py:65
 msgid "Get alerted when individual bills are due."
-msgstr "Ser alertado quando as contas vencem individualmente."
+msgstr "Emlékeztetőt kérek az egyes számlák befizetésének esedékességéről."
 
 #: ../src/gui/prefdialog.py:87
 msgid "Notifications"
-msgstr "Notificações"
+msgstr "Értesítések"
 
 #: ../src/gui/prefdialog.py:93
 msgid "Define when to be notified of upcoming bills."
-msgstr "Definir quando ser notificado sobre as próximas contas."
+msgstr "Adja meg, hogy mikor kér értesítést a soron következő számlákról."
 
 #: ../src/gui/prefdialog.py:101
 msgid "Notify before due date:"
-msgstr "Notificar antes da data de prazo"
+msgstr "Értesítés az esedékesség dátuma előtt:"
 
 #: ../src/gui/prefdialog.py:119
 msgid "Alert Type"
-msgstr "Tipo de Alerta"
+msgstr "Figyelmeztetés típusa"
 
 #: ../src/gui/prefdialog.py:129
 msgid "_Notification Bubble"
-msgstr "Balão de _Notificação"
+msgstr "Figye_lmeztető buborék"
 
 #: ../src/gui/prefdialog.py:131
 msgid "Al_ert Dialog"
-msgstr "Diálogo de Al_erta"
+msgstr "Figyel_meztető ablak"
 
 #: ../src/gui/prefdialog.py:143
 msgid ""
@@ -433,45 +425,45 @@ msgid ""
 "not running! You need to start it in order \n"
 " to receive notifications."
 msgstr ""
-"<b>Atenção:</b> O Notificador do BillReminder não \n"
-"está sendo executado! Você precisa inicia-lo para \n"
-"receber as notificações."
+"<b>Figyelem!</b> A BillReminder Értesítő\n"
+"nem fut! Ha szeretne értesítéseket kapni,\n"
+"el kell indítania!"
 
 #: ../src/gui/prefdialog.py:150
 msgid "_Start BillReminder Notifier"
-msgstr "_Iniciar o Notificador do BillReminder"
+msgstr "A BillReminder Értesítő _indítása"
 
 #: ../src/gui/prefdialog.py:217
 msgid "<b>Note:</b> BillReminder Notifier is now running."
-msgstr "<b>Nota:</b> O Notificador do BillReminder já está sendo executado."
+msgstr "<b>Megjegyzés:</b> a BillReminder Értesítő működik."
 
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:61
 msgid "%Y/%m/%d %H:%M"
-msgstr "%d/%m/%Y %H:%M"
+msgstr "%Y. %m. %d. %H:%M"
 
 #: ../src/gui/widgets/datebutton.py:66
 msgid "Select date and time"
-msgstr "Selecione a data e hora"
+msgstr "Válasszon dátumot és időpontot"
 
 #: ../src/gui/widgets/datebutton.py:77
 msgid "Date:"
-msgstr "Data:"
+msgstr "Dátum:"
 
 #: ../src/gui/widgets/datebutton.py:81 ../src/gui/widgets/datebutton.py:88
 msgid "Time:"
-msgstr "Hora:"
+msgstr "Idő:"
 
 #: ../src/gui/widgets/statusbar.py:16
 msgid "Records:"
-msgstr "Registros:"
+msgstr "Bejegyzések:"
 
 #: ../src/gui/widgets/timewidget.py:28
 msgid "Hour :"
-msgstr "Hora :"
+msgstr "Óra:"
 
 #: ../src/gui/widgets/timewidget.py:37
 msgid "Minute :"
-msgstr "Minuto :"
+msgstr "Perc:"
 
 #: ../src/gui/widgets/trayicon.py:29 ../src/lib/utils.py:138
 msgid "BillReminder"
@@ -479,193 +471,102 @@ msgstr "BillReminder"
 
 #: ../src/gui/widgets/trayicon.py:42
 msgid "Hide Window"
-msgstr "Esconder Janela"
+msgstr "Ablak Elrejtése"
 
 #: ../src/gui/widgets/trayicon.py:44
 msgid "Show Window"
-msgstr "Mostrar Janela"
+msgstr "Ablak Mutatása"
 
 #: ../src/gui/widgets/trayicon.py:50
 msgid "About"
-msgstr "Sobre"
+msgstr "Névjegy"
 
 #: ../src/gui/widgets/trayicon.py:54
 msgid "Quit"
-msgstr "Sair"
+msgstr "Kilépés"
 
 #: ../src/gui/widgets/viewbill.py:46
 msgid "%m/%d"
-msgstr "%d/%m"
+msgstr "%m. %d."
 
 #: ../src/gui/widgets/viewbill.py:83 ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
-msgstr "Categoria"
+msgstr "Kategória"
 
 #: ../src/gui/widgets/viewbill.py:87
 msgid "Date"
-msgstr "Data"
+msgstr "Dátum"
 
 #: ../src/gui/widgets/viewbill.py:91
 msgid "Notes"
-msgstr "Anotações"
+msgstr "Megjegyzések"
 
 #: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
-msgstr "Alarme"
+msgstr "Riasztás"
 
 #: ../src/lib/common.py:19
 msgid "Developers:"
-msgstr "Desenvolvedores:"
+msgstr "Fejlesztők:"
 
 #: ../src/lib/common.py:23
 msgid "Contributors:"
-msgstr "Contribuidores:"
+msgstr "Hozzájárultak:"
 
 #: ../src/lib/dbus_actions.py:29
 msgid ""
 "An error occurred while connecting to BillReminder Notifier!\n"
 "Do you want to launch it and restart BillReminder?"
 msgstr ""
-"Um erro ocorreu enquanto conectava ao Notificador do BillReminder!\n"
-"Você deseja iniciá-lo e reiniciar o BillReminder?"
+"Hiba történt a BillReminder Értesítőhöz való csatlakozás közben!\n"
+"Akarja most futtatni és BillRemindert újraindítani?"
 
 #: ../src/lib/dialogs.py:51
 msgid "Add a New Record"
-msgstr "Adicionar um Novo Registro"
+msgstr "Új bejegyzés felvitele"
 
 #: ../src/lib/dialogs.py:63
 msgid "Edit a Record"
-msgstr "Editar um Registro"
+msgstr "Bejegyzés szerkesztése"
 
 #: ../src/lib/scheduler.py:6
 msgid "Once"
-msgstr "Uma vez"
+msgstr "Egyszer"
 
 #: ../src/lib/scheduler.py:7
 msgid "Weekly"
-msgstr "Semanalmente"
+msgstr "Hetente"
 
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
-msgstr "Mensalmente"
+msgstr "Havonta"
 
 #: ../src/lib/utils.py:83
 msgid "Question"
-msgstr "Pergunta"
+msgstr "Kérdés"
 
 #: ../src/lib/utils.py:96 ../src/lib/utils.py:109
 msgid "Error"
-msgstr "Erro"
+msgstr "Hiba"
 
 #: ../src/lib/utils.py:122
 msgid "Information"
-msgstr "Informação"
+msgstr "Információ"
 
 #: ../src/lib/utils.py:150
 msgid "Close _Without Saving"
-msgstr "Fechar _Sem Salvar"
+msgstr "Bezárás Mentés Nélkül (_W)"
 
 #: ../src/lib/utils.py:156
 msgid "Save changes before closing?"
-msgstr "Salvar alterações antes de fechar?"
+msgstr "Menti a változásokat a kilépés előtt?"
 
 #: ../src/lib/utils.py:157
 msgid "If you close without saving, your changes will be discarded."
-msgstr "Se você fechar sem salvar, as alterações serão descartadas."
-
-#~ msgid "Alerts"
-#~ msgstr "Alertas"
-
-#~ msgid ""
-#~ "Usage:  billreminder [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --about\t\tAbout this application.\n"
-#~ "  --add\t\t\tAdds a new record to the database.\n"
-#~ "  --standalone\t\tAccess database directly, without daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Uso:  billreminder [OPÇÕES...]\n"
-#~ "\n"
-#~ "Opções:\n"
-#~ "  --help, -h, -?\tExibe esta mensagem.\n"
-#~ "  --about\t\tSobre esta aplicação.\n"
-#~ "  --add\t\t\tAdiciona um novo registro à base de dados.\n"
-#~ "  --standalone\t\tAcessa a base de dados diretamente, sem o daemon.\n"
-#~ "  --version, -v\t\tExibe o número de versão desta aplicação.\n"
-
-#~ msgid ""
-#~ "Usage:  billreminderd [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --verbose\t\tPrint output messages.\n"
-#~ "  --no-daemon\t\tDon't run as a daemon.\n"
-#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Uso:  billreminderd [OPÇÕES...]\n"
-#~ "\n"
-#~ "Opções:\n"
-#~ "  --help, -h, -?\tExibe esta mensagem.\n"
-#~ "  --verbose\t\tImprime mensagens de saída.\n"
-#~ "  --no-daemon\t\tNão executa como um serviço.\n"
-#~ "  --open-gui\t\tInicia o daemon e abre a interface gráfica.\n"
-#~ "  --stop\t\t\tInterrompe o serviço.\n"
-#~ "  --version, -v\t\tExibe o número de versão desta aplicação.\n"
-
-#~ msgid "1 hour"
-#~ msgstr "1 hora"
-
-#~ msgid "%d minute"
-#~ msgid_plural "%d minutes"
-#~ msgstr[0] "%d minuto"
-#~ msgstr[1] "%d minutos"
-
-#~ msgid "Due Date"
-#~ msgstr "Data de Vencimento"
-
-#~ msgid "Amount Due"
-#~ msgstr "Valor"
-
-#~ msgid "Startup"
-#~ msgstr "Iniciar"
-
-#~ msgid "_Show notifications when user login"
-#~ msgstr "Exibir notificações no lo_gin"
-
-#~ msgid "Delay:"
-#~ msgstr "Atraso:"
-
-#~ msgid "Open BillReminder _minimized in notification area"
-#~ msgstr "Iniciar BillReminder _minimizado na área de notificação"
-
-#~ msgid "Show notification for bills that will be due _before %d days"
-#~ msgstr "Exibir notificações para contas que _vencerão antes de %d dias"
-
-#~ msgid "Show _alert %(days)d days before due date, at %(hours)s"
-#~ msgstr "Exibir _alerta %(days)d dias antes do vencimento, às  %(hours)s"
-
-#~ msgid "Show alert for bills that are _due"
-#~ msgstr "Exibir alerta para contas venci_das"
-
-#~ msgid "_Launch BillReminder Notifier"
-#~ msgstr "_Iniciar o Notificador do BillReminder"
-
-#~ msgid "%H:%M"
-#~ msgstr "%H:%M"
-
-#~ msgid ""
-#~ "<b>Note:</b> BillReminder Notifier now is running.\n"
-#~ "It is needed to show notifications."
-#~ msgstr ""
-#~ "<b>Nota:</b>O Notificador do BillReminder agora está sendo executado.\n"
-#~ "Ele é necessário para exibir as notificações."
+msgstr "Ha mentés nélkül lép ki, a nem mentett változások elvesznek."
 
 #~ msgid "Bills manager"
-#~ msgstr "Gerente de contas"
+#~ msgstr "Számlák kezelése"
 
 #~ msgid "Never forget to pay a bill again!"
-#~ msgstr "Nunca mais esqueça de pagar uma conta!"
+#~ msgstr "Soha többé ne felejtse el befizetni a számláit!"

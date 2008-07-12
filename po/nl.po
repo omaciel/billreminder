@@ -8,68 +8,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BillReminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-24 21:27-0400\n"
-"PO-Revision-Date: 2008-06-24 14:04+0000\n"
-"Last-Translator: Daniel van Eeden <Unknown>\n"
+"POT-Creation-Date: 2008-07-11 20:56-0400\n"
+"PO-Revision-Date: 2008-06-25 08:39+0000\n"
+"Last-Translator: Martijn Cielen <mcielen@sudo-s.net>\n"
 "Language-Team: Nederlands <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2008-06-24 22:48+0000\n"
+"X-Launchpad-Export-Date: 2008-07-12 02:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: NETHERLANDS\n"
 "X-Poedit-Language: Dutch\n"
 "X-Poedit-Basepath: /home/reinout/devel/\n"
 
-#: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
-#: ../src/daemon/alarm.py:113 ../src/daemon/dbus_manager.py:45
-msgid "BillReminder Notifier"
-msgstr "BillReminder Notifier"
-
-#: ../data/billreminderd.desktop.in.h:2 ../data/billreminder.desktop.in.h:2
-msgid "Bills manager"
-msgstr "Rekening beheer"
-
-#: ../data/billreminderd.desktop.in.h:3 ../data/billreminder.desktop.in.h:3
-msgid "Never forget to pay a bill again!"
-msgstr "Nooit meer een rekening vergeten te betalen!"
-
-#. Application info
-#: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
-#: ../src/lib/common.py:13 ../src/lib/utils.py:138
-msgid "BillReminder"
-msgstr "BillReminder"
-
-#: ../src/billreminder.py:39 ../src/billreminderd.py:23
+#: ../src/billreminderd.py:23 ../src/billreminder.py:39
 msgid "Usage:  billreminder [OPTIONS...]"
 msgstr "Gebruik:  billreminder [OPTIES...]"
 
-#: ../src/billreminder.py:40 ../src/billreminderd.py:24
+#: ../src/billreminderd.py:24 ../src/billreminder.py:40
 msgid "Displays the version number for this application."
 msgstr "Toont het versienummer voor deze toepassing"
-
-#: ../src/billreminder.py:41
-msgid "About this application."
-msgstr "Over deze toepassing."
-
-#: ../src/billreminder.py:42
-msgid "Adds a new record to the database."
-msgstr "Nieuw record toevoegen aan de database."
-
-#: ../src/billreminder.py:43
-msgid "Access database directly, without daemon."
-msgstr "Directe toegang tot de database, zonder daemon."
-
-#: ../src/billreminder.py:52
-msgid "This option is not implemented yet."
-msgstr "Deze optie is nog niet geïmplementeerd"
-
-#: ../src/billreminder.py:54 ../src/billreminderd.py:42
-#: ../src/daemon/dbus_manager.py:44
-#, python-format
-msgid "This is %(appname)s - Version: %(version)s"
-msgstr "Dit is %(appname)s - Versie: %(version)s"
 
 #: ../src/billreminderd.py:25
 msgid "Print output messages."
@@ -87,67 +46,93 @@ msgstr "Start de daemon en de GUI"
 msgid "Stop daemon."
 msgstr "Stop daemon."
 
-#: ../src/daemon/alarm.py:61
+#: ../src/billreminderd.py:42 ../src/billreminder.py:54
+#: ../src/daemon/dbus_manager.py:44
+#, python-format
+msgid "This is %(appname)s - Version: %(version)s"
+msgstr "Dit is %(appname)s - Versie: %(version)s"
+
+#: ../src/billreminderd.py:43 ../src/daemon/alarm.py:115
+#: ../src/daemon/dbus_manager.py:45
+msgid "BillReminder Notifier"
+msgstr "BillReminder Notifier"
+
+#: ../src/billreminder.py:41
+msgid "About this application."
+msgstr "Over deze toepassing."
+
+#: ../src/billreminder.py:42
+msgid "Adds a new record to the database."
+msgstr "Nieuw record toevoegen aan de database."
+
+#: ../src/billreminder.py:43
+msgid "Access database directly, without daemon."
+msgstr "Directe toegang tot de database, zonder daemon."
+
+#: ../src/billreminder.py:52
+msgid "This option is not implemented yet."
+msgstr "Deze optie is nog niet geïmplementeerd"
+
+#: ../src/daemon/alarm.py:63
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] "U hebt %s openstaande rekening om te betalen!"
 msgstr[1] "U hebt %s openstaande rekeningen om te betalen!"
 
-#: ../src/daemon/alarm.py:66
+#: ../src/daemon/alarm.py:68
 msgid "Show BillReminder"
 msgstr "BillReminder tonen"
 
-#: ../src/daemon/alarm.py:68 ../src/daemon/alarm.py:123
+#: ../src/daemon/alarm.py:70 ../src/daemon/alarm.py:125
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ../src/daemon/alarm.py:96 ../src/daemon/alarm.py:183
+#: ../src/daemon/alarm.py:98 ../src/daemon/alarm.py:185
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr "De rekening %(bill)s moet betaald worden op %(day)s."
 
-#: ../src/daemon/alarm.py:99 ../src/daemon/alarm.py:186
+#: ../src/daemon/alarm.py:101 ../src/daemon/alarm.py:188
 msgid "%Y/%m/%d"
 msgstr "%d-%m-%Y"
 
-#: ../src/daemon/alarm.py:109
+#: ../src/daemon/alarm.py:111
 #, python-format
 msgid "The bill %s is due."
 msgstr "De rekening %s moet betaald worden."
 
-#. Button Title
-#: ../src/daemon/alarm.py:120 ../src/gui/maindialog.py:291
-#: ../src/gui/maindialog.py:315 ../src/lib/utils.py:135
+#: ../src/daemon/alarm.py:122 ../src/gui/maindialog.py:300
+#: ../src/gui/maindialog.py:325 ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Markeren als betaald"
 
-#: ../src/daemon/alarm.py:122 ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:124 ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Bewerken"
 
-#: ../src/daemon/main.py:117
+#: ../src/daemon/main.py:116
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
 msgstr "Lock bestand gevonden: Er draait al een andere instantie. (pid=%d)"
 
-#: ../src/daemon/main.py:122
+#: ../src/daemon/main.py:121
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr "Lock bestand gevonden: Mogelijk is het programma onverwachts gestopt."
 
-#: ../src/daemon/main.py:125
+#: ../src/daemon/main.py:124
 msgid "Removing Lock File..."
 msgstr "Verwijderen lock bestand..."
 
-#: ../src/daemon/main.py:127
+#: ../src/daemon/main.py:126
 msgid "Successfully."
 msgstr "Geslaagd."
 
-#: ../src/daemon/main.py:129
+#: ../src/daemon/main.py:128
 msgid "Failed."
 msgstr "Mislukt."
 
-#: ../src/daemon/main.py:133
+#: ../src/daemon/main.py:132
 msgid "BillReminder Notifier is already running."
 msgstr "BillReminder notifier draait reeds."
 
@@ -160,80 +145,86 @@ msgstr ""
 "Kijk voor meer info op http://nl.gnome.org/\n"
 "\n"
 "Launchpad Contributions:\n"
-"  Daniel van Eeden https://launchpad.net/~translation-myname"
+"  Daniel van Eeden https://launchpad.net/~translation-myname\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Daniel van Eeden https://launchpad.net/~translation-myname\n"
+"  Johny Provoost https://launchpad.net/~jepe\n"
+"  Martijn Cielen https://launchpad.net/~mcielen\n"
+"  Og Maciel https://launchpad.net/~ogmaciel\n"
+"  leoquant https://launchpad.net/~leoquant"
 
 #: ../src/gui/aboutdialog.py:36
 msgid "BillReminder Website"
 msgstr "BillReminder Webstek"
 
-#: ../src/gui/adddialog.py:95 ../src/gui/maindialog.py:116
+#: ../src/gui/adddialog.py:92 ../src/gui/maindialog.py:125
 msgid "Due Date:"
 msgstr "Uiterlijke datum:"
 
-#: ../src/gui/adddialog.py:100
+#: ../src/gui/adddialog.py:97
 msgid "Repeat:"
 msgstr "Herhaling:"
 
-#: ../src/gui/adddialog.py:104
+#: ../src/gui/adddialog.py:101
 msgid "How many times to repeat this bill."
 msgstr "Hoeveel maal deze rekening herhaald moet worden."
 
-#: ../src/gui/adddialog.py:138
+#: ../src/gui/adddialog.py:135
 msgid "Payee:"
 msgstr "Begunstigde:"
 
-#: ../src/gui/adddialog.py:141
+#: ../src/gui/adddialog.py:138
 msgid "Amount:"
 msgstr "Bedrag:"
 
-#: ../src/gui/adddialog.py:144
+#: ../src/gui/adddialog.py:141
 msgid "Category:"
 msgstr "Categorie:"
 
-#: ../src/gui/adddialog.py:147 ../src/gui/widgets/statusbar.py:26
+#: ../src/gui/adddialog.py:144 ../src/gui/widgets/statusbar.py:26
 msgid "Notes:"
 msgstr "Notities:"
 
-#: ../src/gui/adddialog.py:150
+#: ../src/gui/adddialog.py:147
 msgid "Alarm:"
 msgstr "Alarm:"
 
-#: ../src/gui/adddialog.py:173
+#: ../src/gui/adddialog.py:170
 msgid "Manage Categories"
 msgstr "Categorieën beheren"
 
-#: ../src/gui/adddialog.py:194 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:191 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Datum en tijd selecteren"
 
-#. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:326 ../src/gui/adddialog.py:350
-#: ../src/gui/maindialog.py:272 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:323 ../src/gui/adddialog.py:347
+#: ../src/gui/maindialog.py:281 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26 ../src/gui/widgets/datebutton.py:43
 #: ../src/gui/widgets/datebutton.py:69
 msgid "None"
 msgstr "Geen"
 
-#: ../src/gui/adddialog.py:332 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:329 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Nieuwe categorie"
 
-#: ../src/gui/adddialog.py:464
+#: ../src/gui/adddialog.py:461
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" en \"%s\" zijn verplichte velden."
 
-#: ../src/gui/adddialog.py:465 ../src/gui/adddialog.py:469
+#: ../src/gui/adddialog.py:462 ../src/gui/adddialog.py:466
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Begunstigde"
 
-#: ../src/gui/adddialog.py:465 ../src/gui/adddialog.py:473
+#: ../src/gui/adddialog.py:462 ../src/gui/adddialog.py:470
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Bedrag"
 
-#: ../src/gui/adddialog.py:469 ../src/gui/adddialog.py:473
+#: ../src/gui/adddialog.py:466 ../src/gui/adddialog.py:470
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" is een verplicht veld."
@@ -273,118 +264,122 @@ msgstr "Weet u zeker dat u deze categorie wilt verwijderen?\n"
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Er is nog %d rekening in deze categorie."
+msgstr[1] "Er zijn nog %d rekeningen in deze categorie."
 
-#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:553
+#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:555
 msgid "Confirmation"
 msgstr "Bevestiging"
 
-#: ../src/gui/maindialog.py:96
+#: ../src/gui/maindialog.py:105
 msgid "Bills:"
 msgstr "Rekeningen:"
 
-#: ../src/gui/maindialog.py:284
+#: ../src/gui/maindialog.py:293
 msgid "New"
 msgstr "Nieuw"
 
-#: ../src/gui/maindialog.py:284 ../src/gui/maindialog.py:312
+#: ../src/gui/maindialog.py:293 ../src/gui/maindialog.py:321
 msgid "Add a new record"
 msgstr "Nieuw record toevoegen"
 
-#: ../src/gui/maindialog.py:286 ../src/gui/maindialog.py:313
+#: ../src/gui/maindialog.py:295 ../src/gui/maindialog.py:322
 msgid "Edit a record"
 msgstr "Een record bewerken"
 
-#: ../src/gui/maindialog.py:288 ../src/gui/maindialog.py:314
+#: ../src/gui/maindialog.py:297 ../src/gui/maindialog.py:323
 msgid "Delete selected record"
 msgstr "Het geselecteerde record verwijderen"
 
-#: ../src/gui/maindialog.py:291 ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/maindialog.py:300 ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
 msgstr "Betaald"
 
-#: ../src/gui/maindialog.py:294
+#: ../src/gui/maindialog.py:303
 msgid "Not Paid"
 msgstr "Niet betaald"
 
-#: ../src/gui/maindialog.py:294 ../src/gui/maindialog.py:316
+#: ../src/gui/maindialog.py:303 ../src/gui/maindialog.py:326
 msgid "Mark as not paid"
 msgstr "Markeren als niet betaald"
 
-#: ../src/gui/maindialog.py:311
+#: ../src/gui/maindialog.py:320
 msgid "_File"
 msgstr "_Bestand"
 
-#: ../src/gui/maindialog.py:312 ../src/gui/maindialog.py:511
+#: ../src/gui/maindialog.py:321 ../src/gui/maindialog.py:513
 msgid "_Add New"
 msgstr "_Nieuwe toevoegen"
 
-#: ../src/gui/maindialog.py:315 ../src/gui/maindialog.py:521
+#: ../src/gui/maindialog.py:324
+msgid "_Edit"
+msgstr "Be_werken"
+
+#: ../src/gui/maindialog.py:325 ../src/gui/maindialog.py:523
 msgid "_Paid"
 msgstr "Be_taald"
 
-#: ../src/gui/maindialog.py:316
+#: ../src/gui/maindialog.py:326
 msgid "_Not Paid"
 msgstr "_Niet betaald"
 
-#: ../src/gui/maindialog.py:317
+#: ../src/gui/maindialog.py:327
 msgid "Edit preferences"
 msgstr "Voorkeuren aanpassen"
 
-#: ../src/gui/maindialog.py:318
+#: ../src/gui/maindialog.py:328
 msgid "Quit the Program"
 msgstr "De applicatie verlaten"
 
-#: ../src/gui/maindialog.py:319
+#: ../src/gui/maindialog.py:329
 msgid "_View"
 msgstr "_Beeld"
 
-#: ../src/gui/maindialog.py:320
+#: ../src/gui/maindialog.py:330
 msgid "_Help"
 msgstr "_Hulp"
 
-#: ../src/gui/maindialog.py:321
+#: ../src/gui/maindialog.py:331
 msgid "About the application"
 msgstr "Over het programma"
 
-#: ../src/gui/maindialog.py:333
+#: ../src/gui/maindialog.py:341
 msgid "Show Toolbar"
 msgstr "Werkbalk tonen"
 
-#: ../src/gui/maindialog.py:333
+#: ../src/gui/maindialog.py:341
 msgid "Show the toolbar"
 msgstr "De werkbalk tonen"
 
-#: ../src/gui/maindialog.py:337
+#: ../src/gui/maindialog.py:345
 msgid "_Not Paid Only"
 msgstr "_Enkel niet betaald"
 
-#: ../src/gui/maindialog.py:337
+#: ../src/gui/maindialog.py:345
 msgid "Display all unpaid records only"
 msgstr "Enkel onbetaalde records weergeven"
 
-#: ../src/gui/maindialog.py:338
+#: ../src/gui/maindialog.py:346
 msgid "_Paid Only"
 msgstr "Enkel be_taald"
 
-#: ../src/gui/maindialog.py:338
+#: ../src/gui/maindialog.py:346
 msgid "Display all paid records only"
 msgstr "Enkel betaalde records weergeven"
 
-#: ../src/gui/maindialog.py:339
+#: ../src/gui/maindialog.py:347
 msgid "_All Records"
 msgstr "_Alle records"
 
-#: ../src/gui/maindialog.py:339
+#: ../src/gui/maindialog.py:347
 msgid "Display all records"
 msgstr "Alle records weergeven"
 
-#: ../src/gui/maindialog.py:524
+#: ../src/gui/maindialog.py:526
 msgid "Not _Paid"
 msgstr "Niet _betaald"
 
-#: ../src/gui/maindialog.py:551
+#: ../src/gui/maindialog.py:553
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Weet u zeker dat u  \"%s\" wilt verwijderen?"
@@ -393,55 +388,52 @@ msgstr "Weet u zeker dat u  \"%s\" wilt verwijderen?"
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#. Alert Group
-#: ../src/gui/prefdialog.py:51
+#: ../src/gui/prefdialog.py:47
 #, fuzzy
 msgid "Alarms"
 msgstr "Waarschuwing"
 
-#: ../src/gui/prefdialog.py:59
+#: ../src/gui/prefdialog.py:55
 msgid "Alert before due date:"
 msgstr "Waarschuwen voor uiterlijke datum:"
 
-#: ../src/gui/prefdialog.py:64 ../src/gui/prefdialog.py:110
+#: ../src/gui/prefdialog.py:60 ../src/gui/prefdialog.py:106
 msgid "day(s)."
 msgstr "dag/dagen."
 
-#: ../src/gui/prefdialog.py:67
+#: ../src/gui/prefdialog.py:63
 msgid "Preferred time:"
 msgstr "Voorkeurstijd:"
 
-#: ../src/gui/prefdialog.py:69
+#: ../src/gui/prefdialog.py:65
 msgid "Get alerted when individual bills are due."
 msgstr "Een waarschuwing als individuele rekeningen betaald moeten worden."
 
-#. Notification Group
-#: ../src/gui/prefdialog.py:91
+#: ../src/gui/prefdialog.py:87
 msgid "Notifications"
 msgstr "Notificaties"
 
-#: ../src/gui/prefdialog.py:97
+#: ../src/gui/prefdialog.py:93
 msgid "Define when to be notified of upcoming bills."
 msgstr "Definieer wanneer er voor nieuwe rekeningen gewaarschuwd moet worden."
 
-#: ../src/gui/prefdialog.py:105
+#: ../src/gui/prefdialog.py:101
 msgid "Notify before due date:"
 msgstr "Notificatie voor uiterste datum:"
 
-#. Alert Type Group
-#: ../src/gui/prefdialog.py:123
+#: ../src/gui/prefdialog.py:119
 msgid "Alert Type"
 msgstr "Waarschuwings type"
 
-#: ../src/gui/prefdialog.py:133
+#: ../src/gui/prefdialog.py:129
 msgid "_Notification Bubble"
 msgstr "_Notificatie balon"
 
-#: ../src/gui/prefdialog.py:135
+#: ../src/gui/prefdialog.py:131
 msgid "Al_ert Dialog"
 msgstr "_Waarschuwings dialoog"
 
-#: ../src/gui/prefdialog.py:147
+#: ../src/gui/prefdialog.py:143
 msgid ""
 "<b>Warning:</b> BillReminder Notifier is \n"
 "not running! You need to start it in order \n"
@@ -451,11 +443,11 @@ msgstr ""
 "draait niet! Start de BillReminder Notifier \n"
 "om notificaties te ontvangen."
 
-#: ../src/gui/prefdialog.py:154
+#: ../src/gui/prefdialog.py:150
 msgid "_Start BillReminder Notifier"
 msgstr "BillReminder notifier _starten"
 
-#: ../src/gui/prefdialog.py:226
+#: ../src/gui/prefdialog.py:217
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr "<b>Notificatie:</b> BillReminder Notifier draait nu."
 
@@ -471,7 +463,6 @@ msgstr "Datum en tijd selecteren"
 msgid "Date:"
 msgstr "Datum:"
 
-#. If we do have an existing alarm time, pass it to the widget
 #: ../src/gui/widgets/datebutton.py:81 ../src/gui/widgets/datebutton.py:88
 msgid "Time:"
 msgstr "Tijd:"
@@ -487,6 +478,10 @@ msgstr "Uur :"
 #: ../src/gui/widgets/timewidget.py:37
 msgid "Minute :"
 msgstr "Minuut :"
+
+#: ../src/gui/widgets/trayicon.py:29 ../src/lib/utils.py:138
+msgid "BillReminder"
+msgstr "BillReminder"
 
 #: ../src/gui/widgets/trayicon.py:42
 msgid "Hide Window"
@@ -504,7 +499,6 @@ msgstr "Info"
 msgid "Quit"
 msgstr "Afsluiten"
 
-#. TRANSLATORS: This is a date format. You can change the order.
 #: ../src/gui/widgets/viewbill.py:46
 msgid "%m/%d"
 msgstr "%d-%m"
@@ -541,27 +535,34 @@ msgstr ""
 "Er was een fout bij het verbinden met de BillReminder Notifier!\n"
 "Wilt u het starten en BillReminder herstarten?"
 
-#. Dialog Title
 #: ../src/lib/dialogs.py:51
 msgid "Add a New Record"
 msgstr "Nieuw record toevoegen"
 
-#. Dialog Title
 #: ../src/lib/dialogs.py:63
 msgid "Edit a Record"
 msgstr "Record bewerken"
 
-#. Dialog Title
+#: ../src/lib/scheduler.py:6
+msgid "Once"
+msgstr "Eenmalig"
+
+#: ../src/lib/scheduler.py:7
+msgid "Weekly"
+msgstr "Wekelijk"
+
+#: ../src/lib/scheduler.py:8
+msgid "Monthly"
+msgstr "Maandelijks"
+
 #: ../src/lib/utils.py:83
 msgid "Question"
 msgstr "Vraag"
 
-#. Dialog Title
 #: ../src/lib/utils.py:96 ../src/lib/utils.py:109
 msgid "Error"
 msgstr "Fout"
 
-#. Dialog Title
 #: ../src/lib/utils.py:122
 msgid "Information"
 msgstr "Informatie"
@@ -580,17 +581,8 @@ msgstr ""
 "De veranderingen zullen verloren gaan als ze niet opgeslagen worden bij het "
 "afsluiten."
 
-#: ../src/lib/scheduler.py:6
-msgid "Once"
-msgstr "Eenmalig"
-
-#: ../src/lib/scheduler.py:7
-msgid "Weekly"
-msgstr "Wekelijk"
-
-#: ../src/lib/scheduler.py:8
-msgid "Monthly"
-msgstr "Maandelijks"
+#~ msgid "Alerts"
+#~ msgstr "Waarschuwingen"
 
 #~ msgid ""
 #~ "Usage:  billreminder [OPTIONS...]\n"
@@ -707,8 +699,8 @@ msgstr "Maandelijks"
 #~ msgid "N_ot Paid"
 #~ msgstr "_Niet betaald"
 
-#~ msgid "_Edit"
-#~ msgstr "Be_werken"
+#~ msgid "Bills manager"
+#~ msgstr "Rekening beheer"
 
-#~ msgid "Alerts"
-#~ msgstr "Waarschuwingen"
+#~ msgid "Never forget to pay a bill again!"
+#~ msgstr "Nooit meer een rekening vergeten te betalen!"

@@ -2,6 +2,12 @@
 
     * billreminder.pot: Updated message catalog
     * genpot.sh: Added script to generate translations message catalogs
+    * *.po: Merged all translations with newer pot
+    * en_GB.po: Added English translation by Rosetta Contributors and Canonical Ltd
+    * hu.po: Added Hungarian translation by Rosetta Contributors and Canonical Ltd
+    * sl.po: Added Slovenian translation by Rosetta Contributors and Canonical Ltd
+    * tl.po: Added Tagalog translation by Rosetta Contributors and Canonical Ltd
+    * ro.po: Added Romanian translation by Rosetta Contributors and Canonical Ltd
 
 2008-06-24  Og Maciel <ogmaciel@gnome.org>
 
