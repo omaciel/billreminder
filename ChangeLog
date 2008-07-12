@@ -42,6 +42,11 @@ BillReminder 0.3.2
   * Added pycairo as a dependency instead of python-Image. Color-coded
   categories now have a border around the colored tile.
 
+ General
+  * Switched to distutils setup.py
+  * Renamed MANTAINERS to MAINTAINERS
+  * Added MANIFEST.in
+
 BillReminder 0.3.1
 ==================
 
