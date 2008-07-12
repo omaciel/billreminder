@@ -22,6 +22,8 @@ include NEWS
 include README
 include TODO
 
+exclude po/genpot.sh
+
 global-exclude */*~
 global-exclude */*.pyc
 global-exclude */*.svn
