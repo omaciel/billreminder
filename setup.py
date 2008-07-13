@@ -53,6 +53,18 @@ class BuildData(build):
           print "%s: %s" % (type(e), e)
           sys.exit(1)
 
+class InstallSchema(object):
+
+  def run(self):
+    try:
+      rc = subprocess.call(['GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`', \
+        'gconftool-2', '--makefile-install-rule', '/etc/gconf/schemas/billreminder.schemas'])
+      if rc != 0:
+        raise Warning, "gconftool returned %d" % rc
+    except Exception, e:
+      print "Registering the gconf schema has failed."
+      print "%s: %s" % (type(e), e)
+      sys.exit(1)
 
 class InstallData(install_data):
   def run (self):
@@ -87,7 +99,7 @@ setup(name='BillReminder',
       scripts=['billreminder', 'billreminderd'],
       data_files=[
           ('share/applications', ['data/billreminder.desktop', 'data/billreminderd.desktop']),
-          ('share/gconf/schemas', ['data/billreminder.schemas']),
+          ('/etc/gconf/schemas', ['data/billreminder.schemas']),
           (os.path.join(man_dir, 'man1'), ['man/billreminder.1', 'man/billreminderd.1']),
           ('share/dbus-1/services', ['data/billreminder.service']),
           ('share/doc/billreminder-%s' % APPVERSION,
@@ -95,7 +107,7 @@ setup(name='BillReminder',
            'LICENSE', 'NEWS', 'MAINTAINERS', 'README', 'TODO']),
           ('share/xdg/autostart', ['data/billreminderd.desktop']),
           ('share/billreminder/images',
-           ['images/applet-critical.png', 'images/billreminder.ico', 'images/billreminder.png', 'images/header.jpg', 'images/header.png']),
+           ['data/images/billreminder16.png', 'images/applet-critical.png', 'images/billreminder.ico', 'images/billreminder.png', 'images/header.jpg', 'images/header.png']),
           ('share/pixmaps', ['data/images/billreminder.png']),
           ('share/icons/hicolor/scalable/apps', glob.glob('data/images/billreminder.svg')),
           ('share/icons/hicolor/16x16/apps', glob.glob('data/images/billreminder16.png')),
@@ -106,10 +118,11 @@ setup(name='BillReminder',
           ('share/icons/hicolor/128x128/apps', glob.glob('data/images/billreminder128.png')),
           ('share/icons/hicolor/16x16/actions', glob.glob('data/images/billreminder16.png')),
          ],
-      #package_dir={'billreminder': 'src'},
-      packages=['src', 'src.daemon', 'src.db', 'src.gui', 
-       'src.gui.widgets', 'src.lib', 'data', 'data/images'],
-      cmdclass={'build': BuildData, 'install_data': InstallData},
+      package_dir={'billreminder': 'src'},
+      #config_files=[('gconf/schemas', ['data/billreminder.schemas'], 'with-gconf-schema-file-dir')],
+      #packages=['billreminder', 'billreminder.daemon', 'billreminder.db', 'billreminder.gui', 
+      # 'billreminder.gui.widgets', 'billreminder.lib', 'data', 'data/images'],
+      cmdclass={'build': BuildData, 'install_data': InstallData, 'install_schema': InstallSchema},
       distclass=BillReminderDist
      )
 
