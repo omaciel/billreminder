@@ -125,9 +125,8 @@ setup(name='BillReminder',
           ('share/icons/hicolor/16x16/actions', glob.glob('data/images/billreminder16.png')),
          ],
       package_dir={'billreminder': 'src'},
-      #config_files=[('gconf/schemas', ['data/billreminder.schemas'], 'with-gconf-schema-file-dir')],
-      #packages=['billreminder', 'billreminder.daemon', 'billreminder.db', 'billreminder.gui', 
-      # 'billreminder.gui.widgets', 'billreminder.lib', 'data', 'data/images'],
+      packages=['billreminder', 'billreminder.daemon', 'billreminder.db', 'billreminder.gui', 
+       'billreminder.gui.widgets', 'billreminder.lib', 'data', 'data/images'],
       cmdclass={'build': BuildData, 'build': InstallSchema, 'install_data': InstallData},
       distclass=BillReminderDist
      )
