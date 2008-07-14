@@ -199,7 +199,7 @@ class MainDialog:
     def _change_view(self, action, current):
         #TODO: Change the records selection based on option chose
         self.gconf_client.set_int(GCONF_GUI_PATH + 'show_paid_bills',
-                                  str(current.get_current_value()))
+            current.get_current_value())
         self.reloadTreeView()
         return True
 

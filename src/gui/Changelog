@@ -1,3 +1,7 @@
+2008-07-14 Og Maciel <ogmaciel@gnome.org>
+
+    * maindialog.py: No need to cast value passed from View submenus to strings
+
 2008-07-11 Og Maciel <ogmaciel@gnome.org>
 
     * maindialog.py: Remove duplicated menu entry and fix event handling

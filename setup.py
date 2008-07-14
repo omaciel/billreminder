@@ -53,18 +53,24 @@ class BuildData(build):
           print "%s: %s" % (type(e), e)
           sys.exit(1)
 
-class InstallSchema(object):
+class InstallSchema(build):
 
-  def run(self):
-    try:
-      rc = subprocess.call(['GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`', \
-        'gconftool-2', '--makefile-install-rule', '/etc/gconf/schemas/billreminder.schemas'])
-      if rc != 0:
-        raise Warning, "gconftool returned %d" % rc
-    except Exception, e:
-      print "Registering the gconf schema has failed."
-      print "%s: %s" % (type(e), e)
-      sys.exit(1)
+    def run(self):
+        cmd = ["GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`",
+            'gconftool-2',
+            '--makefile-install-rule', 
+            'data/billreminder.schemas']
+        try:
+            os.system('GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule data/billreminder.schemas')
+            """
+            rc = subprocess.call(cmd)
+            if rc != 0:
+            raise Warning, "gconftool returned %d" % rc
+            """
+        except Exception, e:
+          print "Registering the gconf schema has failed."
+          print "%s: %s" % (type(e), e)
+          sys.exit(1)
 
 class InstallData(install_data):
   def run (self):
@@ -122,7 +128,7 @@ setup(name='BillReminder',
       #config_files=[('gconf/schemas', ['data/billreminder.schemas'], 'with-gconf-schema-file-dir')],
       #packages=['billreminder', 'billreminder.daemon', 'billreminder.db', 'billreminder.gui', 
       # 'billreminder.gui.widgets', 'billreminder.lib', 'data', 'data/images'],
-      cmdclass={'build': BuildData, 'install_data': InstallData, 'install_schema': InstallSchema},
+      cmdclass={'build': BuildData, 'build': InstallSchema, 'install_data': InstallData},
       distclass=BillReminderDist
      )
 
