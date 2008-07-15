@@ -127,7 +127,8 @@ setup(name='BillReminder',
       package_dir={'billreminder': 'src'},
       packages=['billreminder', 'billreminder.daemon', 'billreminder.db', 'billreminder.gui', 
        'billreminder.gui.widgets', 'billreminder.lib', 'data', 'data/images'],
-      cmdclass={'build': BuildData, 'build': InstallSchema, 'install_data': InstallData},
+      cmdclass={'build': BuildData, 'install_data': InstallData},
+      #cmdclass={'build': BuildData, 'build': InstallSchema, 'install_data': InstallData},
       distclass=BillReminderDist
      )
 
