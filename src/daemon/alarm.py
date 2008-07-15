@@ -3,6 +3,7 @@
 __all__ = ['Alarm']
 # TODO: Clear Code
 
+import locale
 import datetime
 import time
 import gconf
@@ -61,12 +62,12 @@ class Alarm(object):
             records = self.parent.actions.get_bills('paid = 0')
 
         msg = ngettext('You have %s outstanding bill to pay!',
-                 'You have %s outstanding bills to pay!',
-                 len(records)) % len(records)
+            'You have %s outstanding bills to pay!',
+            len(records)) % len(records)
         if msg and records:
             bubble = self.notification(common.APPNAME, msg)
             bubble.add_action("view", _("Show BillReminder"),
-                              self.__cb_launch_gui, None)
+                self.__cb_launch_gui, None)
             bubble.add_action("close", _("Cancel"), None)
             bubble.show()
 
@@ -78,32 +79,38 @@ class Alarm(object):
         today = time.mktime(datetime.date.today().timetuple())
         if sum > 0:
             records = self.parent.actions.get_bills('dueDate <= %s ' \
-                                                    'AND dueDate > %s ' \
-                                                    'AND paid = 0' % \
-                                                    (today + (sum * 86400),
-                                                    today))
+                'AND dueDate > %s AND paid = 0' % (today + (sum * 86400), today))
             print records
         else:
-            records = self.parent.actions.get_bills('dueDate < %s ' \
-                                                    'AND paid = 0' % \
-                                                    today)
+            records = self.parent.actions.get_bills('dueDate < %s AND paid = 0' %  today)
 
         i = 1
         use_dialog = self.gconf_client.get_bool(GCONF_ALARM_PATH + 'use_alert_dialog')
         # TODO: use only one dialog for all bills, if use_dialog == True
         for bill in records:
             if sum > 0:
+                # date format string
+                dtformat = locale.nl_langinfo(locale.D_FMT)
+                # date from record in timestamp format
+                dtstamp = datetime.datetime.fromtimestamp(int(bill['dueDate']))
+                # record dictionary
+                recDict = {
+                    'bill': "<b>\"%s\"</b>" % bill['payee'],
+                    'day': "<b>\"%s\"</b>" % dtstamp.strftime(dtformat).encode('ASCII')
+                }
+
                 # TODO: calculate days
-                timeout_add(i * 12000, self.show_bill_notification, bill,
-                    _("The bill %(bill)s will be due at %(day)s.") %\
-                      {'bill': "<b>\"%s\"</b>" % bill['payee'],
-                      'day': "<b>\"%s\"</b>" % datetime.datetime.fromtimestamp( \
-                                int(bill['dueDate'])).strftime(_('%Y/%m/%d' \
-                                ).encode('ASCII'))},
+                timeout_add(i * 12000, 
+                    self.show_bill_notification,
+                    bill,
+                    _("The bill %(bill)s will be due at %(day)s.") % recDict,
                     use_dialog)
             else:
                 timeout_add(i * 12000,
-                            self.show_bill_notification, bill, None, use_dialog)
+                    self.show_bill_notification,
+                    bill,
+                    None,
+                    use_dialog)
             i += 1
 
     def show_bill_notification(self, bill=None, msg=None, alert=False, timeout=None):
@@ -112,7 +119,7 @@ class Alarm(object):
         if self.parent.actions.get_bills({'Id': bill['Id']})[0]['paid'] == 0:
             if alert:
                 alert = Message().ShowBillInfo(text=msg,
-                                           title=_("BillReminder Notifier"))
+                    title=_("BillReminder Notifier"))
                 if alert == RESPONSE_YES:
                     self.__cb_mark_as_paid(None, (bill,))
                 elif alert == RESPONSE_NO:
@@ -120,7 +127,7 @@ class Alarm(object):
             else:
                 bubble = self.notification(common.APPNAME, msg)
                 bubble.add_action("paid", _("Mark as paid"),
-                                  self.__cb_mark_as_paid, bill)
+                    self.__cb_mark_as_paid, bill)
                 bubble.add_action("edit", _("Edit"), self.__cb_edit_bill, bill)
                 bubble.add_action("close", _("Cancel"), None)
                 if timeout:
@@ -161,7 +168,7 @@ class Alarm(object):
         interval = self.gconf_client.get_int(GCONF_ALARM_PATH + 'interval')
         now = datetime.datetime.now()
         alert_hour, alert_minute = self.gconf_client.get_string(GCONF_ALARM_PATH + \
-                                        'show_alarm_at_time').split(':')
+            'show_alarm_at_time').split(':')
         alert_hour = int(alert_hour)
         alert_minute = int(alert_minute)
         alert = datetime.datetime(now.year, now.month, now.day,
@@ -174,19 +181,28 @@ class Alarm(object):
             days = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
             self.verify_due(days)
 
-        records = self.parent.actions.get_bills('alarm >= %d AND ' \
-                        'alarm < %d AND paid = 0' \
+        records = self.parent.actions.get_bills('alarm >= %d AND alarm < %d AND paid = 0' \
                         % (now - interval/2, now + interval/2))
 
         i = 0
         use_dialog = self.gconf_client.get_bool(GCONF_ALARM_PATH + 'use_alert_dialog')
         for bill in records:
-            timeout_add(i * 12000, self.show_bill_notification, bill,
-                    _("The bill %(bill)s will be due at %(day)s.") %\
-                      {'bill': "<b>\"%s\"</b>" % bill['payee'],
-                       'day': "<b>\"%s\"</b>" % datetime.datetime.fromtimestamp( \
-                                int(bill['dueDate'])).strftime(_('%Y/%m/%d' \
-                                ).encode('ASCII'))}, use_dialog, -1)
+            # date format string
+            dtformat = locale.nl_langinfo(locale.D_FMT)
+            # date from record in timestamp format
+            dtstamp = datetime.datetime.fromtimestamp(int(bill['dueDate']))
+            # record dictionary
+            recDict = {
+                'bill': "<b>\"%s\"</b>" % bill['payee'],
+                'day': "<b>\"%s\"</b>" % dtstamp.strftime(dtformat).encode('ASCII')
+            }
+
+            timeout_add(i * 12000,
+                self.show_bill_notification,
+                bill,
+                _("The bill %(bill)s will be due at %(day)s.") % recDict,
+                use_dialog,
+                -1)
 
             i += 1
         print (now - interval, now), records
