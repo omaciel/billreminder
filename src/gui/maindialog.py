@@ -386,7 +386,7 @@ class MainDialog:
 
     def edit_bill(self):
         records = dialogs.edit_dialog(parent=self.window,
-                                     record=self.currentrecord)
+            record=self.currentrecord)
 
         # Checks if the user did not cancel the action
         if records:

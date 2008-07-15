@@ -1,3 +1,7 @@
+2008-07-15 Og Maciel <ogmaciel@gnome.org>
+
+    * maindialog.py: Fixed regression from r.557 that caused records to be reset upon editing
+
 2008-07-14 Og Maciel <ogmaciel@gnome.org>
 
     * maindialog.py: No need to cast value passed from View submenus to strings
