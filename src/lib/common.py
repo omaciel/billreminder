@@ -48,7 +48,7 @@ else:
 # Images
 APP_ICON = os.path.join(IMAGE_PATH, 'billreminder16.png')
 TRAY_ICON = os.path.join(IMAGE_PATH, 'billreminder16.png')
-APP_HEADER = os.path.join(IMAGE_PATH, 'billreminder.png')
+APP_HEADER = os.path.join(IMAGE_PATH, 'header.png')
 
 # Config info
 CFG_NAME = 'billreminder.cfg'

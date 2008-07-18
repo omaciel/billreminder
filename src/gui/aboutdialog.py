@@ -5,13 +5,13 @@ __all__ = ['AboutDialog']
 import pygtk
 pygtk.require('2.0')
 import gtk
-import webbrowser
-
+from gnome import url_show
 import lib.common as common
 from lib import i18n
 
 TRANSLATORS = _("translator-credits")
 
+gtk.about_dialog_set_url_hook(lambda dialog, url, data: url_show(url), None)
 
 class AboutDialog(gtk.AboutDialog):
     """
@@ -21,7 +21,6 @@ class AboutDialog(gtk.AboutDialog):
         gtk.AboutDialog.__init__(self)
 
         # Set up the UI
-        gtk.about_dialog_set_url_hook(self.open_url)
         self._initialize_dialog_widgets()
         self.set_icon_from_file(common.APP_ICON)
 
@@ -39,7 +38,3 @@ class AboutDialog(gtk.AboutDialog):
 
         # Show all widgets
         self.show_all()
-    
-    # Make sure the URLs are clickable
-    def open_url(self, dlg, url):
-        webbrowser.open_new(url)

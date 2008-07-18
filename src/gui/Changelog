@@ -1,3 +1,7 @@
+2008-07-18 Og Maciel <ogmaciel@gnome.org>
+
+    * aboutdialog.py: Make sure you can visit the project web site when clicking on link.
+
 2008-07-15 Og Maciel <ogmaciel@gnome.org>
 
     * maindialog.py: Fixed regression from r.557 that caused records to be reset upon editing

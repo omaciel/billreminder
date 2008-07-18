@@ -1,5 +1,9 @@
 2008-07-15 Og Maciel <ogmaciel@gnome.org>
 
+    * common.py: Use a bigger icon for the about dialog and notifications.
+
+2008-07-15 Og Maciel <ogmaciel@gnome.org>
+
     * dialogs.py: Fixed regression from r.557 that caused records to be reset upon editing
 
 2008-07-10 Og Maciel <ogmaciel@gnome.org>
