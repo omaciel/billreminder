@@ -30,8 +30,8 @@ class Alarm(object):
         self.tray_hints = {}
         self.parent = parent
         self.tray_hints = {}
-        self.start()
         self.gconf_client = gconf.client_get_default()
+        self.start()
 
     def start(self):
         start_delay = self.gconf_client.get_int(GCONF_PATH + 'delay') * 60000

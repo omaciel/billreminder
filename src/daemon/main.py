@@ -67,6 +67,7 @@ class Daemon(object):
     """ Make the program run like a daemon """
     def __init__(self, options):
         """ Detach process and run it as a daemon """
+        """
         if not options.app_nodaemon:
             # Fork first child
             try:
@@ -93,6 +94,7 @@ class Daemon(object):
                 raise SystemExit
             # Redirect STDIN, STDOUT and STDERR
             sys.stdin.close()
+        """
         if options.app_verbose:
             sys.stdout.write('\n')
             sys.stdout = VerboseDevice(type_='stdout')
