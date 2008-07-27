@@ -100,10 +100,11 @@ class MainDialog:
         # Menubar
         self._populate_menubar()
 
-        self.listbox = gtk.VBox(homogeneous=False, spacing=1)
+        self.listbox = gtk.VBox(homogeneous=False, spacing=6)
         self.listlabel = gtk.Label()
-        self.listlabel.set_markup("<b>%s</b>" % _("Bills:"))
-        self.listlabel.set_alignment(0.02, 0.50)
+        self.listlabel.set_markup_with_mnemonic(_("<b>_Bills:</b>"))
+        self.listlabel.set_mnemonic_widget(self.list)
+        self.listlabel.set_alignment(0.00, 0.50)
         # ScrolledWindow
         self.scrolledwindow = gtk.ScrolledWindow()
         self.scrolledwindow.set_shadow_type(gtk.SHADOW_IN)
@@ -122,9 +123,10 @@ class MainDialog:
         # Calendar
         self.calbox = gtk.VBox(homogeneous=False, spacing=1)
         self.callabel = gtk.Label()
-        self.callabel.set_markup("<b>%s</b> " % _("Due Date:"))
-        self.callabel.set_alignment(0.02, 0.50)
+        self.callabel.set_markup_with_mnemonic(_("<b>_Due Date:</b>"))
+        self.callabel.set_alignment(0.00, 0.50)
         self.calendar = gtk.Calendar()
+        self.callabel.set_mnemonic_widget(self.calendar)
         # Format the dueDate field
         self.calendar.connect("month_changed", self._on_calendar_month_changed)
         self.calendar.connect("day_selected_double_click", self._on_calendar_double_click)
@@ -338,7 +340,7 @@ class MainDialog:
             self.gconf_client.set_int(GCONF_GUI_PATH + "show_paid_bills", saved_view)
 
         actiongroup.add_toggle_actions([
-            ('ShowToolbar', None, _("Show Toolbar"), None, _("Show the toolbar"), self._on_show_toolbar)
+            ('ShowToolbar', None, _("_Show Toolbar"), None, _("Show the toolbar"), self._on_show_toolbar)
         ])
 
         actiongroup.add_radio_actions([

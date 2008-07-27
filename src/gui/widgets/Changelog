@@ -1,3 +1,9 @@
+2008-07-27 Og Maciel <ogmaciel@gnome.org>
+
+    * datebutton.py, timewidget.py: Mnemonic labels/widgets and HIG work.
+      Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
+
+
 2008-05-11  Og Maciel <ogmaciel@gnome.org>
 
     * statusbar.py: Added tooltip to notes.

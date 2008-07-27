@@ -27,11 +27,14 @@ class AddDialog(gtk.Dialog):
     """
     def __init__(self, title=None, parent=None, record=None, selectedDate=None):
         gtk.Dialog.__init__(self, title=title, parent=parent,
-                            flags=gtk.DIALOG_MODAL,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_NO_SEPARATOR,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                      gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT))
+                            
         self.set_icon_from_file(common.APP_ICON)
-
+        self.set_border_width(6)
+        self.set_resizable(False)
+        
         if parent:
             self.set_transient_for(parent)
             self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
@@ -82,19 +85,23 @@ class AddDialog(gtk.Dialog):
         self.allowed_digts += [str(i) for i in range(10)]
 
     def _initialize_dialog_widgets(self):
-        self.vbox.set_spacing(8)
-        self.topcontainer = gtk.HBox(homogeneous=False, spacing=0)
-        self.calbox = gtk.VBox(homogeneous=False, spacing=0)
-        self.fieldbox = gtk.VBox(homogeneous=False, spacing=0)
+        self.vbox.set_spacing(12)
+        self.topcontainer = gtk.HBox(homogeneous=False, spacing=12)
+        self.topcontainer.set_border_width(6)
+        self.calbox = gtk.VBox(homogeneous=False, spacing=6)
+        self.fieldbox = gtk.VBox(homogeneous=False, spacing=6)
 
         # Add calendar and label
         self.callabel = gtk.Label()
-        self.callabel.set_markup("<b>%s</b> " % _("Due Date:"))
+        self.callabel.set_markup_with_mnemonic(_("<b>_Due Date:</b>"))
         self.callabel.set_alignment(0.00, 0.50)
+        
         self.calendar = gtk.Calendar()
+        self.callabel.set_mnemonic_widget(self.calendar)
+        
         ## repeat times
         self.repeatlabel = gtk.Label()
-        self.repeatlabel.set_markup("<b>%s</b> " % _("Repeat:"))
+        self.repeatlabel.set_markup_with_mnemonic(_("<b>_Repeat:</b>"))
         self.repeatlabel.set_alignment(0.00, 0.50)
         adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
         self.repeatSpinner = gtk.SpinButton(adj, 0, 0)
@@ -103,61 +110,63 @@ class AddDialog(gtk.Dialog):
         self.repeatSpinner.set_numeric(True)
         self.repeatSpinner.set_update_policy(gtk.UPDATE_IF_VALID)
         self.repeatSpinner.set_snap_to_ticks(True)
+        
         ## Repeating bills
         self.frequency = gtk.combo_box_new_text()
+        self.repeatlabel.set_mnemonic_widget(self.frequency)
         self.frequency.connect('changed', self._on_frequency_changed)
         #self.frequency.set_row_separator_func(self._determine_separator)
         self._populate_frequency()
-        hbox = gtk.HBox(homogeneous=False, spacing=0)
-        hbox.pack_start(self.repeatlabel, expand=True, fill=True, padding=0)
+        hbox = gtk.HBox(homogeneous=False, spacing=12)
+        hbox.pack_start(self.repeatlabel, expand=False, fill=True, padding=0)
         hbox.pack_start(self.frequency, expand=True, fill=True, padding=0)
         hbox.pack_start(self.repeatSpinner, expand=True, fill=True, padding=0)
         ## Pack it all up
         self.calbox.pack_start(self.callabel,
-           expand=True, fill=True, padding=5)
+           expand=False, fill=True)
         self.calbox.pack_start(self.calendar,
-           expand=True, fill=True, padding=5)
+           expand=True, fill=True)
         self.calbox.pack_start(hbox,
-           expand=True, fill=True, padding=5)
+           expand=True, fill=True)
 
         # Fields
         ## Table of 5 x 2
         self.table = gtk.Table(rows=5, columns=2, homogeneous=False)
         ### Spacing to make things look better
-        self.table.set_col_spacing(0, 6)
-        self.table.set_row_spacing(0, 6)
-        self.table.set_row_spacing(1, 6)
-        self.table.set_row_spacing(2, 6)
-        self.table.set_row_spacing(3, 6)
+        self.table.set_col_spacings(12)
+        self.table.set_row_spacings(6)
 
         ## Labels
         self.payeelabel = gtk.Label()
-        self.payeelabel.set_markup("<b>%s</b> " % _("Payee:"))
+        self.payeelabel.set_markup_with_mnemonic(_("<b>_Payee:</b>"))
         self.payeelabel.set_alignment(0.00, 0.50)
         self.amountlabel = gtk.Label()
-        self.amountlabel.set_markup("<b>%s</b> (%s) " % (_("Amount:"), locale.localeconv()['currency_symbol']))
+        self.amountlabel.set_markup_with_mnemonic(_("<b>_Amount:</b>"))
         self.amountlabel.set_alignment(0.00, 0.50)
         self.categorylabel = gtk.Label()
-        self.categorylabel.set_markup("<b>%s</b> " % _("Category:"))
+        self.categorylabel.set_markup_with_mnemonic(_("<b>_Category:</b>"))
         self.categorylabel.set_alignment(0.00, 0.50)
         self.noteslabel = gtk.Label()
-        self.noteslabel.set_markup("<b>%s</b> " % _("Notes:"))
-        self.noteslabel.set_alignment(0.00, 0.50)
+        self.noteslabel.set_markup_with_mnemonic(_("<b>_Notes:</b>"))
+        self.noteslabel.set_alignment(0.00, 0.00)
         self.alarmlabel = gtk.Label()
-        self.alarmlabel.set_markup("<b>%s</b> " % _("Alarm:"))
+        self.alarmlabel.set_markup_with_mnemonic(_("<b>_Alarm:</b>"))
         self.alarmlabel.set_alignment(0.00, 0.50)
         ## Fields
         ### Payee
         self.payee = gtk.ComboBoxEntry()
+        self.payeelabel.set_mnemonic_widget(self.payee)
         self.payeecompletion = gtk.EntryCompletion()
         self.payee.child.set_completion(self.payeecompletion)
         self._populate_payee() # Populate combobox with payee from db
         ### Amount
         self.amount = gtk.Entry()
+        self.amountlabel.set_mnemonic_widget(self.amount)
         self.amount.set_alignment(1.00)
         ### Category
-        self.categorydock = gtk.HBox(homogeneous=False, spacing=0)
+        self.categorydock = gtk.HBox(homogeneous=False, spacing=4)
         self.category = gtk.ComboBox()
+        self.categorylabel.set_mnemonic_widget(self.category)
         px = gtk.CellRendererPixbuf()
         txt = gtk.CellRendererText()
         self.category.pack_start(px, False)
@@ -182,12 +191,14 @@ class AddDialog(gtk.Dialog):
         self.notesdock.set_shadow_type(gtk.SHADOW_OUT)
         self.notesdock.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.notes = gtk.TextView()
+        self.noteslabel.set_mnemonic_widget(self.notes)
         self.notes.set_wrap_mode(gtk.WRAP_WORD)
         self.notesdock.add_with_viewport(self.notes)
         ### Buffer object for Notes field
         self.txtbuffer = self.notes.get_buffer()
         ### Alarm
         self.alarmbutton = DateButton(self)
+        self.alarmlabel.set_mnemonic_widget(self.alarmbutton)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
         # Event responsible for updating alarm date
         self.calendar.connect("day_selected", self._on_calendar_day_selected)
@@ -195,29 +206,28 @@ class AddDialog(gtk.Dialog):
         self.calendar.select_month(self.selectedDate.month - 1, self.selectedDate.year)
         self.calendar.mark_day(self.selectedDate.day)
 
-
         ## Pack it all into the table
         self.table.attach(self.payeelabel, 0, 1, 0, 1, gtk.FILL, gtk.FILL)
         self.table.attach(self.amountlabel, 0, 1, 1, 2, gtk.FILL, gtk.FILL)
         self.table.attach(self.categorylabel, 0, 1, 2, 3, gtk.FILL, gtk.FILL)
-        self.table.attach(self.noteslabel, 0, 1, 3, 4, gtk.FILL, gtk.FILL)
-        self.table.attach(self.alarmlabel, 0, 1, 4, 5, gtk.FILL, gtk.FILL)
+        self.table.attach(self.noteslabel, 0, 1, 4, 5, gtk.FILL, gtk.FILL)
+        self.table.attach(self.alarmlabel, 0, 1, 3, 4, gtk.FILL, gtk.FILL)
         self.table.attach(self.payee, 1, 2, 0, 1, gtk.FILL, gtk.FILL)
         self.table.attach(self.amount, 1, 2, 1, 2, gtk.FILL, gtk.FILL)
         self.table.attach(self.categorydock, 1, 2, 2, 3, gtk.FILL, gtk.FILL)
-        self.table.attach(self.notesdock, 1, 2, 3, 4, gtk.FILL, gtk.FILL)
-        self.table.attach(self.alarmbutton, 1, 2, 4, 5, gtk.FILL, gtk.FILL)
+        self.table.attach(self.notesdock, 1, 2, 4, 5, gtk.FILL, gtk.FILL)
+        self.table.attach(self.alarmbutton, 1, 2, 3, 4, gtk.FILL, gtk.FILL)
 
         ## Pack table
         self.fieldbox.pack_start(self.table, expand=True, fill=True, padding=0)
 
         # Everything
         self.topcontainer.pack_start(self.calbox,
-             expand=False, fill=False, padding=10)
+             expand=False, fill=False)
         self.topcontainer.pack_start(self.fieldbox,
-             expand=False, fill=False, padding=10)
+             expand=False, fill=False)
         self.vbox.pack_start(self.topcontainer,
-             expand=False, fill=True, padding=10)
+             expand=False, fill=True)
 
         # Show all widgets
         self.show_all()

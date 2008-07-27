@@ -7,11 +7,10 @@ import gobject
 import datetime
 from lib import i18n
 
-class TimeWidget(gtk.Frame):
-    def __init__(self, notificationTime=None, label=None):
+class TimeWidget(gtk.HBox):
+    def __init__(self, notificationTime=None):
 
-        gtk.Frame.__init__ (self, label=label)
-        self.set_shadow_type(gtk.SHADOW_IN)
+        gtk.HBox.__init__(self, False, 4)
 
         # Create internal widgets
         self.__initialize_widgets()
@@ -20,27 +19,28 @@ class TimeWidget(gtk.Frame):
 
     def __initialize_widgets(self):
         # Hour and minutes spinners
-        hbox = gtk.HBox(False, 0)
-
+        """#More Compact
         vbox = gtk.VBox(False, 0)
         hbox.pack_start(vbox, True, True, 5)
-
         label = gtk.Label(_("Hour :"))
         label.set_alignment(0, 0.5)
-        self.hourSpinner = self.__set_spinner(00.0, 00.0, 23.0, 1.0)
         vbox.pack_start(label, False, True, 0)
         vbox.pack_start(self.hourSpinner, False, True, 0)
-
         vbox = gtk.VBox(False, 0)
         hbox.pack_start(vbox, True, True, 5)
-
         label = gtk.Label(_("Minute :"))
         label.set_alignment(0, 0.5)
+        """
+        self.hourSpinner = self.__set_spinner(00.0, 00.0, 23.0, 1.0)
+        self.pack_start(self.hourSpinner, True, True, 0)
+        self.pack_start(gtk.Label(":"), False, True, 0)
         self.minuteSpinner = self.__set_spinner(0.0, 0.0, 59.0, 1.0)
+        self.pack_start(self.minuteSpinner, True, True, 0)
+        self.pack_start(gtk.Label(_("(hh/mm)")), False, True, 0)
+        """"
         vbox.pack_start(label, False, True, 0)
         vbox.pack_start(self.minuteSpinner, False, True, 0)
-
-        self.add(hbox)
+        """
 
     def __set_spinner(self, initial, low, high, increment=1.0):
         adj = gtk.Adjustment(initial, low, high, increment)

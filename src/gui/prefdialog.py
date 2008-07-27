@@ -25,14 +25,16 @@ class PrefDialog(gtk.Dialog):
     def __init__(self, parent=None):
         title = _("Preferences")
         gtk.Dialog.__init__(self, title=title, parent=parent,
-            flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+            flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT |gtk.DIALOG_NO_SEPARATOR,
             buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
+
         self.set_position(gtk.WIN_POS_CENTER)
+        self.set_border_width(6)
+        self.set_resizable(False)
         self.set_icon_from_file(common.APP_ICON)
 
         self.props.skip_taskbar_hint = True
-        self.set_border_width(5)
-        
+
         self.gconf_client = gconf.client_get_default()
 
         self._initialize_dialog_widgets()
@@ -41,64 +43,71 @@ class PrefDialog(gtk.Dialog):
 
 
     def _initialize_dialog_widgets(self):
-        self.topcontainer = gtk.VBox(homogeneous=False, spacing=10)
+        self.topcontainer = gtk.VBox(homogeneous=False, spacing=18)
+        self.topcontainer.set_border_width(6)
 
         # Alert Group
-        alertFrame = gtk.Frame(label="<b>%s</b>" % _("Alarms"))
-        alertFrame.props.label_widget.set_use_markup(True)
-        alertFrame.set_shadow_type(gtk.SHADOW_NONE)
+        alertFrame = gtk.VBox(homogeneous=False, spacing=6)
         alertAlignment = gtk.Alignment()
-        alertAlignment.set_padding(10, 0, 12, 0)
-        alertFrame.add(alertAlignment)
+        alertAlignment.set_padding(0, 0, 12, 0)
+        title = gtk.Label()
+        title.set_markup(_("<b>Alarms</b>"))
+        title.set_alignment(0.00, 0.50)
+        alertFrame.pack_start(title)
+        alertFrame.pack_start(alertAlignment)
 
         alertContainer = gtk.VBox(homogeneous=False, spacing=6)
-        self.alertCheckbox = gtk.CheckButton("%s" % _('Alert before due date:'))
+        self.alertCheckbox = gtk.CheckButton(_('_Alert before due date:'), use_underline=True)
         self.alertSpinButton = gtk.SpinButton()
         self.alertSpinButton.set_range(0, 360)
         self.alertSpinButton.spin(gtk.SPIN_STEP_FORWARD)
         self.alertSpinButton.set_increments(1, 7)
         alertDays = gtk.Label("%s" % _('day(s).'))
         self.notificationTime = TimeWidget()
-        self.notificationTime.set_shadow_type(gtk.SHADOW_NONE)
-        alertPreferredTime = gtk.Label("%s" % _('Preferred time:'))
-        alertPreferredTime.set_alignment(0.00, 0.90)
+        alertPreferredTime = gtk.Label()
+        alertPreferredTime.set_markup_with_mnemonic(_('_Preferred time:'))
+        alertPreferredTime.set_mnemonic_widget(self.notificationTime.hourSpinner)
+        alertPreferredTime.set_alignment(0.00, 0.50)
         alertDefinition = gtk.Label(_('Get alerted when individual bills are due.'))
         alertDefinition.set_alignment(0.00, 0.90)
 
         # Add label defining what an alarm means.
-        alertContainer.pack_start(alertDefinition, expand=False, fill=True, padding=2)
+        alertContainer.pack_start(alertDefinition, expand=False, fill=True, padding=0)
 
         # Container for alert checkbox and spin button for day selection.
-        hbox = gtk.HBox(homogeneous=False, spacing=0)
+        hbox = gtk.HBox(homogeneous=False, spacing=4)
         hbox.pack_start(self.alertCheckbox, expand=False, fill=True, padding=0)
-        hbox.pack_start(self.alertSpinButton, expand=False, fill=False, padding=2)
+        hbox.pack_start(self.alertSpinButton, expand=False, fill=False, padding=0)
         hbox.pack_start(alertDays, expand=False, fill=False, padding=0)
         alertContainer.pack_start(hbox, expand=False, fill=True, padding=0)
 
         # Container for preferred time for alerts.
-        hbox = gtk.VBox(homogeneous=False, spacing=0)
-        hbox.pack_start(alertPreferredTime, expand=True, fill=False, padding=0)
-        hbox.pack_start(self.notificationTime, expand=False, fill=True, padding=0)
+        hbox = gtk.HBox(homogeneous=False, spacing=12)
+        hbox.pack_start(alertPreferredTime, expand=False, fill=True, padding=0)
+        hbox.pack_start(self.notificationTime, expand=True, fill=True, padding=0)
         alertContainer.pack_start(hbox, expand=False, fill=True, padding=0)
 
         alertAlignment.add(alertContainer)
 
         # Notification Group
-        notifyFrame = gtk.Frame(label="<b>%s</b>" % _("Notifications"))
-        notifyFrame.props.label_widget.set_use_markup(True)
-        notifyFrame.set_shadow_type(gtk.SHADOW_NONE)
+        notifyFrame = gtk.VBox(homogeneous=False, spacing=6)
+        title = gtk.Label()
+        title.set_markup(_("<b>Notifications</b>"))
+        title.set_alignment(0.00, 0.50)
         notifyAlignment = gtk.Alignment()
-        notifyAlignment.set_padding(10, 0, 12, 0)
-        notifyFrame.add(notifyAlignment)
+        notifyAlignment.set_padding(0, 0, 12, 0)
+        notifyFrame.pack_start(title)
+        notifyFrame.pack_start(notifyAlignment)
         notificationDefinition = gtk.Label(_('Define when to be notified of upcoming bills.'))
         notificationDefinition.set_alignment(0.00, 0.90)
 
         notificationsContainer = gtk.VBox(homogeneous=False, spacing=6)
 
         # Add label defining what a definition means.
-        notificationsContainer.pack_start(notificationDefinition, expand=False, fill=False, padding=2)
+        notificationsContainer.pack_start(notificationDefinition, expand=False, fill=False, padding=0)
 
-        self.notifyCheckbox = gtk.CheckButton("%s" % _('Notify before due date:'))
+        self.notifyCheckbox = gtk.CheckButton(_('_Notify before due date:'),
+                                              use_underline=True)
         self.notifySpinButton = gtk.SpinButton()
         self.notifySpinButton.set_range(0, 360)
         self.notifySpinButton.spin(gtk.SPIN_STEP_FORWARD)
@@ -106,9 +115,9 @@ class PrefDialog(gtk.Dialog):
         notifyDays = gtk.Label("%s" % _('day(s).'))
 
         # Container for notification checkbox and spin button for day selection.
-        hbox = gtk.HBox(homogeneous=False, spacing=0)
+        hbox = gtk.HBox(homogeneous=False, spacing=4)
         hbox.pack_start(self.notifyCheckbox, expand=False, fill=True, padding=0)
-        hbox.pack_start(self.notifySpinButton, expand=False, fill=False, padding=2)
+        hbox.pack_start(self.notifySpinButton, expand=False, fill=False, padding=0)
         hbox.pack_start(notifyDays, expand=False, fill=False, padding=0)
 
         notificationsContainer.pack_start(hbox, expand=False, fill=True, padding=0)
@@ -116,19 +125,21 @@ class PrefDialog(gtk.Dialog):
         notifyAlignment.add(notificationsContainer)
 
         # Alert Type Group
-        alertTypeFrame = gtk.Frame(label="<b>%s</b>" % _("Alert Type"))
-        alertTypeFrame.props.label_widget.set_use_markup(True)
-        alertTypeFrame.set_shadow_type(gtk.SHADOW_NONE)
+        alertTypeFrame = gtk.VBox(homogeneous=False, spacing=6)
+        title = gtk.Label()
+        title.set_markup(_("<b>Alert Type</b>"))
+        title.set_alignment(0.00, 0.50)
         alertTypeAlignment = gtk.Alignment()
-        alertTypeAlignment.set_padding(10, 0, 12, 0)
-        alertTypeFrame.add(alertTypeAlignment)
+        alertTypeAlignment.set_padding(0, 0, 12, 0)
+        alertTypeFrame.pack_start(title)
+        alertTypeFrame.pack_start(alertTypeAlignment)
 
         vbox = gtk.VBox(homogeneous=False, spacing=6)
 
         hbox = gtk.HBox(homogeneous=False, spacing=12)
-        self.alertBubble = gtk.RadioButton(label=_("_Notification Bubble"))
+        self.alertBubble = gtk.RadioButton(label=_("Notification _Bubble"))
         self.alertDialog = gtk.RadioButton(group=self.alertBubble,
-            label=_("Al_ert Dialog"))
+            label=_("Alert _Dialog"))
 
         hbox.pack_start(self.alertBubble, expand=False, fill=False, padding=0)
         hbox.pack_start(self.alertDialog, expand=False, fill=False, padding=0)
@@ -148,20 +159,21 @@ class PrefDialog(gtk.Dialog):
         daemonImage = gtk.Image()
         daemonImage.set_from_stock('gtk-execute', 2)
         self.daemonButton = gtk.Button(label=_("_Start BillReminder Notifier"))
+        self.daemonButton.set_relief(gtk.RELIEF_NONE)
         self.daemonButton.set_image(daemonImage)
 
-        daemonContainer.pack_start(self.daemonLabel, expand=False, fill=False, padding=0)
-        daemonContainer.pack_start(self.daemonButton, expand=False, fill=False, padding=5)
+        daemonContainer.pack_start(self.daemonLabel, expand=False, fill=True, padding=0)
+        daemonContainer.pack_start(self.daemonButton, expand=False, fill=True, padding=0)
 
         # Everything
-        self.topcontainer.pack_start(alertFrame, expand=False, fill=False, padding=0)
-        self.topcontainer.pack_start(notifyFrame, expand=False, fill=False, padding=0)
-        self.topcontainer.pack_start(alertTypeFrame, expand=False, fill=False, padding=0)
+        self.topcontainer.pack_start(alertFrame, expand=False, fill=True, padding=0)
+        self.topcontainer.pack_start(notifyFrame, expand=False, fill=True, padding=0)
+        self.topcontainer.pack_start(alertTypeFrame, expand=False, fill=True, padding=0)
 
         if not utils.verify_dbus_service(common.DBUS_INTERFACE):
-            self.topcontainer.pack_start(daemonContainer, expand=False, fill=False, padding=0)
+            self.topcontainer.pack_start(daemonContainer, expand=False, fill=True, padding=0)
 
-        self.vbox.pack_start(self.topcontainer, expand=False, fill=True, padding=10)
+        self.vbox.pack_start(self.topcontainer, expand=False, fill=True)
 
         self.show_all()
 

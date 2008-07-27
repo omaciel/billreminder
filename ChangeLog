@@ -45,6 +45,8 @@ BillReminder 0.3.2
   * German by Sebastian
 
  Graphical Interface:
+  * Mnemonic labels/widgets and HIG work done to dialogs.
+    Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
   * Ask user for confirmation before editing an existing category.
   * Added pycairo as a dependency instead of python-Image. Color-coded
   categories now have a border around the colored tile.

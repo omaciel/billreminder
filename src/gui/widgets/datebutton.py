@@ -39,15 +39,19 @@ class DateButton(gtk.Button):
     def show_calendar(self, *arg):
         self.dialog = gtk.Dialog(title=_("Select Date and Time"),
                             parent=self.parent_window,
-                            flags=gtk.DIALOG_MODAL,
-                            buttons=(str(_("None")), gtk.RESPONSE_REJECT,
+                            flags=gtk.DIALOG_MODAL |gtk.DIALOG_DESTROY_WITH_PARENT |gtk.DIALOG_NO_SEPARATOR,
+                            buttons=(str(_("_None")), gtk.RESPONSE_REJECT,
                                      gtk.STOCK_OK, gtk.RESPONSE_OK))
-
+        
+        self.dialog.set_border_width(6)
+        self.dialog.set_resizable(False)
+        self.dialog.vbox.set_spacing(6)
+        
         self._initialize_dialog_widgets()
         self._populate_fields()
 
         response = self.dialog.run()
-        print response
+        
         if response == gtk.RESPONSE_REJECT:
             self.set_date(None)
         elif response == gtk.RESPONSE_OK:
@@ -65,32 +69,37 @@ class DateButton(gtk.Button):
     def _initialize_dialog_widgets(self):
         dialog = gtk.Dialog(title=_("Select date and time"),
             parent=self.parent_window,
-            flags=gtk.DIALOG_MODAL,
-            buttons=(str(_("None")), gtk.RESPONSE_REJECT,
+            flags=gtk.DIALOG_MODAL |gtk.DIALOG_DESTROY_WITH_PARENT |gtk.DIALOG_NO_SEPARATOR,
+            buttons=(str(_("_None")), gtk.RESPONSE_REJECT,
                      gtk.STOCK_OK, gtk.RESPONSE_OK))
-
+        
+        dialog.set_border_width(6)
+        dialog.set_resizable(False)
+        
         if self.parent_window:
             dialog.set_transient_for(self.parent_window)
             dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
         self.calendarlabel = gtk.Label()
-        self.calendarlabel.set_markup("<b>%s </b>" % _("Date:"))
+        self.calendarlabel.set_markup_with_mnemonic("<b>_Date:</b>")
         self.calendarlabel.set_alignment(0.00, 0.50)
 
-        self.timelabel = gtk.Label()
-        self.timelabel.set_markup("<b>%s </b>" % _("Time:"))
-        self.timelabel.set_alignment(0.00, 0.50)
-
-        self.vbox = gtk.VBox(False, 0)
+        self.vbox = gtk.VBox(False, 6)
+        self.vbox.set_border_width(6)
         self.calendar = gtk.Calendar()
-
+        self.calendarlabel.set_mnemonic_widget(self.calendar)
         # If we do have an existing alarm time, pass it to the widget
-        self.time = TimeWidget(self.date and time.mktime(self.date.timetuple()) or None, _("Time:"))
-
+        self.timehbox = gtk.HBox(False, 4)
+        title = gtk.Label()
+        title.set_markup_with_mnemonic(_("<b>_Time:</b>"))
+        self.timehbox.pack_start(title, expand=False)
+        self.time = TimeWidget(self.date and time.mktime(self.date.timetuple()) or None)
+        title.set_mnemonic_widget(self.time.hourSpinner)
+        self.timehbox.pack_start(self.time)
         self.vbox.pack_start(self.calendarlabel, False, True, 0)
         self.vbox.pack_start(self.calendar, False, True, 0)
-        self.vbox.pack_start(self.time, False, True, 0)
-        self.dialog.vbox.pack_start(self.vbox, expand=False, fill=True, padding=10)
+        self.vbox.pack_start(self.timehbox, False, True, 0)
+        self.dialog.vbox.pack_start(self.vbox, expand=False, fill=True)
 
         self.dialog.show_all()
 
