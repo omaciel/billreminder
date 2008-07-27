@@ -30,11 +30,11 @@ class AddDialog(gtk.Dialog):
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_NO_SEPARATOR,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                      gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT))
-                            
+
         self.set_icon_from_file(common.APP_ICON)
         self.set_border_width(6)
         self.set_resizable(False)
-        
+
         if parent:
             self.set_transient_for(parent)
             self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
@@ -95,10 +95,10 @@ class AddDialog(gtk.Dialog):
         self.callabel = gtk.Label()
         self.callabel.set_markup_with_mnemonic(_("<b>_Due Date:</b>"))
         self.callabel.set_alignment(0.00, 0.50)
-        
+
         self.calendar = gtk.Calendar()
         self.callabel.set_mnemonic_widget(self.calendar)
-        
+
         ## repeat times
         self.repeatlabel = gtk.Label()
         self.repeatlabel.set_markup_with_mnemonic(_("<b>_Repeat:</b>"))
@@ -110,7 +110,7 @@ class AddDialog(gtk.Dialog):
         self.repeatSpinner.set_numeric(True)
         self.repeatSpinner.set_update_policy(gtk.UPDATE_IF_VALID)
         self.repeatSpinner.set_snap_to_ticks(True)
-        
+
         ## Repeating bills
         self.frequency = gtk.combo_box_new_text()
         self.repeatlabel.set_mnemonic_widget(self.frequency)
@@ -150,7 +150,7 @@ class AddDialog(gtk.Dialog):
         self.noteslabel.set_markup_with_mnemonic(_("<b>_Notes:</b>"))
         self.noteslabel.set_alignment(0.00, 0.00)
         self.alarmlabel = gtk.Label()
-        self.alarmlabel.set_markup_with_mnemonic(_("<b>_Alarm:</b>"))
+        self.alarmlabel.set_markup_with_mnemonic(_("<b>A_larm:</b>"))
         self.alarmlabel.set_alignment(0.00, 0.50)
         ## Fields
         ### Payee
