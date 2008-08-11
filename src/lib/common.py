@@ -10,7 +10,7 @@ APPNAME = "BillReminder"
 APPVERSION = "0.3.2"
 COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
              "Og Maciel <ogmaciel@gnome.org>" % APPNAME
-WEBSITE = "http://code.google.com/p/billreminder/"
+WEBSITE = "http://billreminder.gnulinuxbrasil.org/"
 AUTHORS = [
     _('Developers:'),
     'Og Maciel <ogmaciel@gnome.com>',
