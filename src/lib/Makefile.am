@@ -1,7 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
 billreminder_libdir = $(pythondir)/billreminder/lib
-billreminder_lib_in_files = sysvars.py.in
 billreminder_lib_PYTHON = \
 	__init__.py \
 	actions.py \
@@ -13,13 +12,7 @@ billreminder_lib_PYTHON = \
 	dbus_actions.py \
 	dialogs.py \
 	i18n.py \
+	migrate_to_gconf.py \
 	scheduler.py \
 	sysvars.py \
 	utils.py
-
-sysvars.py: sysvars.py.in
-	sed -e s!\@datadir\@!$(datadir)! \
-		< $< > $@
-
-EXTRA_DIST = sysvars.py.in
-CLEANFILES = sysvars.py

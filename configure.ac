@@ -33,6 +33,9 @@ AM_CHECK_PYMOD([gobject], , , AC_MSG_ERROR([Python module gobject required to ru
 AM_CHECK_PYMOD_VERSION([pysqlite2.dbapi2], [version], [2.3.0], , AC_MSG_ERROR([Python module pysqlite2 >= 2.3.0 required to run BillReminder]))
 AM_CHECK_PYMOD([dbus], , , AC_MSG_ERROR([Python module dbus required to run BillReminder]))
 
+AC_PATH_PROG(GCONFTOOL, gconftool-2)
+AM_GCONF_SOURCE_2
+
 AC_OUTPUT([
 Makefile
 data/Makefile

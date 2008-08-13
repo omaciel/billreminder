@@ -59,7 +59,8 @@ uninstall-hook:
 imagesdir = $(datadir)/billreminder/images
 images_DATA = \
 	billreminder.png \
-	billreminder16.png
+	billreminder16.png \
+	header.png
 EXTRA_DIST = $(images_DATA)
 
 noinst_DATA = \
