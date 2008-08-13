@@ -1,0 +1,9 @@
+# Please keep this file sorted alphabetically.
+[encoding: UTF-8]
+src/db/billstable.py
+src/db/categoriestable.py
+src/db/configtable.py
+src/db/fieldstable.py
+src/db/versionstable.py
+src/gui/widgets/genericlistview.py
+
