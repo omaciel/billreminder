@@ -2,7 +2,7 @@ README for BillReminder
 =======================
 
 BillReminder is a small and quick accounting application
-designed to allow for easy tracking of bills.  
+designed to allow for easy tracking of bills.
 
 Many thanks to the following people who directly and indirectly helped with this project:
 
@@ -38,7 +38,7 @@ See the 'INSTALL' file.
 HOW TO HELP
 ===========
 You can report new bugs at
- http://code.google.com/p/billreminder/
+ http://bugzilla.gnome.org/enter_bug.cgi?product=billreminder
 
 I'm currently looking for people with the following skills:
 
