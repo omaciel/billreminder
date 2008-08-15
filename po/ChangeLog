@@ -1,5 +1,7 @@
-2008-07-11  Og Maciel <ogmaciel@gnome.org>
+2008-08-15  Og Maciel <ogmaciel@gnome.org>
+    * it.po, hr.po: Converted to UTF-8
 
+2008-07-11  Og Maciel <ogmaciel@gnome.org>
     * billreminder.pot: Updated message catalog
     * genpot.sh: Added script to generate translations message catalogs
     * *.po: Merged all translations with newer pot

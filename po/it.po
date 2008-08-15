@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2008-07-12 02:24+0000\n"
@@ -46,7 +46,7 @@ msgstr "Ferma il demone."
 #: ../src/daemon/dbus_manager.py:44
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
-msgstr "Questo è %(appname)s - Versione: %(version)s"
+msgstr "Questo Ã¨ %(appname)s - Versione: %(version)s"
 
 #: ../src/billreminderd.py:43 ../src/daemon/alarm.py:115
 #: ../src/daemon/dbus_manager.py:45
@@ -67,7 +67,7 @@ msgstr "Accede direttamente al database, senza demone."
 
 #: ../src/billreminder.py:52
 msgid "This option is not implemented yet."
-msgstr "Questa opzione non è stata ancora implementata."
+msgstr "Questa opzione non Ã¨ stata ancora implementata."
 
 #: ../src/daemon/alarm.py:63
 #, python-format
@@ -87,7 +87,7 @@ msgstr "Annulla"
 #: ../src/daemon/alarm.py:98 ../src/daemon/alarm.py:185
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
-msgstr "La bolletta %(bill)s è in scadenza il %(day)s."
+msgstr "La bolletta %(bill)s Ã¨ in scadenza il %(day)s."
 
 #: ../src/daemon/alarm.py:101 ../src/daemon/alarm.py:188
 msgid "%Y/%m/%d"
@@ -96,7 +96,7 @@ msgstr "%Y/%m/%d"
 #: ../src/daemon/alarm.py:111
 #, python-format
 msgid "The bill %s is due."
-msgstr "La bolletta %s è scaduta."
+msgstr "La bolletta %s Ã¨ scaduta."
 
 #: ../src/daemon/alarm.py:122 ../src/gui/maindialog.py:300
 #: ../src/gui/maindialog.py:325 ../src/lib/utils.py:135
@@ -110,12 +110,12 @@ msgstr "Modifica"
 #: ../src/daemon/main.py:116
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr "File di Lock trovato: un'altra sessione è in corso. (pid=%d)"
+msgstr "File di Lock trovato: un'altra sessione Ã¨ in corso. (pid=%d)"
 
 #: ../src/daemon/main.py:121
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr ""
-"Trovato file di lock: Probabilmente il programma è uscito inaspettatamente."
+"Trovato file di lock: Probabilmente il programma Ã¨ uscito inaspettatamente."
 
 #: ../src/daemon/main.py:124
 msgid "Removing Lock File..."
@@ -131,7 +131,7 @@ msgstr "Fallita."
 
 #: ../src/daemon/main.py:132
 msgid "BillReminder Notifier is already running."
-msgstr "Il sistema di notifica di BillReminder è già in esecuzione."
+msgstr "Il sistema di notifica di BillReminder Ã¨ giÃ  in esecuzione."
 
 #: ../src/gui/aboutdialog.py:13
 msgid "translator-credits"
@@ -205,7 +205,7 @@ msgstr "Nuova categoria"
 #: ../src/gui/adddialog.py:461
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
-msgstr "«%s» e «%s» sono campi obbligatori."
+msgstr "Â«%sÂ» e Â«%sÂ» sono campi obbligatori."
 
 #: ../src/gui/adddialog.py:462 ../src/gui/adddialog.py:466
 #: ../src/gui/widgets/viewbill.py:85
@@ -220,7 +220,7 @@ msgstr "Importo"
 #: ../src/gui/adddialog.py:466 ../src/gui/adddialog.py:470
 #, python-format
 msgid "\"%s\" is required field."
-msgstr "«%s» è un campo obbligatorio."
+msgstr "Â«%sÂ» Ã¨ un campo obbligatorio."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -245,7 +245,7 @@ msgid ""
 "\n"
 "Do you want to save your change to the existing category?"
 msgstr ""
-"La categoria «%s» esiste già nel database!\n"
+"La categoria Â«%sÂ» esiste giÃ  nel database!\n"
 "\n"
 "Vuoi salvare le modifiche nella categoria esistente?"
 
@@ -257,7 +257,7 @@ msgstr "Vuoi veramente cancellare questa categoria?\n"
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] "C'è ancora %d bolletta in questa categoria."
+msgstr[0] "C'Ã¨ ancora %d bolletta in questa categoria."
 msgstr[1] "Ci sono ancora %d bollette in questa categoria."
 
 #: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:555
@@ -376,7 +376,7 @@ msgstr "Non _pagate"
 #: ../src/gui/maindialog.py:553
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
-msgstr "Vuoi veramente cancellare «%s»?"
+msgstr "Vuoi veramente cancellare Â«%sÂ»?"
 
 #: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
 msgid "Preferences"
@@ -435,7 +435,7 @@ msgid ""
 " to receive notifications."
 msgstr ""
 "<b>Attenzione:</b> il sistema di notifica di \n"
-"BillReminder non è in esecuzione! Deve essere \n"
+"BillReminder non Ã¨ in esecuzione! Deve essere \n"
 " avviato per ricevere le notifiche."
 
 #: ../src/gui/prefdialog.py:150
@@ -445,7 +445,7 @@ msgstr "_Avvia il sistema di notifica di BillReminder"
 #: ../src/gui/prefdialog.py:217
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr ""
-"<b>Nota:</b> il sistema di notifica di BillReminder è ora in esecuzione."
+"<b>Nota:</b> il sistema di notifica di BillReminder Ã¨ ora in esecuzione."
 
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:61
 msgid "%Y/%m/%d %H:%M"
@@ -528,7 +528,7 @@ msgid ""
 "An error occurred while connecting to BillReminder Notifier!\n"
 "Do you want to launch it and restart BillReminder?"
 msgstr ""
-"C'è stato un errore durante la connessione al sistema di notifica di "
+"C'Ã¨ stato un errore durante la connessione al sistema di notifica di "
 "BillReminder!\n"
 "Vuoi eseguirlo e riavviare BillReminder?"
 
@@ -624,4 +624,4 @@ msgstr "Se chiudi senza salvare, le modifiche andranno perse."
 
 #, fuzzy
 #~ msgid "Never forget to pay a bill again!"
-#~ msgstr "Non dimenticare più di pagare le bollette!"
+#~ msgstr "Non dimenticare piÃ¹ di pagare le bollette!"
