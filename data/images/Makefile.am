@@ -71,7 +71,8 @@ noinst_DATA = \
 EXTRA_DIST += \
 	$(noinst_DATA) \
 	$(pixmap_DATA) \
-	$(tango_icons)
+	$(tango_icons) \
+	$(images_DATA)
 
 CLEANFILES =
 

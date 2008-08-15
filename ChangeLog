@@ -52,9 +52,9 @@ BillReminder 0.3.2
   categories now have a border around the colored tile.
 
  General
-  * Switched to distutils setup.py
   * Renamed MANTAINERS to MAINTAINERS
-  * Added MANIFEST.in
+  * Added uninstall method and versioning via autotools
+   ref: http://bugzilla.gnome.org/show_bug.cgi?id=547768
 
 BillReminder 0.3.1
 ==================

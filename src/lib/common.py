@@ -3,11 +3,15 @@
 import os
 import i18n
 
+try:
+    from defs import *
+except:
+    APPVERSION = "0.3.2"
+
 datadir = "/usr/share"
 
 # Application info
 APPNAME = "BillReminder"
-APPVERSION = "0.3.2"
 COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
              "Og Maciel <ogmaciel@gnome.org>" % APPNAME
 WEBSITE = "http://billreminder.gnulinuxbrasil.org/"

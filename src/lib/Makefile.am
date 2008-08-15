@@ -10,8 +10,22 @@ billreminder_lib_PYTHON = \
 	config.py \
 	dal.py \
 	dbus_actions.py \
+	defs.py \
 	dialogs.py \
 	i18n.py \
 	migrate_to_gconf.py \
 	scheduler.py \
 	utils.py
+
+defs.py: defs.py.in
+	sed -e s!\@VERSION\@!$(VERSION)! \
+	< $< > $@
+
+CLEANFILES = \
+	defs.py
+	
+DISTCLEANFILES = \
+	$(CLEANFILES)
+	
+EXTRA_DIST = \
+	defs.py.in

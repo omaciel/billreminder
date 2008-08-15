@@ -21,7 +21,7 @@ service_DATA = billreminder.service
 EXTRA_DIST += $(service_in_files)
 CLEANFILES = $(service_DATA)
 
-%.service: %.service.in
+billreminder.service: billreminder.service.in
 	sed -e s!\@bindir\@!$(bindir)! \
 	< $< > $@
 
@@ -55,3 +55,6 @@ install-data-local:
 	@echo "***************************************************************"
 	@true
 endif
+
+uninstall-hook:
+	rm -fr $(configdir)

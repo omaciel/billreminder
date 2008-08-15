@@ -8,4 +8,5 @@ billreminder_PYTHON = \
 	billreminder.py \
 	billreminderd.py
 
-
+uninstall-hook:
+	rm -fr $(billreminderdir)
