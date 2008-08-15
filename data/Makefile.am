@@ -3,6 +3,7 @@
 SUBDIRS = images
 
 # Configuration Data
+# TODO: Remove this as we no longer use it in favor of gconf schemas
 configdir = $(datadir)/billreminder
 config_DATA = billreminder.cfg
 
@@ -56,11 +57,11 @@ install-data-local:
 endif
 
 EXTRA_DIST = \
-    $(config_DATA) \
-    $(schemas_DATA) \
-    $(service_in_files) \
-    $(desktop_in_files) \
-    $(autostart_in_files)
+	$(config_DATA) \
+	$(schemas_DATA) \
+	$(service_in_files) \
+	$(desktop_in_files) \
+	$(autostart_in_files)
 
 
 uninstall-hook:
