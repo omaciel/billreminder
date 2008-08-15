@@ -2,23 +2,20 @@
 
 SUBDIRS = images
 
+# Configuration Data
 configdir = $(datadir)/billreminder
 config_DATA = billreminder.cfg
-EXTRA_DIST = $(config_DATA)
 
+# GConf Schemas
 schema_in_files = billreminder.schemas.in
-@INTLTOOL_SCHEMAS_RULE@
-
-if GCONF_SCHEMAS_INSTALL
 schemadir = $(GCONF_SCHEMA_FILE_DIR)
 schema_DATA = $(schema_in_files:.schemas.in=.schemas)
-EXTRA_DIST += $(schemas_DATA)
-endif
 
+#DBus Service
 servicedir = $(DBUS_SERVICES_DIR)
 service_in_files = billreminder.service.in
 service_DATA = billreminder.service
-EXTRA_DIST += $(service_in_files)
+
 CLEANFILES = $(service_DATA)
 
 billreminder.service: billreminder.service.in
@@ -28,16 +25,18 @@ billreminder.service: billreminder.service.in
 desktopdir = $(datadir)/applications
 desktop_in_files = billreminder.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-@INTLTOOL_DESKTOP_RULE@
 
-EXTRA_DIST += $(desktop_in_files)
 CLEANFILES += $(desktop_DATA)
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_in_files = billreminderd.desktop.in
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
-EXTRA_DIST += $(autostart_in_files)
 CLEANFILES += $(autostart_DATA)
+
+# Build rules
+@INTLTOOL_DESKTOP_RULE@
+@INTLTOOL_SCHEMAS_RULE@
+
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
@@ -55,6 +54,14 @@ install-data-local:
 	@echo "***************************************************************"
 	@true
 endif
+
+EXTRA_DIST = \
+    $(config_DATA) \
+    $(schemas_DATA) \
+    $(service_in_files) \
+    $(desktop_in_files) \
+    $(autostart_in_files)
+
 
 uninstall-hook:
 	rm -fr $(configdir)
