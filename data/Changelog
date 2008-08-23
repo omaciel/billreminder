@@ -1,3 +1,6 @@
+2008-08-23 Og Maciel <ogmaciel@gnome.org>
+    * billreminder.schemas.in: Added long and short descriptions.
+
 2008-07-10 Og Maciel <ogmaciel@gnome.org>
 
     * Makefile.am: Require gconf-2

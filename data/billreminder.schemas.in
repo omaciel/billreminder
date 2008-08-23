@@ -7,7 +7,10 @@
       <owner>interval</owner>
       <type>int</type>
       <default>60</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>How long to display the alarm notification.</short>
+        <long>How long to display the alarm notification.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -16,7 +19,10 @@
       <owner>billreminder</owner>
       <type>bool</type>
       <default>true</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Whether to display notifications on startup.</short>
+        <long>Whether to display notifications on startup.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -25,7 +31,10 @@
       <owner>billreminder</owner>
       <type>bool</type>
       <default>false</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Whether to use dialogs for notifications.</short>
+        <long>Whether to use dialogs for notifications.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -34,7 +43,10 @@
       <owner>billreminder</owner>
       <type>bool</type>
       <default>true</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Whether to show alarms before a bill is due.</short>
+        <long>Whether to show alarms before a bill is due.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -43,7 +55,10 @@
       <owner>billreminder</owner>
       <type>bool</type>
       <default>true</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Whether to show notifications for paid bills.</short>
+        <long>Whether to show notifications for paid bills.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -52,7 +67,10 @@
       <owner>billreminder</owner>
       <type>bool</type>
       <default>true</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Whether to show alarms.</short>
+        <long>Whether to show alarms.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -61,7 +79,10 @@
       <owner>billreminder</owner>
       <type>int</type>
       <default>15</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>How many days prior to due date to notify.</short>
+        <long>How many days prior to due date to notify.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -70,7 +91,10 @@
       <owner>billreminder</owner>
       <type>int</type>
       <default>3</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>How many days prior to due date to alert.</short>
+        <long>How many days prior to due date to alert.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -79,7 +103,10 @@
       <owner>billreminder</owner>
       <type>string</type>
       <default>13:00</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>What specific time to display alert.</short>
+        <long>What specific time to display alert.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -88,7 +115,10 @@
       <owner>billreminder</owner>
       <type>int</type>
       <default>0</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>The date a bill is due.</short>
+        <long>The date a bill is due.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -97,7 +127,10 @@
       <owner>billreminder</owner>
       <type>bool</type>
       <default>false</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Display the menu bar.</short>
+        <long>Whether to display the menu bar or not.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -106,7 +139,10 @@
       <owner>billreminder</owner>
       <type>int</type>
       <default>2</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Display only paid bills.</short>
+        <long>Display only paid bills.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -115,7 +151,10 @@
       <owner>billreminder</owner>
       <type>bool</type>
       <default>true</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Display the toolbar.</short>
+        <long>Whether to display the toolbar or not.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -124,7 +163,10 @@
       <owner>billreminder</owner>
       <type>int</type>
       <default>385</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Default width of the application.</short>
+        <long>Defines the default width of the application.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -133,7 +175,10 @@
       <owner>billreminder</owner>
       <type>int</type>
       <default>380</default>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Default height of the application.</short>
+        <long>Defines the default height of the application.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -141,7 +186,10 @@
       <applyto>/apps/billreminder/gui/x</applyto>
       <owner>billreminder</owner>
       <type>int</type>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Default X coordinate for the application.</short>
+        <long>Defines the default X coordinate for the application.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -149,7 +197,10 @@
       <applyto>/apps/billreminder/gui/y</applyto>
       <owner>billreminder</owner>
       <type>int</type>
-      <locale name="C"/>
+      <locale name="C">
+        <short>Default Y coordinate for the application.</short>
+        <long>Defines the default Y coordinate for the application.</long>
+      </locale>
     </schema>
 
    <schema>
@@ -159,6 +210,9 @@
       <type>int</type>
       <default>1</default>
       <locale name="C"/>
+        <short>Delay between notifications.</short>
+        <long>Delay between notifications.</long>
+      </locale>
     </schema>
 
     <schema>
@@ -168,6 +222,9 @@
       <type>bool</type>
       <default>false</default>
       <locale name="C"/>
+        <short>Start the application in the system's tray.</short>
+        <long>Whether to start the application in the system's tray.</long>
+      </locale>
     </schema>
 
 </schemalist></gconfschemafile>

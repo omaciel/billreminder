@@ -3,6 +3,7 @@
 [encoding: UTF-8]
 data/billreminderd.desktop.in
 data/billreminder.desktop.in
+data/billreminder.schemas.in
 src/billreminder.py
 src/billreminderd.py
 src/daemon/alarm.py
