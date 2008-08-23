@@ -2,6 +2,8 @@
 
     * POTFILES.in: Added data/billreminder.schemas.in.
     * POTFILES.skip: Added src/lib/migrate_to_gconf.py.
+    * he.po: Added Hebrew translation by Rosetta Contributors and Canonical Ltd
+    * *.po: Merged all translations with newer pot
 
 2008-08-16  Robert-André Mauchin <zebob.m@pengzone.org>
     * fr.po: Updated French translation

@@ -1,79 +1,76 @@
-# Dutch translation for billreminder.
-# Copyright (C) 2007 Og Maciel
+# Hebrew translation for billreminder
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the billreminder package.
-# Reinout van Schouwen <reinouts@gnome.org>, 2007.
-# Daniel van Eeden <gnomenl@myname.nl>, 2008.
+# Yaron <sh.yaron@gmail.com>, 2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: BillReminder\n"
+"Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-23 18:12-0400\n"
-"PO-Revision-Date: 2008-06-25 08:39+0000\n"
-"Last-Translator: Martijn Cielen <mcielen@sudo-s.net>\n"
-"Language-Team: Nederlands <vertaling@nl.linux.org>\n"
+"POT-Creation-Date: 2008-08-23 18:21-0400\n"
+"PO-Revision-Date: 2008-08-09 15:34+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2008-07-12 02:24+0000\n"
+"X-Launchpad-Export-Date: 2008-08-23 20:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-"X-Poedit-Country: NETHERLANDS\n"
-"X-Poedit-Language: Dutch\n"
-"X-Poedit-Basepath: /home/reinout/devel/\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:122 ../src/daemon/dbus_manager.py:45
 msgid "BillReminder Notifier"
-msgstr "BillReminder Notifier"
+msgstr "המתריע של מזכיר-החשבונות"
 
 #: ../data/billreminderd.desktop.in.h:2 ../data/billreminder.desktop.in.h:2
+#, fuzzy
 msgid "Bills manager"
-msgstr "Rekening beheer"
+msgstr "מדווח-החשבונות"
 
 #: ../data/billreminderd.desktop.in.h:3 ../data/billreminder.desktop.in.h:3
 msgid "Never forget to pay a bill again!"
-msgstr "Nooit meer een rekening vergeten te betalen!"
+msgstr ""
 
 #: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
 #: ../src/lib/utils.py:138
 msgid "BillReminder"
-msgstr "BillReminder"
+msgstr "מדווח-החשבונות"
 
 #: ../data/billreminder.schemas.in.h:1
 #, fuzzy
 msgid "Default X coordinate for the application."
-msgstr "Toont het versienummer voor deze toepassing"
+msgstr "מציג את מספר הגירסה עבור יישום זה."
 
 #: ../data/billreminder.schemas.in.h:2
 #, fuzzy
 msgid "Default Y coordinate for the application."
-msgstr "Toont het versienummer voor deze toepassing"
+msgstr "מציג את מספר הגירסה עבור יישום זה."
 
 #: ../data/billreminder.schemas.in.h:3
 #, fuzzy
 msgid "Default height of the application."
-msgstr "Over het programma"
+msgstr "אודות היישום"
 
 #: ../data/billreminder.schemas.in.h:4
 #, fuzzy
 msgid "Default width of the application."
-msgstr "Over het programma"
+msgstr "אודות היישום"
 
 #: ../data/billreminder.schemas.in.h:5
 #, fuzzy
 msgid "Defines the default X coordinate for the application."
-msgstr "Toont het versienummer voor deze toepassing"
+msgstr "מציג את מספר הגירסה עבור יישום זה."
 
 #: ../data/billreminder.schemas.in.h:6
 #, fuzzy
 msgid "Defines the default Y coordinate for the application."
-msgstr "Toont het versienummer voor deze toepassing"
+msgstr "מציג את מספר הגירסה עבור יישום זה."
 
 #: ../data/billreminder.schemas.in.h:7
 #, fuzzy
 msgid "Defines the default height of the application."
-msgstr "Toont het versienummer voor deze toepassing"
+msgstr "מציג את מספר הגירסה עבור יישום זה."
 
 #: ../data/billreminder.schemas.in.h:8
 msgid "Defines the default width of the application."
@@ -82,7 +79,7 @@ msgstr ""
 #: ../data/billreminder.schemas.in.h:9
 #, fuzzy
 msgid "Display only paid bills."
-msgstr "Enkel betaalde records weergeven"
+msgstr "הצג את כל הרשומות ששולמו בלבד"
 
 #: ../data/billreminder.schemas.in.h:10
 msgid "Display the menu bar."
@@ -91,7 +88,7 @@ msgstr ""
 #: ../data/billreminder.schemas.in.h:11
 #, fuzzy
 msgid "Display the toolbar."
-msgstr "De werkbalk tonen"
+msgstr "הצג את סרגל הכלים"
 
 #: ../data/billreminder.schemas.in.h:12
 msgid "How long to display the alarm notification."
@@ -108,7 +105,7 @@ msgstr ""
 #: ../data/billreminder.schemas.in.h:15
 #, fuzzy
 msgid "The date a bill is due."
-msgstr "De rekening %s moet betaald worden."
+msgstr "פג תוקפו של החשבון %s."
 
 #: ../data/billreminder.schemas.in.h:16
 msgid "What specific time to display alert."
@@ -144,225 +141,213 @@ msgstr ""
 
 #: ../src/billreminder.py:39 ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
-msgstr "Gebruik:  billreminder [OPTIES...]"
+msgstr "שימוש: billreminder [אפשרויות...]"
 
 #: ../src/billreminder.py:40 ../src/billreminderd.py:24
 msgid "Displays the version number for this application."
-msgstr "Toont het versienummer voor deze toepassing"
+msgstr "מציג את מספר הגירסה עבור יישום זה."
 
 #: ../src/billreminder.py:41
 msgid "About this application."
-msgstr "Over deze toepassing."
+msgstr "אודות יישום זה."
 
 #: ../src/billreminder.py:42
 msgid "Adds a new record to the database."
-msgstr "Nieuw record toevoegen aan de database."
+msgstr "מוסיף רשומה חדשה למסד הנתונים."
 
 #: ../src/billreminder.py:43
 msgid "Access database directly, without daemon."
-msgstr "Directe toegang tot de database, zonder daemon."
+msgstr "גש אל מסד הנתונים ישירות, ללא סוכן."
 
 #: ../src/billreminder.py:52
 msgid "This option is not implemented yet."
-msgstr "Deze optie is nog niet geïmplementeerd"
+msgstr "אפשרות זו אינה מוטמעת עדיין."
 
 #: ../src/billreminder.py:54 ../src/billreminderd.py:42
 #: ../src/daemon/dbus_manager.py:44
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
-msgstr "Dit is %(appname)s - Versie: %(version)s"
+msgstr "זהו %(appname)s - גירסה: %(version)s"
 
 #: ../src/billreminderd.py:25
 msgid "Print output messages."
-msgstr "Toon uitvoer berichten."
+msgstr "מציג הודעות פלט."
 
 #: ../src/billreminderd.py:26
 msgid "Don't run as a daemon."
-msgstr "Niet als daemon draaien."
+msgstr "אל תריץ כסוכן"
 
 #: ../src/billreminderd.py:27
 msgid "Start daemon and launch GUI."
-msgstr "Start de daemon en de GUI"
+msgstr "הפעל את הסוכן וטען את המנשק."
 
 #: ../src/billreminderd.py:28
 msgid "Stop daemon."
-msgstr "Stop daemon."
+msgstr "עצור את הסוכן."
 
 #: ../src/daemon/alarm.py:64
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
-msgstr[0] "U hebt %s openstaande rekening om te betalen!"
-msgstr[1] "U hebt %s openstaande rekeningen om te betalen!"
+msgstr[0] "יש לך חשבון %s הממתין לתשלום!"
+msgstr[1] "יש לך %s חשבונות הממתינים לתשלום!"
 
 #: ../src/daemon/alarm.py:69
 msgid "Show BillReminder"
-msgstr "BillReminder tonen"
+msgstr "הצג את מדווח-החשבונות"
 
 #: ../src/daemon/alarm.py:71 ../src/daemon/alarm.py:132
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "ביטול"
 
 #: ../src/daemon/alarm.py:106 ../src/daemon/alarm.py:203
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
-msgstr "De rekening %(bill)s moet betaald worden op %(day)s."
+msgstr "החשבון %(bill)s יפוג תוך %(day)s ימים."
 
 #: ../src/daemon/alarm.py:118
 #, python-format
 msgid "The bill %s is due."
-msgstr "De rekening %s moet betaald worden."
+msgstr "פג תוקפו של החשבון %s."
 
 #. Button Title
 #: ../src/daemon/alarm.py:129 ../src/gui/maindialog.py:302
 #: ../src/gui/maindialog.py:327 ../src/lib/utils.py:135
 msgid "Mark as paid"
-msgstr "Markeren als betaald"
+msgstr "סמן כשולם"
 
 #: ../src/daemon/alarm.py:131 ../src/lib/utils.py:136
 msgid "Edit"
-msgstr "Bewerken"
+msgstr "ערוך"
 
 #: ../src/daemon/main.py:118
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr "Lock bestand gevonden: Er draait al een andere instantie. (pid=%d)"
+msgstr "נמצא קובץ נעילה: קיים עותק אחר פעיל של תוכנה זו. (pid=%d)"
 
 #: ../src/daemon/main.py:123
 msgid "Lock File found: Possibly the program was exited unexpectedly."
-msgstr "Lock bestand gevonden: Mogelijk is het programma onverwachts gestopt."
+msgstr "נמצא קובץ נעילה: ייתכן והתוכנית נסגרה בפתאומיות."
 
 #: ../src/daemon/main.py:126
 msgid "Removing Lock File..."
-msgstr "Verwijderen lock bestand..."
+msgstr "מסיר את קובץ הנעילה..."
 
 #: ../src/daemon/main.py:128
 msgid "Successfully."
-msgstr "Geslaagd."
+msgstr "הפעולה הושלמה."
 
 #: ../src/daemon/main.py:130
 msgid "Failed."
-msgstr "Mislukt."
+msgstr "הפעולה נכשלה."
 
 #: ../src/daemon/main.py:134
 msgid "BillReminder Notifier is already running."
-msgstr "BillReminder notifier draait reeds."
+msgstr "המתריע של מדווח-החשבונות כבר פעיל."
 
 #: ../src/gui/aboutdialog.py:12
 msgid "translator-credits"
 msgstr ""
-"Reinout van Schouwen \n"
-"Daniel van Eeden\n"
-"\n"
-"Kijk voor meer info op http://nl.gnome.org/\n"
-"\n"
 "Launchpad Contributions:\n"
-"  Daniel van Eeden https://launchpad.net/~translation-myname\n"
-"\n"
-"Launchpad Contributions:\n"
-"  Daniel van Eeden https://launchpad.net/~translation-myname\n"
-"  Johny Provoost https://launchpad.net/~jepe\n"
-"  Martijn Cielen https://launchpad.net/~mcielen\n"
-"  Og Maciel https://launchpad.net/~ogmaciel\n"
-"  leoquant https://launchpad.net/~leoquant"
+"  Yaron https://launchpad.net/~sh-yaron"
 
 #: ../src/gui/aboutdialog.py:35
 msgid "BillReminder Website"
-msgstr "BillReminder Webstek"
+msgstr "אתר הבית של מדווח-החשבונות"
 
 #: ../src/gui/adddialog.py:96 ../src/gui/maindialog.py:126
 #, fuzzy
 msgid "<b>_Due Date:</b>"
-msgstr "<b>Verloopdatum:</b>"
+msgstr "תאריך התפוגה:"
 
 #: ../src/gui/adddialog.py:104
 #, fuzzy
 msgid "<b>_Repeat:</b>"
-msgstr "<b>Begunstigde:</b>"
+msgstr "חזרה:"
 
 #: ../src/gui/adddialog.py:108
 msgid "How many times to repeat this bill."
-msgstr "Hoeveel maal deze rekening herhaald moet worden."
+msgstr "כמה פעמים לחזור על חשבון זה."
 
 #: ../src/gui/adddialog.py:141
 #, fuzzy
 msgid "<b>_Payee:</b>"
-msgstr "<b>Begunstigde:</b>"
+msgstr "מוטב:"
 
 #: ../src/gui/adddialog.py:144
 #, fuzzy
 msgid "<b>_Amount:</b>"
-msgstr "<b>Bedrag:</b>"
+msgstr "סכום:"
 
 #: ../src/gui/adddialog.py:147
 #, fuzzy
 msgid "<b>_Category:</b>"
-msgstr "Categorie:"
+msgstr "קטגוריה:"
 
 #: ../src/gui/adddialog.py:150
 #, fuzzy
 msgid "<b>_Notes:</b>"
-msgstr "<b>Opmerking:</b>"
+msgstr "הערות:"
 
 #: ../src/gui/adddialog.py:153
 #, fuzzy
 msgid "<b>A_larm:</b>"
-msgstr "<b>Bedrag:</b>"
+msgstr "התראה:"
 
 #: ../src/gui/adddialog.py:179
 msgid "Manage Categories"
-msgstr "Categorieën beheren"
+msgstr "ניהול קטגוריות"
 
 #: ../src/gui/adddialog.py:202 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
-msgstr "Datum en tijd selecteren"
+msgstr "בחר תאריך ושעה"
 
 #. TRANSLATORS: No date selected
 #: ../src/gui/adddialog.py:333 ../src/gui/adddialog.py:357
 #: ../src/gui/maindialog.py:283 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
-msgstr "Geen"
+msgstr "ללא"
 
 #: ../src/gui/adddialog.py:339 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
-msgstr "Nieuwe categorie"
+msgstr "קטגוריה חדשה"
 
 #: ../src/gui/adddialog.py:471
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
-msgstr "\"%s\" en \"%s\" zijn verplichte velden."
+msgstr "\"%s\" ו-\"%s\" הינם שדות נדרשים."
 
 #: ../src/gui/adddialog.py:472 ../src/gui/adddialog.py:476
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
-msgstr "Begunstigde"
+msgstr "מוטב"
 
 #: ../src/gui/adddialog.py:472 ../src/gui/adddialog.py:480
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
-msgstr "Bedrag"
+msgstr "סכום"
 
 #: ../src/gui/adddialog.py:476 ../src/gui/adddialog.py:480
 #, python-format
 msgid "\"%s\" is required field."
-msgstr "\"%s\" is een verplicht veld."
+msgstr "\"%s\" הינו שדה נחוץ."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
-msgstr "Categorie beheer"
+msgstr "מנהל קטגוריות"
 
 #: ../src/gui/categoriesdialog.py:59
 msgid "Categories"
-msgstr "Categorieën"
+msgstr "קטגוריות"
 
 #: ../src/gui/categoriesdialog.py:82
 msgid "Name:"
-msgstr "Naam:"
+msgstr "שם:"
 
 #: ../src/gui/categoriesdialog.py:85
 msgid "Color:"
-msgstr "Kleur:"
+msgstr "צבע:"
 
 #: ../src/gui/categoriesdialog.py:217
 #, python-format
@@ -371,195 +356,195 @@ msgid ""
 "\n"
 "Do you want to save your change to the existing category?"
 msgstr ""
-"De categorie \"%s\" bestaat al in de database!\n"
+"הקטגוריה \"%s\" כבר קיימת במסד הנתונים!\n"
 "\n"
-"Wilt u de veranderingen in de bestaande categorie plaatsen?"
+"האם ברצונך לשמור את השינוי לקטגוריה הנוכחית?"
 
 #: ../src/gui/categoriesdialog.py:244
 msgid "Do you really want to delete this category?\n"
-msgstr "Weet u zeker dat u deze categorie wilt verwijderen?\n"
+msgstr "האם אתה בטוח שברצונך למחוק קטגוריה זו?\n"
 
 #: ../src/gui/categoriesdialog.py:245
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] "Er is nog %d rekening in deze categorie."
-msgstr[1] "Er zijn nog %d rekeningen in deze categorie."
+msgstr[0] "קיים עוד חשבון %d בקטגוריה זו."
+msgstr[1] "ישנם עוד %d חשבונות בקטגוריה זו."
 
 #: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:557
 msgid "Confirmation"
-msgstr "Bevestiging"
+msgstr "אישור"
 
 #: ../src/gui/maindialog.py:105
 #, fuzzy
 msgid "<b>_Bills:</b>"
-msgstr "<b>Opmerking:</b>"
+msgstr "חשבונות:"
 
 #: ../src/gui/maindialog.py:295
 msgid "New"
-msgstr "Nieuw"
+msgstr "חדש"
 
 #: ../src/gui/maindialog.py:295 ../src/gui/maindialog.py:323
 msgid "Add a new record"
-msgstr "Nieuw record toevoegen"
+msgstr "מוסיף רשומה חדשה"
 
 #: ../src/gui/maindialog.py:297 ../src/gui/maindialog.py:324
 msgid "Edit a record"
-msgstr "Een record bewerken"
+msgstr "ערוך רשומה"
 
 #: ../src/gui/maindialog.py:299 ../src/gui/maindialog.py:325
 msgid "Delete selected record"
-msgstr "Het geselecteerde record verwijderen"
+msgstr "מחק את הרשומה הנבחרת"
 
 #: ../src/gui/maindialog.py:302 ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
-msgstr "Betaald"
+msgstr "שולם"
 
 #: ../src/gui/maindialog.py:305
 msgid "Not Paid"
-msgstr "Niet betaald"
+msgstr "לא שולם"
 
 #: ../src/gui/maindialog.py:305 ../src/gui/maindialog.py:328
 msgid "Mark as not paid"
-msgstr "Markeren als niet betaald"
+msgstr "סמן כ-לא שולם"
 
 #: ../src/gui/maindialog.py:322
 msgid "_File"
-msgstr "_Bestand"
+msgstr "_קובץ"
 
 #: ../src/gui/maindialog.py:323 ../src/gui/maindialog.py:515
 msgid "_Add New"
-msgstr "_Nieuwe toevoegen"
+msgstr "הוסף _חדש"
 
 #: ../src/gui/maindialog.py:326
 msgid "_Edit"
-msgstr "Be_werken"
+msgstr "ע_ריכה"
 
 #: ../src/gui/maindialog.py:327 ../src/gui/maindialog.py:525
 msgid "_Paid"
-msgstr "Be_taald"
+msgstr "_שולם"
 
 #: ../src/gui/maindialog.py:328
 msgid "_Not Paid"
-msgstr "_Niet betaald"
+msgstr "_לא שולם"
 
 #: ../src/gui/maindialog.py:329
 msgid "Edit preferences"
-msgstr "Voorkeuren aanpassen"
+msgstr "ערוך העדפות"
 
 #: ../src/gui/maindialog.py:330
 msgid "Quit the Program"
-msgstr "De applicatie verlaten"
+msgstr "צא מהתכנית"
 
 #: ../src/gui/maindialog.py:331
 msgid "_View"
-msgstr "_Beeld"
+msgstr "_תצוגה"
 
 #: ../src/gui/maindialog.py:332
 msgid "_Help"
-msgstr "_Hulp"
+msgstr "ע_זרה"
 
 #: ../src/gui/maindialog.py:333
 msgid "About the application"
-msgstr "Over het programma"
+msgstr "אודות היישום"
 
 #: ../src/gui/maindialog.py:343
 #, fuzzy
 msgid "_Show Toolbar"
-msgstr "Werkbalk tonen"
+msgstr "הצג את סרגל הכלים"
 
 #: ../src/gui/maindialog.py:343
 msgid "Show the toolbar"
-msgstr "De werkbalk tonen"
+msgstr "הצג את סרגל הכלים"
 
 #: ../src/gui/maindialog.py:347
 msgid "_Not Paid Only"
-msgstr "_Enkel niet betaald"
+msgstr "_לא שולם בלבד"
 
 #: ../src/gui/maindialog.py:347
 msgid "Display all unpaid records only"
-msgstr "Enkel onbetaalde records weergeven"
+msgstr "הצג את כל הרשומות שלא שולמו בלבד"
 
 #: ../src/gui/maindialog.py:348
 msgid "_Paid Only"
-msgstr "Enkel be_taald"
+msgstr "_שולמו בלבד"
 
 #: ../src/gui/maindialog.py:348
 msgid "Display all paid records only"
-msgstr "Enkel betaalde records weergeven"
+msgstr "הצג את כל הרשומות ששולמו בלבד"
 
 #: ../src/gui/maindialog.py:349
 msgid "_All Records"
-msgstr "_Alle records"
+msgstr "_כל הרשומות"
 
 #: ../src/gui/maindialog.py:349
 msgid "Display all records"
-msgstr "Alle records weergeven"
+msgstr "הצג את כל הרשומות"
 
 #: ../src/gui/maindialog.py:528
 msgid "Not _Paid"
-msgstr "Niet _betaald"
+msgstr "לא _שולמו"
 
 #: ../src/gui/maindialog.py:555
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
-msgstr "Weet u zeker dat u  \"%s\" wilt verwijderen?"
+msgstr "האם אתה בטוח שברצונך למחוק את \"%s\"?"
 
 #: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
 msgid "Preferences"
-msgstr "Voorkeuren"
+msgstr "העדפות"
 
 #: ../src/gui/prefdialog.py:54
 #, fuzzy
 msgid "<b>Alarms</b>"
-msgstr "<b>Bedrag:</b>"
+msgstr "התרעות"
 
 #: ../src/gui/prefdialog.py:60
 #, fuzzy
 msgid "_Alert before due date:"
-msgstr "Waarschuwen voor uiterlijke datum:"
+msgstr "התרע לפני תאריך התפוגה:"
 
 #: ../src/gui/prefdialog.py:65 ../src/gui/prefdialog.py:115
 msgid "day(s)."
-msgstr "dag/dagen."
+msgstr "יום/ימים."
 
 #: ../src/gui/prefdialog.py:68
 #, fuzzy
 msgid "_Preferred time:"
-msgstr "Voorkeurstijd:"
+msgstr "זמן מועדף:"
 
 #: ../src/gui/prefdialog.py:71
 msgid "Get alerted when individual bills are due."
-msgstr "Een waarschuwing als individuele rekeningen betaald moeten worden."
+msgstr "קבל התראה כאשר תוקפם של חשבונות בודדים פג."
 
 #: ../src/gui/prefdialog.py:95
 #, fuzzy
 msgid "<b>Notifications</b>"
-msgstr "Notificaties"
+msgstr "התראות"
 
 #: ../src/gui/prefdialog.py:101
 msgid "Define when to be notified of upcoming bills."
-msgstr "Definieer wanneer er voor nieuwe rekeningen gewaarschuwd moet worden."
+msgstr "הגדר מתי לקבל התראה אודות חשבונות קרבים."
 
 #: ../src/gui/prefdialog.py:109
 #, fuzzy
 msgid "_Notify before due date:"
-msgstr "Notificatie voor uiterste datum:"
+msgstr "התרע לפני תאריך התפוגה:"
 
 #: ../src/gui/prefdialog.py:130
 #, fuzzy
 msgid "<b>Alert Type</b>"
-msgstr "Waarschuwings type"
+msgstr "סוג ההתראה"
 
 #: ../src/gui/prefdialog.py:140
 #, fuzzy
 msgid "Notification _Bubble"
-msgstr "_Notificatie balon"
+msgstr "_בלון התראה"
 
 #: ../src/gui/prefdialog.py:142
 #, fuzzy
 msgid "Alert _Dialog"
-msgstr "_Waarschuwings dialoog"
+msgstr "תיבת _דו-שיח להתראה"
 
 #: ../src/gui/prefdialog.py:154
 msgid ""
@@ -567,43 +552,42 @@ msgid ""
 "not running! You need to start it in order \n"
 " to receive notifications."
 msgstr ""
-"<b>Waarschuwing:</b> BillReminder Notifier \n"
-"draait niet! Start de BillReminder Notifier \n"
-"om notificaties te ontvangen."
+"<b>אזהרה:</b> המתריע של מדווח החשבונות \n"
+"אינו פעיל! עליך להפעיל אותו על מנת\n"
+" לקבל התראות."
 
 #: ../src/gui/prefdialog.py:161
 msgid "_Start BillReminder Notifier"
-msgstr "BillReminder notifier _starten"
+msgstr "ה_פעל את המתריע של מדווח-החשבונות"
 
 #: ../src/gui/prefdialog.py:229
 msgid "<b>Note:</b> BillReminder Notifier is now running."
-msgstr "<b>Notificatie:</b> BillReminder Notifier draait nu."
+msgstr "<b>לתשומת לבך:</b> המתריע של מדווח-החשבונות פעיל כעת."
 
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:65
 msgid "%Y/%m/%d %H:%M"
-msgstr "%d-%m-%Y %H:%M"
+msgstr "%d/%m/%Y %H:%M"
 
 #: ../src/gui/widgets/datebutton.py:43 ../src/gui/widgets/datebutton.py:73
 #, fuzzy
 msgid "_None"
-msgstr "Geen"
+msgstr "ללא"
 
 #: ../src/gui/widgets/datebutton.py:70
 msgid "Select date and time"
-msgstr "Datum en tijd selecteren"
+msgstr "בחר תאריך ושעה"
 
 #: ../src/gui/widgets/datebutton.py:94
-#, fuzzy
 msgid "<b>_Time:</b>"
-msgstr "<b>Opmerking:</b>"
+msgstr ""
 
 #: ../src/gui/widgets/statusbar.py:16
 msgid "Records:"
-msgstr "Records:"
+msgstr "רשומות:"
 
 #: ../src/gui/widgets/statusbar.py:26
 msgid "Notes:"
-msgstr "Notities:"
+msgstr "הערות:"
 
 #: ../src/gui/widgets/timewidget.py:39
 msgid "(hh/mm)"
@@ -611,243 +595,117 @@ msgstr ""
 
 #: ../src/gui/widgets/trayicon.py:42
 msgid "Hide Window"
-msgstr "Venster verbergen"
+msgstr "הסתר חלון"
 
 #: ../src/gui/widgets/trayicon.py:44
 msgid "Show Window"
-msgstr "Venster tonen"
+msgstr "הצג חלון"
 
 #: ../src/gui/widgets/trayicon.py:50
 msgid "About"
-msgstr "Info"
+msgstr "אודות"
 
 #: ../src/gui/widgets/trayicon.py:54
 msgid "Quit"
-msgstr "Afsluiten"
+msgstr "יציאה"
 
 #. TRANSLATORS: This is a date format. You can change the order.
 #: ../src/gui/widgets/viewbill.py:46
 msgid "%m/%d"
-msgstr "%d-%m"
+msgstr "%d/%m"
 
 #: ../src/gui/widgets/viewbill.py:83 ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
-msgstr "Categorie"
+msgstr "קטגוריה"
 
 #: ../src/gui/widgets/viewbill.py:87
 msgid "Date"
-msgstr "Datum"
+msgstr "תאריך"
 
 #: ../src/gui/widgets/viewbill.py:91
 msgid "Notes"
-msgstr "Notities"
+msgstr "הערות"
 
 #: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
-msgstr "Waarschuwing"
+msgstr "התראה"
 
 #: ../src/lib/common.py:19
 msgid "Developers:"
-msgstr "Developers:"
+msgstr "מפתחים:"
 
 #: ../src/lib/common.py:23
 msgid "Contributors:"
-msgstr "Contributors:"
+msgstr "תורמים:"
 
 #: ../src/lib/dbus_actions.py:29
 msgid ""
 "An error occurred while connecting to BillReminder Notifier!\n"
 "Do you want to launch it and restart BillReminder?"
 msgstr ""
-"Er was een fout bij het verbinden met de BillReminder Notifier!\n"
-"Wilt u het starten en BillReminder herstarten?"
+"ארעה שגיאה בעת נסיון החיבור אל המתריע של מדווח-החשבונות!\n"
+"האם ברצונך לטעון אותו ולאתחל את מדווח החשבונות?"
 
 #. Dialog Title
 #: ../src/lib/dialogs.py:51
 msgid "Add a New Record"
-msgstr "Nieuw record toevoegen"
+msgstr "הוסף רשומה חדשה"
 
 #. Dialog Title
 #: ../src/lib/dialogs.py:62
 msgid "Edit a Record"
-msgstr "Record bewerken"
+msgstr "ערוך רשומה"
 
 #. Dialog Title
 #: ../src/lib/utils.py:83
 msgid "Question"
-msgstr "Vraag"
+msgstr "שאלה"
 
 #. Dialog Title
 #: ../src/lib/utils.py:96 ../src/lib/utils.py:109
 msgid "Error"
-msgstr "Fout"
+msgstr "שגיאה"
 
 #. Dialog Title
 #: ../src/lib/utils.py:122
 msgid "Information"
-msgstr "Informatie"
+msgstr "מידע"
 
 #: ../src/lib/utils.py:150
 msgid "Close _Without Saving"
-msgstr "Sluiten en niet opslaan"
+msgstr "סגור מ_בלי לשמור"
 
 #: ../src/lib/utils.py:156
 msgid "Save changes before closing?"
-msgstr "Veranderingen opslaan bij het verlaten?"
+msgstr "האם לשמור את השינויים לפני הסגירה?"
 
 #: ../src/lib/utils.py:157
 msgid "If you close without saving, your changes will be discarded."
-msgstr ""
-"De veranderingen zullen verloren gaan als ze niet opgeslagen worden bij het "
-"afsluiten."
+msgstr "אם תסגור מבלי לשמור, השינויים שלך יאבדו."
 
 #: ../src/lib/scheduler.py:6
 msgid "Once"
-msgstr "Eenmalig"
+msgstr "פעם אחת"
 
 #: ../src/lib/scheduler.py:7
 msgid "Weekly"
-msgstr "Wekelijk"
+msgstr "בכל שבוע"
 
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
-msgstr "Maandelijks"
+msgstr "בכל חודש"
 
 #~ msgid "%Y/%m/%d"
-#~ msgstr "%d-%m-%Y"
-
-#~ msgid "Due Date:"
-#~ msgstr "Uiterlijke datum:"
-
-#~ msgid "Repeat:"
-#~ msgstr "Herhaling:"
-
-#~ msgid "Payee:"
-#~ msgstr "Begunstigde:"
-
-#~ msgid "Amount:"
-#~ msgstr "Bedrag:"
-
-#~ msgid "Alarm:"
-#~ msgstr "Alarm:"
-
-#~ msgid "Bills:"
-#~ msgstr "Rekeningen:"
-
-#, fuzzy
-#~ msgid "Alarms"
-#~ msgstr "Waarschuwing"
+#~ msgstr "%d/%m/%Y"
 
 #~ msgid "Date:"
-#~ msgstr "Datum:"
+#~ msgstr "תאריך:"
 
 #~ msgid "Time:"
-#~ msgstr "Tijd:"
+#~ msgstr "שעה:‏"
 
 #~ msgid "Hour :"
-#~ msgstr "Uur :"
+#~ msgstr "שעה :"
 
 #~ msgid "Minute :"
-#~ msgstr "Minuut :"
-
-#~ msgid "Alerts"
-#~ msgstr "Waarschuwingen"
-
-#~ msgid ""
-#~ "Usage:  billreminder [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --about\t\tAbout this application.\n"
-#~ "  --add\t\t\tAdds a new record to the database.\n"
-#~ "  --standalone\t\tAccess database directly, without daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Gebruik:  billreminder [OPTIES...]\n"
-#~ "\n"
-#~ "Opties:\n"
-#~ "  --help, -h, -?\tDit bericht tonen.\n"
-#~ "  --about\t\tOver dit programma.\n"
-#~ "  --add\t\t\tNieuw record toevoegen aan de database.\n"
-#~ "  --standalone\t\tDirect de database benaderen zonder daemon.\n"
-#~ "  --version, -v\t\tVersie tonen voor dit programma.\n"
-
-#~ msgid ""
-#~ "Usage:  billreminderd [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --verbose\t\tPrint output messages.\n"
-#~ "  --no-daemon\t\tDon't run as a daemon.\n"
-#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Gebruik:  billreminderd [OPTIES...]\n"
-#~ "\n"
-#~ "Opties:\n"
-#~ "  --help, -h, -?\tDit bericht tonen.\n"
-#~ "  --verbose\t\tUitvoer berichten tonen.\n"
-#~ "  --no-daemon\t\tNiet draaien als een daemon.\n"
-#~ "  --open-gui\t\tAls een daemon starten en de GUI starten.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tVersie tonen voor dit programma.\n"
-
-#~ msgid "Due Date"
-#~ msgstr "Uiterlijke datum"
-
-#~ msgid "Amount Due"
-#~ msgstr "Verschuldigd bedrag"
-
-#~ msgid "Remove"
-#~ msgstr "Verwijderen"
-
-#, fuzzy
-#~ msgid "<b>0</b>"
-#~ msgstr "<b>Opmerking:</b>"
-
-#, fuzzy
-#~ msgid "<b>%(payee)s</b>"
-#~ msgstr "<b>Begunstigde:</b>"
-
-#~ msgid "Editing bill '%s'"
-#~ msgstr "Bewerken van rekening '%s'"
-
-#~ msgid "You have 1 outstanding bill to pay!"
-#~ msgstr "U heeft 1 openstaande rekening!"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid ""
-#~ "do you really want to remove it?\n"
-#~ "\n"
-#~ " <b>%(payee)s - %(amount)0.2f </b>"
-#~ msgstr ""
-#~ "Weet u zeker dat u het wilt verwijderen?\n"
-#~ "\n"
-#~ " <b>%(payee)s - %(amount)0.2f </b>"
-
-#~ msgid "<big><b>Are you sure you want to quit?</b></big>"
-#~ msgstr "<big><b>Weet u zeker dat u wilt afsluiten?</b></big>"
-
-#~ msgid "The following bill was removed:\n"
-#~ msgstr "De volgende rekening is verwijderd:\n"
-
-#~ msgid "Item deleted."
-#~ msgstr "Item verwijderd."
-
-#~ msgid "Bill '%s' not deleted."
-#~ msgstr "Rekening '%s' niet verwijderd."
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid "<b>Info:</b>"
-#~ msgstr "<b>Info:</b>"
-
-#~ msgid "Mostrar Janela"
-#~ msgstr "Mostrar Janela"
-
-#~ msgid "N_ot Paid"
-#~ msgstr "_Niet betaald"
+#~ msgstr "דקה :"

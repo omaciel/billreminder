@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-16 23:04+0200\n"
+"POT-Creation-Date: 2008-08-23 18:12-0400\n"
 "PO-Revision-Date: 2008-08-16 23:16:16+0200\n"
 "Last-Translator: Robert-André Mauchin <zebob.m@pengzone.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -35,6 +35,108 @@ msgstr "N'oubliez plus jamais de payer vos factures !"
 #: ../src/lib/utils.py:138
 msgid "BillReminder"
 msgstr "BillReminder"
+
+#: ../data/billreminder.schemas.in.h:1
+#, fuzzy
+msgid "Default X coordinate for the application."
+msgstr "Affiche le numéro de version de cette application"
+
+#: ../data/billreminder.schemas.in.h:2
+#, fuzzy
+msgid "Default Y coordinate for the application."
+msgstr "Affiche le numéro de version de cette application"
+
+#: ../data/billreminder.schemas.in.h:3
+#, fuzzy
+msgid "Default height of the application."
+msgstr "À propos de l'application"
+
+#: ../data/billreminder.schemas.in.h:4
+#, fuzzy
+msgid "Default width of the application."
+msgstr "À propos de l'application"
+
+#: ../data/billreminder.schemas.in.h:5
+#, fuzzy
+msgid "Defines the default X coordinate for the application."
+msgstr "Affiche le numéro de version de cette application"
+
+#: ../data/billreminder.schemas.in.h:6
+#, fuzzy
+msgid "Defines the default Y coordinate for the application."
+msgstr "Affiche le numéro de version de cette application"
+
+#: ../data/billreminder.schemas.in.h:7
+#, fuzzy
+msgid "Defines the default height of the application."
+msgstr "Affiche le numéro de version de cette application"
+
+#: ../data/billreminder.schemas.in.h:8
+msgid "Defines the default width of the application."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:9
+#, fuzzy
+msgid "Display only paid bills."
+msgstr "Affiche toutes les factures payées uniquement"
+
+#: ../data/billreminder.schemas.in.h:10
+msgid "Display the menu bar."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:11
+#, fuzzy
+msgid "Display the toolbar."
+msgstr "Affiche la barre d'outils"
+
+#: ../data/billreminder.schemas.in.h:12
+msgid "How long to display the alarm notification."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:13
+msgid "How many days prior to due date to alert."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:14
+msgid "How many days prior to due date to notify."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:15
+#, fuzzy
+msgid "The date a bill is due."
+msgstr "La facture %s est dûe."
+
+#: ../data/billreminder.schemas.in.h:16
+msgid "What specific time to display alert."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:17
+msgid "Whether to display notifications on startup."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:18
+msgid "Whether to display the menu bar or not."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:19
+msgid "Whether to display the toolbar or not."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:20
+msgid "Whether to show alarms before a bill is due."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:21
+msgid "Whether to show alarms."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:22
+msgid "Whether to show notifications for paid bills."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:23
+msgid "Whether to use dialogs for notifications."
+msgstr ""
 
 #: ../src/billreminder.py:39 ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
