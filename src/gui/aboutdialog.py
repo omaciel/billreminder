@@ -4,14 +4,23 @@ __all__ = ['AboutDialog']
 
 import pygtk
 pygtk.require('2.0')
+
 import gtk
-from gnome import url_show
 import lib.common as common
+
+# Internationalization
 from lib import i18n
+
+try:
+  import gnome
+  def open_url(url): gnome.url_show(url)
+except:
+  import os
+  def open_url(url): os.system("xdg-open %s" % url)
 
 TRANSLATORS = _("translator-credits")
 
-gtk.about_dialog_set_url_hook(lambda dialog, url, data: url_show(url), None)
+gtk.about_dialog_set_url_hook(lambda dialog, url, data: open_url(url), None)
 
 class AboutDialog(gtk.AboutDialog):
     """

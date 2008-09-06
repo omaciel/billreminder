@@ -1,3 +1,7 @@
+2008-09-06 Og Maciel <ogmaciel@gnome.org>
+
+	* aboutdialog.py: added secondary form of opening url in case of failed dependency.
+
 2008-07-27 Og Maciel <ogmaciel@gnome.org>
 
     * adddialog.py, prefdialog.py, maindialog.py: Mnemonic labels/widgets and HIG work.
