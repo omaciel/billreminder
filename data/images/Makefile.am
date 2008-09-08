@@ -43,19 +43,6 @@ install-data-local:
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/scalable/apps
 	$(INSTALL_DATA) $(srcdir)/billreminder.svg $(DESTDIR)$(hicolordir)/scalable/apps/billreminder.svg
 
-uninstall-hook:
-	rm -f $(DESTDIR)$(hicolordir)/scalable/apps/billreminder.svg
-	rm -f $(DESTDIR)$(hicolordir)/128x128/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/96x96/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/72x72/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/64x64/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/48x48/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/32x32/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/24x24/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/20x20/apps/billreminder.png
-	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/billreminder.png
-
 imagesdir = $(datadir)/billreminder/images
 images_DATA = \
 	billreminder.png \
@@ -86,3 +73,17 @@ install-data-hook:
 		echo "*** Icon cache not updated. After install, run this:"; \
 		echo "***   $(gtk_update_icon_cache)"; \
 	fi
+	
+uninstall-hook:
+	rm -f $(DESTDIR)$(hicolordir)/scalable/apps/billreminder.svg
+	rm -f $(DESTDIR)$(hicolordir)/128x128/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/96x96/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/72x72/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/64x64/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/48x48/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/32x32/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/24x24/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/20x20/apps/billreminder.png
+	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/billreminder.png
+	rm -rf $(DESTDIR)$(datadir)/billreminder

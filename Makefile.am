@@ -15,7 +15,7 @@ billreminder: billreminder.in
 		< $< > $@
 
 EXTRA_DIST = billreminder.in
-CLEANFILES += billreminderd
+CLEANFILES += billreminder
 
 billreminderd: billreminderd.in
 	-sed -e s!\@PYTHONDIR\@!$(pythondir)! \

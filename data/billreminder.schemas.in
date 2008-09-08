@@ -203,13 +203,13 @@
       </locale>
     </schema>
 
-   <schema>
+    <schema>
       <key>/schemas/apps/billreminder/delay</key>
       <applyto>/apps/billreminder/delay</applyto>
       <owner>billreminder</owner>
       <type>int</type>
       <default>1</default>
-      <locale name="C"/>
+      <locale name="C">
         <short>Delay between notifications.</short>
         <long>Delay between notifications.</long>
       </locale>
@@ -221,7 +221,7 @@
       <owner>billreminder</owner>
       <type>bool</type>
       <default>false</default>
-      <locale name="C"/>
+      <locale name="C">
         <short>Start the application in the system's tray.</short>
         <long>Whether to start the application in the system's tray.</long>
       </locale>

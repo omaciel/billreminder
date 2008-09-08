@@ -2,22 +2,19 @@
 
 SUBDIRS = images
 
-# Configuration Data
-# TODO: Remove this as we no longer use it in favor of gconf schemas
-configdir = $(datadir)/billreminder
-config_DATA = billreminder.cfg
-
 # GConf Schemas
-schema_in_files = billreminder.schemas.in
-schemadir = $(GCONF_SCHEMA_FILE_DIR)
-schema_DATA = $(schema_in_files:.schemas.in=.schemas)
+schemasdir = $(GCONF_SCHEMA_FILE_DIR)
+schemas_in_files = billreminder.schemas.in
+schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
+
+CLEANFILES = $(schemas_DATA)
 
 #DBus Service
 servicedir = $(DBUS_SERVICES_DIR)
 service_in_files = billreminder.service.in
-service_DATA = billreminder.service
+service_DATA = $(service_in_files:.service.in=.service)
 
-CLEANFILES = $(service_DATA)
+CLEANFILES += $(service_DATA)
 
 billreminder.service: billreminder.service.in
 	sed -e s!\@bindir\@!$(bindir)! \
@@ -42,7 +39,7 @@ CLEANFILES += $(autostart_DATA)
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
 	@GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) \
-		--makefile-install-rule $(schema_DATA) || \
+		--makefile-install-rule $(schemas_DATA) || \
 		(echo ;\
 		echo "*****************************************************"; \
 		echo "Installation of schemas failed, install them manually"; \
@@ -57,12 +54,8 @@ install-data-local:
 endif
 
 EXTRA_DIST = \
-	$(config_DATA) \
-	$(schemas_DATA) \
+	$(schemas_in_files) \
 	$(service_in_files) \
 	$(desktop_in_files) \
 	$(autostart_in_files)
 
-
-uninstall-hook:
-	rm -fr $(configdir)
