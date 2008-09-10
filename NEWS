@@ -5,8 +5,9 @@ BillReminder 0.3.2
 2008-06-18  Og Maciel <ogmaciel@gnome.org>
 
 * Another minor release with a couple of bug fixes to handle how categories and alarms
-are handled. We've also added better handle for command line parsing and added pycairo
+are handled. We've also added better handling for command line parsing and added pycairo
 as a new dependency, removing the previous dependency to python-image. This will allow
 us to add some really nice reporting utilities and general user interface improvements
-in a future release. Finally, we've added 3 new translations: Croatian, Czech and 
-Italian!
+in a future release. Finally, we've added several new translations!
+
+For detailed information about what's new and what has been fixed, take a look at the ChangeLog.
