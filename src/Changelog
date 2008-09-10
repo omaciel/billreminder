@@ -1,4 +1,0 @@
-2008-04-02 Og Maciel <ogmaciel@gnome.org>
-
-    * billreminder.py: Changed sys.argv to OptionParser, work done by Laudeci Oliveira.
-    * billreminderd.py: Changed sys.argv to OptionParser.
