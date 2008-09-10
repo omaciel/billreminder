@@ -1,13 +1,107 @@
-===============================
 BillReminder 0.3.2
-==============================
+==================
 
-2008-06-18  Og Maciel <ogmaciel@gnome.org>
+ Bugs:
+  * Paid/Not Paid entries exist in File and Edit menus; Make them toggle/untoggle appropriately
+   ref http://code.google.com/p/billreminder/issues/detail?id=13
+  * Issues with date and time locale?
+   ref http://code.google.com/p/billreminder/issues/detail?id=12
+  * Ambiguity with Alerts and Alarms in preferences dialog
+   ref  http://code.google.com/p/billreminder/issues/detail?id=11
+  * Make category names a unique field.
+   ref: http://code.google.com/p/billreminder/issues/detail?id=1
+  * Newly added categories should be selected automatically
+   ref: http://code.google.com/p/billreminder/issues/detail?id=2
+  * Make setting an alarm really optional.
+   ref: http://code.google.com/p/billreminder/issues/detail?id=4
 
-* Another minor release with a couple of bug fixes to handle how categories and alarms
-are handled. We've also added better handling for command line parsing and added pycairo
-as a new dependency, removing the previous dependency to python-image. This will allow
-us to add some really nice reporting utilities and general user interface improvements
-in a future release. Finally, we've added several new translations!
+ Backend:
+  * Changed BillReminder to use GConf for is configuration values.
+    Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
+  * Changed BillReminder's command line parsing to use OptionParser.
+   ref: http://code.google.com/p/billreminder/issues/detail?id=3
 
-For detailed information about what's new and what has been fixed, take a look at the ChangeLog.
+ Translations:
+  New:
+  * Croatian translation by Mario Ðani
+  * Czech translation by Pavel Šefránek
+  * Italian translation by giopas
+  * English translation by Rosetta Contributors and Canonical Ltd
+  * Canadian English translation by Rosetta Contributors and Canonical Ltd
+  * Finish translation by Rosetta Contributors and Canonical Ltd
+  * Hungarian translation by Rosetta Contributors and Canonical Ltd
+  * Polish translation by Rosetta Contributors and Canonical Ltd
+  * European Portuguese translation by Rosetta Contributors and Canonical Ltd
+  * Romanian translation by Rosetta Contributors and Canonical Ltd
+  * Russian translation by Rosetta Contributors and Canonical Ltd
+  * Slovenian translation by Rosetta Contributors and Canonical Ltd
+  * Tagalog translation by Rosetta Contributors and Canonical Ltd
+  * Turkish translation by Rosetta Contributors and Canonical Ltd
+
+  Updated:
+  * Spanish by Gilberto Miralla
+  * Dutch by Daniel van Eeden
+  * Brazilian Portuguese by Og Maciel
+  * German by Sebastian
+
+ Graphical Interface:
+  * Mnemonic labels/widgets and HIG work done to dialogs.
+    Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
+  * Ask user for confirmation before editing an existing category.
+  * Added pycairo as a dependency instead of python-Image. Color-coded
+  categories now have a border around the colored tile.
+
+ General
+  * Renamed MANTAINERS to MAINTAINERS
+  * Added uninstall method and versioning via autotools
+   ref: http://bugzilla.gnome.org/show_bug.cgi?id=547768
+
+BillReminder 0.3.1
+==================
+
+ Bugs:
+ #1906715 - New records can now be created by double-clicking a date in
+  the main calendar. The due date for this new record will be set to the
+ date selected upon double-clicking.
+ #1908445 - Fixed a bug that would cause recurring bills not to expand
+  beyond the current year.
+
+ Translations:
+   * French translation added by Robert-André Mauchin
+   * Dutch translation updated by Daniel van Eeden
+
+ Graphical Interface:
+  * Display categories by category name in ascending order in the categories dialog.
+  * Display the colored tile for each category next to its name in the categories dropdown in the add/edit dialog.
+
+BillReminder 0.3.0
+==================
+
+2008-03-01  Og Maciel <ogmaciel@gnome.org>
+
+    * This was a massive rewrite of the entire application, and instead
+    of listing all files that have been changd, I'll try to highlight
+    the most important changes and features instead.
+    * GLADE: BillReminder 0.3 was entirely re-written in order to remove
+    all glade files and dependencies. The initial idea was to simply
+    get rid of the dependency, but it also served as a learning process
+    for me (and I believe the other contributors will agree with this
+    as well).
+    * DBUS: The DBUS layer received a bit more love from Luiz Armesto,
+    breaking it down into the proper calls so to separate the 'engine'
+    per se from the client.
+    * UI: The user interface has also gone a series of changes and
+    (hopefully) improvements. It is probably not 100% HIG compliant yet,
+    but we'll gladly accept suggestions.
+    * Bug management: Towards the last 8 weeks of development we've adopted
+    the habit of filing bug reports prior to fixing the issues that we
+    encountered during the development cycle.
+    * Translations: All prior contributors promptly replied to my email
+    asking them to update their translations:
+
+        - de.po:    Sebastian Haselbeck
+        - es.po:    Gilberto J. Miralla
+        - no_NB.po: Tommy Mikkelsen
+        - no.po:    Tommy Mikkelsen
+        - pt_BR.po: Fábio Nogueira
+        - sv.po:    Daniel Nylander

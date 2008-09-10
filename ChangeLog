@@ -1,107 +1,268 @@
-BillReminder 0.3.2
-==================
+==== BillReminder 0.3.2 ====
 
- Bugs:
-  * Paid/Not Paid entries exist in File and Edit menus; Make them toggle/untoggle appropriately
-   ref http://code.google.com/p/billreminder/issues/detail?id=13
-  * Issues with date and time locale?
-   ref http://code.google.com/p/billreminder/issues/detail?id=12
-  * Ambiguity with Alerts and Alarms in preferences dialog
-   ref  http://code.google.com/p/billreminder/issues/detail?id=11
-  * Make category names a unique field.
-   ref: http://code.google.com/p/billreminder/issues/detail?id=1
-  * Newly added categories should be selected automatically
-   ref: http://code.google.com/p/billreminder/issues/detail?id=2
-  * Make setting an alarm really optional.
-   ref: http://code.google.com/p/billreminder/issues/detail?id=4
+2008-09-06 Og Maciel <ogmaciel@gnome.org>
 
- Backend:
-  * Changed BillReminder to use GConf for is configuration values.
-    Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
-  * Changed BillReminder's command line parsing to use OptionParser.
-   ref: http://code.google.com/p/billreminder/issues/detail?id=3
+	* aboutdialog.py: added secondary form of opening url in case of failed dependency.
 
- Translations:
-  New:
-  * Croatian translation by Mario Ðani
-  * Czech translation by Pavel Šefránek
-  * Italian translation by giopas
-  * English translation by Rosetta Contributors and Canonical Ltd
-  * Canadian English translation by Rosetta Contributors and Canonical Ltd
-  * Finish translation by Rosetta Contributors and Canonical Ltd
-  * Hungarian translation by Rosetta Contributors and Canonical Ltd
-  * Polish translation by Rosetta Contributors and Canonical Ltd
-  * European Portuguese translation by Rosetta Contributors and Canonical Ltd
-  * Romanian translation by Rosetta Contributors and Canonical Ltd
-  * Russian translation by Rosetta Contributors and Canonical Ltd
-  * Slovenian translation by Rosetta Contributors and Canonical Ltd
-  * Tagalog translation by Rosetta Contributors and Canonical Ltd
-  * Turkish translation by Rosetta Contributors and Canonical Ltd
+2008-08-27 Og Maciel <ogmaciel@gnome.org>
 
-  Updated:
-  * Spanish by Gilberto Miralla
-  * Dutch by Daniel van Eeden
-  * Brazilian Portuguese by Og Maciel
-  * German by Sebastian
+	* no.po: Removed it as this was probably wrong from the start.
+	* pt_BR.po: Updated translation by Vladimir Melo.
+	* .po: Updated translation files.
+	* .pot: Updated translation catalog.
+	* fi.po: Updated Finnish translation.
+	* sv.po: Updated Swedish translation.
 
- Graphical Interface:
-  * Mnemonic labels/widgets and HIG work done to dialogs.
-    Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
-  * Ask user for confirmation before editing an existing category.
-  * Added pycairo as a dependency instead of python-Image. Color-coded
-  categories now have a border around the colored tile.
+2008-08-23  Og Maciel <ogmaciel@gnome.org>
 
- General
-  * Renamed MANTAINERS to MAINTAINERS
-  * Added uninstall method and versioning via autotools
-   ref: http://bugzilla.gnome.org/show_bug.cgi?id=547768
+	* POTFILES.in: Added data/billreminder.schemas.in.
+	* POTFILES.skip: Added src/lib/migrate_to_gconf.py.
+	* he.po: Added Hebrew translation by Rosetta Contributors and Canonical Ltd
+	* *.po: Merged all translations with newer pot
+	* billreminder.schemas.in: Added long and short descriptions.
 
-BillReminder 0.3.1
-==================
 
- Bugs:
- #1906715 - New records can now be created by double-clicking a date in
-  the main calendar. The due date for this new record will be set to the
- date selected upon double-clicking.
- #1908445 - Fixed a bug that would cause recurring bills not to expand
-  beyond the current year.
+2008-08-16  Robert-André Mauchin  <zebob.m@pengzone.org>
 
- Translations:
-   * French translation added by Robert-André Mauchin
-   * Dutch translation updated by Daniel van Eeden
+	* fr.po: Updated French translation
 
- Graphical Interface:
-  * Display categories by category name in ascending order in the categories dialog.
-  * Display the colored tile for each category next to its name in the categories dropdown in the add/edit dialog.
+2008-08-15  Og Maciel <ogmaciel@gnome.org>
+	* it.po, hr.po: Converted to UTF-8
 
-BillReminder 0.3.0
-==================
+2008-07-27 Og Maciel <ogmaciel@gnome.org>
 
-2008-03-01  Og Maciel <ogmaciel@gnome.org>
+	* adddialog.py, prefdialog.py, maindialog.py: Mnemonic labels/widgets and HIG work.
+	  Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
 
-    * This was a massive rewrite of the entire application, and instead
-    of listing all files that have been changd, I'll try to highlight
-    the most important changes and features instead.
-    * GLADE: BillReminder 0.3 was entirely re-written in order to remove
-    all glade files and dependencies. The initial idea was to simply
-    get rid of the dependency, but it also served as a learning process
-    for me (and I believe the other contributors will agree with this
-    as well).
-    * DBUS: The DBUS layer received a bit more love from Luiz Armesto,
-    breaking it down into the proper calls so to separate the 'engine'
-    per se from the client.
-    * UI: The user interface has also gone a series of changes and
-    (hopefully) improvements. It is probably not 100% HIG compliant yet,
-    but we'll gladly accept suggestions.
-    * Bug management: Towards the last 8 weeks of development we've adopted
-    the habit of filing bug reports prior to fixing the issues that we
-    encountered during the development cycle.
-    * Translations: All prior contributors promptly replied to my email
-    asking them to update their translations:
+2008-07-18 Og Maciel <ogmaciel@gnome.org>
 
-        - de.po:    Sebastian Haselbeck
-        - es.po:    Gilberto J. Miralla
-        - no_NB.po: Tommy Mikkelsen
-        - no.po:    Tommy Mikkelsen
-        - pt_BR.po: Fábio Nogueira
-        - sv.po:    Daniel Nylander
+	* aboutdialog.py: Make sure you can visit the project web site when clicking on link.
+	* main.py: Don't fork for now... let billreminderd run on one process for now.
+	* alarm.py: Get configuration values before calling methods that make use of them.
+	  ref http://code.google.com/p/billreminder/issues/detail?id=15
+
+2008-07-15 Og Maciel <ogmaciel@gnome.org>
+
+	* common.py: Use a bigger icon for the about dialog and notifications.
+	* dialogs.py: Fixed regression from r.557 that caused records to be reset upon editing
+	* alarm.py: Do not translate time format and leave it up to locale.
+	  ref http://code.google.com/p/billreminder/issues/detail?id=12
+	* maindialog.py: Fixed regression from r.557 that caused records to be reset upon editing
+
+2008-07-14 Og Maciel <ogmaciel@gnome.org>
+
+	* maindialog.py: No need to cast value passed from View submenus to strings
+
+2008-07-11 Og Maciel <ogmaciel@gnome.org>
+
+	* maindialog.py: Remove duplicated menu entry and fix event handling
+	* billreminder.pot: Updated message catalog
+	* genpot.sh: Added script to generate translations message catalogs
+	* *.po: Merged all translations with newer pot
+	* en_GB.po: Added English translation by Rosetta Contributors and Canonical Ltd
+	* hu.po: Added Hungarian translation by Rosetta Contributors and Canonical Ltd
+	* sl.po: Added Slovenian translation by Rosetta Contributors and Canonical Ltd
+	* tl.po: Added Tagalog translation by Rosetta Contributors and Canonical Ltd
+	* ro.po: Added Romanian translation by Rosetta Contributors and Canonical Ltd
+
+2008-07-10 Og Maciel <ogmaciel@gnome.org>
+
+	* common.py:  Make use of gconf values
+	* config.py: Make use of gconf values
+	* migrate_to_gconf.py: Method to migrate applicatio to use gconf values
+	* adddialog.py: Make use of gconf values
+	* prefdialog.py: Make use of gconf values
+	* maindialog.py: Make use of gconf values
+	* alarm.py: Make use of gconf values
+	* main.py: Make use of gconf values
+	* dbus_manager.py: Make use of gconf values
+	* Makefile.am: Require gconf-2
+	* billreminder.schemas: Gconf schema
+
+2008-06-24  Og Maciel <ogmaciel@gnome.org>
+
+	* billreminder.pot: Updated message catalog
+	* *.po: Merged all translations with newer pot
+	* LINGUAS: Added translations and changed no_NB to nb
+	* cs.po: Updated translation by Rosetta Contributors and Canonical Ltd
+	* fr.po: Updated translation by Rosetta Contributors and Canonical Ltd
+	* es.po: Updated translation by Rosetta Contributors and Canonical Ltd
+	* hr.po: Updated translation by Rosetta Contributors and Canonical Ltd
+	* nl.po: Updated translation by Rosetta Contributors and Canonical Ltd
+	* it.po: Updated translation by Rosetta Contributors and Canonical Ltd
+	* de.po: Updated translation by Rosetta Contributors and Canonical Ltd
+	* sv.po: Updated translation by Rosetta Contributors and Canonical Ltd
+
+	* en_CA: Added Canadian English translation by Rosetta Contributors and Canonical Ltd
+	* fi.po: Added Finish translation by Rosetta Contributors and Canonical Ltd
+	* pl.po: Added Polish translation by Rosetta Contributors and Canonical Ltd
+	* pt.po: Added European Portuguese translation by Rosetta Contributors and Canonical Ltd
+	* ru.po: Added Russian translation by Rosetta Contributors and Canonical Ltd
+	* tr.po: Added Turkish translation by Rosetta Contributors and Canonical Ltd
+
+2008-06-19 Og Maciel <ogmaciel@gnome.org>
+
+	* Makefile.am: Set a default target
+	* hr.po, it.po, no.po, no_NB.po: converted from iso-8859-1 to utf-8
+	* de.po: Updated translation by Sebastian <haselbeck@gmx.net>
+
+2008-06-18  Og Maciel <ogmaciel@gnome.org>
+
+	* es.po: Updated Spanish translation by Gilberto Miralla <xyhthyx@gmail.com>
+	* nl.po: Updated Dutch translation by Daniel van Eeden <translation@myname.nl>
+	* pt_BR.po: Updated Brazilian Portuguese translation by Og Maciel <ogmaciel@gnome.org>
+
+2008-06-12  Og Maciel <ogmaciel@gnome.org>
+
+	* it.po: Updated Italian translation by giopas <linux@giopas.eu>
+
+2008-05-15  Og Maciel <ogmaciel@gnome.org>
+
+	* it.po: Updated Italian translation by giopas <linux@giopas.eu>
+
+2008-05-14  Og Maciel <ogmaciel@gnome.org>
+
+	* billreminder.pot: Updated message catalog
+	* *.po: Merged all translations with newer pot
+
+2008-05-13  Og Maciel <ogmaciel@gnome.org>
+
+	* it.po: Added Italian translation by giopas <linux@giopas.eu>
+
+2008-05-11  Og Maciel <ogmaciel@gnome.org>
+
+	* cs.po: Added Czech translation by Pavel Šefránek <ps@pjoul.cz>
+	* actions.py: added get_monthly_totals method.
+	* dal.py: Added public executeSql method.
+	* statusbar.py: Added tooltip to notes.
+
+2008-05-10 Og Maciel <ogmaciel@gnome.org>
+
+	* adddialog.py: Display the localized currency symbol.
+	* maindialog.py: Only reload the records tree if something has really changed in db.
+
+==== BillReminder 0.3.1 ====
+
+2008-05-06 Luiz Armesto <luiz.armesto@gmail.com>
+
+	* common.py: Fixed a bug that would cause the use of wrong paths.
+	 (ref: Google Code - Issue 7)
+	* common.py: Updated project url.
+
+2008-04-14 Og Maciel <ogmaciel@gnome.org>
+
+	* categoriesdialog.py: Ask user for confirmation before editing an existing category.
+	Patch sent by Laudeci Oliveira.
+
+2008-04-13 Og Maciel <ogmaciel@gnome.org>
+
+	* utils.py: create_pixbuf now does color parsing and uses a cairo-based
+	image to create pixbuf.
+	* adddialog.py
+	* maindialog.py
+	* categoriesdialog.py: It is no longer needed to parse color field prior
+	to calling lib/utils.create_pixbuf method.
+
+2008-04-04 Og Maciel <ogmaciel@gnome.org>
+
+	* categoriesdialog.py: Simplify the code; automatically select a newly 
+	created category. (ref: http://code.google.com/p/billreminder/issues/detail?id=2)
+	* adddialog.py: Expect a category dictionary from categoriesdialog.py.
+
+2008-04-03 Og Maciel <ogmaciel@gnome.org>
+
+	* categoriesdialog.py: Don't allow an existing category to be added.
+	* adddialog.py: Only set the alarm if it is specified in the user's preferences.
+	(ref: http://code.google.com/p/billreminder/issues/detail?id=1)
+2008-05-10  Og Maciel <ogmaciel@gnome.org>
+
+	* viewbill.py: Display the localized currency symbol in the column header.
+	* dialogs.py: Don't return anything if user cancelled editing action.
+
+2008-04-01  Og Maciel <ogmaciel@gnome.org>
+
+	* hr.po: Added Croatian translation by Mario Ðani <mario.danic@gmail.com>
+
+2008-03-27 Og Maciel <ogmaciel@gnome.org>
+
+	* common.py: Bumped version to 0.3.1
+
+2008-03-26  Og Maciel <ogmaciel@gnome.org>
+
+	* billreminder.pot: Updated message catalog
+	* *.po: Merged all translations with newer pot
+
+2008-03-23 Og Maciel <ogmaciel@gnome.org>
+
+	* categoriesdialog.py: Display categories by category name in ascending order.
+	* adddialog.py: Display category colored icon to the left of the category name 
+	in the combobox. This was a patch sent by Laudeci Oliveira which I fine tweaked.
+	* utils.py: Added optional 'index' parameter to global function that
+	selects items in a gtk.ComboBox widget.
+
+2008-03-09  Og Maciel <ogmaciel@gnome.org>
+
+	* nl.po: Dutch translation updated by Daniel van Eeden <Daniel.van.Eeden@myname.nl>
+	* dialogs.py: Added missing parameters to AddDialog call
+	* maindialog.py: Convert selectedDate from calendar to a datatime object prior
+	to passing it to adddialog.py.
+	* adddialog.py: Make sure that alarmbutton has its date set based on passed 
+	on due date; Set category to None by default on new records.
+
+2008-03-08 Og Maciel <ogmaciel@gnome.org>
+
+	* billreminder.desktop.in: Changed version attribute to 0.3.
+	* adddialog.py: Added optional selectedDate parameter to be used to pre-populate
+	calendar with passed date object when adding new record. (ref: sourceforge #1906715)
+	* maindialog.py: Removed unused _get_date method and added method to calendar
+	that allows user to add a new record by double-clicking on a selected date.
+	(ref: sourceforge #1906715)
+2008-04-02 Og Maciel <ogmaciel@gnome.org>
+
+	* billreminder.py: Changed sys.argv to OptionParser, work done by Laudeci Oliveira.
+	* billreminderd.py: Changed sys.argv to OptionParser.
+
+2008-03-06 Og Maciel <ogmaciel@gnome.org>
+
+	* scheduler.py: Fixed a bug that would cause recurring bills not to expand
+	beyond the current year, change make by Luiz Armesto <luiz.armesto@gmail.com>
+	(ref: sourceforge #1908445)
+2008-07-27 Og Maciel <ogmaciel@gnome.org>
+
+	* datebutton.py, timewidget.py: Mnemonic labels/widgets and HIG work.
+	  Thanks Wilson Pinto Junior <wilsonpjunior@gmail.com>
+
+2008-03-02  Og Maciel <ogmaciel@gnome.org>
+
+	* fr.po: French translation added by Robert-André Mauchin <zebob.m@pengzone.org>
+
+==== BillReminder 0.3.0 ====
+
+2008-02-28  Og Maciel <ogmaciel@gnome.org>
+
+	* no.po: Nordic translation updated by Tommy Mikkelsen <tamikkelsen@gmail.com>
+	* no_NB.po: Nordic translation updated by Tommy Mikkelsen <tamikkelsen@gmail.com>
+
+2008-02-24  Og Maciel <ogmaciel@gnome.org>
+
+	* es.po: Spanish translation updated by Gilberto J. Miralla <xyhthyx@gmail.com>
+
+2008-02-23  Og Maciel <ogmaciel@gnome.org>
+
+	* de.po: German translation updated by Sebastian Haselbeck <sebastian.haselbeck@gmx.com>
+	* sv.po: Swedish translation updated by Daniel Nylander <po@danielnylander.se>
+	* es.po: Spanish translation updated by Gilberto J. Miralla <xyhthyx@gmail.com>
+
+2008-02-22  Og Maciel <ogmaciel@gnome.org>
+
+	* pt_BR.po: Brazilian Portuguese translation updated by Fábio Nogueira <deb-user-ba@ubuntu.com>
+	* billreminder.pot de.po es.po nl.po no_NB.po no.po pt_BR.po sv.po: Updated.
+
+2007-01-20  Og Maciel <ogmaciel@gnome.org>
+
+	* de.po: Updated partial de translation by Sebastian Haselbeck <haselbeck@gmx.net>
+
+2007-01-19  Og Maciel <ogmaciel@gnome.org>
+
+	* de.po: Added partial de translation by Sebastian Haselbeck <haselbeck@gmx.net>
+	* LINGUAS: Added de
