@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 21:32-0400\n"
+"POT-Creation-Date: 2008-09-10 10:27-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,62 +68,74 @@ msgid "Defines the default width of the application."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:9
-msgid "Display only paid bills."
+msgid "Delay between notifications."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:10
-msgid "Display the menu bar."
+msgid "Display only paid bills."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:11
-msgid "Display the toolbar."
+msgid "Display the menu bar."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:12
-msgid "How long to display the alarm notification."
+msgid "Display the toolbar."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:13
-msgid "How many days prior to due date to alert."
+msgid "How long to display the alarm notification."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:14
-msgid "How many days prior to due date to notify."
+msgid "How many days prior to due date to alert."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:15
-msgid "The date a bill is due."
+msgid "How many days prior to due date to notify."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:16
-msgid "What specific time to display alert."
+msgid "Start the application in the system's tray."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:17
-msgid "Whether to display notifications on startup."
+msgid "The date a bill is due."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:18
-msgid "Whether to display the menu bar or not."
+msgid "What specific time to display alert."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:19
-msgid "Whether to display the toolbar or not."
+msgid "Whether to display notifications on startup."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:20
-msgid "Whether to show alarms before a bill is due."
+msgid "Whether to display the menu bar or not."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:21
-msgid "Whether to show alarms."
+msgid "Whether to display the toolbar or not."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:22
-msgid "Whether to show notifications for paid bills."
+msgid "Whether to show alarms before a bill is due."
 msgstr ""
 
 #: ../data/billreminder.schemas.in.h:23
+msgid "Whether to show alarms."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:24
+msgid "Whether to show notifications for paid bills."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:25
+msgid "Whether to start the application in the system's tray."
+msgstr ""
+
+#: ../data/billreminder.schemas.in.h:26
 msgid "Whether to use dialogs for notifications."
 msgstr ""
 
@@ -233,11 +245,11 @@ msgstr ""
 msgid "BillReminder Notifier is already running."
 msgstr ""
 
-#: ../src/gui/aboutdialog.py:12
+#: ../src/gui/aboutdialog.py:21
 msgid "translator-credits"
 msgstr ""
 
-#: ../src/gui/aboutdialog.py:35
+#: ../src/gui/aboutdialog.py:44
 msgid "BillReminder Website"
 msgstr ""
 
