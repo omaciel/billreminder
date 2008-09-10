@@ -9,4 +9,4 @@ Terminal=false
 StartupNotify=true
 Icon=billreminder
 Exec=billreminder
-Categories=GNOME;Application;Office;Miscellaneous
+Categories=GNOME;Application;Office;Miscellaneous;

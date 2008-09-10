@@ -2,7 +2,8 @@
 
 2008-09-10 Og Maciel <ogmaciel@gnome.org>
 
-	* pt_BR.po: Updated Brazilian Portuguese translation by Djavan Fagundes.
+	* po/pt_BR.po: Updated Brazilian Portuguese translation by Djavan Fagundes.
+	* data/billreminder.desktop.in: Added missing semicolon at the end of categories.
 
 2008-09-06 Og Maciel <ogmaciel@gnome.org>
 
