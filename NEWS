@@ -22,27 +22,28 @@ BillReminder 0.3.2
    ref: http://code.google.com/p/billreminder/issues/detail?id=3
 
  Translations:
-  New:
-  * Croatian translation by Mario Ðani
-  * Czech translation by Pavel Šefránek
-  * Italian translation by giopas
-  * English translation by Rosetta Contributors and Canonical Ltd
-  * Canadian English translation by Rosetta Contributors and Canonical Ltd
-  * Finish translation by Rosetta Contributors and Canonical Ltd
-  * Hungarian translation by Rosetta Contributors and Canonical Ltd
-  * Polish translation by Rosetta Contributors and Canonical Ltd
-  * European Portuguese translation by Rosetta Contributors and Canonical Ltd
-  * Romanian translation by Rosetta Contributors and Canonical Ltd
-  * Russian translation by Rosetta Contributors and Canonical Ltd
-  * Slovenian translation by Rosetta Contributors and Canonical Ltd
-  * Tagalog translation by Rosetta Contributors and Canonical Ltd
-  * Turkish translation by Rosetta Contributors and Canonical Ltd
-
-  Updated:
-  * Spanish by Gilberto Miralla
-  * Dutch by Daniel van Eeden
-  * Brazilian Portuguese by Og Maciel
-  * German by Sebastian
+  * cs.po:  Pavel Šefránek
+  * de.po:  Lorenz
+  * en_CA.po:  Stuart Read
+  * en_GB.po:  Jen Ockwell
+  * es.po:  Ramón Calderón
+  * fi.po:  Ilkka Tuohela
+  * fr.po:  Robert-André Mauchin
+  * he.po:  Yaron
+  * hr.po:  Mario Đanić
+  * hu.po:  HORVATH, Akos
+  * it.po:  Sergio Zanchetta
+  * nb.po: Tommy Mikkelsen
+  * nl.po:  Martijn Cielen
+  * pl.po:  Tomasz Z. Napierala
+  * pt_BR.po:  Vladimir Melo
+  * pt.po:  Susana Pereira
+  * ro.po:  Ionuț Jula
+  * ru.po:  Ilya B
+  * sl.po:  Martin
+  * sv.po:  Daniel Nylander
+  * tl.po:  Jerome S. Gotangco
+  * tr.po:  Rail Aliev
 
  Graphical Interface:
   * Mnemonic labels/widgets and HIG work done to dialogs.
