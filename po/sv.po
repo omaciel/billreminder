@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 21:32-0400\n"
-"PO-Revision-Date: 2008-08-27 09:39+0100\n"
+"POT-Creation-Date: 2008-09-12 08:18+0200\n"
+"PO-Revision-Date: 2008-09-12 08:19+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -16,20 +16,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
-#: ../src/daemon/alarm.py:122 ../src/daemon/dbus_manager.py:45
+#: ../data/billreminderd.desktop.in.h:1
+#: ../src/billreminderd.py:43
+#: ../src/daemon/alarm.py:122
+#: ../src/daemon/dbus_manager.py:45
 msgid "BillReminder Notifier"
 msgstr "Notifierare för Räkningspåminnare"
 
-#: ../data/billreminderd.desktop.in.h:2 ../data/billreminder.desktop.in.h:2
+#: ../data/billreminderd.desktop.in.h:2
+#: ../data/billreminder.desktop.in.h:2
 msgid "Bills manager"
 msgstr "Hantera räkningar"
 
-#: ../data/billreminderd.desktop.in.h:3 ../data/billreminder.desktop.in.h:3
+#: ../data/billreminderd.desktop.in.h:3
+#: ../data/billreminder.desktop.in.h:3
 msgid "Never forget to pay a bill again!"
 msgstr "Glöm aldrig att betala en räkning igen!"
 
-#: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
+#: ../data/billreminder.desktop.in.h:1
+#: ../src/gui/widgets/trayicon.py:29
 #: ../src/lib/utils.py:138
 msgid "BillReminder"
 msgstr "Räkningspåminnare"
@@ -67,70 +72,84 @@ msgid "Defines the default width of the application."
 msgstr "Definierar standardbredden för programmet."
 
 #: ../data/billreminder.schemas.in.h:9
+msgid "Delay between notifications."
+msgstr "Fördröjning mellan notifieringar."
+
+#: ../data/billreminder.schemas.in.h:10
 msgid "Display only paid bills."
 msgstr "Visa endast betalda räkningar."
 
-#: ../data/billreminder.schemas.in.h:10
+#: ../data/billreminder.schemas.in.h:11
 msgid "Display the menu bar."
 msgstr "Visa menyraden."
 
-#: ../data/billreminder.schemas.in.h:11
+#: ../data/billreminder.schemas.in.h:12
 msgid "Display the toolbar."
 msgstr "Visa verktygsraden."
 
-#: ../data/billreminder.schemas.in.h:12
+#: ../data/billreminder.schemas.in.h:13
 msgid "How long to display the alarm notification."
 msgstr "Hur länge alarmnotifieringen ska visas."
 
-#: ../data/billreminder.schemas.in.h:13
+#: ../data/billreminder.schemas.in.h:14
 msgid "How many days prior to due date to alert."
 msgstr "Hur många dagar ett alarm ska visas innan betalningsdatum."
 
-#: ../data/billreminder.schemas.in.h:14
+#: ../data/billreminder.schemas.in.h:15
 msgid "How many days prior to due date to notify."
 msgstr "Hur många dagar en notifering ska visas innan betalningsdatum."
 
-#: ../data/billreminder.schemas.in.h:15
+#: ../data/billreminder.schemas.in.h:16
+msgid "Start the application in the system's tray."
+msgstr "Starta programmet i systemets aktivitetsfält."
+
+#: ../data/billreminder.schemas.in.h:17
 msgid "The date a bill is due."
 msgstr "Datumet när räkningen ska betalas."
 
-#: ../data/billreminder.schemas.in.h:16
+#: ../data/billreminder.schemas.in.h:18
 msgid "What specific time to display alert."
 msgstr "Vilken specifik tid som alarmet ska visas."
 
-#: ../data/billreminder.schemas.in.h:17
+#: ../data/billreminder.schemas.in.h:19
 msgid "Whether to display notifications on startup."
 msgstr "Huruvida notifieringar ska visas vid uppstart."
 
-#: ../data/billreminder.schemas.in.h:18
+#: ../data/billreminder.schemas.in.h:20
 msgid "Whether to display the menu bar or not."
 msgstr "Huruvida menyraden ska visas eller inte."
 
-#: ../data/billreminder.schemas.in.h:19
+#: ../data/billreminder.schemas.in.h:21
 msgid "Whether to display the toolbar or not."
 msgstr "Huruvida verktygsraden ska visas eller inte."
 
-#: ../data/billreminder.schemas.in.h:20
+#: ../data/billreminder.schemas.in.h:22
 msgid "Whether to show alarms before a bill is due."
 msgstr "Huruvida alarm ska visas innan en räkning ska betalas."
 
-#: ../data/billreminder.schemas.in.h:21
+#: ../data/billreminder.schemas.in.h:23
 msgid "Whether to show alarms."
 msgstr "Huruvida alarm ska visas."
 
-#: ../data/billreminder.schemas.in.h:22
+#: ../data/billreminder.schemas.in.h:24
 msgid "Whether to show notifications for paid bills."
 msgstr "Huruvida notifieringar om betalda räkningar ska visas."
 
-#: ../data/billreminder.schemas.in.h:23
+#: ../data/billreminder.schemas.in.h:25
+msgid "Whether to start the application in the system's tray."
+msgstr "Huruvida programmet ska startas i systemets aktivitetsfält."
+
+#: ../data/billreminder.schemas.in.h:26
 msgid "Whether to use dialogs for notifications."
 msgstr "Huruvida dialogrutor ska användas för notifieringar."
 
-#: ../src/billreminder.py:39 ../src/billreminderd.py:23
+#: ../src/billreminder.py:39
+#: ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
 msgstr "Användning: billreminder [FLAGGOR...]"
 
-#: ../src/billreminder.py:40 ../src/billreminderd.py:24
+#: ../src/billreminder.py:40
+#: ../src/billreminderd.py:24
 msgid "Displays the version number for this application."
 msgstr "Visar versionsnummret för programmet."
 
@@ -150,7 +169,8 @@ msgstr "Koppla direkt mot databas, utan demon."
 msgid "This option is not implemented yet."
 msgstr "Detta alternativ är inte implementerat ännu."
 
-#: ../src/billreminder.py:54 ../src/billreminderd.py:42
+#: ../src/billreminder.py:54
+#: ../src/billreminderd.py:42
 #: ../src/daemon/dbus_manager.py:44
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
@@ -183,11 +203,13 @@ msgstr[1] "Du har %s räkningar att betala!"
 msgid "Show BillReminder"
 msgstr "Visa Räkningspåminnare"
 
-#: ../src/daemon/alarm.py:71 ../src/daemon/alarm.py:132
+#: ../src/daemon/alarm.py:71
+#: ../src/daemon/alarm.py:132
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../src/daemon/alarm.py:106 ../src/daemon/alarm.py:203
+#: ../src/daemon/alarm.py:106
+#: ../src/daemon/alarm.py:203
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr "Räkningen %(bill)s ska betalas om %(day)s."
@@ -198,12 +220,15 @@ msgid "The bill %s is due."
 msgstr "Räkningen %s ska betalas."
 
 #. Button Title
-#: ../src/daemon/alarm.py:129 ../src/gui/maindialog.py:302
-#: ../src/gui/maindialog.py:327 ../src/lib/utils.py:135
+#: ../src/daemon/alarm.py:129
+#: ../src/gui/maindialog.py:302
+#: ../src/gui/maindialog.py:327
+#: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Markera som betald"
 
-#: ../src/daemon/alarm.py:131 ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:131
+#: ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Redigera"
 
@@ -232,7 +257,7 @@ msgstr "Misslyckades."
 msgid "BillReminder Notifier is already running."
 msgstr "Notifieraren för Räkningspåminnaren är redan igång."
 
-#: ../src/gui/aboutdialog.py:12
+#: ../src/gui/aboutdialog.py:21
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -247,11 +272,12 @@ msgstr ""
 "  Zahirovic Mensur https://launchpad.net/~info-pcagenten\n"
 "  mnemo https://launchpad.net/~mnemo"
 
-#: ../src/gui/aboutdialog.py:35
+#: ../src/gui/aboutdialog.py:44
 msgid "BillReminder Website"
 msgstr "Webbplats för Räkningspåminnare"
 
-#: ../src/gui/adddialog.py:96 ../src/gui/maindialog.py:126
+#: ../src/gui/adddialog.py:96
+#: ../src/gui/maindialog.py:126
 msgid "<b>_Due Date:</b>"
 msgstr "<b>_Betalningsdatum:</b>"
 
@@ -287,18 +313,22 @@ msgstr "<b>A_larm:</b>"
 msgid "Manage Categories"
 msgstr "Hantera kategorier"
 
-#: ../src/gui/adddialog.py:202 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:202
+#: ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Välj datum och tid"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:333 ../src/gui/adddialog.py:357
-#: ../src/gui/maindialog.py:283 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:333
+#: ../src/gui/adddialog.py:357
+#: ../src/gui/maindialog.py:283
+#: ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "Inget"
 
-#: ../src/gui/adddialog.py:339 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:339
+#: ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Ny kategori"
 
@@ -307,17 +337,20 @@ msgstr "Ny kategori"
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" och \"%s\" är nödvändiga fält."
 
-#: ../src/gui/adddialog.py:472 ../src/gui/adddialog.py:476
+#: ../src/gui/adddialog.py:472
+#: ../src/gui/adddialog.py:476
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Betalningsmottagare"
 
-#: ../src/gui/adddialog.py:472 ../src/gui/adddialog.py:480
+#: ../src/gui/adddialog.py:472
+#: ../src/gui/adddialog.py:480
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Summa"
 
-#: ../src/gui/adddialog.py:476 ../src/gui/adddialog.py:480
+#: ../src/gui/adddialog.py:476
+#: ../src/gui/adddialog.py:480
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" är ett nödvändigt fält."
@@ -359,7 +392,8 @@ msgid_plural "There are %d more bills in this category."
 msgstr[0] "Det finns %d räkning i denna kategori."
 msgstr[1] "Det finns %d räkningar i denna kategori."
 
-#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:557
+#: ../src/gui/categoriesdialog.py:248
+#: ../src/gui/maindialog.py:557
 msgid "Confirmation"
 msgstr "Bekräftelse"
 
@@ -371,19 +405,23 @@ msgstr "<b>_Räkningar:</b>"
 msgid "New"
 msgstr "Ny"
 
-#: ../src/gui/maindialog.py:295 ../src/gui/maindialog.py:323
+#: ../src/gui/maindialog.py:295
+#: ../src/gui/maindialog.py:323
 msgid "Add a new record"
 msgstr "Lägg till en ny post"
 
-#: ../src/gui/maindialog.py:297 ../src/gui/maindialog.py:324
+#: ../src/gui/maindialog.py:297
+#: ../src/gui/maindialog.py:324
 msgid "Edit a record"
 msgstr "Redigera en post"
 
-#: ../src/gui/maindialog.py:299 ../src/gui/maindialog.py:325
+#: ../src/gui/maindialog.py:299
+#: ../src/gui/maindialog.py:325
 msgid "Delete selected record"
 msgstr "Ta bort markerad post"
 
-#: ../src/gui/maindialog.py:302 ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/maindialog.py:302
+#: ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
 msgstr "Betald"
 
@@ -391,7 +429,8 @@ msgstr "Betald"
 msgid "Not Paid"
 msgstr "Inte betald"
 
-#: ../src/gui/maindialog.py:305 ../src/gui/maindialog.py:328
+#: ../src/gui/maindialog.py:305
+#: ../src/gui/maindialog.py:328
 msgid "Mark as not paid"
 msgstr "Markera som obetald"
 
@@ -399,7 +438,8 @@ msgstr "Markera som obetald"
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../src/gui/maindialog.py:323 ../src/gui/maindialog.py:515
+#: ../src/gui/maindialog.py:323
+#: ../src/gui/maindialog.py:515
 msgid "_Add New"
 msgstr "_Lägg till ny"
 
@@ -407,7 +447,8 @@ msgstr "_Lägg till ny"
 msgid "_Edit"
 msgstr "R_edigera"
 
-#: ../src/gui/maindialog.py:327 ../src/gui/maindialog.py:525
+#: ../src/gui/maindialog.py:327
+#: ../src/gui/maindialog.py:525
 msgid "_Paid"
 msgstr "_Betald"
 
@@ -476,7 +517,8 @@ msgstr "Inte b_etald"
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Vill du verkligen ta bort \"%s\"?"
 
-#: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
+#: ../src/gui/prefdialog.py:26
+#: ../src/gui/widgets/trayicon.py:47
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -488,7 +530,8 @@ msgstr "<b>Alarm</b>"
 msgid "_Alert before due date:"
 msgstr "_Alarm innan betalningsdatum:"
 
-#: ../src/gui/prefdialog.py:65 ../src/gui/prefdialog.py:115
+#: ../src/gui/prefdialog.py:65
+#: ../src/gui/prefdialog.py:115
 msgid "day(s)."
 msgstr "dag(ar)."
 
@@ -542,11 +585,13 @@ msgstr "_Starta notifierare för Räkningspåminnare"
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr "<b>Observera:</b> Notifieraren för Räkningspåminnaren kör nu."
 
-#: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:65
+#: ../src/gui/widgets/datebutton.py:32
+#: ../src/gui/widgets/datebutton.py:65
 msgid "%Y/%m/%d %H:%M"
 msgstr "%Y-%m-%d %H.%M"
 
-#: ../src/gui/widgets/datebutton.py:43 ../src/gui/widgets/datebutton.py:73
+#: ../src/gui/widgets/datebutton.py:43
+#: ../src/gui/widgets/datebutton.py:73
 msgid "_None"
 msgstr "_Ingen"
 
@@ -591,7 +636,8 @@ msgstr "Avsluta"
 msgid "%m/%d"
 msgstr "%d-%m"
 
-#: ../src/gui/widgets/viewbill.py:83 ../src/gui/widgets/viewcategory.py:39
+#: ../src/gui/widgets/viewbill.py:83
+#: ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
 msgstr "Kategori"
 
@@ -639,7 +685,8 @@ msgid "Question"
 msgstr "Fråga"
 
 #. Dialog Title
-#: ../src/lib/utils.py:96 ../src/lib/utils.py:109
+#: ../src/lib/utils.py:96
+#: ../src/lib/utils.py:109
 msgid "Error"
 msgstr "Fel"
 
@@ -674,43 +721,30 @@ msgstr "Månatligen"
 
 #~ msgid "%Y/%m/%d"
 #~ msgstr "%Y-%m-%d"
-
 #~ msgid "Due Date:"
 #~ msgstr "Betalningsdatum:"
-
 #~ msgid "Repeat:"
 #~ msgstr "Upprepa:"
-
 #~ msgid "Payee:"
 #~ msgstr "Betalningsmottagare:"
-
 #~ msgid "Amount:"
 #~ msgstr "Summa:"
-
 #~ msgid "Alarm:"
 #~ msgstr "Alarm:"
-
 #~ msgid "Bills:"
 #~ msgstr "Räkning:"
-
 #~ msgid "Alarms"
 #~ msgstr "Larm"
-
 #~ msgid "Date:"
 #~ msgstr "Datum:"
-
 #~ msgid "Time:"
 #~ msgstr "Tid:"
-
 #~ msgid "Hour :"
 #~ msgstr "Timme :"
-
 #~ msgid "Minute :"
 #~ msgstr "Minut :"
-
 #~ msgid "Alerts"
 #~ msgstr "Alarm"
-
 #~ msgid ""
 #~ "Usage:  billreminder [OPTIONS...]\n"
 #~ "\n"
@@ -729,7 +763,6 @@ msgstr "Månatligen"
 #~ "  --add\t\t\tLägger till en ny post i databasen.\n"
 #~ "  --standalone\t\tDirektåtkomst till databasen, utan demon.\n"
 #~ "  --version, -v\t\tVisar versionsnumret för detta program.\n"
-
 #~ msgid ""
 #~ "Usage:  billreminderd [OPTIONS...]\n"
 #~ "\n"
@@ -750,13 +783,10 @@ msgstr "Månatligen"
 #~ "  --open-gui\t\tStarta demon och starta grafiskt gränssnitt.\n"
 #~ "  --stop\t\t\tStoppa demon.\n"
 #~ "  --version, -v\t\tVisar versionsnumret för detta program.\n"
-
 #~ msgid "Due Date"
 #~ msgstr "Betalningsdatum"
-
 #~ msgid "Amount Due"
 #~ msgstr "Summa"
-
 #~ msgid "Remove"
 #~ msgstr "Ta bort"
 
@@ -767,13 +797,10 @@ msgstr "Månatligen"
 #, fuzzy
 #~ msgid "<b>%(payee)s</b>"
 #~ msgstr "<b>Betalningsmottagare:</b>"
-
 #~ msgid "Editing bill '%s'"
 #~ msgstr "Redigerar räkningen \"%s\""
-
 #~ msgid "Id"
 #~ msgstr "Id"
-
 #~ msgid ""
 #~ "do you really want to remove it?\n"
 #~ "\n"
@@ -782,36 +809,26 @@ msgstr "Månatligen"
 #~ "Vill du verkligen ta bort den?\n"
 #~ "\n"
 #~ " <b>%(payee)s - %(amount)0.2f </b>"
-
 #~ msgid "<big><b>Are you sure you want to quit?</b></big>"
 #~ msgstr "<big><b>Är du säker på att du vill avsluta?</b></big>"
-
 #~ msgid "The following bill was removed:\n"
 #~ msgstr "Följande räkning togs bort:\n"
-
 #~ msgid "Item deleted."
 #~ msgstr "Objektet borttaget."
-
 #~ msgid "Bill '%s' not deleted."
 #~ msgstr "Räkningen \"%s\" inte borttagen."
-
 #~ msgid "0"
 #~ msgstr "0"
-
 #~ msgid "<b>Info:</b>"
 #~ msgstr "<b>Info:</b>"
-
 #~ msgid "Mostrar Janela"
 #~ msgstr "Mostrar Janela"
-
 #~ msgid "N_ot Paid"
 #~ msgstr "In_te betald"
-
 #~ msgid "<b><big>Bills Due Today</big></b>"
 #~ msgstr "<b><big>Räkningar att betala idag</big></b>"
-
 #~ msgid "<b><big>Bills Due</big></b>"
 #~ msgstr "<b><big>Aktuella räkningar</big></b>"
-
 #~ msgid "<b><big>Bills Not Due</big></b>"
 #~ msgstr "<b><big>Räkningar inte aktuella</big></b>"
+
