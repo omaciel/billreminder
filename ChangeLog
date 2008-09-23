@@ -1,3 +1,13 @@
+2008-09-23 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/widgets/calendarwidget.py: New calendaring widget for the main dialog.
+	* src/gui/widgets/chartwidget.py: New charting widget.
+	* src/gui/widgets/charting.py: Charting library based off the hamster-applet.
+	* src/gui/maindialog.py: Added new calendar and chart widget.
+	* src/lib/actions.py: Added partial support for new method.
+	* src/lib/dbus_actions.py: Added partial support for new method.
+	* po/POTFILES.in: Added calendarwidget.py.
+
 ==== BillReminder 0.3.2 ====
 
 2008-09-10 Og Maciel <ogmaciel@gnome.org>

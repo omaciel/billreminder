@@ -47,6 +47,27 @@ class Actions(object):
             record['caId'] = int(record['caId'])
         return record
 
+    def get_monthly_totals(self, status, month, year):
+        # Return a list of categories and totals for the given month
+        # Delimeters for our search
+        firstOfMonth = scheduler.first_of_month(month, year)
+        lastOfMonth = scheduler.last_of_month(month, year)
+
+        # Determine status criteria
+        status = status < 2 and ' = %s' % status or ' in (0,1)'
+
+        stmt = 'select categoryName, sum(amountDue) as amount, color' \
+            ' from br_billstable, br_categoriestable where' \
+            ' paid %s' \
+            ' and dueDate >= ? and dueDate <= ?' \
+            ' and br_categoriestable.Id = br_billstable.catId' \
+            ' GROUP BY catId, color' \
+            ' ORDER BY dueDate ASC' % status
+        params = [firstOfMonth, lastOfMonth]
+        records = self.executeSql(stmt, params)
+
+        return records
+
     def get_monthly_bills(self, status, month, year):
         # Delimeters for our search
         firstOfMonth = scheduler.first_of_month(month, year)

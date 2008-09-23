@@ -94,9 +94,9 @@ class Actions(object):
             self.edit_bill(bill)
         return self.dal.delete(CategoriesTable, key)
 
-
+"""
 if not '--standalone' in sys.argv \
    and not sys.argv[0].endswith('billreminderd') \
    and verify_dbus_service(common.DBUS_INTERFACE):
     from lib.dbus_actions import Actions
-
+"""

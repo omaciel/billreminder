@@ -15,6 +15,8 @@ from gui.widgets.toolbar import Toolbar
 from gui.widgets.statusbar import Statusbar
 from gui.widgets.viewbill import ViewBill as ViewBill
 from gui.widgets.trayicon import NotifyIcon
+from gui.widgets.chartwidget import ChartWidget
+from gui.widgets.calendarwidget import CalendarWidget
 
 # Import data model modules
 from lib.bill import Bill
@@ -101,10 +103,6 @@ class MainDialog:
         self._populate_menubar()
 
         self.listbox = gtk.VBox(homogeneous=False, spacing=6)
-        self.listlabel = gtk.Label()
-        self.listlabel.set_markup_with_mnemonic(_("<b>_Bills:</b>"))
-        self.listlabel.set_mnemonic_widget(self.list)
-        self.listlabel.set_alignment(0.00, 0.50)
         # ScrolledWindow
         self.scrolledwindow = gtk.ScrolledWindow()
         self.scrolledwindow.set_shadow_type(gtk.SHADOW_IN)
@@ -112,8 +110,6 @@ class MainDialog:
                                        gtk.POLICY_AUTOMATIC)
         self.scrolledwindow.add(self.list)
         ## Pack it all up
-        self.listbox.pack_start(self.listlabel,
-           expand=False, fill=True, padding=1)
         self.listbox.pack_start(self.scrolledwindow,
            expand=True, fill=True, padding=2)
 
@@ -122,20 +118,15 @@ class MainDialog:
 
         # Calendar
         self.calbox = gtk.VBox(homogeneous=False, spacing=1)
-        self.callabel = gtk.Label()
-        self.callabel.set_markup_with_mnemonic(_("<b>_Due Date:</b>"))
-        self.callabel.set_alignment(0.00, 0.50)
-        self.calendar = gtk.Calendar()
-        self.callabel.set_mnemonic_widget(self.calendar)
-        # Format the dueDate field
-        self.calendar.connect("month_changed", self._on_calendar_month_changed)
-        self.calendar.connect("day_selected_double_click", self._on_calendar_double_click)
+        self.calendar = CalendarWidget()
+        self.calendar.connect("date_changed", self._on_calendar_month_changed)
         ## Pack it all up
-        self.calbox.pack_start(self.callabel,
-           expand=False, fill=True, padding=1)
         self.calbox.pack_start(self.calendar,
            expand=True, fill=True, padding=2)
-        self.calendar.mark_day(datetime.datetime.today().day)
+        #self.calendar.mark_day(datetime.datetime.today().day)
+
+        # Chart
+        self.chart = ChartWidget()
 
         # Pack it all up
         self.box.pack_start(self.toolbar,
@@ -144,6 +135,8 @@ class MainDialog:
             expand=False, fill=True, padding=4)
         self.box.pack_start(self.listbox,
             expand=True, fill=True, padding=4)
+        self.box.pack_start(self.chart,
+            expand=True, fill=True, padding=2)
         self.box.pack_start(self.statusbar,
             expand=False, fill=True, padding=2)
 
@@ -225,11 +218,6 @@ class MainDialog:
         else:
             self.currentrecord = None
 
-    def _markCalendar(self, records):
-        self.calendar.clear_marks()
-        for rec in records:
-            self.calendar.mark_day(datetime.datetime.fromtimestamp(rec['dueDate']).day)
-
     def _populateTreeView(self, records):
         """ Populates the treeview control with the records passed """
 
@@ -247,8 +235,8 @@ class MainDialog:
     def reloadTreeView(self, *arg):
         # Update list with updated record
         status = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
-        month = self.calendar.get_date()[1] + 1
-        year = self.calendar.get_date()[0]
+        month = self.calendar.currentMonth
+        year = self.calendar.currentYear
 
         path = self.list.get_cursor()[0]
         self.list.listStore.clear()
@@ -260,9 +248,12 @@ class MainDialog:
         # Populate treeview
         self._populateTreeView(records)
         # Mark days in calendar
-        self._markCalendar(records)
+        #self._markCalendar(records)
         # Update status bar
         self._update_statusbar()
+        # populate chart
+        self._populate_chart(status, month, year)
+
         return len(records)
 
     def _formated_row(self, row):
@@ -304,6 +295,14 @@ class MainDialog:
         self.btnUnpaid = self.toolbar.add_button(gtk.STOCK_UNDO,
             _("Not Paid"), _("Mark as not paid"), self.on_btnPaid_clicked)
         self.btnUnpaid.set_is_important(True)
+
+    def _populate_chart(self, status, month, year):
+        chartdata = []
+        records = self.actions.get_monthly_totals(status, month, year)
+        for rec in records:
+            chartdata.append([field for field in rec])
+        #if chartdata:
+        self.chart.plot(chartdata)
 
     def _populate_menubar(self):
         # Create a UIManager instance
@@ -371,8 +370,9 @@ class MainDialog:
         self.box.pack_start(menubar, expand=False, fill=True, padding=0)
 
     def add_bill(self):
-        selectedDate = scheduler.time_from_calendar(self.calendar.get_date())
-        selectedDate = scheduler.datetime_from_timestamp(selectedDate)
+        #selectedDate = scheduler.time_from_calendar(self.calendar.get_date())
+        #selectedDate = scheduler.datetime_from_timestamp(selectedDate)
+        selectedDate = self.calendar.currentDate
         records = dialogs.add_dialog(parent=self.window, selectedDate=selectedDate)
 
         # Checks if the user did not cancel the action
@@ -574,10 +574,7 @@ class MainDialog:
     def on_delete_event(self, widget, event, data=None):
         self._quit_application()
 
-    def _on_calendar_double_click(self, widget):
-        self.add_bill()
-
-    def _on_calendar_month_changed(self, widget):
+    def _on_calendar_month_changed(self, widget, args):
         self.reloadTreeView()
 
     def _on_show_toolbar(self, action):
