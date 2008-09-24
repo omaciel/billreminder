@@ -35,7 +35,6 @@ class Alarm(object):
 
     def start(self):
         start_delay = self.gconf_client.get_int(GCONF_PATH + 'delay') * 60000
-        print start_delay
         if self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_startup_notification'):
             timeout_add(start_delay, self.show_pay_notification)
             timeout_add(start_delay + 12000, self.verify_due)

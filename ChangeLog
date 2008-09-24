@@ -1,3 +1,8 @@
+2008-09-24 Og Maciel <ogmaciel@gnome.org>
+
+	* src/daemon/alarm.py, dbus_manager.py: Added new method call to dbus.
+	* src/lib/actions.py, dbus_actions.py: Fixed new methods to be dbus aware.
+
 2008-09-23 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/widgets/calendarwidget.py: New calendaring widget for the main dialog.

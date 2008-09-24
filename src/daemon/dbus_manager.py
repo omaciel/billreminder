@@ -5,7 +5,7 @@ __all__ = ['Server', 'get_interface', 'verify_service']
 import dbus
 import dbus.service
 
-from lib import common
+from lib import common, scheduler
 from lib.utils import force_string
 from lib.utils import get_dbus_interface as get_interface
 from lib.utils import verify_dbus_service as verify_service
@@ -55,26 +55,39 @@ class Server(dbus.service.Object):
         self.parent.client_pid = pid
         return self.parent.client_pid
 
+    @dbus.service.method(common.DBUS_INTERFACE, in_signature='iii', out_signature='a(sis)')
+    def get_monthly_totals(self, status, month, year):
+        # Return a list of categories and totals for the given month
+        ret = []
+        records = self.actions.get_monthly_totals(status, month, year)
+        for record in records:
+            ret.append(record)
+        return ret
+
+    @dbus.service.method(common.DBUS_INTERFACE, in_signature='iii', out_signature='aa{ss}')
+    def get_monthly_bills(self, status, month, year):
+        ret = []
+        records = self.actions.get_monthly_bills(status, month, year)
+        for record in records:
+            ret.append(force_string(record))
+        return ret
+
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='aa{ss}')
     def get_bills(self, kwargs):
         """ Returns one or more records that meet the criteria passed """
-        print kwargs
         ret = []
         records = self.actions.get_bills(kwargs)
         for record in records:
             ret.append(force_string(record))
-        print ret
         return ret
 
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='s', out_signature='aa{ss}')
     def get_bills_(self, kwargs):
         """ Returns one or more records that meet the criteria passed """
-        #print kwargs
         ret = []
         records = self.actions.get_bills(kwargs)
         for record in records:
             ret.append(force_string(record))
-        print ret
         return ret
 
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='a{ss}')
@@ -104,23 +117,19 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='aa{ss}')
     def get_categories(self, kwargs):
         """ Returns one or more records that meet the criteria passed """
-        print kwargs
         ret = []
         records = self.actions.get_categories(kwargs)
         for record in records:
             ret.append(force_string(record))
-        print ret
         return ret
 
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='s', out_signature='aa{ss}')
     def get_categories_(self, kwargs):
         """ Returns one or more records that meet the criteria passed """
-        #print kwargs
         ret = []
         records = self.actions.get_categories(kwargs)
         for record in records:
             ret.append(force_string(record))
-        print ret
         return ret
 
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='a{ss}')
