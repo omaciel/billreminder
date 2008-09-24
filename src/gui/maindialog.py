@@ -17,6 +17,7 @@ from gui.widgets.viewbill import ViewBill as ViewBill
 from gui.widgets.trayicon import NotifyIcon
 from gui.widgets.chartwidget import ChartWidget
 from gui.widgets.calendarwidget import CalendarWidget
+from gui.widgets.SearchEntry import SearchEntry
 
 # Import data model modules
 from lib.bill import Bill
@@ -39,6 +40,8 @@ from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
 from lib.common import CFG_NAME
 from lib.common import USER_CFG_PATH
 from os.path import exists, join
+
+SEARCH_COLUMNS = (2, 3, 4, 5, 6)
 
 class MainDialog:
 
@@ -71,6 +74,8 @@ class MainDialog:
             </menubar>
         </ui>'''
 
+    search_text = ""
+
     def __init__(self):
         if exists(join(USER_CFG_PATH, CFG_NAME)):
             from lib.migrate_to_gconf import migrate
@@ -94,6 +99,8 @@ class MainDialog:
         self.list.connect('cursor_changed', self._on_list_cursor_changed)
         self.list.connect('row_activated', self._on_list_row_activated)
         self.list.connect('button_press_event', self._on_list_button_press_event)
+        self.list.filtered_model.set_visible_func(
+            self.on_filtered_model_visible_cb)
 
         # Toolbar
         self.toolbar = Toolbar()
@@ -117,12 +124,31 @@ class MainDialog:
         self.statusbar = Statusbar()
 
         # Calendar
-        self.calbox = gtk.VBox(homogeneous=False, spacing=1)
+        self.calbox = gtk.HBox(homogeneous=False, spacing=4)
         self.calendar = CalendarWidget()
         self.calendar.connect("date_changed", self._on_calendar_month_changed)
         ## Pack it all up
-        self.calbox.pack_start(self.calendar,
-           expand=True, fill=True, padding=2)
+        self.calbox.pack_start(self.calendar, expand=True, fill=True)
+
+        ## Search Entry
+
+        self.filter_hbox = gtk.HBox(homogeneous=False, spacing=4)
+        self.filter_hbox.pack_start(gtk.Label(), expand=True, fill=True)
+        self.filter_hbox.pack_start(gtk.Label(), expand=True, fill=True)
+        search_label = gtk.Label()
+        search_label.set_markup_with_mnemonic (_("<b>F_ilter:</b>"))
+
+        self.filter_hbox.pack_start(search_label, expand=False, fill=True)
+
+        self.search_entry = SearchEntry(gtk.icon_theme_get_default())
+        self.search_entry.connect("terms-changed", self.on_terms_changed)
+
+        self.filter_hbox.pack_start(self.search_entry, expand=False, fill=True)
+
+        search_label.set_mnemonic_widget(self.search_entry)
+
+        #self.calbox.pack_start(self.filter_hbox, expand=True)
+
         #self.calendar.mark_day(datetime.datetime.today().day)
 
         # Chart
@@ -135,6 +161,8 @@ class MainDialog:
             expand=False, fill=True, padding=4)
         self.box.pack_start(self.listbox,
             expand=True, fill=True, padding=4)
+        self.box.pack_start(self.filter_hbox,
+            expand=False, fill=True, padding=2)
         self.box.pack_start(self.chart,
             expand=True, fill=True, padding=2)
         self.box.pack_start(self.statusbar,
@@ -585,6 +613,24 @@ class MainDialog:
         else:
             self.toolbar.hide_all()
             self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", False)
+    
+    def on_terms_changed(self, widget, text):
+        self.search_text = text
+        self.list.filtered_model.refilter()
+        #self.filtred_model.refilter()
+    
+    def on_filtered_model_visible_cb(self, model, iter):
+        if self.search_text == "":
+            return True
+        
+        t = False
+        for col in SEARCH_COLUMNS:
+            x = model.get_value(iter, col)
+            if x and self.search_text in x:
+                t = True
+                break
+        
+        return t
 
 def main():
     gtk.main()

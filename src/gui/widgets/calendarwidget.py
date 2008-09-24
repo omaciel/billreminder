@@ -71,6 +71,9 @@ class CalendarWidget(gtk.HBox):
         self.yearSpinner.set_snap_to_ticks(True)
         self.yearSpinner.connect("changed", self._on_yearSpinner_changed)
 
+        label1.set_mnemonic_widget(self.monthSelector)
+        label2.set_mnemonic_widget(self.yearSpinner)
+
         placeHolder2 = gtk.Label()
 
         self.pack_start(label1, expand=False, fill=False, padding=4)

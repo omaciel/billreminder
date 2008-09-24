@@ -95,8 +95,12 @@ class GenericListView(gtk.TreeView):
 
         # Defines the TreeStore
         self.listStore = gtk.TreeStore(*dataTypes)
+        self.filtered_model = self.listStore.filter_new()
+        
+        self.sorted_model = gtk.TreeModelSort(self.filtered_model)
+        
         # Associates the listStore to the ListView object
-        self.set_model(self.listStore)
+        self.set_model(self.sorted_model)
 
         # Add columns to the List
         for column in treeViewColumns:

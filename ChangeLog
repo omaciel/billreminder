@@ -1,5 +1,10 @@
 2008-09-24 Og Maciel <ogmaciel@gnome.org>
 
+	* src/gui/widgets/calendarwidget.py: Added mnemonics.
+	* src/gui/widgets/genericlistview.py: Added a filter.
+	* src/gui/widgets/SearchEntry.py: Borrowed code to add smart filtering capabilities.
+	* src/gui/widgets/Makefile.am: Added missing and new files.
+	* src/gui/maindialog.py: Added the new filtering widget.
 	* src/daemon/alarm.py, dbus_manager.py: Added new method call to dbus.
 	* src/lib/actions.py, dbus_actions.py: Fixed new methods to be dbus aware.
 
