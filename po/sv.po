@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-12 08:18+0200\n"
-"PO-Revision-Date: 2008-09-12 08:19+0100\n"
+"POT-Creation-Date: 2008-09-24 21:25+0200\n"
+"PO-Revision-Date: 2008-09-24 21:25+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../data/billreminderd.desktop.in.h:1
 #: ../src/billreminderd.py:43
-#: ../src/daemon/alarm.py:122
+#: ../src/daemon/alarm.py:121
 #: ../src/daemon/dbus_manager.py:45
 msgid "BillReminder Notifier"
 msgstr "Notifierare för Räkningspåminnare"
@@ -192,42 +192,42 @@ msgstr "Starta demon och grafiskt gränssnitt."
 msgid "Stop daemon."
 msgstr "Stoppa demon."
 
-#: ../src/daemon/alarm.py:64
+#: ../src/daemon/alarm.py:63
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] "Du har %s räkning att betala!"
 msgstr[1] "Du har %s räkningar att betala!"
 
-#: ../src/daemon/alarm.py:69
+#: ../src/daemon/alarm.py:68
 msgid "Show BillReminder"
 msgstr "Visa Räkningspåminnare"
 
-#: ../src/daemon/alarm.py:71
-#: ../src/daemon/alarm.py:132
+#: ../src/daemon/alarm.py:70
+#: ../src/daemon/alarm.py:131
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../src/daemon/alarm.py:106
-#: ../src/daemon/alarm.py:203
+#: ../src/daemon/alarm.py:105
+#: ../src/daemon/alarm.py:202
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr "Räkningen %(bill)s ska betalas om %(day)s."
 
-#: ../src/daemon/alarm.py:118
+#: ../src/daemon/alarm.py:117
 #, python-format
 msgid "The bill %s is due."
 msgstr "Räkningen %s ska betalas."
 
 #. Button Title
-#: ../src/daemon/alarm.py:129
-#: ../src/gui/maindialog.py:302
-#: ../src/gui/maindialog.py:327
+#: ../src/daemon/alarm.py:128
+#: ../src/gui/maindialog.py:321
+#: ../src/gui/maindialog.py:354
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Markera som betald"
 
-#: ../src/daemon/alarm.py:131
+#: ../src/daemon/alarm.py:130
 #: ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Redigera"
@@ -277,7 +277,6 @@ msgid "BillReminder Website"
 msgstr "Webbplats för Räkningspåminnare"
 
 #: ../src/gui/adddialog.py:96
-#: ../src/gui/maindialog.py:126
 msgid "<b>_Due Date:</b>"
 msgstr "<b>_Betalningsdatum:</b>"
 
@@ -321,7 +320,7 @@ msgstr "Välj datum och tid"
 #. TRANSLATORS: No date selected
 #: ../src/gui/adddialog.py:333
 #: ../src/gui/adddialog.py:357
-#: ../src/gui/maindialog.py:283
+#: ../src/gui/maindialog.py:302
 #: ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
@@ -393,126 +392,126 @@ msgstr[0] "Det finns %d räkning i denna kategori."
 msgstr[1] "Det finns %d räkningar i denna kategori."
 
 #: ../src/gui/categoriesdialog.py:248
-#: ../src/gui/maindialog.py:557
+#: ../src/gui/maindialog.py:585
 msgid "Confirmation"
 msgstr "Bekräftelse"
 
-#: ../src/gui/maindialog.py:105
-msgid "<b>_Bills:</b>"
-msgstr "<b>_Räkningar:</b>"
+#: ../src/gui/maindialog.py:139
+msgid "<b>F_ilter:</b>"
+msgstr "<b>F_ilter:</b>"
 
-#: ../src/gui/maindialog.py:295
+#: ../src/gui/maindialog.py:314
 msgid "New"
 msgstr "Ny"
 
-#: ../src/gui/maindialog.py:295
-#: ../src/gui/maindialog.py:323
+#: ../src/gui/maindialog.py:314
+#: ../src/gui/maindialog.py:350
 msgid "Add a new record"
 msgstr "Lägg till en ny post"
 
-#: ../src/gui/maindialog.py:297
-#: ../src/gui/maindialog.py:324
+#: ../src/gui/maindialog.py:316
+#: ../src/gui/maindialog.py:351
 msgid "Edit a record"
 msgstr "Redigera en post"
 
-#: ../src/gui/maindialog.py:299
-#: ../src/gui/maindialog.py:325
+#: ../src/gui/maindialog.py:318
+#: ../src/gui/maindialog.py:352
 msgid "Delete selected record"
 msgstr "Ta bort markerad post"
 
-#: ../src/gui/maindialog.py:302
+#: ../src/gui/maindialog.py:321
 #: ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
 msgstr "Betald"
 
-#: ../src/gui/maindialog.py:305
+#: ../src/gui/maindialog.py:324
 msgid "Not Paid"
 msgstr "Inte betald"
 
-#: ../src/gui/maindialog.py:305
-#: ../src/gui/maindialog.py:328
+#: ../src/gui/maindialog.py:324
+#: ../src/gui/maindialog.py:355
 msgid "Mark as not paid"
 msgstr "Markera som obetald"
 
-#: ../src/gui/maindialog.py:322
+#: ../src/gui/maindialog.py:349
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../src/gui/maindialog.py:323
-#: ../src/gui/maindialog.py:515
+#: ../src/gui/maindialog.py:350
+#: ../src/gui/maindialog.py:543
 msgid "_Add New"
 msgstr "_Lägg till ny"
 
-#: ../src/gui/maindialog.py:326
+#: ../src/gui/maindialog.py:353
 msgid "_Edit"
 msgstr "R_edigera"
 
-#: ../src/gui/maindialog.py:327
-#: ../src/gui/maindialog.py:525
+#: ../src/gui/maindialog.py:354
+#: ../src/gui/maindialog.py:553
 msgid "_Paid"
 msgstr "_Betald"
 
-#: ../src/gui/maindialog.py:328
+#: ../src/gui/maindialog.py:355
 msgid "_Not Paid"
 msgstr "_Inte betald"
 
-#: ../src/gui/maindialog.py:329
+#: ../src/gui/maindialog.py:356
 msgid "Edit preferences"
 msgstr "Redigera inställningar"
 
-#: ../src/gui/maindialog.py:330
+#: ../src/gui/maindialog.py:357
 msgid "Quit the Program"
 msgstr "Avsluta programmet"
 
-#: ../src/gui/maindialog.py:331
+#: ../src/gui/maindialog.py:358
 msgid "_View"
 msgstr "_Visa"
 
-#: ../src/gui/maindialog.py:332
+#: ../src/gui/maindialog.py:359
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../src/gui/maindialog.py:333
+#: ../src/gui/maindialog.py:360
 msgid "About the application"
 msgstr "Om programmet"
 
-#: ../src/gui/maindialog.py:343
+#: ../src/gui/maindialog.py:370
 msgid "_Show Toolbar"
 msgstr "_Visa verktygsrad"
 
-#: ../src/gui/maindialog.py:343
+#: ../src/gui/maindialog.py:370
 msgid "Show the toolbar"
 msgstr "Visa verktygsraden"
 
-#: ../src/gui/maindialog.py:347
+#: ../src/gui/maindialog.py:374
 msgid "_Not Paid Only"
 msgstr "_Inte betalda"
 
-#: ../src/gui/maindialog.py:347
+#: ../src/gui/maindialog.py:374
 msgid "Display all unpaid records only"
 msgstr "Visa endast obetalda poster"
 
-#: ../src/gui/maindialog.py:348
+#: ../src/gui/maindialog.py:375
 msgid "_Paid Only"
 msgstr "Endast _betalda"
 
-#: ../src/gui/maindialog.py:348
+#: ../src/gui/maindialog.py:375
 msgid "Display all paid records only"
 msgstr "Visa endast betalda poster"
 
-#: ../src/gui/maindialog.py:349
+#: ../src/gui/maindialog.py:376
 msgid "_All Records"
 msgstr "_Alla poster"
 
-#: ../src/gui/maindialog.py:349
+#: ../src/gui/maindialog.py:376
 msgid "Display all records"
 msgstr "Visa alla poster"
 
-#: ../src/gui/maindialog.py:528
+#: ../src/gui/maindialog.py:556
 msgid "Not _Paid"
 msgstr "Inte b_etald"
 
-#: ../src/gui/maindialog.py:555
+#: ../src/gui/maindialog.py:583
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Vill du verkligen ta bort \"%s\"?"
@@ -584,6 +583,14 @@ msgstr "_Starta notifierare för Räkningspåminnare"
 #: ../src/gui/prefdialog.py:229
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr "<b>Observera:</b> Notifieraren för Räkningspåminnaren kör nu."
+
+#: ../src/gui/widgets/calendarwidget.py:55
+msgid "<b>_Monthly Report:</b>"
+msgstr "<b>_Månatlig rapport:</b>"
+
+#: ../src/gui/widgets/calendarwidget.py:62
+msgid "<b>_Year:</b>"
+msgstr "<b>_År:</b>"
 
 #: ../src/gui/widgets/datebutton.py:32
 #: ../src/gui/widgets/datebutton.py:65
@@ -719,6 +726,8 @@ msgstr "Veckoligen"
 msgid "Monthly"
 msgstr "Månatligen"
 
+#~ msgid "<b>_Bills:</b>"
+#~ msgstr "<b>_Räkningar:</b>"
 #~ msgid "%Y/%m/%d"
 #~ msgstr "%Y-%m-%d"
 #~ msgid "Due Date:"
