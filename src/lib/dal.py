@@ -83,6 +83,7 @@ class DAL(object):
 
     def _validate_tables(self):
         """ Validates that all tables are up to date. """
+        print "Got here"
         stmt = "select tbl_name from sqlite_master where " \
                "type = 'table' and tbl_name like 'br_%'"
         self.cur.execute(stmt)
@@ -105,14 +106,14 @@ class DAL(object):
             except:
                 ver = -1
             # Table is obsolete and will be deleted
-            if tblname not in self._tables:
+            if tblname not in self._tables.keys():
                 # We should revisit this logic
                 print '%s is an obsolete table and it will be deleted' % \
                        tblname
                 self._delete_table(tblname)
                 continue
             if self._tables[tblname].Version != int(ver) :
-                print '%s is NOT a valid table' % tblname
+                print '%s is outdated and will be updated!' % tblname
                 self._update_table(self._tables[tblname])
                 # Save tables version info
                 self._update_table_version(self._tables[tblname])

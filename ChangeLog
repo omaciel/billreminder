@@ -1,3 +1,8 @@
+2008-09-25 Og Maciel <ogmaciel@gnome.org>
+
+	* src/db/billstable.py: Bump version and make amountDue optional.
+	* src/lib/dal.py: Validating that the tables update routine does its job.
+
 2008-09-24 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/widgets/calendarwidget.py: Added mnemonics.
