@@ -1,5 +1,6 @@
 2008-09-27 Og Maciel <ogmaciel@gnome.org>
 
+	* src/gui/widgets/timeline.py: Added new timeline widget.
 	* data/Makefile.am: Make sure that gconf is run (if available) and register schema.
 	Partially fixes Bug #553694.
 

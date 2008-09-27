@@ -9,6 +9,7 @@ billreminder_widgets_PYTHON = \
 	datebutton.py \
 	genericlistview.py \
 	statusbar.py \
+	timeline.py \
 	timewidget.py \
 	toolbar.py \
 	trayicon.py \
