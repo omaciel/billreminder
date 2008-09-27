@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-# TODO Improve percents graphics creation
-#      Add comments
-#      Add MAX and MIN
-
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -16,9 +12,7 @@ from math import pi, floor
 debug = False
 
 class Bullet(object):
-    OVERDUE = -1
-    TO_BE_PAID = 0
-    PAID = 1
+    OVERDUE, TO_BE_PAID, PAID = range(-1, 2)
 
     debug = False
     
@@ -32,47 +26,13 @@ class Bullet(object):
         self.multi = multi
         self.tooltip = tooltip
         if self.debug:
-            print "bullet created: ", self.date
-    
-    # Compare by date
-    def __lt__(self, other):
-        return self.date < other.date
-        
-    def __le__(self, other):
-        return self.date < other.date or \
-          (self.date == other.date and \
-           self.amount == other.amount and \
-           self.estimated == other.estimated and \
-           self.status == other.status)
-        
-    def __eq__(self, other):
-        return self.date == other.date and \
-          self.amount == other.amount and \
-          self.estimated == other.estimated and \
-          self.status == other.status
-        
-    def __ne__(self, other):
-        return self.date != other.date or \
-          self.amount != other.amount or \
-          self.estimated != other.estimated or \
-          self.status != other.status
-        
-    def __gt__(self, other):
-        return self.date > other.date
-        
-    def __ge__(self, other):
-        return self.date > other.date  or \
-          (self.date == other.date and \
-           self.amount == other.amount and \
-           self.estimated == other.estimated and \
-           self.status == other.status)
-        
+            print "Bullet created: ", self.date
 
 class Timeline(gtk.DrawingArea):
     """ A widget that displays a timeline and allows the user to select a
     date interval
     """
-    (DAY, WEEK, MONTH, YEAR) = range(4)
+    DAY, WEEK, MONTH, YEAR = range(4)
     DIVS = {}
     DIVS[DAY] = 16
     DIVS[WEEK] = 16
@@ -83,10 +43,12 @@ class Timeline(gtk.DrawingArea):
 
     __gsignals__ = {
         'realize': 'override',
+        'unrealize': 'override',
         'expose-event': 'override',
         'button-press-event': 'override',
         'button-release-event': 'override',
-        'motion-notify-event': 'override'
+        'motion-notify-event': 'override',
+        'key-press-event': 'override'
     }
 
     def __init__(self, date=None, callback=None):
@@ -95,7 +57,10 @@ class Timeline(gtk.DrawingArea):
         Parameter:
             - date is a datetime.date object or a tuple (year, month, day).
               By default it is datetime.date.today()
+            - callback is a functions that receive a datatetime.date object
+              and return a Bullet object
         """
+        
         # Treat the parameter
         if date and not isinstance(date, datetime.date) and \
           isinstance(date, tuple) and len(date) == 3:
@@ -103,29 +68,23 @@ class Timeline(gtk.DrawingArea):
         else:
             date = datetime.date.today()
 
-        # Set defaults
-        self.mindex = 0
-        self.value = date
-        self.orientation = gtk.ORIENTATION_HORIZONTAL
-        self._type = self.DAY
-        self._divs = self.DIVS[self._type]
-        self.position = (self._divs - 1) / 2
-        self._dates = {}
-        self._bullets = {}
-
         if callback:
             self._bullet_func = callback
         else:
             self._bullet_func = lambda date_: None
 
-        self._slider_press = False
-        self._slider_visible = False
-        self._slider_rect = gtk.gdk.Rectangle(x=15, y=3)
+        # Set defaults
+        self._mindex = 0
+        self._type = self.DAY
+        self._divs = self.DIVS[self._type]
+        self._dates = {}
+        self._bullets = {}
         self._box_rect = gtk.gdk.Rectangle()
         self._timer = None
         self._scroll_delay = 1800 / self._divs
-        self._min = None
-        self._max = None
+        self.value = date
+        self.orientation = gtk.ORIENTATION_HORIZONTAL
+        self.position = (self._divs - 1) / 2
 
         # Widget initialization
         self.drag = False
@@ -152,7 +111,9 @@ class Timeline(gtk.DrawingArea):
         self.set_flags(self.flags() | gtk.REALIZED)
         events = (gtk.gdk.EXPOSURE_MASK |
                   gtk.gdk.BUTTON_PRESS_MASK |
-                  gtk.gdk.POINTER_MOTION_MASK)
+                  gtk.gdk.POINTER_MOTION_MASK |
+                  gtk.gdk.KEY_PRESS_MASK |
+                  gtk.gdk.KEY_RELEASE_MASK)
         self.window = gtk.gdk.Window(self.get_parent_window(),
                                      x=self.allocation.x,
                                      y=self.allocation.y,
@@ -166,8 +127,12 @@ class Timeline(gtk.DrawingArea):
         self.window.set_user_data(self)
         self.style.attach(self.window)
         self.style.set_background(self.window, gtk.STATE_NORMAL)
+        self.set_property('can-focus', True)
         # Define widget minimum size
         self.set_size_request(540, 81)
+        
+    def do_unrealize(self):
+        self.window.destroy()
 
     def do_expose_event(self, event):
         self.draw()
@@ -176,6 +141,11 @@ class Timeline(gtk.DrawingArea):
     def draw(self, redraw=False):
         if self.orientation == gtk.ORIENTATION_HORIZONTAL:
             self._hdraw(redraw)
+        elif self.orientation == gtk.ORIENTATION_VERTICAL:
+            raise NotImplementedError, \
+              'self.orientation == gtk.ORIENTATION_VERTICAL'
+        else:
+            raise ValueError, 'self.orientation'
 
     def _hdraw(self, redraw=False):
         # TODO Organize
@@ -205,7 +175,7 @@ class Timeline(gtk.DrawingArea):
             line_cg = self.style.dark_gc
 
             x = (self._box_rect.x + self._div_width * i + self._div_width / 2)
-            width = self._bullet_width
+            width = self._bullet_radius
             
             # bullets
             if self._bullets[i] and i < self._divs:
@@ -222,7 +192,7 @@ class Timeline(gtk.DrawingArea):
                     x += width / 4
                     y += width / 3
                     cr.arc(x, y, width, 0, 2 * pi)
-                    cr.fill()
+                    cr.fill_preserve()
                     cr.set_line_width(width / 8)
                     if bullet_.status == Bullet.PAID:
                         cr.set_source_rgb(0.19, 0.51, 0)
@@ -230,7 +200,7 @@ class Timeline(gtk.DrawingArea):
                         cr.set_source_rgb(0.47, 0, 0)
                     else:
                         cr.set_source_rgb(0.13, 0.4, 0.48)
-                    cr.arc(x, y, width, 0, 2 * pi)
+                    #cr.arc(x, y, width, 0, 2 * pi)
                     cr.stroke()
                     x -= width / 4
                     y -= width / 3
@@ -327,6 +297,9 @@ class Timeline(gtk.DrawingArea):
                                        self._box_rect.height + \
                                        self._box_rect.y - 2,
                                        1, line_h)
+
+            ## day label
+            # Draw today with bold font
             if i < self._divs:
                 if self._dates[i] == datetime.date.today():
                     self._layout.set_markup('<b><small>' + str(self._dates[i].day) + '</small></b>')
@@ -361,198 +334,99 @@ class Timeline(gtk.DrawingArea):
         cr.stroke()
 
         mx, my = self.get_pointer()
-        if mx > self._slider_rect.x and \
-          mx < self._slider_rect.width + self._slider_rect.x and \
-          my > self._slider_rect.y and \
-          my < self._slider_rect.height + self._slider_rect.y:
-            if self._slider_press:
-                slider_state = gtk.STATE_ACTIVE
-            else:
-                slider_state = gtk.STATE_PRELIGHT
-        elif self._slider_press:
-            slider_state = gtk.STATE_ACTIVE
-        else:
-            slider_state = self.state
 
-        # left arrow
+        # Arrows
+        arrow_y = self._box_rect.y + self._box_rect.height / 2 - 5
+        ## left arrow
         self.style.paint_arrow(self.window, self.state, gtk.SHADOW_IN,
                                None, self, '', gtk.ARROW_LEFT, True,
                                self._box_rect.x - 15,
-                               self._box_rect.y + self._box_rect.height / 2 - 5,
+                               arrow_y,
                                8, 10)
 
-        # right arrow
+        ## right arrow
         self.style.paint_arrow(self.window, self.state, gtk.SHADOW_IN,
                                None, self, '', gtk.ARROW_RIGHT, True,
                                self._box_rect.x + self._box_rect.width + 9,
-                               self._box_rect.y + self._box_rect.height / 2 - 5,
+                               arrow_y,
                                8, 10)
 
-        if not self._slider_visible or \
-          ((self.position < 0 or self.position > self._divs - 1) and \
-          not self._slider_press):
-            return
+        # Focus rect
+        if self.get_property('has-focus'):
+            self.style.paint_focus(self.window, self.state, None, self, '',
+                                   1,
+                                   1,
+                                   self.width - 2,
+                                   self.height -2)
+        
 
-        # slider
-        self.window.draw_rectangle(self.style.bg_gc[slider_state], True,
-                                   self._slider_rect.x,
-                                   self._slider_rect.y,
-                                   5, self._slider_rect.height)
-
-        self.window.draw_rectangle(self.style.bg_gc[slider_state], True,
-                                   self._slider_rect.x + self._div_width + 5,
-                                   self._slider_rect.y,
-                                   5, self._slider_rect.height)
-
-        self.window.draw_rectangle(self.style.bg_gc[slider_state], True,
-                                   self._slider_rect.x,
-                                   self._slider_rect.y,
-                                   self._slider_rect.width, 5)
-
-        self.window.draw_rectangle(self.style.bg_gc[slider_state], True,
-                                   self._slider_rect.x,
-                                   self._slider_rect.height - 12,
-                                   self._slider_rect.width, 15)
-
-        ## slider handle
-        self.style.paint_handle(self.window, self.state,
-                                gtk.SHADOW_IN, None, self, '',
-                                self._slider_rect.x + 4,
-                                self._slider_rect.height - 7,
-                                self._slider_rect.width - 8, 5,
-                                gtk.ORIENTATION_HORIZONTAL)
-
-        self.style.paint_shadow(self.window, slider_state,
-                                gtk.SHADOW_OUT, None, self, '',
-                                self._slider_rect.x,
-                                self._slider_rect.y,
-                                self._slider_rect.width,
-                                self._slider_rect.height)
-
-        ## slider box
-        self.style.paint_shadow(self.window, self.state,
-                                gtk.SHADOW_IN, None, self, '',
-                                self._slider_rect.x + 5,
-                                self._slider_rect.y + 5,
-                                self._slider_rect.width - 10,
-                                self._slider_rect.height - 20)
-
+    def do_key_press_event(self, event):
+        if event.hardware_keycode in (102, 104):
+            self.scroll(gtk.gdk.SCROLL_RIGHT)
+        elif event.hardware_keycode in (100, 98):
+            self.scroll(gtk.gdk.SCROLL_LEFT)
 
     def do_button_release_event(self, event):
         mx, my = self.get_pointer()
         self.drag = False
         if event.button == 1:
+            # Stop the autoscroll trigger timer
             if self._timer:
                 gobject.source_remove(self._timer)
                 self._timer = None
-            if self._slider_press:
-                if mx > self._box_rect.x and \
-                  mx < self._box_rect.width + self._box_rect.x:
-                    self.move(self._slider_rect.x + 5)
-                elif mx < self._box_rect.x:
-                    self.value = self._dates[0]
-                    self._value_changed()
-                    self.set_position(0)
-                elif mx > self._box_rect.width + self._box_rect.x:
-                    self.value = self._dates[self._divs]
-                    self._value_changed()
-                    self.set_position(self._divs - 1)
-            self._slider_press = False
             self.queue_draw_area(0, 0, self.allocation.width,
                                  self.allocation.height)
         return False
 
     def do_button_press_event(self, event):
         mx, my = self.get_pointer()
+        # Stop the autoscroll trigger timer
         if self._timer:
             gobject.source_remove(self._timer)
             self._timer = None
         if event.button == 1:
             if mx < self._box_rect.x:
                 self.scroll(gtk.gdk.SCROLL_LEFT)
+                # Start the autoscroll trigger timer
                 self._timer = gobject.timeout_add(500, self.auto_scroll,
                                                   gtk.gdk.SCROLL_LEFT)
             elif mx > self._box_rect.width + self._box_rect.x:
                 self.scroll(gtk.gdk.SCROLL_RIGHT)
+                # Start the autoscroll trigger timer
                 self._timer = gobject.timeout_add(500, self.auto_scroll,
                                                   gtk.gdk.SCROLL_RIGHT)
-            elif self._slider_visible and mx > self._slider_rect.x and \
-              mx < self._slider_rect.width + self._slider_rect.x and \
-              my > self._slider_rect.y and \
-              my < self._slider_rect.height + self._slider_rect.y:
-                self._slider_press = True
-                self._slider_pointer = self.get_pointer()[0] - self._slider_rect.x
-                self.queue_draw_area(0, 0, self.allocation.width,
-                                     self.allocation.height)
             elif mx > self._box_rect.x and \
               mx < self._box_rect.width + self._box_rect.x:
                 self.move(mx - self._div_width / 2)
         return False
 
-    def set_tooltip(self, text=None):
-        self.set_tooltip_text(text)
-        return False
-
     def do_motion_notify_event(self, event):
         mx, my = self.get_pointer()
         # TODO Improve tooltip
-        if self._slider_press:
-            # Hide tooltip while move
-            self.set_tooltip_text(None)
-            self._slider_rect.x = self.get_pointer()[0] - self._slider_pointer
-            if mx < self._box_rect.x:
-                if not self._timer:
-                    self.scroll(gtk.gdk.SCROLL_LEFT, False)
-                    self._timer = gobject.timeout_add(self._scroll_delay,
-                                                      self.scroll,
-                                                      gtk.gdk.SCROLL_LEFT,
-                                                      False)
-            elif mx > self._box_rect.width + self._box_rect.x:
-                if not self._timer:
-                    self.scroll(gtk.gdk.SCROLL_RIGHT, False)
-                    self._timer = gobject.timeout_add(self._scroll_delay,
-                                                      self.scroll,
-                                                      gtk.gdk.SCROLL_RIGHT,
-                                                      False)
-            elif self._timer:
-                gobject.source_remove(self._timer)
-                self._timer = None
-            # Redraw all
-            self.queue_draw_area(0, 0, self.allocation.width,
-                                 self.allocation.height)
+        if my > self._box_rect.y - self._bullet_radius / 3 + (self._box_rect.height - self._bullet_radius) / 2 and \
+            my < self._box_rect.y + self._bullet_radius / 3  + (self._box_rect.height / 2) + self._bullet_radius:
+                if self._mindex != int((mx - self._box_rect.x) / self._div_width):
+                    self._mindex = int((mx - self._box_rect.x) / self._div_width)
+                    if self._mindex > -1 and self._mindex < self.DIVS[self._type] and self._bullets[self._mindex]:
+                        gobject.timeout_add(100, self.set_tooltip, self._bullets[self._mindex].tooltip)
+                    else:
+                        self.set_tooltip_text(None)
         else:
-            # Show tooltip for Slider
-            if self._slider_visible and mx > self._slider_rect.x - 5 and \
-              mx < self._div_width + 5 + self._slider_rect.x and \
-              my > 5 and \
-              my < self._box_rect.height + 35:
-                self.set_tooltip_text("value: %s" % str(self.value))
-            elif my > self._box_rect.y - self._bullet_width / 3 + (self._box_rect.height - self._bullet_width) / 2 and \
-                my < self._box_rect.y + self._bullet_width / 3  + (self._box_rect.height / 2) + self._bullet_width:
-                    if self.mindex != int((mx - self._box_rect.x) / self._div_width):
-                        self.mindex = int((mx - self._box_rect.x) / self._div_width)
-                        if self.mindex > -1 and self.mindex < self.DIVS[self._type] and self._bullets[self.mindex]:
-                            gobject.timeout_add(100, self.set_tooltip, self._bullets[self.mindex].tooltip)
-                        else:
-                            self.set_tooltip_text(None)
-            else:
-                self.mindex = -1
-                self.set_tooltip_text(None)
-
-            if self._slider_visible :
-            # Redraw Slider
-                self.queue_draw_area(self._slider_rect.x - 5, 0,
-                                     self._div_width + 10,
-                                     self._box_rect.height + 25)
+            self._mindex = -1
+            self.set_tooltip_text(None)
         #gobject.timeout_add(100, self.set_tooltip, str(mx))
         return False
 
     def do_scroll_event(self, event):
-        if event.direction == gtk.gdk.SCROLL_DOWN or \
-          event.direction == gtk.gdk.SCROLL_RIGHT:
+        # SCROLL_DOWN is used to be possible scroll using simple mousewheel
+        if event.direction in (gtk.gdk.SCROLL_DOWN, gtk.gdk.SCROLL_RIGHT):
             self.scroll(gtk.gdk.SCROLL_RIGHT)
         else:
             self.scroll(gtk.gdk.SCROLL_LEFT)
+
+    def set_tooltip(self, text=None):
+        self.set_tooltip_text(text)
+        return False
 
     def _value_changed(self):
         self.day = self.value.day
@@ -565,26 +439,25 @@ class Timeline(gtk.DrawingArea):
             print "error"
         self.emit('value-changed', self.value)
         if self.debug:
-            print "DateSlider.Slider.value: ", str(self.value)
+            print "Timeline.value: ", str(self.value)
         print self.value
 
     def on_size_allocate(self, widget, allocation):
+        self.width = allocation.width
+        self.height = allocation.height
+        # Set timeline subdivisions size
         self._div_width = (allocation.width - self._box_rect.x * 2) // \
                           self._divs
+        # Set Timeline box size
         self._box_rect.x = 21
         self._box_rect.y = 8
         self._box_rect.width = (self._div_width * self._divs)
         self._box_rect.height = allocation.height - 33
-        self._slider_rect.x = self._box_rect.x + \
-                              (self._div_width * self.position) - 5
-        self._slider_rect.y = self._box_rect.y - 5
-        self._slider_rect.width = self._div_width + 10
-        self._slider_rect.height = self._box_rect.height + 20
-
+        # Set Bullet radius
         if self._div_width - self._div_width / 4 > self._box_rect.height / 2:
-            self._bullet_width = (self._box_rect.height / 2) / 2
+            self._bullet_radius = (self._box_rect.height / 2) / 2
         else:
-            self._bullet_width = (self._div_width - self._div_width / 4) / 2
+            self._bullet_radius = (self._div_width - self._div_width / 4) / 2
         
         return False
 
@@ -607,12 +480,15 @@ class Timeline(gtk.DrawingArea):
                 first = selected.replace(month=month, year=year)
             elif self._type == self.YEAR:
                 first = selected.replace(year=selected.year - self.position)
+                
         if self._type == self.DAY:
             for i in range(self._divs + 1):
                 self._dates[i] = first + datetime.timedelta(days=i)
+                self._bullets[i] = self._bullet_func(self._dates[i])
         elif self._type == self.WEEK:
             for i in range(self._divs + 1):
                 self._dates[i] = first + datetime.timedelta(days=i * 7)
+                self._bullets[i] = self._bullet_func(self._dates[i])
         elif self._type == self.MONTH:
             for i in range(self._divs + 1):
                 month = (first.month + i) % 12
@@ -621,17 +497,16 @@ class Timeline(gtk.DrawingArea):
                     month = 12
                     year -= 1
                 self._dates[i] = first.replace(day=1, month=month, year=year)
+                self._bullets[i] = self._bullet_func(self._dates[i])
         elif self._type == self.YEAR:
             for i in range(self._divs + 1):
                 self._dates[i] = first.replace(day=1, month=1,
                                                year=first.year + i)
-
-        for i in range(self._divs + 1):
-            self._bullets[i] = self._bullet_func(self._dates[i])
+                self._bullets[i] = self._bullet_func(self._dates[i])
 
         if self.debug:
-            print "DateSlider.Slider._dates[0]: ", self._dates[0]
-            print "DateSlider.Slider._dates[DIVS[_type]]: ", self._dates[self.DIVS[self._type]]
+            print "Timeline._dates[0]: ", self._dates[0]
+            print "Timeline._dates[DIVS[_type]]: ", self._dates[self.DIVS[self._type]]
 
     def scroll(self, direction, redraw=True):
         """ Scroll the timeline widget
@@ -651,7 +526,7 @@ class Timeline(gtk.DrawingArea):
             self.set_position(self.position - 1, redraw)
             self.emit('scroll', direction)
         else:
-            raise(ValueError)
+            raise ValueError, direction
         
         print self._dates[0], self._dates[self.DIVS[self._type] - 1]
         return True
@@ -683,10 +558,8 @@ class Timeline(gtk.DrawingArea):
         self.queue_draw_area(0, 0,
                              self.allocation.width, self.allocation.height)
         if self.debug :
-            print "DateSlider.Slider.position: ", self.position
+            print "Timeline.position: ", self.position
 
-        if redraw:
-            self._slider_rect.x = x - 5
         if update:
             # Update self.value
             if self.position < 0 or self.position > self._divs - 1:
@@ -727,7 +600,7 @@ class Timeline(gtk.DrawingArea):
         self._interval= (self._dates[self.position],
                 self._dates[self.position + 1] - datetime.timedelta(days=1))
         if self.debug:
-            print "DateSlider.Slider._interval: ", self._interval
+            print "Timeline._interval: ", self._interval
 
     def select_month(self, month=None, year=None):
         if month and not year and not self._type == self.YEAR:
@@ -744,7 +617,7 @@ class Timeline(gtk.DrawingArea):
             self._value_changed()
 
     def select_day(self, day):
-        if self._type == self.DAY or self._type == self.WEEK:
+        if self._type in (self.DAY, self.WEEK):
             self.value = self.value.replace(day=day)
             self.set_position((self._divs - 1) / 2)
             self._value_changed()
@@ -784,6 +657,4 @@ if __name__ == '__main__':
     window.add(timeline)
     window.connect('delete-event', gtk.main_quit)
     window.show_all()
-    if debug:
-        print timeline._min, timeline._max
     gtk.main()
