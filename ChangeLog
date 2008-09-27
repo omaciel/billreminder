@@ -1,3 +1,8 @@
+2008-09-27 Og Maciel <ogmaciel@gnome.org>
+
+	* data/Makefile.am: Make sure that gconf is run (if available) and register schema.
+	Partially fixes Bug #553694.
+
 2008-09-26 Og Maciel <ogmaciel@gnome.org>
 
 	* src/lib/common.py: datadir variable is no longer hard coded.

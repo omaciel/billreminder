@@ -38,19 +38,18 @@ CLEANFILES += $(autostart_DATA)
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
-	@GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) \
-		--makefile-install-rule $(schemas_DATA) || \
-		(echo ;\
-		echo "*****************************************************"; \
-		echo "Installation of schemas failed, install them manually"; \
-		echo "*****************************************************";)
-	@true
+	if test -z "$(DESTDIR)" ; then \
+		for p in $(schemas_DATA) ; do \
+			GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $$p ; \
+		done \
+	fi
+uninstall-local:
+	for p in $(schemas_DATA) ; do \
+		GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $$p ; \
+	done
 else
 install-data-local:
-	@echo "***************************************************************"
-	@echo "Not installing schemas, disabled with --disable-schemas-install"
-	@echo "***************************************************************"
-	@true
+uninstall-local:
 endif
 
 EXTRA_DIST = \
@@ -58,4 +57,3 @@ EXTRA_DIST = \
 	$(service_in_files) \
 	$(desktop_in_files) \
 	$(autostart_in_files)
-
