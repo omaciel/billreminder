@@ -18,14 +18,15 @@ billreminder_lib_PYTHON = \
 	utils.py
 
 defs.py: defs.py.in
-	sed -e s!\@VERSION\@!$(VERSION)! \
-	< $< > $@
+	sed						\
+		-e s!\@datadir\@!$(datadir)!		\
+		-e s!\@VERSION\@!$(VERSION)!		\
+		< $< > $@
+defs.py: Makefile
 
-CLEANFILES = \
-	defs.py
-	
+CLEANFILES = defs.py
+EXTRA_DIST = defs.py.in
+
 DISTCLEANFILES = \
 	$(CLEANFILES)
-	
-EXTRA_DIST = \
-	defs.py.in
+

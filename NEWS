@@ -1,3 +1,9 @@
+BillReminder 0.3.x
+==================
+
+Backend:
+  * Fixed an issue where datadir was hard coded to '/usr/share' (Bug #553890).
+
 BillReminder 0.3.2
 ==================
 

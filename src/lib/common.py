@@ -7,8 +7,7 @@ try:
     from defs import *
 except:
     APPVERSION = "0.3.2"
-
-datadir = "/usr/share"
+    datadir = "/usr/share"
 
 # Application info
 APPNAME = "BillReminder"

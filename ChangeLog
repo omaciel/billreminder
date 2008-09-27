@@ -1,3 +1,9 @@
+2008-09-26 Og Maciel <ogmaciel@gnome.org>
+
+	* src/lib/common.py: datadir variable is no longer hard coded.
+	* src/lib/Makefile.am: Fixes Bug #553890 to get datadir from configuration step.
+	* src/lib/defs.py.in: datadir is derived during build time.
+
 2008-09-25 Og Maciel <ogmaciel@gnome.org>
 
 	* src/db/billstable.py: Bump version and make amountDue optional.
