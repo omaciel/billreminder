@@ -244,7 +244,10 @@ class AddDialog(gtk.Dialog):
 
     def _populate_fields(self):
         # Format the amount field
-        self.amount.set_text(utils.float_to_currency(self.currentrecord.AmountDue))
+        if self.currentrecord.AmountDue:
+            self.amount.set_text(utils.float_to_currency(self.currentrecord.AmountDue))
+        else:
+            self.amount.set_text("")
         # Format the dueDate field
         dt = scheduler.datetime_from_timestamp(self.currentrecord.DueDate)
         self.calendar.select_day(dt.day)
@@ -385,10 +388,13 @@ class AddDialog(gtk.Dialog):
         alarm = self.alarmbutton.get_date()  or -1
 
         # Validate form
-        if not payee.strip() or not self.amount.get_text().strip():
+        if not payee.strip():
             return None
 
-        amount = utils.currency_to_float(self.amount.get_text())
+        if self.amount.get_text().strip():
+            amount = utils.currency_to_float(self.amount.get_text())
+        else:
+            amount = None
 
         if self.currentrecord is None:
             # Verify how many bills will be inserted
@@ -476,10 +482,6 @@ class AddDialog(gtk.Dialog):
                 message.ShowError(_("\"%s\" is required field.") % _("Payee"), self)
                 self.emit_stop_by_name("response")
                 self.payee.grab_focus()
-            elif not self.amount.get_text().strip():
-                message.ShowError(_("\"%s\" is required field.") % _("Amount"), self)
-                self.emit_stop_by_name("response")
-                self.amount.grab_focus()
 
     def _on_calendar_day_selected(self, widget):
         # Only reprogram alarm if it is not None

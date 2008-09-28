@@ -1,5 +1,9 @@
 2008-09-27 Og Maciel <ogmaciel@gnome.org>
 
+	* src/gui/adddialog.py: Allow bills to have a null amount. Fixes Bug #551953.
+	* src/gui/widgets/charting.py: Display 2 decimal places for labels. Fixes Bug #551953.
+	* src/gui/widgets/viewbill.py: Allow null values for amountDue. Fixes Bug #551953.
+	* src/lib/actions.py: Handle null values, returning a zero where needed. Fixes Bug #551953.
 	* src/gui/widgets/timeline.py: Added new timeline widget.
 	* data/Makefile.am: Make sure that gconf is run (if available) and register schema.
 	Partially fixes Bug #553694.

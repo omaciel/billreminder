@@ -405,7 +405,7 @@ class Chart(gtk.DrawingArea):
             context.show_text(data[i]["label"])
 
         # values for max min and average
-        max_label =  self.there_are_floats and "%.1f" % self.max or "%d" % self.max
+        max_label =  self.there_are_floats and "%.2f" % self.max or "%d" % self.max
         extent = context.text_extents(max_label) #x, y, width, height
 
         context.move_to(graph_x - extent[2] - 16, rect.y + 10)
@@ -441,7 +441,7 @@ class Chart(gtk.DrawingArea):
 
         if self.values_on_bars:
             for i in range(records):
-                label = self.there_are_floats and "%.1f" % data[i]["value"] or "%d" % data[i]["value"]
+                label = self.there_are_floats and "%.2f" % data[i]["value"] or "%d" % data[i]["value"]
                 extent = context.text_extents(label) #x, y, width, height
                 
                 bar_size = graph_height * data[i]["factor"]
@@ -577,7 +577,7 @@ class Chart(gtk.DrawingArea):
         set_color(context, '#000000')        
         if self.values_on_bars:
             for i in range(records):
-                label = "%.1f" % data[i]["value"] and self.there_are_floats or "%d" % data[i]["value"]
+                label = "%.2f" % data[i]["value"] and self.there_are_floats or "%d" % data[i]["value"]
                 extent = context.text_extents(label) #x, y, width, height
                 
                 bar_size = max_size * data[i]["factor"]
@@ -594,7 +594,7 @@ class Chart(gtk.DrawingArea):
         else:
             # values for max min and average
             context.move_to(graph_x + graph_width + 10, graph_y + 10)
-            max_label = "%.1f" % self.max and self.there_are_floats or "%d" % self.max
+            max_label = "%.2f" % self.max and self.there_are_floats or "%d" % self.max
             context.show_text(max_label)
         
         
@@ -668,7 +668,7 @@ class Chart(gtk.DrawingArea):
                 context.show_text(data[i]["label"])
 
         # values for max min and average
-        max_label = "%.1f" % self.max and self.there_are_floats or "%d" % self.max
+        max_label = "%.2f" % self.max and self.there_are_floats or "%d" % self.max
         extent = context.text_extents(max_label) #x, y, width, height
 
         context.move_to(graph_x - extent[2] - 16, rect.y + 10)

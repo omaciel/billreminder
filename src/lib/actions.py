@@ -31,7 +31,9 @@ class Actions(object):
         # Determine status criteria
         status = status < 2 and ' = %s' % status or ' in (0,1)'
 
-        stmt = 'select categoryName, sum(amountDue) as amount, color' \
+        stmt = 'select categoryName, ' \
+            ' sum(case when amountDue is null then 0 else amountDue end) as amount, ' \
+            ' color' \
             ' from br_billstable, br_categoriestable where' \
             ' paid %s' \
             ' and dueDate >= ? and dueDate <= ?' \

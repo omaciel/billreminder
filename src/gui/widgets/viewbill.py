@@ -48,7 +48,11 @@ class ViewBill(GenericListView):
         cell.set_property('xalign', 0.5)
 
     def amountdue_cell_data_function(self, column, cell, model, iter):
-        amountDue = model.get_value(iter, 5).replace(',', '.')
+        amountDue = model.get_value(iter, 5)
+        if amountDue:
+            amountDue = model.get_value(iter, 5).replace(',', '.')
+        else:
+            amountDue = ""
         paid = int(model.get_value(iter, 7))
         amountDue = len(amountDue) > 0 and amountDue or 0
         amountDue = utils.float_to_currency(float(amountDue))
