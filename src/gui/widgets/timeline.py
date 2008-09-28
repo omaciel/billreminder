@@ -76,15 +76,20 @@ class Timeline(gtk.DrawingArea):
         # Set defaults
         self._mindex = 0
         self._type = self.DAY
-        self._divs = self.DIVS[self._type]
+        self._display_days = self.DIVS[self._type]
         self._dates = {}
+        self.start_date = None
+        self.end_date = None
         self._bullets = {}
         self._box_rect = gtk.gdk.Rectangle()
         self._timer = None
-        self._scroll_delay = 1800 / self._divs
+        self._scroll_delay = 1800 / self._display_days
+        self._pressed = False
+        self._dragged = False
+        self._clicked_position = -1
         self.value = date
         self.orientation = gtk.ORIENTATION_HORIZONTAL
-        self.position = (self._divs - 1) / 2
+        self.position = (self._display_days - 1) / 2
 
         # Widget initialization
         self.drag = False
@@ -104,8 +109,6 @@ class Timeline(gtk.DrawingArea):
                            gobject.TYPE_NONE,
                            (gobject.TYPE_PYOBJECT,))
         self. connect('size-allocate', self.on_size_allocate)
-
-        self.select_date(date.day, date.month, date.year)
 
     def do_realize(self):
         self.set_flags(self.flags() | gtk.REALIZED)
@@ -128,6 +131,9 @@ class Timeline(gtk.DrawingArea):
         self.style.attach(self.window)
         self.style.set_background(self.window, gtk.STATE_NORMAL)
         self.set_property('can-focus', True)
+        
+        self.select_date(self.value.day, self.value.month, self.value.year)
+        
         # Define widget minimum size
         self.set_size_request(540, 81)
         
@@ -170,7 +176,7 @@ class Timeline(gtk.DrawingArea):
         y_ = self._box_rect.y + self._box_rect.height / 2
         ## lines and bullets
         y = int(self._box_rect.y + self._box_rect.height / 2)
-        for i in range(self._divs):
+        for i in range(self._display_days):
             line_h = 3
             line_cg = self.style.dark_gc
 
@@ -178,7 +184,7 @@ class Timeline(gtk.DrawingArea):
             width = self._bullet_radius
             
             # bullets
-            if self._bullets[i] and i < self._divs:
+            if self._bullets[i] and i < self._display_days:
                 arc = (2 * pi) / 40
                 bullet_ = self._bullets[i]
                 if bullet_.status == Bullet.PAID:
@@ -259,7 +265,7 @@ class Timeline(gtk.DrawingArea):
             if (self._dates[i].day, self._dates[i].month) == (1, 1) or \
               (self._dates[i].month == 1 and self._dates[i].day <= 7 and
               self._type == self.WEEK):
-                if i < self._divs:
+                if i < self._display_days:
                     self._layout.set_markup('<small>' + str(self._dates[i].year) + '</small>')
                     size_ = self._layout.get_pixel_size()
                     self.style.paint_layout(self.window, self.state, False,
@@ -276,7 +282,7 @@ class Timeline(gtk.DrawingArea):
             ## month label
             elif ((self._dates[i].day == 1 and self._type == self.DAY) or \
               (self._dates[i].day <= 7 and self._type == self.WEEK) or i == 0):
-                if i < self._divs:
+                if i < self._display_days:
                     self._layout.set_markup('<small>' + self._dates[i].strftime('%b') + '</small>')
                     size_ = self._layout.get_pixel_size()
                     self.style.paint_layout(self.window, self.state, False,
@@ -300,7 +306,7 @@ class Timeline(gtk.DrawingArea):
 
             ## day label
             # Draw today with bold font
-            if i < self._divs:
+            if i < self._display_days:
                 if self._dates[i] == datetime.date.today():
                     self._layout.set_markup('<b><small>' + str(self._dates[i].day) + '</small></b>')
                 else:
@@ -370,12 +376,26 @@ class Timeline(gtk.DrawingArea):
         mx, my = self.get_pointer()
         self.drag = False
         if event.button == 1:
+            self._pressed = False
             # Stop the autoscroll trigger timer
             if self._timer:
                 gobject.source_remove(self._timer)
                 self._timer = None
+            if mx > self._box_rect.x and \
+              mx < self._box_rect.width + self._box_rect.x:
+                if not self._dragged:
+                    gobject.timeout_add(self._scroll_delay, self._center_selection)
+                if mx < self._box_rect.x or \
+                  mx > self._box_rect.x + self._box_rect.width or \
+                  my > self._box_rect.y + self._box_rect.height:
+                    self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
+                else:
+                    self.window.set_cursor(None)
             self.queue_draw_area(0, 0, self.allocation.width,
                                  self.allocation.height)
+        if self._dragged:
+            self.move(self._box_rect.width / 2)
+            self._dragged = False
         return False
 
     def do_button_press_event(self, event):
@@ -397,23 +417,44 @@ class Timeline(gtk.DrawingArea):
                                                   gtk.gdk.SCROLL_RIGHT)
             elif mx > self._box_rect.x and \
               mx < self._box_rect.width + self._box_rect.x:
+                self._pressed = True
                 self.move(mx - self._div_width / 2)
+                self._clicked_position = self.position
         return False
 
     def do_motion_notify_event(self, event):
         mx, my = self.get_pointer()
-        # TODO Improve tooltip
-        if my > self._box_rect.y - self._bullet_radius / 3 + (self._box_rect.height - self._bullet_radius) / 2 and \
-            my < self._box_rect.y + self._bullet_radius / 3  + (self._box_rect.height / 2) + self._bullet_radius:
+        if self._pressed:
+            self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND1))
+            pos_  = (mx - self._div_width / 2 - self._box_rect.x) / self._div_width
+            x = pos_ * self._div_width + self._box_rect.x
+            if mx - self._div_width / 2 > x + self._div_width / 2:
+                pos_ += 1
+            if pos_ != self._clicked_position:
+                self._dragged = True
+                self.set_position(pos_, True)
+            else:
+                self._dragged = False
+            
+        else:
+            # TODO Improve tooltip
+            if mx < self._box_rect.x or \
+              mx > self._box_rect.x + self._box_rect.width or \
+              my > self._box_rect.y + self._box_rect.height:
+                self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
+            elif my > self._box_rect.y - self._bullet_radius / 3 + (self._box_rect.height - self._bullet_radius) / 2 and \
+              my < self._box_rect.y + self._bullet_radius / 3  + (self._box_rect.height / 2) + self._bullet_radius:
                 if self._mindex != int((mx - self._box_rect.x) / self._div_width):
                     self._mindex = int((mx - self._box_rect.x) / self._div_width)
                     if self._mindex > -1 and self._mindex < self.DIVS[self._type] and self._bullets[self._mindex]:
                         gobject.timeout_add(100, self.set_tooltip, self._bullets[self._mindex].tooltip)
                     else:
                         self.set_tooltip_text(None)
-        else:
-            self._mindex = -1
-            self.set_tooltip_text(None)
+                self.window.set_cursor(None)
+            else:
+                self._mindex = -1
+                self.set_tooltip_text(None)
+                self.window.set_cursor(None)
         #gobject.timeout_add(100, self.set_tooltip, str(mx))
         return False
 
@@ -433,25 +474,24 @@ class Timeline(gtk.DrawingArea):
         self.month = self.value.month
         self.year = self.value.year
         self._dist_dates()
-        try:
-            self._define_interval()
-        except:
-            print "error"
+        self.start_date = self._dates[0]
+        self.end_date = self._dates[self._display_days - 1]
         self.emit('value-changed', self.value)
         if self.debug:
             print "Timeline.value: ", str(self.value)
-        print self.value
+            print "Timeline.start_date: ", self.start_date
+            print "Timeline.end_date: ", self.end_date
 
     def on_size_allocate(self, widget, allocation):
         self.width = allocation.width
         self.height = allocation.height
         # Set timeline subdivisions size
         self._div_width = (allocation.width - self._box_rect.x * 2) // \
-                          self._divs
+                          self._display_days
         # Set Timeline box size
         self._box_rect.x = 21
         self._box_rect.y = 8
-        self._box_rect.width = (self._div_width * self._divs)
+        self._box_rect.width = (self._div_width * self._display_days)
         self._box_rect.height = allocation.height - 33
         # Set Bullet radius
         if self._div_width - self._div_width / 4 > self._box_rect.height / 2:
@@ -482,15 +522,15 @@ class Timeline(gtk.DrawingArea):
                 first = selected.replace(year=selected.year - self.position)
                 
         if self._type == self.DAY:
-            for i in range(self._divs + 1):
+            for i in range(self._display_days + 1):
                 self._dates[i] = first + datetime.timedelta(days=i)
                 self._bullets[i] = self._bullet_func(self._dates[i])
         elif self._type == self.WEEK:
-            for i in range(self._divs + 1):
+            for i in range(self._display_days + 1):
                 self._dates[i] = first + datetime.timedelta(days=i * 7)
                 self._bullets[i] = self._bullet_func(self._dates[i])
         elif self._type == self.MONTH:
-            for i in range(self._divs + 1):
+            for i in range(self._display_days + 1):
                 month = (first.month + i) % 12
                 year = first.year + (first.month + i) // 12
                 if not month:
@@ -499,14 +539,11 @@ class Timeline(gtk.DrawingArea):
                 self._dates[i] = first.replace(day=1, month=month, year=year)
                 self._bullets[i] = self._bullet_func(self._dates[i])
         elif self._type == self.YEAR:
-            for i in range(self._divs + 1):
+            for i in range(self._display_days + 1):
                 self._dates[i] = first.replace(day=1, month=1,
                                                year=first.year + i)
                 self._bullets[i] = self._bullet_func(self._dates[i])
 
-        if self.debug:
-            print "Timeline._dates[0]: ", self._dates[0]
-            print "Timeline._dates[DIVS[_type]]: ", self._dates[self.DIVS[self._type]]
 
     def scroll(self, direction, redraw=True):
         """ Scroll the timeline widget
@@ -527,8 +564,7 @@ class Timeline(gtk.DrawingArea):
             self.emit('scroll', direction)
         else:
             raise ValueError, direction
-        
-        print self._dates[0], self._dates[self.DIVS[self._type] - 1]
+        self.move(self._box_rect.width / 2)
         return True
 
     def auto_scroll(self, direction, redraw=True):
@@ -548,6 +584,13 @@ class Timeline(gtk.DrawingArea):
                                           direction, redraw)
         return False
 
+    def _center_selection(self):
+        if self.position > (self._display_days - 1) / 2:
+            self.set_position(self.position - 1, True)
+        elif self.position < (self._display_days - 1) / 2:
+            self.set_position(self.position + 1, True)
+        return self.position != self._display_days / 2
+            
     def move(self, pos, update=True, redraw=True):
         position_old = self.position
         self.position = (pos - self._box_rect.x) / self._div_width
@@ -562,16 +605,12 @@ class Timeline(gtk.DrawingArea):
 
         if update:
             # Update self.value
-            if self.position < 0 or self.position > self._divs - 1:
+            if self.position < 0 or self.position > self._display_days - 1:
                 return
             self.value = self._dates[self.position]
             self._dist_dates()
             self._value_changed()
         return position_old, self.position
-
-    def get_position(self):
-        """ Return the position of slider """
-        return self.position
 
     def set_position(self, pos, redraw=True):
         self.position = pos
@@ -579,6 +618,23 @@ class Timeline(gtk.DrawingArea):
         self.move(x, False, redraw)
         self._dist_dates()
         return self.position
+
+    def get_start_date(self):
+        return self.start_date
+
+    def get_end_date(self):
+        return self.end_date
+
+    def get_display_days(self):
+        return self._display_days
+
+    def set_display_days(self, days):
+        if days < 15:
+            days = 15
+        elif days > 62:
+            days = 62
+        self._display_days = days
+    display_days = property(get_display_days, set_display_days)
 
     def get_type(self):
         """ Return timeline type
@@ -588,7 +644,7 @@ class Timeline(gtk.DrawingArea):
 
     def set_type(self, type):
         self._type = type
-        self._divs = self.DIVS[self._type]
+        self._display_days = self.DIVS[self._type]
         self._dist_dates()
         self.queue_draw_area(0, 0, self.allocation.width,
                              self.allocation.height)
@@ -596,36 +652,29 @@ class Timeline(gtk.DrawingArea):
     def get_interval(self):
         return self._interval
 
-    def _define_interval(self):
-        self._interval= (self._dates[self.position],
-                self._dates[self.position + 1] - datetime.timedelta(days=1))
-        if self.debug:
-            print "Timeline._interval: ", self._interval
-
     def select_month(self, month=None, year=None):
         if month and not year and not self._type == self.YEAR:
             self.value = self.value.replace(month=month)
-            self.set_position((self._divs - 1) / 2)
+            self.set_position((self._display_days - 1) / 2)
             self._value_changed()
         if not month and year:
             self.value = self.value.replace(year=year)
-            self.set_position((self._divs - 1) / 2)
+            self.set_position((self._display_days - 1) / 2)
             self._value_changed()
         if month and year:
             self.value = self.value.replace(month=month, year=year)
-            self.set_position((self._divs - 1) / 2)
+            self.set_position((self._display_days - 1) / 2)
             self._value_changed()
 
     def select_day(self, day):
         if self._type in (self.DAY, self.WEEK):
             self.value = self.value.replace(day=day)
-            self.set_position((self._divs - 1) / 2)
+            self.set_position((self._display_days - 1) / 2)
             self._value_changed()
 
     def select_date(self, day, month, year):
         self.value = self.value.replace(day=day, month=month, year=year)
-        if self.position != (self._divs - 1) / 2:
-            self.set_position((self._divs - 1) / 2)
+        self.queue_draw_area(0, 0, self.width, self.height)
         self._value_changed()
     
     def set_bullet_function(self, func):
@@ -654,6 +703,8 @@ if __name__ == '__main__':
     window.set_title('Timeline')
     window.set_default_size(500, 70)
     timeline = Timeline(None, bullet_cb)
+    timeline.debug = True
+    timeline.display_days = 15
     window.add(timeline)
     window.connect('delete-event', gtk.main_quit)
     window.show_all()
