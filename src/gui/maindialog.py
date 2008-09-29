@@ -311,11 +311,11 @@ class MainDialog:
 
     def _populate_toolbar(self):
         self.btnNew = self.toolbar.add_button(gtk.STOCK_NEW,
-            _("New"), _("Add a new record"), self.on_btnNew_clicked)
+            _("New"), _("Add a new bill"), self.on_btnNew_clicked)
         self.btnEdit = self.toolbar.add_button(gtk.STOCK_EDIT,
-            None, _("Edit a record"), self.on_btnEdit_clicked)
+            None, _("Edit a bill"), self.on_btnEdit_clicked)
         self.btnRemove = self.toolbar.add_button(gtk.STOCK_DELETE,
-            None, _("Delete selected record"), self.on_btnDelete_clicked)
+            None, _("Delete selected bill"), self.on_btnDelete_clicked)
         self.toolbar.add_space()
         self.btnPaid = self.toolbar.add_button(gtk.STOCK_APPLY,
             _("Paid"), _("Mark as paid"), self.on_btnPaid_clicked)
@@ -347,9 +347,9 @@ class MainDialog:
         # Create actions
         actiongroup.add_actions([
             ('File', None, _("_File")),
-            ('New', gtk.STOCK_NEW, _("_Add New"), '<Control>n', _("Add a new record"), self.on_btnNew_clicked),
-            ('Edit', gtk.STOCK_EDIT, None, '<Control>e', _("Edit a record"), self.on_btnEdit_clicked),
-            ('Delete', gtk.STOCK_DELETE, None, '<Control>d', _("Delete selected record"), self.on_btnDelete_clicked),
+            ('New', gtk.STOCK_NEW, _("_Add New"), '<Control>n', _("Add a new bill"), self.on_btnNew_clicked),
+            ('Edit', gtk.STOCK_EDIT, None, '<Control>e', _("Edit a bill"), self.on_btnEdit_clicked),
+            ('Delete', gtk.STOCK_DELETE, None, '<Control>d', _("Delete selected bill"), self.on_btnDelete_clicked),
             ('EditMenu', None, _("_Edit")),
             ('Paid', gtk.STOCK_APPLY, _("_Paid"), '<Control>p', _("Mark as paid"), self.on_btnPaid_clicked),
             ('NotPaid', gtk.STOCK_UNDO, _("_Not Paid"), '<Control>u', _("Mark as not paid"), self.on_btnPaid_clicked),
@@ -371,9 +371,9 @@ class MainDialog:
         ])
 
         actiongroup.add_radio_actions([
-            ('NotPaidRecords', None, _("_Not Paid Only"), None, _("Display all unpaid records only"), 0),
-            ('PaidRecords', None, _("_Paid Only"), None, _("Display all paid records only"), 1),
-            ('AllRecords', None, _("_All Records"), None, _("Display all records"), 2),
+            ('NotPaidRecords', None, _("_Not Paid Only"), None, _("Display all unpaid bills only"), 0),
+            ('PaidRecords', None, _("_Paid Only"), None, _("Display all paid bills only"), 1),
+            ('AllRecords', None, _("_All Bills"), None, _("Display all bills"), 2),
         ], saved_view , self._change_view)
 
         # Add the actiongroup to the uimanager
@@ -613,23 +613,23 @@ class MainDialog:
         else:
             self.toolbar.hide_all()
             self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", False)
-    
+
     def on_terms_changed(self, widget, text):
         self.search_text = text
         self.list.filtered_model.refilter()
         #self.filtred_model.refilter()
-    
+
     def on_filtered_model_visible_cb(self, model, iter):
         if self.search_text == "":
             return True
-        
+
         t = False
         for col in SEARCH_COLUMNS:
             x = model.get_value(iter, col)
             if x and self.search_text in x:
                 t = True
                 break
-        
+
         return t
 
 def main():

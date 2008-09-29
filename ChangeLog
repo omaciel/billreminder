@@ -1,6 +1,8 @@
 2008-09-28 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/widgets/timeline.py: More keyboard shortcuts added, such as zoom in/out.
+	* src/billreminder.py, src/gui/widgets/statusbar.py, src/gui/maindialog.py, src/lib/dialogs.py:
+	  Changed "Record" to "Bill" to be consistent with nomenclature (Fixes Bug: 554228).
 
 2008-09-27 Og Maciel <ogmaciel@gnome.org>
 
@@ -10,7 +12,7 @@
 	* src/lib/actions.py: Handle null values, returning a zero where needed. Fixes Bug #551953.
 	* src/gui/widgets/timeline.py: Added new timeline widget.
 	* data/Makefile.am: Make sure that gconf is run (if available) and register schema.
-	Partially fixes Bug #553694.
+	  Partially fixes Bug #553694.
 
 2008-09-26 Og Maciel <ogmaciel@gnome.org>
 

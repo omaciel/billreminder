@@ -39,7 +39,7 @@ def main():
     parser.set_usage(_("Usage:  billreminder [OPTIONS...]"))
     parser.add_option('-v','--version', action='store_true', dest='app_version', default=False, help=_('Displays the version number for this application.'))
     parser.add_option('--about', action='store_true', dest='app_about', default=False, help=_('About this application.'))
-    parser.add_option('--add', action='store_true', dest='app_add', default=False, help=_('Adds a new record to the database.'))
+    parser.add_option('--add', action='store_true', dest='app_add', default=False, help=_('Adds a new bill to the database.'))
     parser.add_option('--standalone', action='store_true', dest='app_standalone', default=False, help=_('Access database directly, without daemon.'))
 
     # Verify arguments

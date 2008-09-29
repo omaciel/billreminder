@@ -48,7 +48,7 @@ def categories_dialog(parent=None):
 def add_dialog(parent=None, selectedDate=None):
     record = None
     # Dialog Title
-    dialog = AddDialog(title=_("Add a New Record"), parent=parent, record=record, selectedDate=selectedDate)
+    dialog = AddDialog(title=_("Add a new bill"), parent=parent, record=record, selectedDate=selectedDate)
     response = dialog.run()
     # Checks if the user did not cancel the action
     if response == gtk.RESPONSE_ACCEPT:
@@ -59,7 +59,7 @@ def add_dialog(parent=None, selectedDate=None):
 
 def edit_dialog(record, parent=None):
     # Dialog Title
-    dialog = AddDialog(title=_("Edit a Record"), parent=parent, record=record)
+    dialog = AddDialog(title=_("Edit a bill"), parent=parent, record=record)
     response = dialog.run()
     # Checks if the user did not cancel the action
     if response == gtk.RESPONSE_ACCEPT:

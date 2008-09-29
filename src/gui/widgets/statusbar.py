@@ -13,7 +13,7 @@ class Statusbar(gtk.HBox):
 
         self.recordLabel = gtk.Label()
         self.recordLabel.set_justify(gtk.JUSTIFY_LEFT)
-        self.recordLabel.set_markup("<b>%s </b>" % _("Records:"))
+        self.recordLabel.set_markup("<b>%s </b>" % _("Bills:"))
         self.pack_start(self.recordLabel, expand=False, fill=True, padding=2)
 
         self.recordCount = gtk.Label()
