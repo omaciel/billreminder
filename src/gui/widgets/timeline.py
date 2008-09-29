@@ -89,7 +89,7 @@ class Timeline(gtk.DrawingArea):
         self._clicked_position = -1
         self.value = date
         self.orientation = gtk.ORIENTATION_HORIZONTAL
-        self.position = (self._display_days - 1) / 2
+        self.position = round((self._display_days - 1) / 2)
 
         # Widget initialization
         self.drag = False
@@ -180,7 +180,7 @@ class Timeline(gtk.DrawingArea):
             line_h = 3
             line_cg = self.style.dark_gc
 
-            x = (self._box_rect.x + self._div_width * i + self._div_width / 2)
+            x = self._box_rect.x + self._div_width * i + self._div_width / 2
             width = self._bullet_radius
             
             # bullets
@@ -247,13 +247,13 @@ class Timeline(gtk.DrawingArea):
             cr.arc(x, y, width / 5, 0, 2 * pi)
             cr.fill()
             if self._dates[i].weekday() == 0:
-                cr.set_line_width(max(width / 8, 0.5))
+                cr.set_line_width(max(width / 8, 0.8))
                 cr.move_to(x, y - max(width / 2, 4))
                 cr.line_to(x, y + max(width / 2, 4))
                 cr.stroke()
 
             if self._dates[i] == datetime.date.today():
-                cr.set_line_width(max(width / 8, 0.5))
+                cr.set_line_width(max(width / 8, 0.8))
                 cr.set_source_rgb(0.4, 0.4, 0.4)
                 h_ = (self._box_rect.height + self._box_rect.y) / 10
                 for j in range(0, 10, 2):
@@ -270,9 +270,9 @@ class Timeline(gtk.DrawingArea):
                     size_ = self._layout.get_pixel_size()
                     self.style.paint_layout(self.window, self.state, False,
                                             None, self, '',
-                                            self._box_rect.x + \
+                                            int(self._box_rect.x + \
                                             self._div_width * i + \
-                                            self._div_width / 2 - size_[0] / 2,
+                                            self._div_width / 2 - size_[0] / 2),
                                             self._box_rect.y + \
                                             self._box_rect.height + 10,
                                             self._layout)
@@ -281,15 +281,16 @@ class Timeline(gtk.DrawingArea):
 
             ## month label
             elif ((self._dates[i].day == 1 and self._type == self.DAY) or \
-              (self._dates[i].day <= 7 and self._type == self.WEEK) or i == 0):
+              (self._dates[i].day <= 7 and self._type == self.WEEK) or \
+              (i == 0 and self.start_date.month == self.end_date.month)):
                 if i < self._display_days:
                     self._layout.set_markup('<small>' + self._dates[i].strftime('%b') + '</small>')
                     size_ = self._layout.get_pixel_size()
                     self.style.paint_layout(self.window, self.state, False,
                                             None, self, '',
-                                            self._box_rect.x + \
+                                            int(self._box_rect.x + \
                                             self._div_width * i + \
-                                            self._div_width / 2 - size_[0] / 2,
+                                            self._div_width / 2 - size_[0] / 2),
                                             self._box_rect.y + \
                                             self._box_rect.height + 10,
                                             self._layout)
@@ -298,15 +299,17 @@ class Timeline(gtk.DrawingArea):
 
             self.window.draw_rectangle(line_cg[self.state],
                                        True,
-                                       self._box_rect.x + self._div_width * i +
-                                       self._div_width / 2,
+                                       int(self._box_rect.x + self._div_width * i +
+                                       self._div_width / 2),
                                        self._box_rect.height + \
                                        self._box_rect.y - 2,
                                        1, line_h)
 
             ## day label
             # Draw today with bold font
-            if i < self._display_days:
+            if i < self._display_days and \
+              (self.display_days < 20 or self._dates[i].weekday() == 0 or \
+              self._dates[i] == self.value):
                 if self._dates[i] == datetime.date.today():
                     self._layout.set_markup('<b><small>' + str(self._dates[i].day) + '</small></b>')
                 else:
@@ -318,15 +321,15 @@ class Timeline(gtk.DrawingArea):
                     self.window.draw_rectangle(
                         self.style.base_gc[gtk.STATE_SELECTED],
                         True,
-                        self._box_rect.x + self._div_width * i,
+                        int(self._box_rect.x + self._div_width * i),
                         int(self._box_rect.y + self._box_rect.height),
-                        self._div_width + 1,
+                        int(self._div_width + 1),
                         size_[1])
                 self.style.paint_layout(self.window, state_, False,
                                         None, self, '',
-                                        self._box_rect.x + \
+                                        int(self._box_rect.x + \
                                         self._div_width * i + \
-                                        self._div_width / 2 - size_[0] / 2,
+                                        self._div_width / 2 - size_[0] / 2),
                                         self._box_rect.y + \
                                         self._box_rect.height,
                                         self._layout)
@@ -367,10 +370,41 @@ class Timeline(gtk.DrawingArea):
         
 
     def do_key_press_event(self, event):
-        if event.hardware_keycode in (102, 104):
+        if event.hardware_keycode == 102 and event.state == gtk.gdk.CONTROL_MASK:
+            # Control+right - go to next month
+            month = (self.value.month % 12) + 1
+            year = self.value.year + (self.value.month) / 12
+            self.select_month(month=month, year=year)
+        elif event.hardware_keycode == 100 and event.state == gtk.gdk.CONTROL_MASK:
+            # Control+left - go to prev month
+            year = self.value.year - int(not self.value.month - 1)
+            month = self.value.month - 1 + (self.value.year - year) * 12
+            self.select_month(month=month, year=year)
+        elif event.hardware_keycode in (102, 104):
+            # right/down - scroll right
             self.scroll(gtk.gdk.SCROLL_RIGHT)
         elif event.hardware_keycode in (100, 98):
+            # left/up - scroll left
             self.scroll(gtk.gdk.SCROLL_LEFT)
+        elif event.hardware_keycode == 86:
+            # "+" - zoom in
+            self.display_days -= 2
+        elif event.hardware_keycode == 82:
+            # "-" - zoom out
+            self.display_days += 2
+        elif event.hardware_keycode == 97:
+            # Home - go to Today
+            self.value = datetime.date.today()
+            self._value_changed()
+        elif event.hardware_keycode == 99:
+            # PageUp
+            self.set_position(self.position - self.display_days)
+            self.move(self.allocation.width / 2)
+        elif event.hardware_keycode == 105:
+            # PageDow 
+            self.set_position(self.position + self.display_days)
+            self.move(self.allocation.width / 2)
+        self.queue_draw_area(0, 0, self.allocation.width, self.allocation.height)
 
     def do_button_release_event(self, event):
         mx, my = self.get_pointer()
@@ -384,6 +418,7 @@ class Timeline(gtk.DrawingArea):
             if mx > self._box_rect.x and \
               mx < self._box_rect.width + self._box_rect.x:
                 if not self._dragged:
+                    self.move(mx - self._div_width / 2)
                     gobject.timeout_add(self._scroll_delay, self._center_selection)
                 if mx < self._box_rect.x or \
                   mx > self._box_rect.x + self._box_rect.width or \
@@ -396,6 +431,7 @@ class Timeline(gtk.DrawingArea):
         if self._dragged:
             self.move(self._box_rect.width / 2)
             self._dragged = False
+            self._pressed = False
         return False
 
     def do_button_press_event(self, event):
@@ -418,24 +454,19 @@ class Timeline(gtk.DrawingArea):
             elif mx > self._box_rect.x and \
               mx < self._box_rect.width + self._box_rect.x:
                 self._pressed = True
-                self.move(mx - self._div_width / 2)
-                self._clicked_position = self.position
+                self._clicked_position = self._get_mouse_position()
         return False
 
     def do_motion_notify_event(self, event):
         mx, my = self.get_pointer()
         if self._pressed:
             self.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND1))
-            pos_  = (mx - self._div_width / 2 - self._box_rect.x) / self._div_width
-            x = pos_ * self._div_width + self._box_rect.x
-            if mx - self._div_width / 2 > x + self._div_width / 2:
-                pos_ += 1
-            if pos_ != self._clicked_position:
+            pos_ = self._get_mouse_position()
+            if pos_ != self._clicked_position or self._dragged:
                 self._dragged = True
-                self.set_position(pos_, True)
+                self.set_position((self.display_days / 2) + (pos_ - self._clicked_position), True)
             else:
                 self._dragged = False
-            
         else:
             # TODO Improve tooltip
             if mx < self._box_rect.x or \
@@ -469,6 +500,14 @@ class Timeline(gtk.DrawingArea):
         self.set_tooltip_text(text)
         return False
 
+    def _get_mouse_position(self):
+        mx, my = self.get_pointer()
+        pos_  = (mx - self._div_width / 2 - self._box_rect.x) / self._div_width
+        x = pos_ * self._div_width + self._box_rect.x
+        if mx - self._div_width / 2 > x + self._div_width / 2:
+            pos_ += 1
+        return round(pos_)
+
     def _value_changed(self):
         self.day = self.value.day
         self.month = self.value.month
@@ -486,12 +525,12 @@ class Timeline(gtk.DrawingArea):
         self.width = allocation.width
         self.height = allocation.height
         # Set timeline subdivisions size
-        self._div_width = (allocation.width - self._box_rect.x * 2) // \
+        self._div_width = float(allocation.width - self._box_rect.x * 2) / \
                           self._display_days
         # Set Timeline box size
         self._box_rect.x = 21
         self._box_rect.y = 8
-        self._box_rect.width = (self._div_width * self._display_days)
+        self._box_rect.width = allocation.width - self._box_rect.x * 2
         self._box_rect.height = allocation.height - 33
         # Set Bullet radius
         if self._div_width - self._div_width / 4 > self._box_rect.height / 2:
@@ -593,7 +632,7 @@ class Timeline(gtk.DrawingArea):
             
     def move(self, pos, update=True, redraw=True):
         position_old = self.position
-        self.position = (pos - self._box_rect.x) / self._div_width
+        self.position = round((pos - self._box_rect.x) / self._div_width)
         x = self.position * self._div_width + self._box_rect.x
         if pos > x + self._div_width / 2:
             self.position += 1
@@ -601,7 +640,8 @@ class Timeline(gtk.DrawingArea):
         self.queue_draw_area(0, 0,
                              self.allocation.width, self.allocation.height)
         if self.debug :
-            print "Timeline.position: ", self.position
+            if not self._dragged:
+                print "Timeline.position: ", self.position
 
         if update:
             # Update self.value
@@ -613,7 +653,7 @@ class Timeline(gtk.DrawingArea):
         return position_old, self.position
 
     def set_position(self, pos, redraw=True):
-        self.position = pos
+        self.position = round(pos)
         x = pos * self._div_width + self._box_rect.x
         self.move(x, False, redraw)
         self._dist_dates()
@@ -629,11 +669,20 @@ class Timeline(gtk.DrawingArea):
         return self._display_days
 
     def set_display_days(self, days):
-        if days < 15:
-            days = 15
-        elif days > 62:
-            days = 62
+        days_old = self._display_days
+        if days < 7:
+            days = 7
+        elif days > 61:
+            days = 61
+        if days == days_old:
+            return
         self._display_days = days
+        self._dist_dates()
+        # Set timeline subdivisions size
+        self.on_size_allocate(self, self.allocation)
+        self._center_selection()
+        self.queue_draw_area(0, 0, self.allocation.width,
+                                 self.allocation.height)
     display_days = property(get_display_days, set_display_days)
 
     def get_type(self):

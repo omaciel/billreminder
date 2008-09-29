@@ -1,3 +1,7 @@
+2008-09-28 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/widgets/timeline.py: More keyboard shortcuts added, such as zoom in/out.
+
 2008-09-27 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/adddialog.py: Allow bills to have a null amount. Fixes Bug #551953.
