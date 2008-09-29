@@ -60,6 +60,40 @@ class Actions(object):
 
         return records
 
+    def get_interval_totals(self, status, start, end):
+        # Return a list of categories and totals for the given month
+        # Delimeters for our search
+
+        # Determine status criteria
+        status = status < 2 and ' = %s' % status or ' in (0,1)'
+
+        stmt = 'select categoryName, ' \
+            ' sum(case when amountDue is null then 0 else amountDue end) as amount, ' \
+            ' color' \
+            ' from br_billstable, br_categoriestable where' \
+            ' paid %s' \
+            ' and dueDate >= ? and dueDate <= ?' \
+            ' and br_categoriestable.Id = br_billstable.catId' \
+            ' GROUP BY catId, color' \
+            ' ORDER BY dueDate ASC' % status
+        params = [start, end]
+        records = self.dal.executeSql(stmt, params)
+
+        return records
+
+    def get_interval_bills(self, status, start, end):
+        # Delimeters for our search
+
+        # Determine status criteria
+        status = status < 2 and ' = %s' % status or ' in (0,1)'
+
+        stmt = 'paid %s' \
+            ' and dueDate >= %s and dueDate <= %s' \
+            ' ORDER BY dueDate DESC' % (status, start, end)
+        records = self.get_bills(stmt)
+
+        return records
+
     def get_bills(self, kwargs):
         """ Returns one or more records that meet the criteria passed """
         return self.dal.get(BillsTable, kwargs)

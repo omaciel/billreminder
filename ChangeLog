@@ -1,3 +1,10 @@
+2008-09-29 Luiz Armesto <luiz.armesto@gmail.com>
+
+	* src/gui/widgets/timeline.py: Renamed Bullet attribute amount to amountDue, and minor fixes.
+	* src/gui/maindialog.py: Use new timeline widget now.
+	* src/lib/actions.py, src/lib/dbus_actions.py, src/daemon/dbus_manager.py: 
+	  Added new methods to dbus - get_interval_totals and get_interval_bills.
+
 2008-09-28 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/widgets/timeline.py: More keyboard shortcuts added, such as zoom in/out.

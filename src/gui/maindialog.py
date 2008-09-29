@@ -17,6 +17,7 @@ from gui.widgets.viewbill import ViewBill as ViewBill
 from gui.widgets.trayicon import NotifyIcon
 from gui.widgets.chartwidget import ChartWidget
 from gui.widgets.calendarwidget import CalendarWidget
+from gui.widgets.timeline import Timeline, Bullet
 from gui.widgets.SearchEntry import SearchEntry
 
 # Import data model modules
@@ -75,6 +76,7 @@ class MainDialog:
         </ui>'''
 
     search_text = ""
+    _bullet_cache = {}
 
     def __init__(self):
         if exists(join(USER_CFG_PATH, CFG_NAME)):
@@ -83,6 +85,8 @@ class MainDialog:
         
         self.gconf_client = gconf.client_get_default()
         self.message = Message()
+        # Connects to the database
+        self.actions = Actions()
 
         # Create a new window
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
@@ -130,6 +134,13 @@ class MainDialog:
         ## Pack it all up
         self.calbox.pack_start(self.calendar, expand=True, fill=True)
 
+        # Timeline
+        self.timelinebox = gtk.HBox(homogeneous=False, spacing=4)
+        self.timeline = Timeline(callback=self.on_timeline_cb)
+        self.timeline.connect("value-changed", self._on_timeline_changed)
+        ## Pack it all up
+        self.timelinebox.pack_start(self.timeline, expand=True, fill=True)
+
         ## Search Entry
 
         self.filter_hbox = gtk.HBox(homogeneous=False, spacing=4)
@@ -157,8 +168,10 @@ class MainDialog:
         # Pack it all up
         self.box.pack_start(self.toolbar,
             expand=False, fill=True, padding=0)
-        self.box.pack_start(self.calbox,
-            expand=False, fill=True, padding=4)
+        #self.box.pack_start(self.calbox,
+        #    expand=False, fill=True, padding=4)
+        self.box.pack_start(self.timelinebox,
+            expand=False, fill=True, padding=0)
         self.box.pack_start(self.listbox,
             expand=True, fill=True, padding=4)
         self.box.pack_start(self.filter_hbox,
@@ -190,8 +203,6 @@ class MainDialog:
 
         self.toggle_buttons()
 
-        # Connects to the database
-        self.actions = Actions()
         # populate treeview
         self.reloadTreeView()
         self.notify = NotifyIcon(self)
@@ -252,6 +263,9 @@ class MainDialog:
         # Reset list
         self.list.listStore.clear()
 
+        if not records:
+            return 0
+            
         # Loops through bills collection
         path = 0
         for rec in records:
@@ -263,15 +277,17 @@ class MainDialog:
     def reloadTreeView(self, *arg):
         # Update list with updated record
         status = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
-        month = self.calendar.currentMonth
-        year = self.calendar.currentYear
+        month = self.timeline.value.month
+        year = self.timeline.value.year
 
         path = self.list.get_cursor()[0]
         self.list.listStore.clear()
         self.currentrecord = None
 
+        first = scheduler.timestamp_from_datetime(self.timeline.start_date)
+        last = scheduler.timestamp_from_datetime(self.timeline.end_date)
         # Get list of records
-        records = self.actions.get_monthly_bills(status, month, year)
+        records = self.actions.get_interval_bills(status, first, last)
 
         # Populate treeview
         self._populateTreeView(records)
@@ -280,8 +296,8 @@ class MainDialog:
         # Update status bar
         self._update_statusbar()
         # populate chart
-        self._populate_chart(status, month, year)
-
+        self._populate_chart(status, first, last)
+        
         return len(records)
 
     def _formated_row(self, row):
@@ -324,9 +340,9 @@ class MainDialog:
             _("Not Paid"), _("Mark as not paid"), self.on_btnPaid_clicked)
         self.btnUnpaid.set_is_important(True)
 
-    def _populate_chart(self, status, month, year):
+    def _populate_chart(self, status, start, end):
         chartdata = []
-        records = self.actions.get_monthly_totals(status, month, year)
+        records = self.actions.get_interval_totals(status, start, end)
         for rec in records:
             chartdata.append([field for field in rec])
         #if chartdata:
@@ -605,6 +621,9 @@ class MainDialog:
     def _on_calendar_month_changed(self, widget, args):
         self.reloadTreeView()
 
+    def _on_timeline_changed(self, widget, args):
+        self.reloadTreeView()
+
     def _on_show_toolbar(self, action):
         # Toggle toolbar's visibility
         if action.get_active():
@@ -631,6 +650,44 @@ class MainDialog:
                 break
 
         return t
+
+    def on_timeline_cb(self, date):
+        # TODO: Improve tooltip
+        # TODO: Improve cache
+        if not date in self._bullet_cache.keys():
+            time = scheduler.timestamp_from_datetime(date)
+            self._bullet_cache[date] = self.actions.get_bills('dueDate = %s' % time)
+        
+        if self._bullet_cache[date]:
+            amount = 0
+            paid = 1
+            tooltip = ''
+            bullet = Bullet()
+            bullet.date = date
+            
+            for bill in self._bullet_cache[date]:
+                paid *= bill['paid']
+                amount += bill['amountDue']
+                if tooltip:
+                    tooltip += '\n'
+                tooltip += bill['payee'] + '\n' + str(bill['amountDue']) 
+                if bill['notes']:
+                    tooltip += '\n' + bill['notes']
+                
+            bullet.amountDue = amount
+            if paid:
+                bullet.status = bullet.PAID
+            elif date <= datetime.date.today():
+                bullet.status = bullet.OVERDUE
+            else:
+                bullet.status = bullet.TO_BE_PAID
+
+            if len(self._bullet_cache[date]) > 1:
+                bullet = True
+            bullet.tooltip = tooltip
+            return bullet
+        
+        return None
 
 def main():
     gtk.main()

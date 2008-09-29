@@ -72,6 +72,23 @@ class Server(dbus.service.Object):
             ret.append(force_string(record))
         return ret
 
+    @dbus.service.method(common.DBUS_INTERFACE, in_signature='iii', out_signature='a(sis)')
+    def get_interval_totals(self, status, start, end):
+        # Return a list of categories and totals for the given month
+        ret = []
+        records = self.actions.get_interval_totals(status, start, end)
+        for record in records:
+            ret.append(record)
+        return ret
+
+    @dbus.service.method(common.DBUS_INTERFACE, in_signature='iii', out_signature='aa{ss}')
+    def get_interval_bills(self, status, start, end):
+        ret = []
+        records = self.actions.get_interval_bills(status, start, end)
+        for record in records:
+            ret.append(force_string(record))
+        return ret
+
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='aa{ss}')
     def get_bills(self, kwargs):
         """ Returns one or more records that meet the criteria passed """

@@ -65,16 +65,43 @@ class Actions(object):
 
 
     def get_monthly_bills(self, status, month, year):
-        try:
-            ret = []
-            records = self.dbus_interface.get_monthly_bills(status, month, year)
-            for record in records:
-                record = self._correct_type(record)
-                ret.append(record)
-            return ret
-        except dbus.DBusException:
-            if self.__init__():
-                return self.get_monthly_bills(status, month, year)
+        #try:
+        ret = []
+        records = self.dbus_interface.get_monthly_bills(status, month, year)
+        for record in records:
+            record = self._correct_type(record)
+            ret.append(record)
+        return ret
+        #except dbus.DBusException:
+        #    if self.__init__():
+        #        return self.get_monthly_bills(status, month, year)
+
+    def get_interval_totals(self, status, start, end):
+        # Return a list of categories and totals for the given month
+        #try:
+        ret = []
+        records = self.dbus_interface.get_interval_totals(status, start, end)
+        for record in records:
+            record = self._correct_type(record)
+            ret.append(record)
+        return ret
+        #except dbus.DBusException:
+        #    if self.__init__():
+        #        return self.get_interval_totals(status, start, end)
+
+
+    def get_interval_bills(self, status, start, end):
+        #try:
+        ret = []
+        records = self.dbus_interface.get_interval_bills(status, start, end)
+        for record in records:
+            record = self._correct_type(record)
+            ret.append(record)
+        return ret
+        #except dbus.DBusException:
+        #    if self.__init__():
+        #        return self.get_monthly_bills(status, start, end)
+
         
     def get_bills(self, kwargs):
         """ Returns one or more records that meet the criteria passed """

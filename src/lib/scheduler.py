@@ -21,12 +21,12 @@ def time_from_calendar(calendar):
 
 def timestamp_from_datetime(date):
     ''' Convert a datetime object into a time object. '''
-    if isinstance(date, datetime.datetime):
+    if isinstance(date, (datetime.datetime, datetime.date)):
         ret = time.mktime(date.timetuple())
     else:
         ret = time.time()
 
-    return ret
+    return int(ret)
 
 def datetime_from_timestamp(timestamp):
     ''' Convert a time object into a datetime object. '''

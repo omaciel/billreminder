@@ -16,10 +16,10 @@ class Bullet(object):
 
     debug = False
     
-    def __init__(self, date=None, amount=None, estimated=False, status=0,
+    def __init__(self, date=None, amountDue=None, estimated=False, status=0,
       overthreshold=False, multi=False, tooltip=''):
         self.date = date
-        self.amount = amount
+        self.amountDue = amountDue
         self.estimated = estimated
         self.status = status
         self.overthreshold = overthreshold
@@ -274,7 +274,7 @@ class Timeline(gtk.DrawingArea):
                                             self._div_width * i + \
                                             self._div_width / 2 - size_[0] / 2),
                                             self._box_rect.y + \
-                                            self._box_rect.height + 10,
+                                            self._box_rect.height + 12,
                                             self._layout)
                                             
                 line_h = 6
@@ -292,7 +292,7 @@ class Timeline(gtk.DrawingArea):
                                             self._div_width * i + \
                                             self._div_width / 2 - size_[0] / 2),
                                             self._box_rect.y + \
-                                            self._box_rect.height + 10,
+                                            self._box_rect.height + 12,
                                             self._layout)
                                             
                 line_h = 6
@@ -436,6 +436,7 @@ class Timeline(gtk.DrawingArea):
 
     def do_button_press_event(self, event):
         mx, my = self.get_pointer()
+        self.grab_focus()
         # Stop the autoscroll trigger timer
         if self._timer:
             gobject.source_remove(self._timer)
@@ -529,7 +530,7 @@ class Timeline(gtk.DrawingArea):
                           self._display_days
         # Set Timeline box size
         self._box_rect.x = 21
-        self._box_rect.y = 8
+        self._box_rect.y = 6
         self._box_rect.width = allocation.width - self._box_rect.x * 2
         self._box_rect.height = allocation.height - 33
         # Set Bullet radius
@@ -628,7 +629,13 @@ class Timeline(gtk.DrawingArea):
             self.set_position(self.position - 1, True)
         elif self.position < (self._display_days - 1) / 2:
             self.set_position(self.position + 1, True)
-        return self.position != self._display_days / 2
+            
+        if self.position == (self._display_days - 1) / 2:
+            self.value = self._dates[self.position]
+            self._dist_dates()
+            self._value_changed()
+            
+        return self.position != (self._display_days - 1) / 2
             
     def move(self, pos, update=True, redraw=True):
         position_old = self.position
