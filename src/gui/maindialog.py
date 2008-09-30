@@ -692,7 +692,7 @@ class MainDialog:
                 bullet.status = bullet.TO_BE_PAID
 
             if len(self._bullet_cache[date]) > 1:
-                bullet = True
+                bullet.multi = True
             bullet.tooltip = tooltip
             return bullet
         

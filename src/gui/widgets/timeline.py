@@ -375,42 +375,42 @@ class Timeline(gtk.DrawingArea):
         
 
     def do_key_press_event(self, event):
-        if event.hardware_keycode == 102 and event.state == gtk.gdk.CONTROL_MASK:
-            # Control+right - go to next month
-            month = (self.value.month % 12) + 1
-            year = self.value.year + (self.value.month) / 12
-            self.select_month(month=month, year=year)
-        elif event.hardware_keycode == 100 and event.state == gtk.gdk.CONTROL_MASK:
-            # Control+left - go to prev month
-            year = self.value.year - int(not self.value.month - 1)
-            month = self.value.month - 1 + (self.value.year - year) * 12
-            self.select_month(month=month, year=year)
-        elif event.hardware_keycode in (102, 104):
-            # right/down - scroll right
-            self.scroll(gtk.gdk.SCROLL_RIGHT)
-        elif event.hardware_keycode in (100, 98):
-            # left/up - scroll left
-            self.scroll(gtk.gdk.SCROLL_LEFT)
-        elif event.hardware_keycode in (21, 86):
+        if gtk.gdk.keyval_name(event.keyval) == 'Right':
+            if event.state == gtk.gdk.CONTROL_MASK:
+                # Control+right - go to next month
+                month = (self.value.month % 12) + 1
+                year = self.value.year + (self.value.month) / 12
+                self.select_month(month=month, year=year)
+            else:
+                self.scroll(gtk.gdk.SCROLL_RIGHT)
+        if gtk.gdk.keyval_name(event.keyval) ==  'Left':
+            if event.state == gtk.gdk.CONTROL_MASK:
+                # Control+left - go to prev month
+                year = self.value.year - int(not self.value.month - 1)
+                month = self.value.month - 1 + (self.value.year - year) * 12
+                self.select_month(month=month, year=year)
+            else:
+                self.scroll(gtk.gdk.SCROLL_LEFT)
+        if gtk.gdk.keyval_name(event.keyval) == 'plus' or gtk.gdk.keyval_name(event.keyval) == 'KP_Add':
             # "+" - zoom in
             self.display_days -= 2
-        elif event.hardware_keycode in (20, 82):
+        if gtk.gdk.keyval_name(event.keyval) == 'minus' or gtk.gdk.keyval_name(event.keyval) == 'KP_Subtract':
             # "-" - zoom out
             self.display_days += 2
-        elif event.hardware_keycode == 97:
+        if gtk.gdk.keyval_name(event.keyval) == 'Home':
             # Home - go to Today
             self.value = datetime.date.today()
             self._value_changed()
-        elif event.hardware_keycode == 99:
+        if gtk.gdk.keyval_name(event.keyval) == 'Page_Up':
             # PageUp
             self.set_position(self.position - self.display_days)
-            self.move(self.allocation.width / 2)
-        elif event.hardware_keycode == 105:
+            self.move(self._box_rect.width / 2)
+        if gtk.gdk.keyval_name(event.keyval) == 'Page_Down':
             # PageDow 
             self.set_position(self.position + self.display_days)
-            self.move(self.allocation.width / 2)
+            self.move(self._box_rect.width / 2)
         self.queue_draw_area(0, 0, self.allocation.width, self.allocation.height)
-        print event.hardware_keycode
+        print gtk.gdk.keyval_name(event.keyval)
 
     def do_button_release_event(self, event):
         mx, my = self.get_pointer()
