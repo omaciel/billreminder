@@ -144,6 +144,11 @@ class Timeline(gtk.DrawingArea):
         self.draw()
         return False
 
+    def refresh(self):
+        self._bullets = {}
+        self._dist_dates()
+        self.queue_draw_area(0, 0, self.allocation.width, self.allocation.height)
+
     def draw(self, redraw=False):
         if self.orientation == gtk.ORIENTATION_HORIZONTAL:
             self._hdraw(redraw)

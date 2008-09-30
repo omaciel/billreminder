@@ -212,6 +212,7 @@ class MainDialog:
         iface = get_dbus_interface(common.DBUS_INTERFACE, common.DBUS_PATH)
         if iface:
             iface.connect_to_signal("bill_edited", self.reloadTreeView)
+            iface.connect_to_signal("bill_edited", self.reloadTimeline)
             iface.connect_to_signal("show_main_window", self.window.show)
             self.iface = iface
             timeout_add(2000, self._send_tray_hints)
@@ -429,6 +430,7 @@ class MainDialog:
                     self._update_statusbar()
             # Reload records tree (something changed)
             self.reloadTreeView()
+            self.reloadTimeline()
 
     def edit_bill(self):
         records = dialogs.edit_dialog(parent=self.window,
@@ -449,12 +451,14 @@ class MainDialog:
                     print str(e)
             # Reload records tree (something changed)
             self.reloadTreeView()
+            self.reloadTimeline()
 
     def remove_bill(self):
         try:
             if self.actions.delete_bill(self.currentrecord.Id):
                 self.list.remove()
                 self._update_statusbar()
+                self.reloadTimeline()
         except Exception, e:
             print str(e)
 
@@ -650,6 +654,11 @@ class MainDialog:
                 break
 
         return t
+
+    def reloadTimeline(self, *args):
+        print 'reloadtimeline'
+        self._bullet_cache = {}
+        self.timeline.refresh()
 
     def on_timeline_cb(self, date):
         # TODO: Improve tooltip
