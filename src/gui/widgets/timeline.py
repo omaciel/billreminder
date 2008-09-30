@@ -391,10 +391,10 @@ class Timeline(gtk.DrawingArea):
         elif event.hardware_keycode in (100, 98):
             # left/up - scroll left
             self.scroll(gtk.gdk.SCROLL_LEFT)
-        elif event.hardware_keycode == 86:
+        elif event.hardware_keycode in (21, 86):
             # "+" - zoom in
             self.display_days -= 2
-        elif event.hardware_keycode == 82:
+        elif event.hardware_keycode in (20, 82):
             # "-" - zoom out
             self.display_days += 2
         elif event.hardware_keycode == 97:
@@ -410,6 +410,7 @@ class Timeline(gtk.DrawingArea):
             self.set_position(self.position + self.display_days)
             self.move(self.allocation.width / 2)
         self.queue_draw_area(0, 0, self.allocation.width, self.allocation.height)
+        print event.hardware_keycode
 
     def do_button_release_event(self, event):
         mx, my = self.get_pointer()
