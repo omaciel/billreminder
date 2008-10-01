@@ -14,7 +14,4 @@ billreminder_widgets_PYTHON = \
 	toolbar.py \
 	trayicon.py \
 	viewbill.py \
-	viewcategory.py \
-	SearchEntry.py
-
-
+	viewcategory.py

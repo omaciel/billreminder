@@ -1,3 +1,9 @@
+2008-10-01 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/widgets/Makefile.am:
+	* src/gui/maindialog.py:
+	  Removed the searchentry widget as the liststore already has filtering.
+
 2008-09-29 Luiz Armesto <luiz.armesto@gmail.com>
 
 	* src/gui/widgets/timeline.py: Renamed Bullet attribute amount to

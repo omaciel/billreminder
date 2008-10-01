@@ -18,7 +18,6 @@ from gui.widgets.trayicon import NotifyIcon
 from gui.widgets.chartwidget import ChartWidget
 from gui.widgets.calendarwidget import CalendarWidget
 from gui.widgets.timeline import Timeline, Bullet
-from gui.widgets.SearchEntry import SearchEntry
 
 # Import data model modules
 from lib.bill import Bill
@@ -41,8 +40,6 @@ from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
 from lib.common import CFG_NAME
 from lib.common import USER_CFG_PATH
 from os.path import exists, join
-
-SEARCH_COLUMNS = (2, 3, 4, 5, 6)
 
 class MainDialog:
 
@@ -103,8 +100,6 @@ class MainDialog:
         self.list.connect('cursor_changed', self._on_list_cursor_changed)
         self.list.connect('row_activated', self._on_list_row_activated)
         self.list.connect('button_press_event', self._on_list_button_press_event)
-        self.list.filtered_model.set_visible_func(
-            self.on_filtered_model_visible_cb)
 
         # Toolbar
         self.toolbar = Toolbar()
@@ -141,23 +136,6 @@ class MainDialog:
         ## Pack it all up
         self.timelinebox.pack_start(self.timeline, expand=True, fill=True)
 
-        ## Search Entry
-
-        self.filter_hbox = gtk.HBox(homogeneous=False, spacing=4)
-        self.filter_hbox.pack_start(gtk.Label(), expand=True, fill=True)
-        self.filter_hbox.pack_start(gtk.Label(), expand=True, fill=True)
-        search_label = gtk.Label()
-        search_label.set_markup_with_mnemonic (_("<b>F_ilter:</b>"))
-
-        self.filter_hbox.pack_start(search_label, expand=False, fill=True)
-
-        self.search_entry = SearchEntry(gtk.icon_theme_get_default())
-        self.search_entry.connect("terms-changed", self.on_terms_changed)
-
-        self.filter_hbox.pack_start(self.search_entry, expand=False, fill=True)
-
-        search_label.set_mnemonic_widget(self.search_entry)
-
         #self.calbox.pack_start(self.filter_hbox, expand=True)
 
         #self.calendar.mark_day(datetime.datetime.today().day)
@@ -174,8 +152,6 @@ class MainDialog:
             expand=False, fill=True, padding=0)
         self.box.pack_start(self.listbox,
             expand=True, fill=True, padding=4)
-        self.box.pack_start(self.filter_hbox,
-            expand=False, fill=True, padding=2)
         self.box.pack_start(self.chart,
             expand=True, fill=True, padding=2)
         self.box.pack_start(self.statusbar,
@@ -637,24 +613,6 @@ class MainDialog:
             self.toolbar.hide_all()
             self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", False)
 
-    def on_terms_changed(self, widget, text):
-        self.search_text = text
-        self.list.filtered_model.refilter()
-        #self.filtred_model.refilter()
-
-    def on_filtered_model_visible_cb(self, model, iter):
-        if self.search_text == "":
-            return True
-
-        t = False
-        for col in SEARCH_COLUMNS:
-            x = model.get_value(iter, col)
-            if x and self.search_text in x:
-                t = True
-                break
-
-        return t
-
     def reloadTimeline(self, *args):
         print 'reloadtimeline'
         self._bullet_cache = {}
@@ -666,14 +624,14 @@ class MainDialog:
         if not date in self._bullet_cache.keys():
             time = scheduler.timestamp_from_datetime(date)
             self._bullet_cache[date] = self.actions.get_bills('dueDate = %s' % time)
-        
+
         if self._bullet_cache[date]:
             amount = 0
             paid = 1
             tooltip = ''
             bullet = Bullet()
             bullet.date = date
-            
+
             for bill in self._bullet_cache[date]:
                 paid *= bill['paid']
                 amount += bill['amountDue']
@@ -682,7 +640,7 @@ class MainDialog:
                 tooltip += bill['payee'] + '\n' + str(bill['amountDue']) 
                 if bill['notes']:
                     tooltip += '\n' + bill['notes']
-                
+
             bullet.amountDue = amount
             if paid:
                 bullet.status = bullet.PAID
@@ -695,7 +653,7 @@ class MainDialog:
                 bullet.multi = True
             bullet.tooltip = tooltip
             return bullet
-        
+
         return None
 
 def main():
