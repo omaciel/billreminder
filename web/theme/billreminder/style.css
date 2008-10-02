@@ -1,0 +1,391 @@
+/*
+Theme Name: BillReminder
+Theme URI: http://billreminder.gnulinuxbrasil.org/
+Description: Theme for BillReminder site.
+Version: 0.1
+Author: Elyézer Mendes Rezende
+Author URI: http://elyezer.com/
+
+	This theme was designed and built by Elyézer Mendes Rezende,
+	whose blog you will find at http://elyezer.com/
+
+*/
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+	border:0;
+}
+
+/* Header */
+#header {
+    border-top: 5px solid #3F93CF;
+    padding-top: 10px;
+    width: 100%;
+}
+
+#header hr{
+	display:none;
+}
+
+#titulo {
+    margin-left: 110px;
+    padding: 15px;
+}
+
+#titulo span {
+    display: none;
+}
+
+#titulo a {
+    background: url(images/billreminder.png) no-repeat;
+    display: block;
+    height: 70px;
+    width: 300px;
+}
+
+#logo {
+    background: url(images/logo.png);
+    float: left;
+    height: 128px;
+    width: 128px;
+}
+
+#menu {
+    background: #3F93CF;
+    border-bottom: 5px solid #E2EFF8;
+    height: 35px;
+}
+
+#menu ul {
+    padding-top: 7px;
+}
+
+#menu ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+#menu a {
+    color: white;
+    font: 15px Tahoma;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#menu a:hover {
+    color: #dfdfdf;
+}
+
+/* Destaque */
+
+#destaque {
+    background: #BCD9EE;
+    border-bottom: 5px solid #E2EFF8;
+    color: #333;
+    font: 14px Tahoma;
+    height: 180px;
+    line-height: 150%;
+	  padding: 12px;
+    text-align: center;
+    position: relative;
+}
+
+#destaque .widearea {
+    height: auto;
+    width: 3840px;
+}
+
+#crop {
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: left;
+    width: 960px;
+}
+
+#destaque h3 {
+    color: #3e3e3e;
+    font: 16px Tahoma;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-decoration:underline;
+}
+
+#destaque ul {
+	margin-left:25px;
+}
+
+#destaque img {
+	display:block;
+	float:right;
+	margin-left:10px;
+}
+
+.widearea div {
+    display: inline-block;
+    float: left;
+    height: auto;
+}
+
+#destaque .featured-item {
+    display: block;
+    float: left;
+    height: auto;
+    width: 960px;
+}
+
+/* Content */
+#content {
+	float:left;
+	font:14px Tahoma;
+	margin-right:-338px;
+	margin-top: 12px;
+	width:100%;
+}
+
+#content .post {
+	margin-left:12px;
+	margin-right:338px;
+}
+
+#content a, #destaque a {
+	color:#3e3e3e;
+}
+
+#content .pagetitle,#content h2 {
+	font-size:16px;
+	color:#3e3e3e;	
+	margin: 0 338px 0 12px;
+}
+
+#content a:hover, #destaque a:hover {
+	color:#6e6e6e;
+}
+
+#content img {
+	display:block;
+	margin: 10px auto;
+}
+
+#content .wp-smiley {
+	display:inline;	
+	margin:0;
+}
+
+.narrowcolumn {
+	margin-right: 338px;
+}
+
+.navigation {
+	display:block;
+	height:20px;
+	margin: 12px 338px 12px 12px;
+	text-align:center;
+}
+
+
+.alignleft {
+	float:left;
+	margin-right:10px;
+}
+
+.alignright {
+	float:right;
+}
+
+.center,#content #searchform {
+	margin-right:328px;
+	text-align:center;
+}
+
+.post-header {
+    background: #3F93CF;
+    border: 1px solid #3F93CF;
+    color: white;
+    padding: 5px;
+}
+
+.search-results {
+    background: url(images/bg-post.png) repeat-x;
+    border: 1px solid #A5A7A3;
+    margin-bottom:20px;
+    padding: 8px;
+	
+}
+
+#content #searchform {
+	margin-top:12px;
+}
+
+#content .post-header h2 a,#content .post-header h3 a {
+	color:white;
+	font: 18px Tahoma;
+	text-decoration:none;
+}
+
+#content .post-header h2 a:hover,#content .post-header h2 a:hover {
+	color:#dfdfdf;
+}
+
+.post-content {
+    background: url(images/bg-post.png) repeat-x;
+    border: 1px solid #A5A7A3;
+    margin-bottom:20px;
+    padding: 8px;
+}
+
+.post-content p {
+	line-height: 130%;
+	margin-bottom: 4px;
+	text-indent: 10px;
+}
+
+.post-content ul, .post-content ol {
+	list-style-position:inside;
+	margin-left:25px;
+}
+
+.post-content ul li, .post-content ol li {
+	margin: 5px 0;
+}
+
+.post-content blockquote, #destaque blockquote {
+	background:#dfdfdf;
+	border:1px dashed #3e3e3e;
+	margin: 5px 10px;
+	padding: 5px;
+}
+
+.post-content blockquote p {	
+	text-indent:0;
+}
+
+.post-content p.postmetadata {
+    border-top: 1px dotted #d5d5d5;
+    margin-bottom:0;
+    margin-top: 5px;
+    padding-top: 5px;
+    text-indent: 0;
+}
+
+.clearing {
+	clear:both;
+}
+
+p.alt {
+	text-align:center;
+}
+
+/* Comments */
+.commentlist {
+	list-style-position:inside;
+	margin: 15px 0;
+}
+
+.commentlist li {
+	margin-bottom:12px;
+	padding:6px;
+}
+
+.commentlist .alt {
+	background: url(images/bg-post.png) repeat-x;
+}	
+
+.commentlist li p {
+	margin:5px 0;
+	padding:6px;
+}
+
+#respond, #commentform {
+	margin:12px 338px 12px 12px;
+}
+
+#commentform p {
+	margin-bottom:6px;
+}
+
+#commentform input {
+	width: 170px;
+	padding: 2px;
+	margin: 5px 5px 1px 0;
+}
+
+#commentform textarea {
+	width: 600px;
+	padding: 2px;
+}
+
+/* Sidebar */
+#sidebar {
+	float:right;
+	font:14px Tahoma;
+	width:320px;
+}
+
+#sidebar ul li {
+	list-style:none;
+	margin:12px 12px 12px 0;
+}
+
+#sidebar h2 {
+    background: #A9A9A9;
+    border: 1px solid #7F817E;
+    color: white;
+    font: 16px Tahoma;
+    font-weight:bold;
+    padding: 5px;
+}
+
+#sidebar a {
+	color:#3e3e3e;
+	text-decoration:none;
+}
+
+#sidebar a:hover {
+	color:#6e6e6e;
+	text-decoration:underline;
+}
+
+#sidebar ul li ul {
+    background: #f9f9f9;
+    border: 1px solid #7F817E;
+    border-top: none;
+    padding: 12px;
+}
+
+#sidebar ul li ul li {
+	color:#3e3e3e;
+	list-style:inside;
+	margin: 3px 10px;
+}
+
+/* Footer */
+#footer {
+    background: #3F93CF;
+    border-top: 5px solid #E2EFF8;
+    clear: both;
+    height: 35px;
+    text-align:center;
+    width: 100%;
+}
+
+#footer p {
+	color:white;
+	font: 12px Tahoma;
+	padding-top:3px;
+}
+
+#footer a {
+	color:white;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+#footer a:hover {
+	color:#dfdfdf;
+	text-decoration:underline;
+}
