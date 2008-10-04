@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 21:32-0400\n"
-"PO-Revision-Date: 2008-07-06 13:18+0000\n"
+"POT-Creation-Date: 2008-10-04 21:47+0300\n"
+"PO-Revision-Date: 2008-10-04 21.00+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
-#: ../src/daemon/alarm.py:122 ../src/daemon/dbus_manager.py:45
+#: ../src/daemon/alarm.py:121 ../src/daemon/dbus_manager.py:45
 msgid "BillReminder Notifier"
 msgstr "Laskumuistuttajan huomautin"
 
@@ -71,62 +71,74 @@ msgid "Defines the default width of the application."
 msgstr "Määrittää sovelluksen oletusleveyden."
 
 #: ../data/billreminder.schemas.in.h:9
+msgid "Delay between notifications."
+msgstr "Viive huomautusten välillä."
+
+#: ../data/billreminder.schemas.in.h:10
 msgid "Display only paid bills."
 msgstr "Näytä vain maksetut laskut."
 
-#: ../data/billreminder.schemas.in.h:10
+#: ../data/billreminder.schemas.in.h:11
 msgid "Display the menu bar."
 msgstr "näytä valikkopalkki."
 
-#: ../data/billreminder.schemas.in.h:11
+#: ../data/billreminder.schemas.in.h:12
 msgid "Display the toolbar."
 msgstr "Näytä työkalupalkki."
 
-#: ../data/billreminder.schemas.in.h:12
+#: ../data/billreminder.schemas.in.h:13
 msgid "How long to display the alarm notification."
 msgstr "Kuinka pitkään hälytys näytetään."
 
-#: ../data/billreminder.schemas.in.h:13
+#: ../data/billreminder.schemas.in.h:14
 msgid "How many days prior to due date to alert."
 msgstr "Kuinka monta pävää ennen eräpäivää hälytetään."
 
-#: ../data/billreminder.schemas.in.h:14
+#: ../data/billreminder.schemas.in.h:15
 msgid "How many days prior to due date to notify."
 msgstr "Kuinka monta päivää ennen eräpäivää huomautetaan."
 
-#: ../data/billreminder.schemas.in.h:15
+#: ../data/billreminder.schemas.in.h:16
+msgid "Start the application in the system's tray."
+msgstr "Käynnistä ohjelma ilmoitusalueella."
+
+#: ../data/billreminder.schemas.in.h:17
 msgid "The date a bill is due."
 msgstr "Laskun eräpäivä."
 
-#: ../data/billreminder.schemas.in.h:16
+#: ../data/billreminder.schemas.in.h:18
 msgid "What specific time to display alert."
 msgstr "Mihin kellonaikaan hälytetään."
 
-#: ../data/billreminder.schemas.in.h:17
+#: ../data/billreminder.schemas.in.h:19
 msgid "Whether to display notifications on startup."
 msgstr "Näytetäänkö huomautukset käynnistettäessä."
 
-#: ../data/billreminder.schemas.in.h:18
+#: ../data/billreminder.schemas.in.h:20
 msgid "Whether to display the menu bar or not."
 msgstr "Näytetäänkö valikkopalkki."
 
-#: ../data/billreminder.schemas.in.h:19
+#: ../data/billreminder.schemas.in.h:21
 msgid "Whether to display the toolbar or not."
 msgstr "Näytetäänkö työkalupalkki."
 
-#: ../data/billreminder.schemas.in.h:20
+#: ../data/billreminder.schemas.in.h:22
 msgid "Whether to show alarms before a bill is due."
 msgstr "Näytetäänkö hälytykset ennen laskun erääntymistä."
 
-#: ../data/billreminder.schemas.in.h:21
+#: ../data/billreminder.schemas.in.h:23
 msgid "Whether to show alarms."
 msgstr "Näytätäänkö hälytykset."
 
-#: ../data/billreminder.schemas.in.h:22
+#: ../data/billreminder.schemas.in.h:24
 msgid "Whether to show notifications for paid bills."
 msgstr "Näytetäänkö huomautukset maksetuista laskuista."
 
-#: ../data/billreminder.schemas.in.h:23
+#: ../data/billreminder.schemas.in.h:25
+msgid "Whether to start the application in the system's tray."
+msgstr "Näytetäänkö ohjelma ilmoitusalueella."
+
+#: ../data/billreminder.schemas.in.h:26
 msgid "Whether to use dialogs for notifications."
 msgstr "Käytetäänkö huomautuksille ikkunoita."
 
@@ -143,7 +155,7 @@ msgid "About this application."
 msgstr "Tietoja sovelluksesta."
 
 #: ../src/billreminder.py:42
-msgid "Adds a new record to the database."
+msgid "Adds a new bill to the database."
 msgstr "Lisää uuden lasku tietokantaan."
 
 #: ../src/billreminder.py:43
@@ -176,38 +188,38 @@ msgstr "Käynnistä taustaprosessi ja avaa graafinen käyttöliittymä."
 msgid "Stop daemon."
 msgstr "Pysäytä taustaprosessi."
 
-#: ../src/daemon/alarm.py:64
+#: ../src/daemon/alarm.py:63
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] "Sinulla on %s maksamaton lasku!"
 msgstr[1] "Sinulla on %s maksamatonta laskua!"
 
-#: ../src/daemon/alarm.py:69
+#: ../src/daemon/alarm.py:68
 msgid "Show BillReminder"
 msgstr "Näytä laskumuistuttaja"
 
-#: ../src/daemon/alarm.py:71 ../src/daemon/alarm.py:132
+#: ../src/daemon/alarm.py:70 ../src/daemon/alarm.py:131
 msgid "Cancel"
 msgstr "Hylkää"
 
-#: ../src/daemon/alarm.py:106 ../src/daemon/alarm.py:203
+#: ../src/daemon/alarm.py:105 ../src/daemon/alarm.py:202
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr "Laskun %(bill)s eräpäivä on %(day)s."
 
-#: ../src/daemon/alarm.py:118
+#: ../src/daemon/alarm.py:117
 #, python-format
 msgid "The bill %s is due."
 msgstr "Lasku %s on myöhässä."
 
 #. Button Title
-#: ../src/daemon/alarm.py:129 ../src/gui/maindialog.py:302
-#: ../src/gui/maindialog.py:327 ../src/lib/utils.py:135
+#: ../src/daemon/alarm.py:128 ../src/gui/maindialog.py:314
+#: ../src/gui/maindialog.py:347 ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Merkitse maksetuksi"
 
-#: ../src/daemon/alarm.py:131 ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:130 ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Muokkaa"
 
@@ -236,7 +248,7 @@ msgstr "Epäonnnistui."
 msgid "BillReminder Notifier is already running."
 msgstr "Laskumuistuttajan huomautin on jo käynnissä."
 
-#: ../src/gui/aboutdialog.py:12
+#: ../src/gui/aboutdialog.py:21
 msgid "translator-credits"
 msgstr ""
 "Launchpad-käännökset:\n"
@@ -245,11 +257,11 @@ msgstr ""
 "Og Maciel https://launchpad.net/~ogmaciel\n"
 "Aamukahvi https://launchpad.net/~aamukahvi/"
 
-#: ../src/gui/aboutdialog.py:35
+#: ../src/gui/aboutdialog.py:44
 msgid "BillReminder Website"
 msgstr "Laskumuistuttajan www-sivut"
 
-#: ../src/gui/adddialog.py:96 ../src/gui/maindialog.py:126
+#: ../src/gui/adddialog.py:96
 msgid "<b>_Due Date:</b>"
 msgstr "<b>Eräpäivä:</b>"
 
@@ -290,32 +302,31 @@ msgid "Select Date and Time"
 msgstr "Valitse päivämäärä ja aika"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:333 ../src/gui/adddialog.py:357
-#: ../src/gui/maindialog.py:283 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:336 ../src/gui/adddialog.py:360
+#: ../src/gui/maindialog.py:295 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "Ei lainkaan"
 
-#: ../src/gui/adddialog.py:339 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:342 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Uusi luokka"
 
-#: ../src/gui/adddialog.py:471
+#: ../src/gui/adddialog.py:477
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" ja \"%s\" ovat pakollisia kohtia."
 
-#: ../src/gui/adddialog.py:472 ../src/gui/adddialog.py:476
-#: ../src/gui/widgets/viewbill.py:85
+#: ../src/gui/adddialog.py:478 ../src/gui/adddialog.py:482
+#: ../src/gui/widgets/viewbill.py:89
 msgid "Payee"
 msgstr "Saaja"
 
-#: ../src/gui/adddialog.py:472 ../src/gui/adddialog.py:480
-#: ../src/gui/widgets/viewbill.py:89
+#: ../src/gui/adddialog.py:478 ../src/gui/widgets/viewbill.py:93
 msgid "Amount"
 msgstr "Määrä"
 
-#: ../src/gui/adddialog.py:476 ../src/gui/adddialog.py:480
+#: ../src/gui/adddialog.py:482
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" on pakollinen kohta."
@@ -358,119 +369,119 @@ msgid_plural "There are %d more bills in this category."
 msgstr[0] "Tässä luokassa on vielä %d lasku."
 msgstr[1] "Tässä luokassa on vielä %d laskua."
 
-#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:557
+#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:581
 msgid "Confirmation"
 msgstr "Vahvistus"
 
-#: ../src/gui/maindialog.py:105
-msgid "<b>_Bills:</b>"
-msgstr "<b>Laskut:</b>"
-
-#: ../src/gui/maindialog.py:295
+#: ../src/gui/maindialog.py:307
 msgid "New"
 msgstr "Uusi"
 
-#: ../src/gui/maindialog.py:295 ../src/gui/maindialog.py:323
-msgid "Add a new record"
+#. Dialog Title
+#: ../src/gui/maindialog.py:307 ../src/gui/maindialog.py:343
+#: ../src/lib/dialogs.py:51
+msgid "Add a new bill"
 msgstr "Lisää uusi lasku"
 
-#: ../src/gui/maindialog.py:297 ../src/gui/maindialog.py:324
-msgid "Edit a record"
+#. Dialog Title
+#: ../src/gui/maindialog.py:309 ../src/gui/maindialog.py:344
+#: ../src/lib/dialogs.py:62
+msgid "Edit a bill"
 msgstr "Muokkaa laskua"
 
-#: ../src/gui/maindialog.py:299 ../src/gui/maindialog.py:325
-msgid "Delete selected record"
+#: ../src/gui/maindialog.py:311 ../src/gui/maindialog.py:345
+msgid "Delete selected bill"
 msgstr "Poista valittu lasku"
 
-#: ../src/gui/maindialog.py:302 ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/maindialog.py:314 ../src/gui/widgets/viewbill.py:97
 msgid "Paid"
 msgstr "Maksettu"
 
-#: ../src/gui/maindialog.py:305
+#: ../src/gui/maindialog.py:317
 msgid "Not Paid"
 msgstr "Ei maksettu"
 
-#: ../src/gui/maindialog.py:305 ../src/gui/maindialog.py:328
+#: ../src/gui/maindialog.py:317 ../src/gui/maindialog.py:348
 msgid "Mark as not paid"
 msgstr "Merkitse maksamattomaksi"
 
-#: ../src/gui/maindialog.py:322
+#: ../src/gui/maindialog.py:342
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: ../src/gui/maindialog.py:323 ../src/gui/maindialog.py:515
+#: ../src/gui/maindialog.py:343 ../src/gui/maindialog.py:539
 msgid "_Add New"
 msgstr "_Lisää uusi"
 
-#: ../src/gui/maindialog.py:326
+#: ../src/gui/maindialog.py:346
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: ../src/gui/maindialog.py:327 ../src/gui/maindialog.py:525
+#: ../src/gui/maindialog.py:347 ../src/gui/maindialog.py:549
 msgid "_Paid"
 msgstr "_Maksettu"
 
-#: ../src/gui/maindialog.py:328
+#: ../src/gui/maindialog.py:348
 msgid "_Not Paid"
 msgstr "_Ei maksettu"
 
-#: ../src/gui/maindialog.py:329
+#: ../src/gui/maindialog.py:349
 msgid "Edit preferences"
 msgstr "Muokkaa asetuksia"
 
-#: ../src/gui/maindialog.py:330
+#: ../src/gui/maindialog.py:350
 msgid "Quit the Program"
 msgstr "Lopeta ohjelma"
 
-#: ../src/gui/maindialog.py:331
+#: ../src/gui/maindialog.py:351
 msgid "_View"
 msgstr "_Näytä"
 
-#: ../src/gui/maindialog.py:332
+#: ../src/gui/maindialog.py:352
 msgid "_Help"
 msgstr "_Ohje"
 
-#: ../src/gui/maindialog.py:333
+#: ../src/gui/maindialog.py:353
 msgid "About the application"
 msgstr "Tietoja ohjelmasta"
 
-#: ../src/gui/maindialog.py:343
+#: ../src/gui/maindialog.py:363
 msgid "_Show Toolbar"
 msgstr "Näytä _työkalupalkki"
 
-#: ../src/gui/maindialog.py:343
+#: ../src/gui/maindialog.py:363
 msgid "Show the toolbar"
 msgstr "Näytä työkalupalkki"
 
-#: ../src/gui/maindialog.py:347
+#: ../src/gui/maindialog.py:367
 msgid "_Not Paid Only"
 msgstr "Vain _maksamattomat"
 
-#: ../src/gui/maindialog.py:347
-msgid "Display all unpaid records only"
+#: ../src/gui/maindialog.py:367
+msgid "Display all unpaid bills only"
 msgstr "Näytä vain maksamattomat laskut"
 
-#: ../src/gui/maindialog.py:348
+#: ../src/gui/maindialog.py:368
 msgid "_Paid Only"
 msgstr "Vain ma_ksetut"
 
-#: ../src/gui/maindialog.py:348
-msgid "Display all paid records only"
+#: ../src/gui/maindialog.py:368
+msgid "Display all paid bills only"
 msgstr "Näytä vain maksetut laskut"
 
-#: ../src/gui/maindialog.py:349
-msgid "_All Records"
-msgstr "K_aikki tietueet"
+#: ../src/gui/maindialog.py:369
+msgid "_All Bills"
+msgstr "K_aikki laskut"
 
-#: ../src/gui/maindialog.py:349
-msgid "Display all records"
+#: ../src/gui/maindialog.py:369
+msgid "Display all bills"
 msgstr "Näytä kaikki laskut"
 
-#: ../src/gui/maindialog.py:528
+#: ../src/gui/maindialog.py:552
 msgid "Not _Paid"
 msgstr "_Maksamattomat"
 
-#: ../src/gui/maindialog.py:555
+#: ../src/gui/maindialog.py:579
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Haluatko varmasti poistaa laskun \"%s\"?"
@@ -541,6 +552,14 @@ msgstr "_Käynnistä laskumuistuttajan huomautin"
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr "<b>Huomaa:</b> Laskumuistuttajan huomautin on nyt käynnissä."
 
+#: ../src/gui/widgets/calendarwidget.py:55
+msgid "<b>_Monthly Report:</b>"
+msgstr "<b>Kuukausiraportti:</b>"
+
+#: ../src/gui/widgets/calendarwidget.py:62
+msgid "<b>_Year:</b>"
+msgstr "<b>_Vuosi:</b>"
+
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:65
 msgid "%Y/%m/%d %H:%M"
 msgstr "%Y-%m-%d %H.%M"
@@ -558,8 +577,8 @@ msgid "<b>_Time:</b>"
 msgstr "<b>_Aika:</b>"
 
 #: ../src/gui/widgets/statusbar.py:16
-msgid "Records:"
-msgstr "Tietueet:"
+msgid "Bills:"
+msgstr "Laskut:"
 
 #: ../src/gui/widgets/statusbar.py:26
 msgid "Notes:"
@@ -590,27 +609,27 @@ msgstr "Lopeta"
 msgid "%m/%d"
 msgstr "%d.%m."
 
-#: ../src/gui/widgets/viewbill.py:83 ../src/gui/widgets/viewcategory.py:39
+#: ../src/gui/widgets/viewbill.py:87 ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
 msgstr "Luokka"
 
-#: ../src/gui/widgets/viewbill.py:87
+#: ../src/gui/widgets/viewbill.py:91
 msgid "Date"
 msgstr "Päiväys"
 
-#: ../src/gui/widgets/viewbill.py:91
+#: ../src/gui/widgets/viewbill.py:95
 msgid "Notes"
 msgstr "Huomautukset"
 
-#: ../src/gui/widgets/viewbill.py:95
+#: ../src/gui/widgets/viewbill.py:99
 msgid "Alarm"
 msgstr "Muistutus"
 
-#: ../src/lib/common.py:19
+#: ../src/lib/common.py:18
 msgid "Developers:"
 msgstr "Kehittäjät:"
 
-#: ../src/lib/common.py:23
+#: ../src/lib/common.py:22
 msgid "Contributors:"
 msgstr "Avustajat:"
 
@@ -621,16 +640,6 @@ msgid ""
 msgstr ""
 "Tapahtui virhe yhdistettäessä laskunmuistuttajan huomauttimeen!\n"
 "Haluatko käynnistää sen ja käynnistää myös laskumuistuttajan uudestaan?"
-
-#. Dialog Title
-#: ../src/lib/dialogs.py:51
-msgid "Add a New Record"
-msgstr "Lisää uusi tietue"
-
-#. Dialog Title
-#: ../src/lib/dialogs.py:62
-msgid "Edit a Record"
-msgstr "Muokkaa tietuetta"
 
 #. Dialog Title
 #: ../src/lib/utils.py:83
@@ -670,3 +679,21 @@ msgstr "Viikottain"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Kuukausittain"
+
+#~ msgid "Edit a record"
+#~ msgstr "Muokkaa laskua"
+
+#~ msgid "_All Records"
+#~ msgstr "K_aikki tietueet"
+
+#~ msgid "Display all records"
+#~ msgstr "Näytä kaikki laskut"
+
+#~ msgid "Records:"
+#~ msgstr "Tietueet:"
+
+#~ msgid "Add a New Record"
+#~ msgstr "Lisää uusi tietue"
+
+#~ msgid "Edit a Record"
+#~ msgstr "Muokkaa tietuetta"
