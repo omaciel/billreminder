@@ -47,7 +47,9 @@ class Actions(object):
         if 'alarm' in record.keys():
             record['alarm'] = int(record['alarm'])
         if 'catId' in record.keys():
-            record['catId'] = int(record['catId'])
+            if record['catId'] and 'None' not in record['catId']:
+                record['catId'] = int(record['catId'])
+
         return record
 
     def get_monthly_totals(self, status, month, year):

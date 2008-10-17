@@ -1,3 +1,8 @@
+2008-10-17 Og Maciel <ogmaciel@gnome.org>
+
+	* src/lib/dbus_actions.py: Don't try to cast a dbus.String into an int type, if catId is 'None'.
+	 Fixes Bug #556748.
+
 2008-10-13 Og Maciel <ogmaciel@gnome.org>
 
 	* data/Makefile.am: Make sure that gconf schema is installed.
