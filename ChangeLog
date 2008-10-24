@@ -1,3 +1,9 @@
+2008-10-23 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/aboutdialog.py: Use gnomevfs for url_show method.
+	* src/daemon/main.py, src/lib/dal.py, configure.ac: Don't try to import 
+	pysqlite2 in python 2.5. Patch by John Millikin (Fixes Bug: #555136).
+
 2008-10-17 Og Maciel <ogmaciel@gnome.org>
 
 	* src/lib/dbus_actions.py: Don't try to cast a dbus.String into an int type, if catId is 'None'.

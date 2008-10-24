@@ -6,10 +6,13 @@ import os
 import sys
 
 try:
-    from pysqlite2 import dbapi2 as sqlite
+    import sqlite3 as sqlite
 except ImportError:
-    print "Please install pysqlite2"
-    sys.exit(1)
+    try:
+        from pysqlite2 import dbapi2 as sqlite
+    except ImportError:
+        print "Please install pysqlite2"
+        sys.exit(1)
 
 from lib.bill import Bill
 from lib.common import DB_NAME, DB_PATH

@@ -12,8 +12,8 @@ import lib.common as common
 from lib import i18n
 
 try:
-  import gnome
-  def open_url(url): gnome.url_show(url)
+  import gnomevfs
+  def open_url(url): gnomevfs.url_show(url)
 except:
   import os
   def open_url(url): os.system("xdg-open %s" % url)

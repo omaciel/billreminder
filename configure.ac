@@ -32,7 +32,43 @@ AC_SUBST(DBUS_SERVICES_DIR)
 AC_SUBST(VERSION)
 
 AM_CHECK_PYMOD([gobject], , , AC_MSG_ERROR([Python module gobject required to run BillReminder]))
-AM_CHECK_PYMOD_VERSION([pysqlite2.dbapi2], [version], [2.3.0], , AC_MSG_ERROR([Python module pysqlite2 >= 2.3.0 required to run BillReminder]))
+
+dnl This entire python check section borrowed from the hamster-applet project.
+if test "x$PYTHON_VERSION" = "x2.5"; then
+    AC_MSG_CHECKING([for python sqlite module])
+    if AC_RUN_LOG([DISPLAY= $PYTHON -c '
+try:
+    import sqlite3
+except ImportError, e:
+    if str(e).find("sqlite3") >= 0:
+        raise
+except:
+    pass
+    ']); then
+      AC_MSG_RESULT([yes])
+    else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([Python 2.5: inbuilt sqlite is required to build BillReminder])
+    fi
+else
+    AC_MSG_CHECKING([for pysqlite2 module])
+    if AC_RUN_LOG([DISPLAY= $PYTHON -c '
+try:
+    import pysqlite2
+except ImportError, e:
+    if str(e).find("pysqlite2") >= 0:
+        raise
+except:
+    pass
+    ']); then
+      AC_MSG_RESULT([yes])
+    else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([Python 2.4: pysqlite2 module required to build BillReminder])
+    fi
+fi
+
+
 AM_CHECK_PYMOD([dbus], , , AC_MSG_ERROR([Python module dbus required to run BillReminder]))
 
 AC_PATH_PROG(GCONFTOOL, gconftool-2)

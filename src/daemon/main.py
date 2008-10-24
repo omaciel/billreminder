@@ -16,11 +16,6 @@ try:
 except ImportError:
     print 'Required package: dbus-python'
     raise SystemExit
-try:
-    import pysqlite2
-except ImportError:
-    print 'Required package: pysqlite2'
-    raise SystemExit
 
 from lib import common
 from lib import i18n
@@ -67,34 +62,6 @@ class Daemon(object):
     """ Make the program run like a daemon """
     def __init__(self, options):
         """ Detach process and run it as a daemon """
-        """
-        if not options.app_nodaemon:
-            # Fork first child
-            try:
-                pid = os.fork()
-            except OSError, err:
-                print >> sys.stderr, \
-                         ('Unexpected error:', sys.exc_info()[0], err)
-
-            if pid == 0:
-                os.setsid()
-
-                # Fork second child
-                try:
-                    pid = os.fork()
-                except OSError, err:
-                    print >> sys.stderr, \
-                             ('Unexpected error:', sys.exc_info()[0], err)
-
-                if pid == 0:
-                    os.umask(0)
-                else:
-                    raise SystemExit
-            else:
-                raise SystemExit
-            # Redirect STDIN, STDOUT and STDERR
-            sys.stdin.close()
-        """
         if options.app_verbose:
             sys.stdout.write('\n')
             sys.stdout = VerboseDevice(type_='stdout')
