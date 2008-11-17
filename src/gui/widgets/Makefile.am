@@ -3,10 +3,10 @@
 billreminder_widgetsdir = $(pythondir)/billreminder/gui/widgets
 billreminder_widgets_PYTHON = \
 	__init__.py \
-	calendarwidget.py \
 	charting.py \
 	chartwidget.py \
 	datebutton.py \
+	datepicker.py \
 	genericlistview.py \
 	statusbar.py \
 	timeline.py \

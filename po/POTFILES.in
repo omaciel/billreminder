@@ -20,7 +20,7 @@ src/gui/adddialog.py
 src/gui/categoriesdialog.py
 src/gui/maindialog.py
 src/gui/prefdialog.py
-src/gui/widgets/calendarwidget.py
+src/gui/widgets/datepicker.py
 src/gui/widgets/datebutton.py
 src/gui/widgets/genericlistview.py
 src/gui/widgets/statusbar.py

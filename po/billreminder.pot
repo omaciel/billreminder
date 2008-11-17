@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-05 17:31-0400\n"
+"POT-Creation-Date: 2008-11-16 19:32-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -211,8 +211,8 @@ msgid "The bill %s is due."
 msgstr ""
 
 #. Button Title
-#: ../src/daemon/alarm.py:128 ../src/gui/maindialog.py:314
-#: ../src/gui/maindialog.py:347 ../src/lib/utils.py:135
+#: ../src/daemon/alarm.py:128 ../src/gui/maindialog.py:298
+#: ../src/gui/maindialog.py:331 ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr ""
 
@@ -220,28 +220,28 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../src/daemon/main.py:118
+#: ../src/daemon/main.py:85
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
 msgstr ""
 
-#: ../src/daemon/main.py:123
+#: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr ""
 
-#: ../src/daemon/main.py:126
+#: ../src/daemon/main.py:93
 msgid "Removing Lock File..."
 msgstr ""
 
-#: ../src/daemon/main.py:128
+#: ../src/daemon/main.py:95
 msgid "Successfully."
 msgstr ""
 
-#: ../src/daemon/main.py:130
+#: ../src/daemon/main.py:97
 msgid "Failed."
 msgstr ""
 
-#: ../src/daemon/main.py:134
+#: ../src/daemon/main.py:101
 msgid "BillReminder Notifier is already running."
 msgstr ""
 
@@ -253,72 +253,82 @@ msgstr ""
 msgid "BillReminder Website"
 msgstr ""
 
-#: ../src/gui/adddialog.py:96
-msgid "<b>_Due Date:</b>"
-msgstr ""
-
-#: ../src/gui/adddialog.py:104
+#: ../src/gui/adddialog.py:95
 msgid "<b>_Repeat:</b>"
 msgstr ""
 
-#: ../src/gui/adddialog.py:108
+#: ../src/gui/adddialog.py:99
 msgid "How many times to repeat this bill."
 msgstr ""
 
-#: ../src/gui/adddialog.py:141
+#: ../src/gui/adddialog.py:125
 msgid "<b>_Payee:</b>"
 msgstr ""
 
-#: ../src/gui/adddialog.py:144
+#: ../src/gui/adddialog.py:128
 msgid "<b>_Amount:</b>"
 msgstr ""
 
-#: ../src/gui/adddialog.py:147
+#: ../src/gui/adddialog.py:131
 msgid "<b>_Category:</b>"
 msgstr ""
 
-#: ../src/gui/adddialog.py:150
+#: ../src/gui/adddialog.py:134
 msgid "<b>_Notes:</b>"
 msgstr ""
 
-#: ../src/gui/adddialog.py:153
+#: ../src/gui/adddialog.py:137
 msgid "<b>A_larm:</b>"
 msgstr ""
 
-#: ../src/gui/adddialog.py:179
+#: ../src/gui/adddialog.py:163
 msgid "Manage Categories"
 msgstr ""
 
-#: ../src/gui/adddialog.py:202 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:187 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr ""
 
+#: ../src/gui/adddialog.py:191
+msgid "<b>Due Date:</b>"
+msgstr ""
+
+#. TRANSLATORS: This is the end date for repeating bills.
+#: ../src/gui/adddialog.py:195
+msgid "<b>End:</b>"
+msgstr ""
+
+#. # Expander
+#: ../src/gui/adddialog.py:229
+msgid "<b>Optional Fields:</b>"
+msgstr ""
+
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:336 ../src/gui/adddialog.py:360
-#: ../src/gui/maindialog.py:295 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:345 ../src/gui/adddialog.py:369
+#: ../src/gui/maindialog.py:279 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr ""
 
-#: ../src/gui/adddialog.py:342 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:351 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr ""
 
-#: ../src/gui/adddialog.py:477
+#: ../src/gui/adddialog.py:486
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr ""
 
-#: ../src/gui/adddialog.py:478 ../src/gui/adddialog.py:482
+#: ../src/gui/adddialog.py:487 ../src/gui/adddialog.py:491
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Payee"
 msgstr ""
 
-#: ../src/gui/adddialog.py:478 ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/adddialog.py:487 ../src/gui/widgets/viewbill.py:93
 msgid "Amount"
 msgstr ""
 
-#: ../src/gui/adddialog.py:482
+#: ../src/gui/adddialog.py:491
 #, python-format
 msgid "\"%s\" is required field."
 msgstr ""
@@ -358,119 +368,119 @@ msgid_plural "There are %d more bills in this category."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:581
+#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:564
 msgid "Confirmation"
 msgstr ""
 
-#: ../src/gui/maindialog.py:307
+#: ../src/gui/maindialog.py:291
 msgid "New"
 msgstr ""
 
 #. Dialog Title
-#: ../src/gui/maindialog.py:307 ../src/gui/maindialog.py:343
+#: ../src/gui/maindialog.py:291 ../src/gui/maindialog.py:327
 #: ../src/lib/dialogs.py:51
 msgid "Add a new bill"
 msgstr ""
 
 #. Dialog Title
-#: ../src/gui/maindialog.py:309 ../src/gui/maindialog.py:344
+#: ../src/gui/maindialog.py:293 ../src/gui/maindialog.py:328
 #: ../src/lib/dialogs.py:62
 msgid "Edit a bill"
 msgstr ""
 
-#: ../src/gui/maindialog.py:311 ../src/gui/maindialog.py:345
+#: ../src/gui/maindialog.py:295 ../src/gui/maindialog.py:329
 msgid "Delete selected bill"
 msgstr ""
 
-#: ../src/gui/maindialog.py:314 ../src/gui/widgets/viewbill.py:97
+#: ../src/gui/maindialog.py:298 ../src/gui/widgets/viewbill.py:97
 msgid "Paid"
 msgstr ""
 
-#: ../src/gui/maindialog.py:317
+#: ../src/gui/maindialog.py:301
 msgid "Not Paid"
 msgstr ""
 
-#: ../src/gui/maindialog.py:317 ../src/gui/maindialog.py:348
+#: ../src/gui/maindialog.py:301 ../src/gui/maindialog.py:332
 msgid "Mark as not paid"
 msgstr ""
 
-#: ../src/gui/maindialog.py:342
+#: ../src/gui/maindialog.py:326
 msgid "_File"
 msgstr ""
 
-#: ../src/gui/maindialog.py:343 ../src/gui/maindialog.py:539
+#: ../src/gui/maindialog.py:327 ../src/gui/maindialog.py:522
 msgid "_Add New"
 msgstr ""
 
-#: ../src/gui/maindialog.py:346
+#: ../src/gui/maindialog.py:330
 msgid "_Edit"
 msgstr ""
 
-#: ../src/gui/maindialog.py:347 ../src/gui/maindialog.py:549
+#: ../src/gui/maindialog.py:331 ../src/gui/maindialog.py:532
 msgid "_Paid"
 msgstr ""
 
-#: ../src/gui/maindialog.py:348
+#: ../src/gui/maindialog.py:332
 msgid "_Not Paid"
 msgstr ""
 
-#: ../src/gui/maindialog.py:349
+#: ../src/gui/maindialog.py:333
 msgid "Edit preferences"
 msgstr ""
 
-#: ../src/gui/maindialog.py:350
+#: ../src/gui/maindialog.py:334
 msgid "Quit the Program"
 msgstr ""
 
-#: ../src/gui/maindialog.py:351
+#: ../src/gui/maindialog.py:335
 msgid "_View"
 msgstr ""
 
-#: ../src/gui/maindialog.py:352
+#: ../src/gui/maindialog.py:336
 msgid "_Help"
 msgstr ""
 
-#: ../src/gui/maindialog.py:353
+#: ../src/gui/maindialog.py:337
 msgid "About the application"
 msgstr ""
 
-#: ../src/gui/maindialog.py:363
+#: ../src/gui/maindialog.py:347
 msgid "_Show Toolbar"
 msgstr ""
 
-#: ../src/gui/maindialog.py:363
+#: ../src/gui/maindialog.py:347
 msgid "Show the toolbar"
 msgstr ""
 
-#: ../src/gui/maindialog.py:367
+#: ../src/gui/maindialog.py:351
 msgid "_Not Paid Only"
 msgstr ""
 
-#: ../src/gui/maindialog.py:367
+#: ../src/gui/maindialog.py:351
 msgid "Display all unpaid bills only"
 msgstr ""
 
-#: ../src/gui/maindialog.py:368
+#: ../src/gui/maindialog.py:352
 msgid "_Paid Only"
 msgstr ""
 
-#: ../src/gui/maindialog.py:368
+#: ../src/gui/maindialog.py:352
 msgid "Display all paid bills only"
 msgstr ""
 
-#: ../src/gui/maindialog.py:369
+#: ../src/gui/maindialog.py:353
 msgid "_All Bills"
 msgstr ""
 
-#: ../src/gui/maindialog.py:369
+#: ../src/gui/maindialog.py:353
 msgid "Display all bills"
 msgstr ""
 
-#: ../src/gui/maindialog.py:552
+#: ../src/gui/maindialog.py:535
 msgid "Not _Paid"
 msgstr ""
 
-#: ../src/gui/maindialog.py:579
+#: ../src/gui/maindialog.py:562
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr ""
@@ -538,12 +548,10 @@ msgstr ""
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr ""
 
-#: ../src/gui/widgets/calendarwidget.py:55
-msgid "<b>_Monthly Report:</b>"
-msgstr ""
-
-#: ../src/gui/widgets/calendarwidget.py:62
-msgid "<b>_Year:</b>"
+#. Label to display the date selected
+#. TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
+#: ../src/gui/widgets/datepicker.py:40 ../src/gui/widgets/datepicker.py:64
+msgid "%m/%d/%Y"
 msgstr ""
 
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:65

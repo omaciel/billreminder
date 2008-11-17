@@ -18,6 +18,7 @@ from lib.actions import Actions
 from lib.utils import create_pixbuf
 from lib import i18n
 from gui.widgets.datebutton import DateButton
+from gui.widgets.datepicker import DatePicker
 from gui.categoriesdialog import CategoriesDialog
 from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
 
@@ -27,7 +28,8 @@ class AddDialog(gtk.Dialog):
     """
     def __init__(self, title=None, parent=None, record=None, selectedDate=None):
         gtk.Dialog.__init__(self, title=title, parent=parent,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_NO_SEPARATOR,
+                            #flags=gtk.DIALOG_MODAL|gtk.DIALOG_NO_SEPARATOR,
+                            flags=gtk.DIALOG_NO_SEPARATOR,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                      gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT))
 
@@ -86,18 +88,7 @@ class AddDialog(gtk.Dialog):
 
     def _initialize_dialog_widgets(self):
         self.vbox.set_spacing(12)
-        self.topcontainer = gtk.HBox(homogeneous=False, spacing=12)
-        self.topcontainer.set_border_width(6)
-        self.calbox = gtk.VBox(homogeneous=False, spacing=6)
         self.fieldbox = gtk.VBox(homogeneous=False, spacing=6)
-
-        # Add calendar and label
-        self.callabel = gtk.Label()
-        self.callabel.set_markup_with_mnemonic(_("<b>_Due Date:</b>"))
-        self.callabel.set_alignment(0.00, 0.50)
-
-        self.calendar = gtk.Calendar()
-        self.callabel.set_mnemonic_widget(self.calendar)
 
         ## repeat times
         self.repeatlabel = gtk.Label()
@@ -118,20 +109,13 @@ class AddDialog(gtk.Dialog):
         #self.frequency.set_row_separator_func(self._determine_separator)
         self._populate_frequency()
         hbox = gtk.HBox(homogeneous=False, spacing=12)
-        hbox.pack_start(self.repeatlabel, expand=False, fill=True, padding=0)
-        hbox.pack_start(self.frequency, expand=True, fill=True, padding=0)
+        #hbox.pack_start(self.repeatlabel, expand=False, fill=True, padding=0)
+        #hbox.pack_start(self.frequency, expand=True, fill=True, padding=0)
         hbox.pack_start(self.repeatSpinner, expand=True, fill=True, padding=0)
-        ## Pack it all up
-        self.calbox.pack_start(self.callabel,
-           expand=False, fill=True)
-        self.calbox.pack_start(self.calendar,
-           expand=True, fill=True)
-        self.calbox.pack_start(hbox,
-           expand=True, fill=True)
 
         # Fields
-        ## Table of 5 x 2
-        self.table = gtk.Table(rows=5, columns=2, homogeneous=False)
+        ## Table of 6 x 2
+        self.table = gtk.Table(rows=6, columns=2, homogeneous=False)
         ### Spacing to make things look better
         self.table.set_col_spacings(12)
         self.table.set_row_spacings(6)
@@ -186,6 +170,7 @@ class AddDialog(gtk.Dialog):
         self.categorydock.pack_start(self.categorybutton, expand=False,
                                      fill=True, padding=0)
         self._populate_category() # Populate combobox with category from db
+
         ### Notes
         self.notesdock = gtk.ScrolledWindow()
         self.notesdock.set_shadow_type(gtk.SHADOW_OUT)
@@ -200,34 +185,58 @@ class AddDialog(gtk.Dialog):
         self.alarmbutton = DateButton(self)
         self.alarmlabel.set_mnemonic_widget(self.alarmbutton)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
-        # Event responsible for updating alarm date
-        self.calendar.connect("day_selected", self._on_calendar_day_selected)
-        self.calendar.select_day(self.selectedDate.day)
-        self.calendar.select_month(self.selectedDate.month - 1, self.selectedDate.year)
-        self.calendar.mark_day(self.selectedDate.day)
+
+        # Datepickers
+        self.dueDateLabel = gtk.Label()
+        self.dueDateLabel.set_markup_with_mnemonic(_("<b>Due Date:</b>"))
+        self.dueDate = DatePicker()
+        self.endDatelabel = gtk.Label()
+        #TRANSLATORS: This is the end date for repeating bills.
+        self.endDatelabel.set_markup_with_mnemonic(_("<b>End:</b>"))
+        self.endDate = DatePicker()
 
         ## Pack it all into the table
-        self.table.attach(self.payeelabel, 0, 1, 0, 1, gtk.FILL, gtk.FILL)
-        self.table.attach(self.amountlabel, 0, 1, 1, 2, gtk.FILL, gtk.FILL)
-        self.table.attach(self.categorylabel, 0, 1, 2, 3, gtk.FILL, gtk.FILL)
-        self.table.attach(self.noteslabel, 0, 1, 4, 5, gtk.FILL, gtk.FILL)
-        self.table.attach(self.alarmlabel, 0, 1, 3, 4, gtk.FILL, gtk.FILL)
-        self.table.attach(self.payee, 1, 2, 0, 1, gtk.FILL, gtk.FILL)
-        self.table.attach(self.amount, 1, 2, 1, 2, gtk.FILL, gtk.FILL)
-        self.table.attach(self.categorydock, 1, 2, 2, 3, gtk.FILL, gtk.FILL)
-        self.table.attach(self.notesdock, 1, 2, 4, 5, gtk.FILL, gtk.FILL)
-        self.table.attach(self.alarmbutton, 1, 2, 3, 4, gtk.FILL, gtk.FILL)
+        ### Label widgets
+        self.table.attach(self.payeelabel,      0, 1, 0, 1, gtk.FILL, gtk.FILL)
+        self.table.attach(self.amountlabel,     0, 1, 1, 2, gtk.FILL, gtk.FILL)
+        self.table.attach(self.dueDateLabel,    0, 1, 2, 3, gtk.FILL, gtk.FILL)
+        self.table.attach(self.categorylabel,   0, 1, 3, 4, gtk.FILL, gtk.FILL)
+        self.table.attach(self.repeatlabel,     0, 1, 4, 5, gtk.FILL, gtk.FILL)
+        self.table.attach(self.endDatelabel,    0, 1, 5, 6, gtk.FILL, gtk.FILL)
+        ### "Value" widgets
+        self.table.attach(self.payee,           1, 2, 0, 1, gtk.FILL, gtk.FILL)
+        self.table.attach(self.amount,          1, 2, 1, 2, gtk.FILL, gtk.FILL)
+        self.table.attach(self.dueDate,         1, 2, 2, 3, gtk.FILL, gtk.FILL)
+        self.table.attach(self.categorydock,    1, 2, 3, 4, gtk.FILL, gtk.FILL)
+        self.table.attach(self.frequency,       1, 2, 4, 5, gtk.FILL, gtk.FILL)
+        self.table.attach(self.endDate,         1, 2, 5, 6, gtk.FILL, gtk.FILL)
 
         ## Pack table
         self.fieldbox.pack_start(self.table, expand=True, fill=True, padding=0)
 
+        ## Table of 2 x 2 containing optional fields
+        self.optionalTable = gtk.Table(rows=2, columns=2, homogeneous=False)
+        ### Spacing to make things look better
+        self.optionalTable.set_col_spacings(12)
+        self.optionalTable.set_row_spacings(6)
+        ### Label widgets
+        self.optionalTable.attach(self.noteslabel,      0, 1, 0, 1, gtk.FILL, gtk.FILL)
+        self.optionalTable.attach(self.alarmlabel,      0, 1, 1, 2, gtk.FILL, gtk.FILL)
+        ### "Value" widgets
+        self.optionalTable.attach(self.notesdock,       1, 2, 0, 1, gtk.EXPAND, gtk.EXPAND)
+        self.optionalTable.attach(self.alarmbutton,     1, 2, 1, 2, gtk.EXPAND, gtk.EXPAND)
+        ## Expander
+        self.optExpander = gtk.Expander(_("<b>Optional Fields:</b>"))
+        self.optExpander.set_use_markup(True)
+        self.optExpander.set_expanded(False)
+        vbox = gtk.VBox(False, 4)
+        vbox.pack_start(self.optionalTable, expand=True, padding=1)
+        self.optExpander.add(vbox)
+
+
         # Everything
-        self.topcontainer.pack_start(self.calbox,
-             expand=False, fill=False)
-        self.topcontainer.pack_start(self.fieldbox,
-             expand=False, fill=False)
-        self.vbox.pack_start(self.topcontainer,
-             expand=False, fill=True)
+        self.vbox.pack_start(self.fieldbox, expand=False, fill=True)
+        self.vbox.pack_start(self.optExpander, expand=True, fill=True, padding=0)
 
         # Show all widgets
         self.show_all()
@@ -250,8 +259,8 @@ class AddDialog(gtk.Dialog):
             self.amount.set_text("")
         # Format the dueDate field
         dt = scheduler.datetime_from_timestamp(self.currentrecord.DueDate)
-        self.calendar.select_day(dt.day)
-        self.calendar.select_month(dt.month - 1, dt.year)
+        self.dueDate.calendar.select_day(dt.day)
+        self.dueDate.calendar.select_month(dt.month - 1, dt.year)
         utils.select_combo_text(self.payee, self.currentrecord.Payee)
         actions = Actions()
         records = actions.get_categories({'id': self.currentrecord.Category})
@@ -372,7 +381,7 @@ class AddDialog(gtk.Dialog):
         frequency = self.frequency.get_active_text()
         # Extracts the date off the calendar widget
         # Create datetime object
-        selectedDate = scheduler.time_from_calendar(self.calendar.get_date())
+        selectedDate = scheduler.time_from_calendar(self.dueDate.calendar.get_date())
 
         #buffer = self.txtNotes.get_buffer()
         startiter, enditer = self.txtbuffer.get_bounds()
@@ -490,7 +499,7 @@ class AddDialog(gtk.Dialog):
             atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
             adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
             # Extracts the date off the calendar widget
-            selDate = self.calendar.get_date()
+            selDate = self.dueDate.calendar.get_date()
             selDate = scheduler.time_from_calendar(selDate)
 
             alarmDate = scheduler.get_alarm_timestamp(adays, atime, selDate)

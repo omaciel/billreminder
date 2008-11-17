@@ -1,3 +1,13 @@
+2008-11-16 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/adddialog.py: Use new DatePicker widget and get rid of gtk.Calendar.
+	* src/gui/widgets/datepicker.py: New widget that lets you choose a date from a dropdown calendar.
+	* src/gui/widgets/Makefile.am: Added datepicker.py.
+	* src/gui/maindialog.py:
+	* po/pt_BR.po: Updated the catalog.
+	* po/POTFILES.in: Added datepicker.py.
+	* po/billreminder.pot: Updated the catalog.
+
 2008-10-23 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/aboutdialog.py: Use gnomevfs for url_show method.

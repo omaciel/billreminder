@@ -16,7 +16,6 @@ from gui.widgets.statusbar import Statusbar
 from gui.widgets.viewbill import ViewBill as ViewBill
 from gui.widgets.trayicon import NotifyIcon
 from gui.widgets.chartwidget import ChartWidget
-from gui.widgets.calendarwidget import CalendarWidget
 from gui.widgets.timeline import Timeline, Bullet
 
 # Import data model modules
@@ -122,13 +121,6 @@ class MainDialog:
         # Statusbar
         self.statusbar = Statusbar()
 
-        # Calendar
-        self.calbox = gtk.HBox(homogeneous=False, spacing=4)
-        self.calendar = CalendarWidget()
-        self.calendar.connect("date_changed", self._on_calendar_month_changed)
-        ## Pack it all up
-        self.calbox.pack_start(self.calendar, expand=True, fill=True)
-
         # Timeline
         self.timelinebox = gtk.HBox(homogeneous=False, spacing=4)
         self.timeline = Timeline(callback=self.on_timeline_cb)
@@ -136,18 +128,12 @@ class MainDialog:
         ## Pack it all up
         self.timelinebox.pack_start(self.timeline, expand=True, fill=True)
 
-        #self.calbox.pack_start(self.filter_hbox, expand=True)
-
-        #self.calendar.mark_day(datetime.datetime.today().day)
-
         # Chart
         self.chart = ChartWidget()
 
         # Pack it all up
         self.box.pack_start(self.toolbar,
             expand=False, fill=True, padding=0)
-        #self.box.pack_start(self.calbox,
-        #    expand=False, fill=True, padding=4)
         self.box.pack_start(self.timelinebox,
             expand=False, fill=True, padding=0)
         self.box.pack_start(self.listbox,
@@ -268,13 +254,11 @@ class MainDialog:
 
         # Populate treeview
         self._populateTreeView(records)
-        # Mark days in calendar
-        #self._markCalendar(records)
         # Update status bar
         self._update_statusbar()
         # populate chart
         self._populate_chart(status, first, last)
-        
+
         return len(records)
 
     def _formated_row(self, row):
@@ -391,7 +375,6 @@ class MainDialog:
         self.box.pack_start(menubar, expand=False, fill=True, padding=0)
 
     def add_bill(self):
-        #selectedDate = scheduler.time_from_calendar(self.calendar.get_date())
         #selectedDate = scheduler.datetime_from_timestamp(selectedDate)
         selectedDate = self.timeline.value
         records = dialogs.add_dialog(parent=self.window, selectedDate=selectedDate)
@@ -597,9 +580,6 @@ class MainDialog:
 
     def on_delete_event(self, widget, event, data=None):
         self._quit_application()
-
-    def _on_calendar_month_changed(self, widget, args):
-        self.reloadTreeView()
 
     def _on_timeline_changed(self, widget, args):
         self.reloadTreeView()
