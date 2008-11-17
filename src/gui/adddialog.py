@@ -214,23 +214,23 @@ class AddDialog(gtk.Dialog):
         ## Pack table
         self.fieldbox.pack_start(self.table, expand=True, fill=True, padding=0)
 
-        ## Table of 2 x 2 containing optional fields
-        self.optionalTable = gtk.Table(rows=2, columns=2, homogeneous=False)
-        ### Spacing to make things look better
-        self.optionalTable.set_col_spacings(12)
-        self.optionalTable.set_row_spacings(6)
-        ### Label widgets
-        self.optionalTable.attach(self.noteslabel,      0, 1, 0, 1, gtk.FILL, gtk.FILL)
-        self.optionalTable.attach(self.alarmlabel,      0, 1, 1, 2, gtk.FILL, gtk.FILL)
+        ## Container with optional fields
+        vbox = gtk.VBox(homogeneous=False, spacing=2)
+        hbox1 = gtk.HBox(homogeneous=False, spacing=2)
+        hbox2 = gtk.HBox(homogeneous=False, spacing=2)
+
         ### "Value" widgets
-        self.optionalTable.attach(self.notesdock,       1, 2, 0, 1, gtk.EXPAND, gtk.EXPAND)
-        self.optionalTable.attach(self.alarmbutton,     1, 2, 1, 2, gtk.EXPAND, gtk.EXPAND)
+        hbox1.pack_start(self.noteslabel, expand=False, fill=True, padding=0)
+        hbox1.pack_start(self.notesdock, expand=True, fill=True, padding=0)
+        hbox2.pack_start(self.alarmlabel, expand=False, fill=True, padding=0)
+        hbox2.pack_start(self.alarmbutton, expand=True, fill=True, padding=0)
+
+        vbox.pack_start(hbox1, expand=True, fill=True, padding=0)
+        vbox.pack_start(hbox2, expand=True, fill=True, padding=0)
         ## Expander
         self.optExpander = gtk.Expander(_("<b>Optional Fields:</b>"))
         self.optExpander.set_use_markup(True)
         self.optExpander.set_expanded(False)
-        vbox = gtk.VBox(False, 4)
-        vbox.pack_start(self.optionalTable, expand=True, padding=1)
         self.optExpander.add(vbox)
 
 

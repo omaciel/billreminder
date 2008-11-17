@@ -1,3 +1,7 @@
+2008-11-17 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/adddialog.py: Fixed optional fields section for better alignment.
+
 2008-11-16 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/adddialog.py: Use new DatePicker widget and get rid of gtk.Calendar.
