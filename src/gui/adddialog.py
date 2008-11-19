@@ -190,7 +190,7 @@ class AddDialog(gtk.Dialog):
         self.notes = gtk.TextView()
         self.noteslabel.set_mnemonic_widget(self.notes)
         self.notes.set_wrap_mode(gtk.WRAP_WORD)
-        self.notesdock.add_with_viewport(self.notes)
+        self.notesdock.add(self.notes)
         ### Buffer object for Notes field
         self.txtbuffer = self.notes.get_buffer()
         ### Alarm
