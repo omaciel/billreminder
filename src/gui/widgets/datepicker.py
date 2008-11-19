@@ -31,13 +31,13 @@ class DatePicker(gtk.VBox):
 
         # Create a new calendar
         self.calendar = gtk.Calendar()
-        self.calendar.connect("day-selected-double-click", self.on_day_selected)
         self.calendar.select_month(date.month, date.year)
         self.calendar.select_day(date.day)
 
         # Label to display the date selected
-        #TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
-        self.entry = gtk.Label(self.currentDate.strftime(_('%m/%d/%Y').encode('ASCII')))
+        self.entry = gtk.Label()
+        # Update the date label
+        self.__update_label()
 
         # Expander for the calendar
         self.expander = gtk.Expander()
@@ -48,6 +48,10 @@ class DatePicker(gtk.VBox):
         vbox.pack_start(self.calendar, expand=True, padding=1)
 
         self.expander.add(vbox)
+
+        # Connect events
+        self.calendar.connect("day-selected-double-click", self.on_day_selected)
+        self.calendar.connect("day-selected", self.on_day_selected)
 
         self.pack_start(self.expander)
 
@@ -60,11 +64,28 @@ class DatePicker(gtk.VBox):
     def on_day_selected(self, calendar):
         (year, month, day) = self.calendar.get_date()
         self.currentDate = datetime.datetime(year, month+1, day)
+
+        # Update the date label
+        self.__update_label()
+
+        #self.emit_date_changed_signal()
+
+    def set_date(self, dt):
+        self.calendar.select_day(dt.day)
+        self.calendar.select_month(dt.month - 1, dt.year)
+
+        self.currentDate = dt
+
+        # Update the date label
+        self.__update_label()
+
+    def get_date(self):
+        return self.currentDate
+
+    def __update_label(self):
         #TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
         self.entry.set_label(self.currentDate.strftime(_('%m/%d/%Y').encode('ASCII')))
 
-
-        self.emit_date_changed_signal()
 
 class BasicWindow(object):
 

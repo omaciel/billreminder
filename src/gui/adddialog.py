@@ -70,8 +70,11 @@ class AddDialog(gtk.Dialog):
             self.repeatSpinner.set_sensitive(False)
             self.frequency.set_sensitive(False)
             self.repeatlabel.set_sensitive(False)
+            self.endDateLabel.set_sensitive(False)
+            self.endDate.set_sensitive(False)
 
         else:
+            self.dueDate.set_date(self.selectedDate)
             # Use alarm values from preferences
             if self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_alarm') == 'true':
                 atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
@@ -101,6 +104,15 @@ class AddDialog(gtk.Dialog):
         self.repeatSpinner.set_numeric(True)
         self.repeatSpinner.set_update_policy(gtk.UPDATE_IF_VALID)
         self.repeatSpinner.set_snap_to_ticks(True)
+
+        # Datepickers
+        self.dueDateLabel = gtk.Label()
+        self.dueDateLabel.set_markup_with_mnemonic(_("<b>Due Date:</b>"))
+        self.dueDate = DatePicker()
+        self.endDateLabel = gtk.Label()
+        #TRANSLATORS: This is the end date for repeating bills.
+        self.endDateLabel.set_markup_with_mnemonic(_("<b>End Date:</b>"))
+        self.endDate = DatePicker()
 
         ## Repeating bills
         self.frequency = gtk.combo_box_new_text()
@@ -186,15 +198,6 @@ class AddDialog(gtk.Dialog):
         self.alarmlabel.set_mnemonic_widget(self.alarmbutton)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
 
-        # Datepickers
-        self.dueDateLabel = gtk.Label()
-        self.dueDateLabel.set_markup_with_mnemonic(_("<b>Due Date:</b>"))
-        self.dueDate = DatePicker()
-        self.endDatelabel = gtk.Label()
-        #TRANSLATORS: This is the end date for repeating bills.
-        self.endDatelabel.set_markup_with_mnemonic(_("<b>End:</b>"))
-        self.endDate = DatePicker()
-
         ## Pack it all into the table
         ### Label widgets
         self.table.attach(self.payeelabel,      0, 1, 0, 1, gtk.FILL, gtk.FILL)
@@ -202,7 +205,7 @@ class AddDialog(gtk.Dialog):
         self.table.attach(self.dueDateLabel,    0, 1, 2, 3, gtk.FILL, gtk.FILL)
         self.table.attach(self.categorylabel,   0, 1, 3, 4, gtk.FILL, gtk.FILL)
         self.table.attach(self.repeatlabel,     0, 1, 4, 5, gtk.FILL, gtk.FILL)
-        self.table.attach(self.endDatelabel,    0, 1, 5, 6, gtk.FILL, gtk.FILL)
+        self.table.attach(self.endDateLabel,    0, 1, 5, 6, gtk.FILL, gtk.FILL)
         ### "Value" widgets
         self.table.attach(self.payee,           1, 2, 0, 1, gtk.FILL, gtk.FILL)
         self.table.attach(self.amount,          1, 2, 1, 2, gtk.FILL, gtk.FILL)
@@ -259,8 +262,7 @@ class AddDialog(gtk.Dialog):
             self.amount.set_text("")
         # Format the dueDate field
         dt = scheduler.datetime_from_timestamp(self.currentrecord.DueDate)
-        self.dueDate.calendar.select_day(dt.day)
-        self.dueDate.calendar.select_month(dt.month - 1, dt.year)
+        self.dueDate.set_date(dt)
         utils.select_combo_text(self.payee, self.currentrecord.Payee)
         actions = Actions()
         records = actions.get_categories({'id': self.currentrecord.Category})
@@ -381,7 +383,12 @@ class AddDialog(gtk.Dialog):
         frequency = self.frequency.get_active_text()
         # Extracts the date off the calendar widget
         # Create datetime object
-        selectedDate = scheduler.time_from_calendar(self.dueDate.calendar.get_date())
+        selectedDate = scheduler.timestamp_from_datetime(self.dueDate.get_date())
+        # End date
+        if frequency != scheduler.SC_ONCE:
+            endDate = scheduler.timestamp_from_datetime(self.endDate.currentDate)
+        else:
+            endDate = None
 
         #buffer = self.txtNotes.get_buffer()
         startiter, enditer = self.txtbuffer.get_bounds()
@@ -442,8 +449,12 @@ class AddDialog(gtk.Dialog):
         if frequency == scheduler.SC_ONCE:
             self.repeatSpinner.set_value(1)
             self.repeatSpinner.set_sensitive(False)
+            self.endDateLabel.set_sensitive(False)
+            self.endDate.set_sensitive(False)
         else:
             self.repeatSpinner.set_sensitive(True)
+            self.endDateLabel.set_sensitive(True)
+            self.endDate.set_sensitive(True)
 
     def _on_categoriesbutton_clicked(self, button, new=False):
         # if new == True, a simpler categories dialog pops up

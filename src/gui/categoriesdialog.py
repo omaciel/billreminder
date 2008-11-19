@@ -140,7 +140,9 @@ class CategoriesDialog(gtk.Dialog):
                 found = path
             path += 1
 
-        self.list.set_cursor(found)
+        # Only select an item if we have data
+        if len(self.list):
+            self.list.set_cursor(found)
 
         return
 
