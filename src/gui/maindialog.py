@@ -415,7 +415,7 @@ class MainDialog:
     def remove_bill(self):
         try:
             if self.actions.delete_bill(self.currentrecord.Id):
-                self.list.listStore.remove()
+                self.list.remove()
                 self._update_statusbar()
                 self.reloadTimeline()
         except Exception, e:

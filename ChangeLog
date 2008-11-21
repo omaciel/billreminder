@@ -2,6 +2,7 @@
 
 	* src/gui/adddialog.py: Handle adding repeating records.
 	* src/gui/widgets/datepicker.py: Emmit signal when data is changed.
+	* src/gui/widgets/genericlistview.py: Reverted r645. Fixes b.g.o #561751.
 	* src/gui/maindialog.py: Code cleanup; update endDate when dueDate is changed.
 	* src/lib/scheduler.py: Code cleanupand improvements for date handling functions.
 
