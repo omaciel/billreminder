@@ -59,28 +59,10 @@ class AddDialog(gtk.Dialog):
         # Set up the UI
         self._initialize_dialog_widgets()
         self._connect_fields()
+        self._populate_widgets()
         self.category_index_before = 0
 
         self.connect("response", self._on_response)
-
-        # If a record was passed, we're in edit mode
-        if record:
-            self._populate_fields()
-            #in edit mode we must disable repetition
-            self.repeatSpinner.set_sensitive(False)
-            self.frequency.set_sensitive(False)
-            self.repeatlabel.set_sensitive(False)
-            self.endDateLabel.set_sensitive(False)
-            self.endDate.set_sensitive(False)
-
-        else:
-            self.dueDate.set_date(self.selectedDate)
-            # Use alarm values from preferences
-            if self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_alarm') == 'true':
-                atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
-                adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
-                alarmDate = scheduler.get_alarm_timestamp(adays, atime, selectedDate)
-                self.alarmbutton.set_date(alarmDate)
 
     def _set_currency(self):
         self.decimal_sep = locale.localeconv()['mon_decimal_point']
@@ -98,12 +80,6 @@ class AddDialog(gtk.Dialog):
         self.repeatlabel.set_markup_with_mnemonic(_("<b>_Repeat:</b>"))
         self.repeatlabel.set_alignment(0.00, 0.50)
         adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
-        self.repeatSpinner = gtk.SpinButton(adj, 0, 0)
-        self.repeatSpinner.set_tooltip_text(_("How many times to repeat this bill."))
-        self.repeatSpinner.set_wrap(True)
-        self.repeatSpinner.set_numeric(True)
-        self.repeatSpinner.set_update_policy(gtk.UPDATE_IF_VALID)
-        self.repeatSpinner.set_snap_to_ticks(True)
 
         # Datepickers
         self.dueDateLabel = gtk.Label()
@@ -117,13 +93,7 @@ class AddDialog(gtk.Dialog):
         ## Repeating bills
         self.frequency = gtk.combo_box_new_text()
         self.repeatlabel.set_mnemonic_widget(self.frequency)
-        self.frequency.connect('changed', self._on_frequency_changed)
         #self.frequency.set_row_separator_func(self._determine_separator)
-        self._populate_frequency()
-        hbox = gtk.HBox(homogeneous=False, spacing=12)
-        #hbox.pack_start(self.repeatlabel, expand=False, fill=True, padding=0)
-        #hbox.pack_start(self.frequency, expand=True, fill=True, padding=0)
-        hbox.pack_start(self.repeatSpinner, expand=True, fill=True, padding=0)
 
         # Fields
         ## Table of 6 x 2
@@ -154,7 +124,6 @@ class AddDialog(gtk.Dialog):
         self.payeelabel.set_mnemonic_widget(self.payee)
         self.payeecompletion = gtk.EntryCompletion()
         self.payee.child.set_completion(self.payeecompletion)
-        self._populate_payee() # Populate combobox with payee from db
         ### Amount
         self.amount = gtk.Entry()
         self.amountlabel.set_mnemonic_widget(self.amount)
@@ -181,7 +150,6 @@ class AddDialog(gtk.Dialog):
                                      fill=True, padding=0)
         self.categorydock.pack_start(self.categorybutton, expand=False,
                                      fill=True, padding=0)
-        self._populate_category() # Populate combobox with category from db
 
         ### Notes
         self.notesdock = gtk.ScrolledWindow()
@@ -241,20 +209,56 @@ class AddDialog(gtk.Dialog):
         self.vbox.pack_start(self.fieldbox, expand=False, fill=True)
         self.vbox.pack_start(self.optExpander, expand=True, fill=True, padding=0)
 
+        # Connect events
+
         # Show all widgets
         self.show_all()
+
+    def _populate_widgets(self):
+        """ Populate dialog widgets so they can be used. """
+        self._populate_frequency()
+        self._populate_payee() # Populate combobox with payee from db
+        self._populate_category() # Populate combobox with category from db
+
+        # If a record was passed, we're in edit mode
+        if self.currentrecord:
+            self._populate_widgets_with_record()
+            #in edit mode we must disable repetition
+            self.frequency.set_sensitive(False)
+            self.repeatlabel.set_sensitive(False)
+            self.endDateLabel.set_sensitive(False)
+            self.endDate.set_sensitive(False)
+
+        else:
+            self.dueDate.set_date(self.selectedDate)
+            self.endDate.set_date(self.selectedDate)
+            # Use alarm values from preferences
+            showalarm = self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_alarm')
+            atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
+            adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
+            if not atime:
+                showalarm  ='true'
+                atime = '13:00'
+                adays = 3
+
+            if showalarm == 'true':
+                alarmDate = scheduler.get_alarm_timestamp(adays, atime, self.selectedDate)
+                self.alarmbutton.set_date(alarmDate)
+
 
     def _connect_fields(self):
         self.category.connect("changed", self._on_categorycombo_changed)
         self.categorybutton.connect("clicked",
             self._on_categoriesbutton_clicked)
         self.amount.connect("insert-text", self._on_amount_insert)
+        self.frequency.connect('changed', self._on_frequency_changed)
+        self.dueDate.connect('date_changed', self._on_datepicker_date_changed)
 
 
     def _determine_separator(self, model, iter, data=None):
         return model.get_value(iter, 1) == "---"
 
-    def _populate_fields(self):
+    def _populate_widgets_with_record(self):
         # Format the amount field
         if self.currentrecord.AmountDue:
             self.amount.set_text(utils.float_to_currency(self.currentrecord.AmountDue))
@@ -379,7 +383,6 @@ class AddDialog(gtk.Dialog):
 
     def get_record(self):
 
-        repeat = int(self.repeatSpinner.get_value())
         frequency = self.frequency.get_active_text()
         # Extracts the date off the calendar widget
         # Create datetime object
@@ -415,23 +418,18 @@ class AddDialog(gtk.Dialog):
         if self.currentrecord is None:
             # Verify how many bills will be inserted
             # this will only work for new bills
-            if frequency == scheduler.SC_ONCE:
-                self.currentrecord = Bill(payee, category, selectedDate,
-                    amount, sbuffer, 0, -1, alarm)
-                return [self.currentrecord]
-            else:
-                # if we are to add more than one bill
-                records = []
-                records.append (Bill(payee, category, selectedDate,
-                    amount, sbuffer + (' (%s of %s)' % (1,repeat)), 0, -1, alarm))
-                # calc next dates depending of frequency chosen.
-                for i in range(1, repeat):
-                    selectedDate = scheduler.get_schedule_timestamp(frequency, selectedDate)
-                    if alarm != -1:
-                        alarm = scheduler.get_schedule_timestamp(frequency, alarm)
-                    records.append (Bill(payee, category, selectedDate,
-                        amount, sbuffer + (' (%s of %s)' % (i +1 ,repeat )), 0, -1, alarm))
-                return records
+            records = []
+            days = scheduler.get_schedule_timestamp(
+                frequency, self.dueDate.get_date(), self.endDate.get_date())
+
+            for day in days:
+                if alarm != -1:
+                    alarm = self.__get_alarm_date(day)
+                rec = Bill(payee, category, day, amount, sbuffer, 0, -1, alarm)
+                records.append (rec)
+
+            print records
+            return records
         else:
             # Edit existing bill
             self.currentrecord.Category = category
@@ -447,12 +445,9 @@ class AddDialog(gtk.Dialog):
     def _on_frequency_changed(self, widget):
         frequency = widget.get_active_text()
         if frequency == scheduler.SC_ONCE:
-            self.repeatSpinner.set_value(1)
-            self.repeatSpinner.set_sensitive(False)
             self.endDateLabel.set_sensitive(False)
             self.endDate.set_sensitive(False)
         else:
-            self.repeatSpinner.set_sensitive(True)
             self.endDateLabel.set_sensitive(True)
             self.endDate.set_sensitive(True)
 
@@ -503,15 +498,26 @@ class AddDialog(gtk.Dialog):
                 self.emit_stop_by_name("response")
                 self.payee.grab_focus()
 
-    def _on_calendar_day_selected(self, widget):
+    def _on_datepicker_date_changed(self, widget, args):
         # Only reprogram alarm if it is not None
-        if self.alarmbutton.get_date():
-            # Use alarm values from preferences
-            atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
-            adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
-            # Extracts the date off the calendar widget
-            selDate = self.dueDate.calendar.get_date()
-            selDate = scheduler.time_from_calendar(selDate)
+        print "Date changed"
+        # Update endDate to be equal to dueDate
+        self.endDate.set_date(self.dueDate.get_date())
 
-            alarmDate = scheduler.get_alarm_timestamp(adays, atime, selDate)
+        if self.alarmbutton.get_date():
+            # Extracts the date off the datepicker widget
+            alarmDate = self.__get_alarm_date(self.dueDate.get_date())
             self.alarmbutton.set_date(alarmDate)
+
+    def __get_alarm_date(self, date):
+        # Use alarm values from preferences
+        atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
+        adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
+
+        # If not running installed, there is no gconf schema.
+        if not atime:
+            atime = '13:00'
+            adays = 3
+
+        return scheduler.get_alarm_timestamp(adays, atime, date)
+

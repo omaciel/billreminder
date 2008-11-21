@@ -386,7 +386,7 @@ class MainDialog:
                 bill = self.actions.add_bill(rec.Dictionary)
                 if bill:
                     self.list.add(self._formated_row(bill))
-                    self._update_statusbar()
+            self._update_statusbar()
             # Reload records tree (something changed)
             self.reloadTreeView()
             self.reloadTimeline()
@@ -415,7 +415,7 @@ class MainDialog:
     def remove_bill(self):
         try:
             if self.actions.delete_bill(self.currentrecord.Id):
-                self.list.remove()
+                self.list.listStore.remove()
                 self._update_statusbar()
                 self.reloadTimeline()
         except Exception, e:

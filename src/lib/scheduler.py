@@ -7,6 +7,12 @@ SC_ONCE = _("Once")
 SC_WEEKLY = _("Weekly")
 SC_MONTHLY = _("Monthly")
 
+MULTIPLIER = {
+    SC_ONCE: 0,
+    SC_WEEKLY: 7,
+    SC_MONTHLY: 30
+}
+
 def time_from_calendar(calendar):
     ''' Return a time object representing the date. '''
     day = calendar[2]
@@ -37,27 +43,32 @@ def datetime_from_timestamp(timestamp):
 
     return ret
 
-def get_schedule_timestamp(frequency, date):
-    ''' Return the scheduled date from original date. '''
+def get_schedule_timestamp(frequency, startDate, endDate=None):
+    ''' Returns a list of scheduled date from original date. '''
 
-    # Date conversion if needed
-    if isinstance(date, float) or isinstance(date, int):
-        date = datetime_from_timestamp(date)
+    if not endDate:
+        endDate = startDate
 
-    if frequency == SC_WEEKLY:
-        delta = datetime.timedelta(days=7)
-        ret = date + delta
-    elif frequency == SC_MONTHLY:
-        nextMonth = date.month % 12 + 1
-        nextMonthYear = date.year + ((date.month) / 12)
-        ret = datetime.datetime(nextMonthYear, nextMonth, date.day)
-    else:
-        ret = date
+    totalDays = (endDate - startDate).days
 
-    # Convert to timestamp
-    ret = timestamp_from_datetime(ret)
+    multiplier = frequency == SC_ONCE and 1 or (totalDays / MULTIPLIER[frequency]) + 1
 
-    return ret
+    days = []
+
+    for i in range(multiplier):
+        # Convert to timestamps
+        dtstamp = timestamp_from_datetime(startDate)
+        days.append(dtstamp)
+
+        if frequency == SC_MONTHLY:
+            nextMonth = startDate.month % 12 + 1
+            nextMonthYear = startDate.year + ((startDate.month) / 12)
+            startDate = datetime.datetime(nextMonthYear, nextMonth, startDate.day)
+        else:
+            delta = datetime.timedelta(days=MULTIPLIER[frequency])
+            startDate = startDate + delta
+
+    return days
 
 def first_of_month(month, year):
     ''' Return the timestamp for the first day of the given month. '''
@@ -82,12 +93,10 @@ def last_of_month(month, year):
 
     return ret
 
-def get_alarm_timestamp(alertDays, alertTime, origDate=None):
+def get_alarm_timestamp(alertDays, alertTime, origDate):
     ''' Calculate alarm timestamp. '''
 
-    if not origDate:
-        origDate = datetime_from_timestamp(origDate)
-    elif isinstance(origDate, float) or isinstance(origDate, int):
+    if isinstance(origDate, float) or isinstance(origDate, int):
         origDate = datetime_from_timestamp(origDate)
 
     alertTime = alertTime.split(':')

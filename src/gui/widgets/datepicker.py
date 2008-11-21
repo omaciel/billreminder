@@ -57,7 +57,7 @@ class DatePicker(gtk.VBox):
 
     def emit_date_changed_signal(self):
         # Hide the calendar
-        self.expander.set_expanded(False)
+        #self.expander.set_expanded(False)
 
         self.emit("date_changed", self.currentDate)
 
@@ -68,7 +68,7 @@ class DatePicker(gtk.VBox):
         # Update the date label
         self.__update_label()
 
-        #self.emit_date_changed_signal()
+        self.emit_date_changed_signal()
 
     def set_date(self, dt):
         self.calendar.select_day(dt.day)
