@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-16 19:32-0500\n"
+"POT-Creation-Date: 2008-12-20 14:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -253,82 +253,88 @@ msgstr ""
 msgid "BillReminder Website"
 msgstr ""
 
-#: ../src/gui/adddialog.py:95
+#: ../src/gui/adddialog.py:80
 msgid "<b>_Repeat:</b>"
 msgstr ""
 
-#: ../src/gui/adddialog.py:99
-msgid "How many times to repeat this bill."
-msgstr ""
-
-#: ../src/gui/adddialog.py:125
-msgid "<b>_Payee:</b>"
-msgstr ""
-
-#: ../src/gui/adddialog.py:128
-msgid "<b>_Amount:</b>"
-msgstr ""
-
-#: ../src/gui/adddialog.py:131
-msgid "<b>_Category:</b>"
-msgstr ""
-
-#: ../src/gui/adddialog.py:134
-msgid "<b>_Notes:</b>"
-msgstr ""
-
-#: ../src/gui/adddialog.py:137
-msgid "<b>A_larm:</b>"
-msgstr ""
-
-#: ../src/gui/adddialog.py:163
-msgid "Manage Categories"
-msgstr ""
-
-#: ../src/gui/adddialog.py:187 ../src/gui/widgets/datebutton.py:40
-msgid "Select Date and Time"
-msgstr ""
-
-#: ../src/gui/adddialog.py:191
+#: ../src/gui/adddialog.py:86
 msgid "<b>Due Date:</b>"
 msgstr ""
 
 #. TRANSLATORS: This is the end date for repeating bills.
-#: ../src/gui/adddialog.py:195
-msgid "<b>End:</b>"
+#: ../src/gui/adddialog.py:90
+msgid "<b>End Date:</b>"
+msgstr ""
+
+#: ../src/gui/adddialog.py:107
+msgid "<b>_Payee:</b>"
+msgstr ""
+
+#: ../src/gui/adddialog.py:110
+msgid "<b>_Amount:</b>"
+msgstr ""
+
+#: ../src/gui/adddialog.py:113
+msgid "<b>_Category:</b>"
+msgstr ""
+
+#: ../src/gui/adddialog.py:116
+msgid "<b>_Notes:</b>"
+msgstr ""
+
+#: ../src/gui/adddialog.py:119
+msgid "<b>A_larm:</b>"
+msgstr ""
+
+#: ../src/gui/adddialog.py:144
+msgid "Manage Categories"
+msgstr ""
+
+#: ../src/gui/adddialog.py:167 ../src/gui/widgets/datebutton.py:40
+msgid "Select Date and Time"
 msgstr ""
 
 #. # Expander
-#: ../src/gui/adddialog.py:229
+#: ../src/gui/adddialog.py:202
 msgid "<b>Optional Fields:</b>"
 msgstr ""
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:345 ../src/gui/adddialog.py:369
+#: ../src/gui/adddialog.py:351 ../src/gui/adddialog.py:375
 #: ../src/gui/maindialog.py:279 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr ""
 
-#: ../src/gui/adddialog.py:351 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:357 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr ""
 
-#: ../src/gui/adddialog.py:486
+#: ../src/gui/adddialog.py:397
+msgid ""
+"The end date is set to a date prior to the start date. Setting it to match "
+"the start date."
+msgstr ""
+
+#: ../src/gui/adddialog.py:398
+msgid "Date set in the past"
+msgstr ""
+
+#: ../src/gui/adddialog.py:499
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr ""
 
-#: ../src/gui/adddialog.py:487 ../src/gui/adddialog.py:491
+#: ../src/gui/adddialog.py:500 ../src/gui/adddialog.py:504
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Payee"
 msgstr ""
 
-#: ../src/gui/adddialog.py:487 ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/adddialog.py:500 ../src/gui/widgets/viewbill.py:93
 msgid "Amount"
 msgstr ""
 
-#: ../src/gui/adddialog.py:491
+#: ../src/gui/adddialog.py:504
 #, python-format
 msgid "\"%s\" is required field."
 msgstr ""
@@ -349,7 +355,7 @@ msgstr ""
 msgid "Color:"
 msgstr ""
 
-#: ../src/gui/categoriesdialog.py:217
+#: ../src/gui/categoriesdialog.py:219
 #, python-format
 msgid ""
 "The category \"%s\" already exists in the database!\n"
@@ -357,18 +363,18 @@ msgid ""
 "Do you want to save your change to the existing category?"
 msgstr ""
 
-#: ../src/gui/categoriesdialog.py:244
+#: ../src/gui/categoriesdialog.py:246
 msgid "Do you really want to delete this category?\n"
 msgstr ""
 
-#: ../src/gui/categoriesdialog.py:245
+#: ../src/gui/categoriesdialog.py:247
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:564
+#: ../src/gui/categoriesdialog.py:250 ../src/gui/maindialog.py:566
 msgid "Confirmation"
 msgstr ""
 
@@ -408,7 +414,7 @@ msgstr ""
 msgid "_File"
 msgstr ""
 
-#: ../src/gui/maindialog.py:327 ../src/gui/maindialog.py:522
+#: ../src/gui/maindialog.py:327 ../src/gui/maindialog.py:524
 msgid "_Add New"
 msgstr ""
 
@@ -416,7 +422,7 @@ msgstr ""
 msgid "_Edit"
 msgstr ""
 
-#: ../src/gui/maindialog.py:331 ../src/gui/maindialog.py:532
+#: ../src/gui/maindialog.py:331 ../src/gui/maindialog.py:534
 msgid "_Paid"
 msgstr ""
 
@@ -476,11 +482,11 @@ msgstr ""
 msgid "Display all bills"
 msgstr ""
 
-#: ../src/gui/maindialog.py:535
+#: ../src/gui/maindialog.py:537
 msgid "Not _Paid"
 msgstr ""
 
-#: ../src/gui/maindialog.py:562
+#: ../src/gui/maindialog.py:564
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr ""
@@ -548,9 +554,8 @@ msgstr ""
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr ""
 
-#. Label to display the date selected
 #. TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
-#: ../src/gui/widgets/datepicker.py:40 ../src/gui/widgets/datepicker.py:64
+#: ../src/gui/widgets/datepicker.py:87
 msgid "%m/%d/%Y"
 msgstr ""
 
