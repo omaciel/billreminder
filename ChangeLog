@@ -1,3 +1,9 @@
+2008-12-20 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/adddialog.py: Notify user when the end date is prior to start date.
+	* src/gui/maindialog.py: Convert datetime.date to datetime.datetime when
+	 passing the date from timeline.
+
 2008-12-18 Og Maciel <ogmaciel@gnome.org>
 
 	* src/lib/scheduler.py: Handle end dates set in the past and added tests.

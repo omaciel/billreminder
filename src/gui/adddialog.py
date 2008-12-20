@@ -386,10 +386,17 @@ class AddDialog(gtk.Dialog):
         frequency = self.frequency.get_active_text()
         # Extracts the date off the calendar widget
         # Create datetime object
-        selectedDate = scheduler.timestamp_from_datetime(self.dueDate.get_date())
+        selectedDate = self.dueDate.get_date()
         # End date
         if frequency != scheduler.SC_ONCE:
-            endDate = scheduler.timestamp_from_datetime(self.endDate.currentDate)
+            endDate = self.endDate.get_date()
+            # Notify user that the endDate is set in the past
+            if endDate < selectedDate:
+                endDate = selectedDate
+                message = utils.Message()
+                text = _("The end date is set to a date prior to the start date. Setting it to match the start date.")
+                title = _("Date set in the past")
+                message.ShowInfo(text=text, parentWindow=self, title=title)
         else:
             endDate = None
 
@@ -420,7 +427,7 @@ class AddDialog(gtk.Dialog):
             # this will only work for new bills
             records = []
             days = scheduler.get_schedule_timestamp(
-                frequency, self.dueDate.get_date(), self.endDate.get_date())
+                frequency, selectedDate, endDate)
 
             for day in days:
                 if alarm != -1:
@@ -434,7 +441,7 @@ class AddDialog(gtk.Dialog):
             # Edit existing bill
             self.currentrecord.Category = category
             self.currentrecord.Payee = payee
-            self.currentrecord.DueDate = int(selectedDate)
+            self.currentrecord.DueDate = int(scheduler.timestamp_from_datetime(selectedDate))
             self.currentrecord.AmountDue = amount
             self.currentrecord.Notes = sbuffer
             self.currentrecord.Alarm = alarm
