@@ -1,5 +1,6 @@
 2009-01-01 Og Maciel <ogmaciel@gnome.org>
 
+	* po/POTFILES.skip: Added calendarwidget.py.
 	* src/gui/widgets/timeline.py: CTRL mask fix by Luiz Armesto.
 	* NEWS: Entries for the new datepicker and timeline widgets.
 

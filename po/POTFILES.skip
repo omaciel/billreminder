@@ -5,5 +5,6 @@ src/db/categoriestable.py
 src/db/configtable.py
 src/db/fieldstable.py
 src/db/versionstable.py
+src/gui/widgets/calendarwidget.py
 src/gui/widgets/genericlistview.py
 src/lib/migrate_to_gconf.py
