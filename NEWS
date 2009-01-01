@@ -1,6 +1,33 @@
 BillReminder 0.3.x
 ==================
 
+Frontend:
+  * A new calendar widget has been added to replace the caledar from the
+  add/edit dialog. In order to display the calendar, it is necessary to
+  expand the widget by clicking on the displayed date.
+  * Repeating bills are now handled by selecting a frequency (the current
+  allowed values are: once, weekly, and monthly) and setting the end date.
+  Multiple records will then be added using the start and end date to figure
+  out their correct due date.
+  * A new timeline widget has been added to replace the calendar from the main
+  window. You can now use it to change the way you view your bills by
+  selecting an specific date with a single click as well as drag the
+  timeline to view past and/or future bills. The following keyboard
+  shortcuts are available:
+
+  With focus:
+    right arrow     go to next day
+    left arrow      go to previous day
+    Ctrl + right    go to same day next month
+    Ctrl + left     go to same day previous month
+    + (plus)        zoom in
+    - (minus)       zoom out
+    HOME            go to today's date
+    PAGEUP          scroll to next screen*
+    PAGEDOWN        scroll to previous screen
+
+  * go to current day plus the number of days displayed in widget.
+
 Backend:
   * Fixed an issue where datadir was hard coded to '/usr/share'. (Bug #553890).
   * Make sure that gconf is run (if available) and register schema. Partially

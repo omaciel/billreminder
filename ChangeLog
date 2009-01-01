@@ -1,3 +1,8 @@
+2009-01-01 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/widgets/timeline.py: CTRL mask fix by Luiz Armesto.
+	* NEWS: Entries for the new datepicker and timeline widgets.
+
 2008-12-20 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/adddialog.py: Notify user when the end date is prior to start date.

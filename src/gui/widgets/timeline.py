@@ -376,7 +376,7 @@ class Timeline(gtk.DrawingArea):
 
     def do_key_press_event(self, event):
         if gtk.gdk.keyval_name(event.keyval) == 'Right':
-            if event.state == gtk.gdk.CONTROL_MASK:
+            if event.state & gtk.gdk.CONTROL_MASK:
                 # Control+right - go to next month
                 month = (self.value.month % 12) + 1
                 year = self.value.year + (self.value.month) / 12
@@ -384,7 +384,7 @@ class Timeline(gtk.DrawingArea):
             else:
                 self.scroll(gtk.gdk.SCROLL_RIGHT)
         if gtk.gdk.keyval_name(event.keyval) ==  'Left':
-            if event.state == gtk.gdk.CONTROL_MASK:
+            if event.state & gtk.gdk.CONTROL_MASK:
                 # Control+left - go to prev month
                 year = self.value.year - int(not self.value.month - 1)
                 month = self.value.month - 1 + (self.value.year - year) * 12
