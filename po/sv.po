@@ -1,14 +1,14 @@
 # Swedish translation for billreminder.
-# Copyright (C) 2007, 2008 Og Maciel
+# Copyright (C) 2007, 2008, 2009 Og Maciel
 # This file is distributed under the same license as the billreminder package.
-# Daniel Nylander <po@danielnylander.se>, 2007, 2008.
+# Daniel Nylander <po@danielnylander.se>, 2007, 2008, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-01 08:16+0200\n"
-"PO-Revision-Date: 2008-10-01 08:18+0100\n"
+"POT-Creation-Date: 2009-01-03 10:03+0100\n"
+"PO-Revision-Date: 2009-01-03 10:04+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -221,8 +221,8 @@ msgstr "Räkningen %s ska betalas."
 
 #. Button Title
 #: ../src/daemon/alarm.py:128
-#: ../src/gui/maindialog.py:338
-#: ../src/gui/maindialog.py:371
+#: ../src/gui/maindialog.py:298
+#: ../src/gui/maindialog.py:331
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Markera som betald"
@@ -232,28 +232,28 @@ msgstr "Markera som betald"
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../src/daemon/main.py:118
+#: ../src/daemon/main.py:85
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
 msgstr "Låsfil hittades: Du har en annan instans igång. (pid=%d)"
 
-#: ../src/daemon/main.py:123
+#: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr "Låsfil hittades: Antagligen avslutades programmet oväntat."
 
-#: ../src/daemon/main.py:126
+#: ../src/daemon/main.py:93
 msgid "Removing Lock File..."
 msgstr "Tar bort låsfil..."
 
-#: ../src/daemon/main.py:128
+#: ../src/daemon/main.py:95
 msgid "Successfully."
 msgstr "Lyckades."
 
-#: ../src/daemon/main.py:130
+#: ../src/daemon/main.py:97
 msgid "Failed."
 msgstr "Misslyckades."
 
-#: ../src/daemon/main.py:134
+#: ../src/daemon/main.py:101
 msgid "BillReminder Notifier is already running."
 msgstr "Notifieraren för Räkningspåminnaren är redan igång."
 
@@ -276,78 +276,92 @@ msgstr ""
 msgid "BillReminder Website"
 msgstr "Webbplats för Räkningspåminnare"
 
-#: ../src/gui/adddialog.py:96
-msgid "<b>_Due Date:</b>"
-msgstr "<b>_Betalningsdatum:</b>"
-
-#: ../src/gui/adddialog.py:104
+#: ../src/gui/adddialog.py:80
 msgid "<b>_Repeat:</b>"
 msgstr "<b>U_pprepa:</b>"
 
-#: ../src/gui/adddialog.py:108
-msgid "How many times to repeat this bill."
-msgstr "Hur många gånger denna räkning ska upprepas."
+#: ../src/gui/adddialog.py:86
+msgid "<b>Due Date:</b>"
+msgstr "<b>Betalningsdatum:</b>"
 
-#: ../src/gui/adddialog.py:141
+#. TRANSLATORS: This is the end date for repeating bills.
+#: ../src/gui/adddialog.py:90
+msgid "<b>End Date:</b>"
+msgstr "<b>Slutdatum:</b>"
+
+#: ../src/gui/adddialog.py:107
 msgid "<b>_Payee:</b>"
 msgstr "<b>Betal_ningsmottagare:</b>"
 
-#: ../src/gui/adddialog.py:144
+#: ../src/gui/adddialog.py:110
 msgid "<b>_Amount:</b>"
 msgstr "<b>S_umma:</b>"
 
-#: ../src/gui/adddialog.py:147
+#: ../src/gui/adddialog.py:113
 msgid "<b>_Category:</b>"
 msgstr "<b>_Kategori:</b>"
 
-#: ../src/gui/adddialog.py:150
+#: ../src/gui/adddialog.py:116
 msgid "<b>_Notes:</b>"
 msgstr "<b>Ant_eckningar:</b>"
 
-#: ../src/gui/adddialog.py:153
+#: ../src/gui/adddialog.py:119
 msgid "<b>A_larm:</b>"
 msgstr "<b>A_larm:</b>"
 
-#: ../src/gui/adddialog.py:179
+#: ../src/gui/adddialog.py:144
 msgid "Manage Categories"
 msgstr "Hantera kategorier"
 
-#: ../src/gui/adddialog.py:202
+#: ../src/gui/adddialog.py:167
 #: ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Välj datum och tid"
 
+#. # Expander
+#: ../src/gui/adddialog.py:202
+msgid "<b>Optional Fields:</b>"
+msgstr "<b>Valfria fält:</b>"
+
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:336
-#: ../src/gui/adddialog.py:360
-#: ../src/gui/maindialog.py:319
+#: ../src/gui/adddialog.py:351
+#: ../src/gui/adddialog.py:375
+#: ../src/gui/maindialog.py:279
 #: ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "Inget"
 
-#: ../src/gui/adddialog.py:342
+#: ../src/gui/adddialog.py:357
 #: ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Ny kategori"
 
-#: ../src/gui/adddialog.py:477
+#: ../src/gui/adddialog.py:397
+msgid "The end date is set to a date prior to the start date. Setting it to match the start date."
+msgstr "Slutdatumen är inställt till ett datum före startdatumet. Ställer in det för att matcha startdatumet."
+
+#: ../src/gui/adddialog.py:398
+msgid "Date set in the past"
+msgstr "Datum i det förflutna"
+
+#: ../src/gui/adddialog.py:499
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" och \"%s\" är nödvändiga fält."
 
-#: ../src/gui/adddialog.py:478
-#: ../src/gui/adddialog.py:482
+#: ../src/gui/adddialog.py:500
+#: ../src/gui/adddialog.py:504
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Payee"
 msgstr "Betalningsmottagare"
 
-#: ../src/gui/adddialog.py:478
+#: ../src/gui/adddialog.py:500
 #: ../src/gui/widgets/viewbill.py:93
 msgid "Amount"
 msgstr "Summa"
 
-#: ../src/gui/adddialog.py:482
+#: ../src/gui/adddialog.py:504
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" är ett nödvändigt fält."
@@ -368,7 +382,7 @@ msgstr "Namn:"
 msgid "Color:"
 msgstr "Färg:"
 
-#: ../src/gui/categoriesdialog.py:217
+#: ../src/gui/categoriesdialog.py:219
 #, python-format
 msgid ""
 "The category \"%s\" already exists in the database!\n"
@@ -378,142 +392,138 @@ msgstr ""
 "Denna kategori \"%s\" finns redan i databasen!\n"
 "Vill du spara dina ändringar till den existerande kategorin?"
 
-#: ../src/gui/categoriesdialog.py:244
+#: ../src/gui/categoriesdialog.py:246
 msgid "Do you really want to delete this category?\n"
 msgstr "Vill du verkligen ta bort denna kategori?\n"
 
-#: ../src/gui/categoriesdialog.py:245
+#: ../src/gui/categoriesdialog.py:247
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
 msgstr[0] "Det finns %d räkning i denna kategori."
 msgstr[1] "Det finns %d räkningar i denna kategori."
 
-#: ../src/gui/categoriesdialog.py:248
-#: ../src/gui/maindialog.py:605
+#: ../src/gui/categoriesdialog.py:250
+#: ../src/gui/maindialog.py:566
 msgid "Confirmation"
 msgstr "Bekräftelse"
 
-#: ../src/gui/maindialog.py:150
-msgid "<b>F_ilter:</b>"
-msgstr "<b>F_ilter:</b>"
-
-#: ../src/gui/maindialog.py:331
+#: ../src/gui/maindialog.py:291
 msgid "New"
 msgstr "Ny"
 
 #. Dialog Title
-#: ../src/gui/maindialog.py:331
-#: ../src/gui/maindialog.py:367
+#: ../src/gui/maindialog.py:291
+#: ../src/gui/maindialog.py:327
 #: ../src/lib/dialogs.py:51
 msgid "Add a new bill"
 msgstr "Lägg till en ny räkning"
 
 #. Dialog Title
-#: ../src/gui/maindialog.py:333
-#: ../src/gui/maindialog.py:368
+#: ../src/gui/maindialog.py:293
+#: ../src/gui/maindialog.py:328
 #: ../src/lib/dialogs.py:62
 msgid "Edit a bill"
 msgstr "Redigera en räkning"
 
-#: ../src/gui/maindialog.py:335
-#: ../src/gui/maindialog.py:369
+#: ../src/gui/maindialog.py:295
+#: ../src/gui/maindialog.py:329
 msgid "Delete selected bill"
 msgstr "Ta bort markerad räkning"
 
-#: ../src/gui/maindialog.py:338
+#: ../src/gui/maindialog.py:298
 #: ../src/gui/widgets/viewbill.py:97
 msgid "Paid"
 msgstr "Betald"
 
-#: ../src/gui/maindialog.py:341
+#: ../src/gui/maindialog.py:301
 msgid "Not Paid"
 msgstr "Inte betald"
 
-#: ../src/gui/maindialog.py:341
-#: ../src/gui/maindialog.py:372
+#: ../src/gui/maindialog.py:301
+#: ../src/gui/maindialog.py:332
 msgid "Mark as not paid"
 msgstr "Markera som obetald"
 
-#: ../src/gui/maindialog.py:366
+#: ../src/gui/maindialog.py:326
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../src/gui/maindialog.py:367
-#: ../src/gui/maindialog.py:563
+#: ../src/gui/maindialog.py:327
+#: ../src/gui/maindialog.py:524
 msgid "_Add New"
 msgstr "_Lägg till ny"
 
-#: ../src/gui/maindialog.py:370
+#: ../src/gui/maindialog.py:330
 msgid "_Edit"
 msgstr "R_edigera"
 
-#: ../src/gui/maindialog.py:371
-#: ../src/gui/maindialog.py:573
+#: ../src/gui/maindialog.py:331
+#: ../src/gui/maindialog.py:534
 msgid "_Paid"
 msgstr "_Betald"
 
-#: ../src/gui/maindialog.py:372
+#: ../src/gui/maindialog.py:332
 msgid "_Not Paid"
 msgstr "_Inte betald"
 
-#: ../src/gui/maindialog.py:373
+#: ../src/gui/maindialog.py:333
 msgid "Edit preferences"
 msgstr "Redigera inställningar"
 
-#: ../src/gui/maindialog.py:374
+#: ../src/gui/maindialog.py:334
 msgid "Quit the Program"
 msgstr "Avsluta programmet"
 
-#: ../src/gui/maindialog.py:375
+#: ../src/gui/maindialog.py:335
 msgid "_View"
 msgstr "_Visa"
 
-#: ../src/gui/maindialog.py:376
+#: ../src/gui/maindialog.py:336
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../src/gui/maindialog.py:377
+#: ../src/gui/maindialog.py:337
 msgid "About the application"
 msgstr "Om programmet"
 
-#: ../src/gui/maindialog.py:387
+#: ../src/gui/maindialog.py:347
 msgid "_Show Toolbar"
 msgstr "_Visa verktygsrad"
 
-#: ../src/gui/maindialog.py:387
+#: ../src/gui/maindialog.py:347
 msgid "Show the toolbar"
 msgstr "Visa verktygsraden"
 
-#: ../src/gui/maindialog.py:391
+#: ../src/gui/maindialog.py:351
 msgid "_Not Paid Only"
 msgstr "_Inte betalda"
 
-#: ../src/gui/maindialog.py:391
+#: ../src/gui/maindialog.py:351
 msgid "Display all unpaid bills only"
 msgstr "Visa endast obetalda räkningar"
 
-#: ../src/gui/maindialog.py:392
+#: ../src/gui/maindialog.py:352
 msgid "_Paid Only"
 msgstr "Endast _betalda"
 
-#: ../src/gui/maindialog.py:392
+#: ../src/gui/maindialog.py:352
 msgid "Display all paid bills only"
 msgstr "Visa endast betalda räkningar"
 
-#: ../src/gui/maindialog.py:393
+#: ../src/gui/maindialog.py:353
 msgid "_All Bills"
 msgstr "_Alla räkningar"
 
-#: ../src/gui/maindialog.py:393
+#: ../src/gui/maindialog.py:353
 msgid "Display all bills"
 msgstr "Visa alla räkningar"
 
-#: ../src/gui/maindialog.py:576
+#: ../src/gui/maindialog.py:537
 msgid "Not _Paid"
 msgstr "Inte b_etald"
 
-#: ../src/gui/maindialog.py:603
+#: ../src/gui/maindialog.py:564
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Vill du verkligen ta bort \"%s\"?"
@@ -586,13 +596,10 @@ msgstr "_Starta notifierare för Räkningspåminnare"
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr "<b>Observera:</b> Notifieraren för Räkningspåminnaren kör nu."
 
-#: ../src/gui/widgets/calendarwidget.py:55
-msgid "<b>_Monthly Report:</b>"
-msgstr "<b>_Månatlig rapport:</b>"
-
-#: ../src/gui/widgets/calendarwidget.py:62
-msgid "<b>_Year:</b>"
-msgstr "<b>_År:</b>"
+#. TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
+#: ../src/gui/widgets/datepicker.py:87
+msgid "%m/%d/%Y"
+msgstr "%Y-%m-%d"
 
 #: ../src/gui/widgets/datebutton.py:32
 #: ../src/gui/widgets/datebutton.py:65
@@ -718,6 +725,14 @@ msgstr "Veckoligen"
 msgid "Monthly"
 msgstr "Månatligen"
 
+#~ msgid "How many times to repeat this bill."
+#~ msgstr "Hur många gånger denna räkning ska upprepas."
+#~ msgid "<b>F_ilter:</b>"
+#~ msgstr "<b>F_ilter:</b>"
+#~ msgid "<b>_Monthly Report:</b>"
+#~ msgstr "<b>_Månatlig rapport:</b>"
+#~ msgid "<b>_Year:</b>"
+#~ msgstr "<b>_År:</b>"
 #~ msgid "Edit a record"
 #~ msgstr "Redigera en post"
 #~ msgid "_All Records"
@@ -730,8 +745,6 @@ msgstr "Månatligen"
 #~ msgstr "Lägg till en ny post"
 #~ msgid "Edit a Record"
 #~ msgstr "Redigera en post"
-#~ msgid "<b>_Bills:</b>"
-#~ msgstr "<b>_Räkningar:</b>"
 #~ msgid "%Y/%m/%d"
 #~ msgstr "%Y-%m-%d"
 #~ msgid "Due Date:"
