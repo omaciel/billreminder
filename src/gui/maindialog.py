@@ -78,7 +78,7 @@ class MainDialog:
         if exists(join(USER_CFG_PATH, CFG_NAME)):
             from lib.migrate_to_gconf import migrate
             migrate(join(USER_CFG_PATH, CFG_NAME))
-        
+
         self.gconf_client = gconf.client_get_default()
         self.message = Message()
         # Connects to the database
@@ -228,7 +228,7 @@ class MainDialog:
 
         if not records:
             return 0
-            
+
         # Loops through bills collection
         path = 0
         for rec in records:
@@ -240,6 +240,7 @@ class MainDialog:
     def reloadTreeView(self, *arg):
         # Update list with updated record
         status = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
+
         month = self.timeline.value.month
         year = self.timeline.value.year
 

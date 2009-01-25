@@ -1,3 +1,9 @@
+2009-01-25 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/widgets/timeline.py: Started work to handle bullets with multiple
+	status.
+	* src/gui/maindialog.py: Removed white space.
+
 2009-01-01 Og Maciel <ogmaciel@gnome.org>
 
 	* po/POTFILES.skip: Added calendarwidget.py.

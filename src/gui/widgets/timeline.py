@@ -15,7 +15,7 @@ class Bullet(object):
     OVERDUE, TO_BE_PAID, PAID = range(-1, 2)
 
     debug = False
-    
+
     def __init__(self, date=None, amountDue=None, estimated=False, status=0,
       overthreshold=False, multi=False, tooltip=''):
         self.date = date
@@ -60,7 +60,7 @@ class Timeline(gtk.DrawingArea):
             - callback is a functions that receive a datatetime.date object
               and return a Bullet object
         """
-        
+
         # Treat the parameter
         if date and not isinstance(date, datetime.date) and \
           isinstance(date, tuple) and len(date) == 3:
@@ -131,12 +131,12 @@ class Timeline(gtk.DrawingArea):
         self.style.attach(self.window)
         self.style.set_background(self.window, gtk.STATE_NORMAL)
         self.set_property('can-focus', True)
-        
+
         self.select_date(self.value.day, self.value.month, self.value.year)
-        
+
         # Define widget minimum size
         self.set_size_request(540, 81)
-        
+
     def do_unrealize(self):
         self.window.destroy()
 
@@ -162,7 +162,7 @@ class Timeline(gtk.DrawingArea):
         # TODO Organize
         """ Draw a horizontal timeline """
         self._layout = self.create_pango_layout('')
-        
+
         # base box
         self.window.draw_rectangle(self.style.base_gc[gtk.STATE_NORMAL], True,
                                    self._box_rect.x,
@@ -187,84 +187,86 @@ class Timeline(gtk.DrawingArea):
 
             x = self._box_rect.x + self._div_width * i + self._div_width / 2
             width = self._bullet_radius
-            
+
             # bullets
             if self._bullets[i] and i < self._display_days:
                 arc = (2 * pi) / 40
                 bullet_ = self._bullets[i]
-                if bullet_.status == Bullet.PAID:
-                    cr.set_source_rgb(0.27, 0.81, 0.44)
-                    cr.set_source_rgb(0.19, 0.51, 0)
-                elif bullet_.status == Bullet.OVERDUE:
-                    cr.set_source_rgb(1, 0.16, 0.16)
-                else:
-                    cr.set_source_rgb(0.52, 0.81, 0.87)
-                if bullet_.multi:
-                    x += width / 4
-                    y += width / 3
-                    cr.arc(x, y, width, 0, 2 * pi)
-                    cr.fill_preserve()
-                    cr.set_line_width(width / 8)
-                    if bullet_.status == Bullet.PAID:
+
+                for status in bullet_.status:
+                    if status == Bullet.PAID:
+                        cr.set_source_rgb(0.27, 0.81, 0.44)
                         cr.set_source_rgb(0.19, 0.51, 0)
-                    elif bullet_.status == Bullet.OVERDUE:
+                    elif status == Bullet.OVERDUE:
+                        cr.set_source_rgb(1, 0.16, 0.16)
+                    else:
+                        cr.set_source_rgb(0.52, 0.81, 0.87)
+                    if bullet_.multi:
+                        x += width / 4
+                        y += width / 3
+                        cr.arc(x, y, width, 0, 2 * pi)
+                        cr.fill_preserve()
+                        cr.set_line_width(width / 8)
+                        if status == Bullet.PAID:
+                            cr.set_source_rgb(0.19, 0.51, 0)
+                        elif status == Bullet.OVERDUE:
+                            cr.set_source_rgb(0.47, 0, 0)
+                        else:
+                            cr.set_source_rgb(0.13, 0.4, 0.48)
+                        #cr.arc(x, y, width, 0, 2 * pi)
+                        cr.stroke()
+                        x -= width / 4
+                        y -= width / 3
+                    if status == Bullet.PAID:
+                        cr.set_source_rgb(0.27, 0.81, 0.44)
+                    elif status == Bullet.OVERDUE:
+                        cr.set_source_rgb(1, 0.16, 0.16)
+                    else:
+                        cr.set_source_rgb(0.52, 0.81, 0.87)
+                    cr.arc(x, y, width, 0, 2 * pi)
+                    cr.fill()
+
+                    if status == Bullet.PAID:
+                        cr.set_source_rgb(0.19, 0.51, 0)
+                    elif status == Bullet.OVERDUE:
                         cr.set_source_rgb(0.47, 0, 0)
                     else:
                         cr.set_source_rgb(0.13, 0.4, 0.48)
-                    #cr.arc(x, y, width, 0, 2 * pi)
-                    cr.stroke()
-                    x -= width / 4
-                    y -= width / 3
-                if bullet_.status == Bullet.PAID:
-                    cr.set_source_rgb(0.27, 0.81, 0.44)
-                elif bullet_.status == Bullet.OVERDUE:
-                    cr.set_source_rgb(1, 0.16, 0.16)
-                else:
-                    cr.set_source_rgb(0.52, 0.81, 0.87)
-                cr.arc(x, y, width, 0, 2 * pi)
-                cr.fill()
 
-                if bullet_.status == Bullet.PAID:
-                    cr.set_source_rgb(0.19, 0.51, 0)
-                elif bullet_.status == Bullet.OVERDUE:
-                    cr.set_source_rgb(0.47, 0, 0)
-                else:
-                    cr.set_source_rgb(0.13, 0.4, 0.48)
-
-                if bullet_.overthreshold:
-                    cr.set_line_width(width / 3)
-                else:
-                    cr.set_line_width(width / 5)
-                if bullet_.estimated:
-                    for j in range(0, 40, 2):
-                        if bullet_.overthreshold:
-                            cr.arc(x, y, width, arc * j, arc * (j + 1))
-                        else:
-                            cr.arc(x, y, width, arc * j, arc * (j + 0.5))
+                    if bullet_.overthreshold:
+                        cr.set_line_width(width / 3)
+                    else:
+                        cr.set_line_width(width / 5)
+                    if bullet_.estimated:
+                        for j in range(0, 40, 2):
+                            if bullet_.overthreshold:
+                                cr.arc(x, y, width, arc * j, arc * (j + 1))
+                            else:
+                                cr.arc(x, y, width, arc * j, arc * (j + 0.5))
+                            cr.stroke()
+                    else:
+                        cr.arc(x, y, width, 0, 2 * pi)
                         cr.stroke()
-                else:
-                    cr.arc(x, y, width, 0, 2 * pi)
-                    cr.stroke()
 
-            y = y_
+                y = y_
 
-            cr.set_source_rgb(0.4, 0.4, 0.4)
-            cr.arc(x, y, width / 5, 0, 2 * pi)
-            cr.fill()
-            if self._dates[i].weekday() == 0:
-                cr.set_line_width(max(width / 8, 0.8))
-                cr.move_to(x, y - max(width / 2, 4))
-                cr.line_to(x, y + max(width / 2, 4))
-                cr.stroke()
-
-            if self._dates[i] == datetime.date.today():
-                cr.set_line_width(max(width / 8, 0.8))
                 cr.set_source_rgb(0.4, 0.4, 0.4)
-                h_ = (self._box_rect.height + self._box_rect.y) / 10
-                for j in range(0, 10, 2):
-                    cr.move_to(x, self._box_rect.y + h_ * j + 1)
-                    cr.line_to(x, self._box_rect.y + h_ * (j + 1))
+                cr.arc(x, y, width / 5, 0, 2 * pi)
+                cr.fill()
+                if self._dates[i].weekday() == 0:
+                    cr.set_line_width(max(width / 8, 0.8))
+                    cr.move_to(x, y - max(width / 2, 4))
+                    cr.line_to(x, y + max(width / 2, 4))
                     cr.stroke()
+
+                if self._dates[i] == datetime.date.today():
+                    cr.set_line_width(max(width / 8, 0.8))
+                    cr.set_source_rgb(0.4, 0.4, 0.4)
+                    h_ = (self._box_rect.height + self._box_rect.y) / 10
+                    for j in range(0, 10, 2):
+                        cr.move_to(x, self._box_rect.y + h_ * j + 1)
+                        cr.line_to(x, self._box_rect.y + h_ * (j + 1))
+                        cr.stroke()
 
             ## year label
             if (self._dates[i].day, self._dates[i].month) == (1, 1) or \
@@ -281,7 +283,7 @@ class Timeline(gtk.DrawingArea):
                                             self._box_rect.y + \
                                             self._box_rect.height + 12,
                                             self._layout)
-                                            
+
                 line_h = 6
 
             ## month label
@@ -299,7 +301,7 @@ class Timeline(gtk.DrawingArea):
                                             self._box_rect.y + \
                                             self._box_rect.height + 12,
                                             self._layout)
-                                            
+
                 line_h = 6
 
             self.window.draw_rectangle(line_cg[self.state],
@@ -372,7 +374,7 @@ class Timeline(gtk.DrawingArea):
                                    1,
                                    self.width - 2,
                                    self.height -2)
-        
+
 
     def do_key_press_event(self, event):
         if gtk.gdk.keyval_name(event.keyval) == 'Right':
@@ -544,7 +546,7 @@ class Timeline(gtk.DrawingArea):
             self._bullet_radius = (self._box_rect.height / 2) / 2
         else:
             self._bullet_radius = (self._div_width - self._div_width / 4) / 2
-        
+
         return False
 
     def _dist_dates(self, first=None):
@@ -566,7 +568,7 @@ class Timeline(gtk.DrawingArea):
                 first = selected.replace(month=month, year=year)
             elif self._type == self.YEAR:
                 first = selected.replace(year=selected.year - self.position)
-                
+
         if self._type == self.DAY:
             for i in range(self._display_days + 1):
                 self._dates[i] = first + datetime.timedelta(days=i)
@@ -635,14 +637,14 @@ class Timeline(gtk.DrawingArea):
             self.set_position(self.position - 1, True)
         elif self.position < (self._display_days - 1) / 2:
             self.set_position(self.position + 1, True)
-            
+
         if self.position == (self._display_days - 1) / 2:
             self.value = self._dates[self.position]
             self._dist_dates()
             self._value_changed()
-            
+
         return self.position != (self._display_days - 1) / 2
-            
+
     def move(self, pos, update=True, redraw=True):
         position_old = self.position
         self.position = round((pos - self._box_rect.x) / self._div_width)
@@ -738,7 +740,7 @@ class Timeline(gtk.DrawingArea):
         self.value = self.value.replace(day=day, month=month, year=year)
         self.queue_draw_area(0, 0, self.width, self.height)
         self._value_changed()
-    
+
     def set_bullet_function(self, func):
         self._bullet_func = func
 
@@ -746,8 +748,27 @@ def bullet_cb(date):
     if debug:
         print date.day
 
+    bullets = []
+
+    today = datetime.date.today()
+    yesterday = today - datetime.timedelta(days=1)
+    tomorrow = today + datetime.timedelta(days=1)
+
+    # date=None, amountDue=None, estimated=False, status=0,
+    # overthreshold=False, multi=False, tooltip=''
+    if date == today:
+        # return a multi-record bullet
+        return Bullet(date, 50, False, [1,0], False, True, 'Tooltip')
+    elif date == yesterday:
+        return Bullet(date, 200, True, [0,1], True, True, 'Yep. This is a tooltip')
+    elif date == tomorrow:
+        return Bullet(date, 20, True, [0], False, False, 'What? Ah, tooltip...')
+
+    return None
+
+    """
     if date == datetime.date(2008, 9, 10):
-        return Bullet(date, 50, False, 1, False, False, 'Tooltip')
+        return Bullet(today, 50, False, 1, False, False, 'Tooltip')
     elif date == datetime.date(2008, 9, 20):
         return Bullet(date, 200, False, -1, True, True, 'Another tooltip')
     elif date == datetime.date(2008, 9, 29):
@@ -758,6 +779,7 @@ def bullet_cb(date):
         return Bullet(date, 700, False, 0, True, False, 'Do you really want more tooltip?')
 
     return None
+    """
 
 
 if __name__ == '__main__':
