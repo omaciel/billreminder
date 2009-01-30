@@ -193,60 +193,59 @@ class Timeline(gtk.DrawingArea):
                 arc = (2 * pi) / 40
                 bullet_ = self._bullets[i]
 
-                for status in bullet_.status:
-                    if status == Bullet.PAID:
-                        cr.set_source_rgb(0.27, 0.81, 0.44)
-                        cr.set_source_rgb(0.19, 0.51, 0)
-                    elif status == Bullet.OVERDUE:
-                        cr.set_source_rgb(1, 0.16, 0.16)
-                    else:
-                        cr.set_source_rgb(0.52, 0.81, 0.87)
-                    if bullet_.multi:
-                        x += width / 4
-                        y += width / 3
-                        cr.arc(x, y, width, 0, 2 * pi)
-                        cr.fill_preserve()
-                        cr.set_line_width(width / 8)
-                        if status == Bullet.PAID:
-                            cr.set_source_rgb(0.19, 0.51, 0)
-                        elif status == Bullet.OVERDUE:
-                            cr.set_source_rgb(0.47, 0, 0)
-                        else:
-                            cr.set_source_rgb(0.13, 0.4, 0.48)
-                        #cr.arc(x, y, width, 0, 2 * pi)
-                        cr.stroke()
-                        x -= width / 4
-                        y -= width / 3
-                    if status == Bullet.PAID:
-                        cr.set_source_rgb(0.27, 0.81, 0.44)
-                    elif status == Bullet.OVERDUE:
-                        cr.set_source_rgb(1, 0.16, 0.16)
-                    else:
-                        cr.set_source_rgb(0.52, 0.81, 0.87)
+                if bullet_.status == Bullet.PAID:
+                    cr.set_source_rgb(0.27, 0.81, 0.44)
+                    cr.set_source_rgb(0.19, 0.51, 0)
+                elif bullet_.status == Bullet.OVERDUE:
+                    cr.set_source_rgb(1, 0.16, 0.16)
+                else:
+                    cr.set_source_rgb(0.52, 0.81, 0.87)
+                if bullet_.multi:
+                    x += width / 4
+                    y += width / 3
                     cr.arc(x, y, width, 0, 2 * pi)
-                    cr.fill()
-
-                    if status == Bullet.PAID:
+                    cr.fill_preserve()
+                    cr.set_line_width(width / 8)
+                    if bullet_.status == Bullet.PAID:
                         cr.set_source_rgb(0.19, 0.51, 0)
-                    elif status == Bullet.OVERDUE:
+                    elif bullet_.status == Bullet.OVERDUE:
                         cr.set_source_rgb(0.47, 0, 0)
                     else:
                         cr.set_source_rgb(0.13, 0.4, 0.48)
+                    #cr.arc(x, y, width, 0, 2 * pi)
+                    cr.stroke()
+                    x -= width / 4
+                    y -= width / 3
+                if bullet_.status == Bullet.PAID:
+                    cr.set_source_rgb(0.27, 0.81, 0.44)
+                elif bullet_.status == Bullet.OVERDUE:
+                    cr.set_source_rgb(1, 0.16, 0.16)
+                else:
+                    cr.set_source_rgb(0.52, 0.81, 0.87)
+                cr.arc(x, y, width, 0, 2 * pi)
+                cr.fill()
 
-                    if bullet_.overthreshold:
-                        cr.set_line_width(width / 3)
-                    else:
-                        cr.set_line_width(width / 5)
-                    if bullet_.estimated:
-                        for j in range(0, 40, 2):
-                            if bullet_.overthreshold:
-                                cr.arc(x, y, width, arc * j, arc * (j + 1))
-                            else:
-                                cr.arc(x, y, width, arc * j, arc * (j + 0.5))
-                            cr.stroke()
-                    else:
-                        cr.arc(x, y, width, 0, 2 * pi)
+                if bullet_.status == Bullet.PAID:
+                    cr.set_source_rgb(0.19, 0.51, 0)
+                elif bullet_.status == Bullet.OVERDUE:
+                    cr.set_source_rgb(0.47, 0, 0)
+                else:
+                    cr.set_source_rgb(0.13, 0.4, 0.48)
+
+                if bullet_.overthreshold:
+                    cr.set_line_width(width / 3)
+                else:
+                    cr.set_line_width(width / 5)
+                if bullet_.estimated:
+                    for j in range(0, 40, 2):
+                        if bullet_.overthreshold:
+                            cr.arc(x, y, width, arc * j, arc * (j + 1))
+                        else:
+                            cr.arc(x, y, width, arc * j, arc * (j + 0.5))
                         cr.stroke()
+                else:
+                    cr.arc(x, y, width, 0, 2 * pi)
+                    cr.stroke()
 
                 y = y_
 

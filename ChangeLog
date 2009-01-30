@@ -2,6 +2,7 @@
 
 	* src/gui/prefdialog.py: Handle missing gconf data when not installed.
 	* src/gui/widgets/datepicker.py: Don't trigger calendar widget event.
+	* src/gui/widgets/timeline.py: Reverted my changes as I am still lost.
 
 2009-01-25 Og Maciel <ogmaciel@gnome.org>
 
