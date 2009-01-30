@@ -1,3 +1,7 @@
+2009-01-30 Og Maciel <ogmaciel@gnome.org>
+
+	* src/gui/prefdialog.py: Handle missing gconf data when not installed.
+
 2009-01-25 Og Maciel <ogmaciel@gnome.org>
 
 	* src/gui/widgets/timeline.py: Started work to handle bullets with multiple

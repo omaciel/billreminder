@@ -189,11 +189,15 @@ class PrefDialog(gtk.Dialog):
         else:
             self.alertDialog.set_active(True)
 
-        self.notifySpinButton.set_value(self.gconf_client.get_int(GCONF_ALARM_PATH + 'notification_days_limit'))
+        # Number of days before showing alarm
+        adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'notification_days_limit')
+        self.notifySpinButton.set_value(adays and adays or 3)
         self.alertSpinButton.set_value(self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days'))
 
         atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
-        atime = atime.split(":")
+        # Don't crash if running uninstalled and no gconf data
+        atime = atime and atime.split(":") or ['13', '00']
+
         self.notificationTime.setHourMinute(atime[0], atime[1])
 
 
