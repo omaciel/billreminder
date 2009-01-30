@@ -50,8 +50,8 @@ class DatePicker(gtk.VBox):
         self.expander.add(vbox)
 
         # Connect events
-        self.calendar.connect("day-selected-double-click", self.on_day_selected)
-        self.calendar.connect("day-selected", self.on_day_selected)
+        #self.calendar.connect("day-selected-double-click", self.on_day_selected)
+        #self.calendar.connect("day-selected", self.on_day_selected)
 
         self.pack_start(self.expander)
 
@@ -63,7 +63,7 @@ class DatePicker(gtk.VBox):
 
     def on_day_selected(self, calendar):
         (year, month, day) = self.calendar.get_date()
-        self.currentDate = datetime.datetime(year, month+1, day)
+        self.currentDate = datetime.datetime(year, month + 1, day)
 
         # Update the date label
         self.__update_label()
