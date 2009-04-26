@@ -14,7 +14,7 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Og Maciel</foaf:name>
-      <foaf:mbox rdf:resource="ogmaciel@gnome.org" />
+      <foaf:mbox rdf:resource="mailto:ogmaciel@gnome.org" />
       <gnome:userid>ogmaciel</gnome:userid>
     </foaf:Person>
   </maintainer>
