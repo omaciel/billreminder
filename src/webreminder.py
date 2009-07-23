@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import shutil
 from lib.common import APPNAME
 from xdg.BaseDirectory import *
 
+runningfrom = ''
+''
 def main():
 
     # Configuration files
@@ -20,10 +23,16 @@ def main():
             configfiles = os.path.join(xdg_config_dirs, APPNAME.lower())
             shutil.copytree(configfiles, conf_dir)
         except Exception, e:
-            src = os.path.join(os.path.realpath(os.curdir), "manage.py")
-            dest = os.path.join(conf_dir, "manage.py")
+            # Create the directory
             os.mkdir(conf_dir)
-            shutil.copyfile(src, dest)
+            # Get the location of where the source code lives
+            curDir = os.path.abspath(os.path.dirname(sys.argv[0]))
+            for f in ["manage.py", "settings.py", "urls.py"]:
+                src = os.path.join(os.path.realpath(curDir), f)
+                dest = os.path.join(conf_dir, f)
+                shutil.copyfile(src, dest)
+            # Copy the django app itself
+            shutil.copytree(os.path.join(curDir, "bills"), os.path.join(conf_dir, "bills"))
 
     # Data storage
     data_dir = os.path.join(xdg_data_home, APPNAME.lower())
