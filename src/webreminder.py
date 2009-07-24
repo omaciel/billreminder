@@ -27,7 +27,7 @@ def main():
             os.mkdir(conf_dir)
             # Get the location of where the source code lives
             curDir = os.path.abspath(os.path.dirname(sys.argv[0]))
-            for f in ["manage.py", "settings.py", "urls.py"]:
+            for f in ["__init__.py", "manage.py", "settings.py", "urls.py"]:
                 src = os.path.join(os.path.realpath(curDir), f)
                 dest = os.path.join(conf_dir, f)
                 shutil.copyfile(src, dest)
@@ -39,8 +39,6 @@ def main():
     # Create the directory if it doesn't exist
     if not os.path.isdir(data_dir):
         os.mkdir(data_dir)
-
-    # Are all the django files in place?
 
 if __name__ == "__main__":
     main()
