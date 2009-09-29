@@ -124,7 +124,7 @@ class MainDialog:
         # Timeline
         self.timelinebox = gtk.HBox(homogeneous=False, spacing=4)
         self.timeline = Timeline(callback=self.on_timeline_cb)
-        self.timeline.connect("value-changed", self._on_timeline_changed)
+        #self.timeline.connect("value-changed", self._on_timeline_changed)
         ## Pack it all up
         self.timelinebox.pack_start(self.timeline, expand=True, fill=True)
 
@@ -256,9 +256,9 @@ class MainDialog:
         # Populate treeview
         self._populateTreeView(records)
         # Update status bar
-        self._update_statusbar()
+        #self._update_statusbar()
         # populate chart
-        self._populate_chart(status, first, last)
+        #self._populate_chart(status, first, last)
 
         return len(records)
 
@@ -268,7 +268,7 @@ class MainDialog:
         formatted = [
             row.id,
             create_pixbuf(color="#000"),
-            row.category[0],
+            len(row.category) > 0 and row.category[0] or '',
             row.payee,
             row.dueDate,
             row.amount,
@@ -595,6 +595,7 @@ class MainDialog:
         self.timeline.refresh()
 
     def on_timeline_cb(self, date):
+        return None
         # TODO: Improve tooltip
         # TODO: Improve cache
         if not date in self._bullet_cache.keys():

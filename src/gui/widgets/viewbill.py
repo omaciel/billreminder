@@ -31,7 +31,7 @@ class ViewBill(GenericListView):
 
     def payee_cell_data_function(self, column, cell, model, iter):
         payee = model.get_value(iter, 3)
-        paid = int(model.get_value(iter, 7))
+        paid = model.get_value(iter, 7)
         if not paid:
             text = '<b>%(payee)s</b>'
         else:
@@ -39,11 +39,11 @@ class ViewBill(GenericListView):
         cell.set_property('markup', text % {'payee': payee})
 
     def duedate_cell_data_function(self, column, cell, model, iter):
-        dueDate = float(model.get_value (iter, 4))
+        dueDate = model.get_value (iter, 4)
         # Format the dueDate field
-        dueDate = datetime.datetime.fromtimestamp(dueDate)
+        #dueDate = datetime.datetime.fromtimestamp(dueDate)
         # TRANSLATORS: This is a date format. You can change the order.
-        dueDate = dueDate.strftime(_('%m/%d').encode('ASCII'))
+        #dueDate = dueDate.strftime(_('%m/%d').encode('ASCII'))
         cell.set_property('text', dueDate)
         cell.set_property('xalign', 0.5)
 
@@ -53,7 +53,7 @@ class ViewBill(GenericListView):
             amountDue = model.get_value(iter, 5).replace(',', '.')
         else:
             amountDue = ""
-        paid = int(model.get_value(iter, 7))
+        paid = model.get_value(iter, 7)
         amountDue = len(amountDue) > 0 and amountDue or 0
         amountDue = utils.float_to_currency(float(amountDue))
         if paid:

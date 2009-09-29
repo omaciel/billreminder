@@ -8,6 +8,7 @@ import dal
 import time
 import datetime
 from db.entities import Bill, Category
+from sqlalchemy.orm import eagerload
 from lib import common, scheduler
 from lib.utils import force_string
 from lib.utils import verify_dbus_service
@@ -28,7 +29,7 @@ class Actions(object):
 
         try:
             session = self.dal.Session()
-            records = session.query(Bill).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end).all()
+            records = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end).all()
         except Exception, e:
             print str(e)
             pass
