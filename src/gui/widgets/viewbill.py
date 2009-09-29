@@ -40,10 +40,6 @@ class ViewBill(GenericListView):
 
     def duedate_cell_data_function(self, column, cell, model, iter):
         dueDate = model.get_value (iter, 4)
-        # Format the dueDate field
-        #dueDate = datetime.datetime.fromtimestamp(dueDate)
-        # TRANSLATORS: This is a date format. You can change the order.
-        #dueDate = dueDate.strftime(_('%m/%d').encode('ASCII'))
         cell.set_property('text', dueDate)
         cell.set_property('xalign', 0.5)
 

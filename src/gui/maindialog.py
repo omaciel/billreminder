@@ -220,7 +220,7 @@ class MainDialog:
         else:
             self.currentrecord = None
 
-    def _populateTreeView(self, records):
+    def populate_view(self, records):
         """ Populates the treeview control with the records passed """
 
         # Reset list
@@ -232,9 +232,14 @@ class MainDialog:
         # Loops through bills collection
         path = 0
         for rec in records:
-            self.list.add(self._formated_row(rec))
+            # Format the record prior to adding it to treeview
+            row = self.format_row(rec)
+            self.list.add(row)
 
+        # Set the cursor to the first (top) record
         self.list.set_cursor(path)
+
+        # Returns how many records there are in the treeview
         return len(records)
 
     def reloadTreeView(self, *arg):
@@ -254,7 +259,7 @@ class MainDialog:
         records = self.actions.get_interval_bills(status, first, last)
 
         # Populate treeview
-        self._populateTreeView(records)
+        self.populate_view(records)
         # Update status bar
         #self._update_statusbar()
         # populate chart
@@ -262,15 +267,17 @@ class MainDialog:
 
         return len(records)
 
-    def _formated_row(self, row):
+    def format_row(self, row):
         """ Formats a bill to be displayed as a row. """
 
+        categoryName = len(row.category) and row.category[0].name or _('None')
+        categoryColor = len(row.category) and row.category[0].color or '#000'
         formatted = [
             row.id,
-            create_pixbuf(color="#000"),
-            len(row.category) > 0 and row.category[0] or '',
+            create_pixbuf(color=categoryColor),
+            categoryName,
             row.payee,
-            row.dueDate,
+            row.dueDate.strftime(_('%m/%d').encode('ASCII')),
             row.amount,
             row.notes,
             row.paid,
@@ -381,7 +388,7 @@ class MainDialog:
             for rec in records:
                 bill = self.actions.add_bill(rec.Dictionary)
                 if bill:
-                    self.list.add(self._formated_row(bill))
+                    self.list.add(self.format_row(bill))
             self._update_statusbar()
             # Reload records tree (something changed)
             self.reloadTreeView()
@@ -400,7 +407,7 @@ class MainDialog:
                     # Update list with updated record
                     idx = self.list.get_cursor()[0][0]
                     self.list.listStore[idx] = \
-                        self._formated_row(rec.Dictionary)
+                        self.format_row(rec.Dictionary)
                     self._update_statusbar(idx)
                 except Exception, e:
                     print str(e)
@@ -427,7 +434,7 @@ class MainDialog:
             # Update list with updated record
             idx = self.list.get_cursor()[0][0]
             self.list.listStore[idx] = \
-                            self._formated_row(self.currentrecord.Dictionary)
+                            self.format_row(self.currentrecord.Dictionary)
             self._update_statusbar(idx)
         except Exception, e:
             print str(e)
