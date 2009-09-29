@@ -248,8 +248,8 @@ class MainDialog:
         self.list.listStore.clear()
         self.currentrecord = None
 
-        first = scheduler.timestamp_from_datetime(self.timeline.start_date)
-        last = scheduler.timestamp_from_datetime(self.timeline.end_date)
+        first = self.timeline.start_date
+        last = self.timeline.end_date
         # Get list of records
         records = self.actions.get_interval_bills(status, first, last)
 
@@ -264,28 +264,20 @@ class MainDialog:
 
     def _formated_row(self, row):
         """ Formats a bill to be displayed as a row. """
-        # Make sure the row is created using fields in proper order
-        fields = BillsTable.Fields
-        # Initial list
-        formated = []
-        # Loop through 'fields' and color code them
-        for key in fields:
-            if key == "catId":
-                actions = Actions()
-                records = actions.get_categories({'id': row[key]})
-                if records:
-                    name = records[0]['categoryname']
-                    color = records[0]['color']
-                else:
-                    name = _("None")
-                    color = "#000"
-                formated.append(create_pixbuf(color=color))
-                formated.append(name)
-            else:
-                formated.append(row[key])
-        #formated.append(color)
 
-        return formated
+        formatted = [
+            row.id,
+            create_pixbuf(color="#000"),
+            row.category[0],
+            row.payee,
+            row.dueDate,
+            row.amount,
+            row.notes,
+            row.paid,
+            None
+        ]
+
+        return formatted
 
     def _populate_toolbar(self):
         self.btnNew = self.toolbar.add_button(gtk.STOCK_NEW,
@@ -304,7 +296,8 @@ class MainDialog:
 
     def _populate_chart(self, status, start, end):
         chartdata = []
-        records = self.actions.get_interval_totals(status, start, end)
+        #records = self.actions.get_interval_totals(status, start, end)
+        records = []
         for rec in records:
             chartdata.append([field for field in rec])
         #if chartdata:
