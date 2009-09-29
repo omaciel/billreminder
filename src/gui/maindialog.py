@@ -280,7 +280,7 @@ class MainDialog:
             row.dueDate.strftime(_('%m/%d').encode('ASCII')),
             row.amount,
             row.notes,
-            row.paid,
+            int(row.paid),
             None
         ]
 

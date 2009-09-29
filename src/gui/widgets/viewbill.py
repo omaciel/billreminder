@@ -52,7 +52,7 @@ class ViewBill(GenericListView):
         paid = model.get_value(iter, 7)
         amountDue = len(amountDue) > 0 and amountDue or 0
         amountDue = utils.float_to_currency(float(amountDue))
-        if paid:
+        if int(paid):
             amountDue = "<s>%s</s>" % amountDue
         cell.set_property('markup', amountDue)
         cell.set_property('xalign', 1.0)
