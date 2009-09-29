@@ -73,10 +73,7 @@ def get_schedule_timestamp(frequency, startDate, endDate=None):
 
 def first_of_month(month, year):
     ''' Return the timestamp for the first day of the given month. '''
-    ret = datetime.datetime(year, month, 1, 0, 0, 0)
-
-    # Convert to timestamp
-    ret = timestamp_from_datetime(ret)
+    ret = datetime.date(year, month, 1)
 
     return ret
 
@@ -86,11 +83,8 @@ def last_of_month(month, year):
     nextMonthYear = year + ((month) / 12)
     goback = datetime.timedelta(seconds=1)
     # Create datetime object with a timestamp corresponding the end of day
-    nextMonth = datetime.datetime(nextMonthYear, nextMonth, 1, 0, 0, 0)
+    nextMonth = datetime.date(nextMonthYear, nextMonth, 1)
     ret = nextMonth - goback
-
-    # Convert to timestamp
-    ret = timestamp_from_datetime(ret)
 
     return ret
 
