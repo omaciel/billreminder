@@ -96,7 +96,7 @@ class MainDialog:
 
         # ViewBill
         self.list = ViewBill()
-        self.list.connect('cursor_changed', self._on_list_cursor_changed)
+        #self.list.connect('cursor_changed', self._on_list_cursor_changed)
         self.list.connect('row_activated', self._on_list_row_activated)
         self.list.connect('button_press_event', self._on_list_button_press_event)
 
@@ -200,7 +200,7 @@ class MainDialog:
         self.reloadTreeView()
         return True
 
-    def _get_selected_record(self):
+    def get_selected_record(self):
         """ Returns a bill object from the current selected record """
         if len(self.list.listStore) > 0:
             model_ = self.list.get_model()
@@ -212,8 +212,8 @@ class MainDialog:
             b_id = model_[index][0]
 
             try:
-                records = self.actions.get_bills({'Id': b_id})
-                self.currentrecord = Bill(records[0])
+                records = self.actions.get_bills({'id': b_id})
+                self.currentrecord = records[0]
             except Exception, e:
                 print str(e)
                 self.currentrecord = None
@@ -389,7 +389,7 @@ class MainDialog:
                 bill = self.actions.add_bill(rec.Dictionary)
                 if bill:
                     self.list.add(self.format_row(bill))
-            self._update_statusbar()
+            self.update_statusbar()
             # Reload records tree (something changed)
             self.reloadTreeView()
             self.reloadTimeline()
@@ -408,7 +408,7 @@ class MainDialog:
                     idx = self.list.get_cursor()[0][0]
                     self.list.listStore[idx] = \
                         self.format_row(rec.Dictionary)
-                    self._update_statusbar(idx)
+                    self.update_statusbar(idx)
                 except Exception, e:
                     print str(e)
             # Reload records tree (something changed)
@@ -419,7 +419,7 @@ class MainDialog:
         try:
             if self.actions.delete_bill(self.currentrecord.Id):
                 self.list.remove()
-                self._update_statusbar()
+                self.update_statusbar()
                 self.reloadTimeline()
         except Exception, e:
             print str(e)
@@ -435,7 +435,7 @@ class MainDialog:
             idx = self.list.get_cursor()[0][0]
             self.list.listStore[idx] = \
                             self.format_row(self.currentrecord.Dictionary)
-            self._update_statusbar(idx)
+            self.update_statusbar(idx)
         except Exception, e:
             print str(e)
 
@@ -471,7 +471,7 @@ class MainDialog:
             self.btnRemove.set_sensitive(True)
             self.menuRemove.set_sensitive(True)
             """
-            Enable/disable paid and unpiad buttons.
+            Enable/disable paid and unpaid buttons.
             If paid = True, paid button and menu will be enabled.
             """
             if paid:
@@ -494,7 +494,7 @@ class MainDialog:
             self.btnUnpaid.set_sensitive(False)
             self.menuUnpaid.set_sensitive(False)
 
-    def _update_statusbar(self, index=0):
+    def update_statusbar(self, index=0):
         """ This function is used to update status bar informations
             about the list """
         records = len(self.list.listStore)
@@ -503,9 +503,9 @@ class MainDialog:
         self.statusbar.Records(records)
         if self.currentrecord:
             # Display the status
-            self.statusbar.Notes(self.currentrecord.Notes)
+            self.statusbar.Notes(self.currentrecord.notes)
             # Toggles toolbar buttons on/off
-            self.toggle_buttons(self.currentrecord.Paid)
+            self.toggle_buttons(self.currentrecord.paid)
         else:
             # Clear the status for the selected row
             self.statusbar.Notes("")
@@ -517,7 +517,7 @@ class MainDialog:
         """ This function will handle the signal to show a popup menu
             sent by a right click on tvBill widget. """
         if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
-            self._get_selected_record()
+            self.get_selected_record()
             timeout_add(200, self._create_list_contextmenu, widget, event)
 
     def _create_list_contextmenu(self, widget, event):
@@ -548,9 +548,9 @@ class MainDialog:
 
     def _on_list_cursor_changed(self, widget):
         # Get currently selected bill
-        self._get_selected_record()
+        self.get_selected_record()
         # Update statusbar
-        self._update_statusbar()
+        self.update_statusbar()
 
     def on_btnNew_clicked(self, toolbutton):
         self.add_bill()
@@ -606,8 +606,7 @@ class MainDialog:
         # TODO: Improve tooltip
         # TODO: Improve cache
         if not date in self._bullet_cache.keys():
-            time = scheduler.timestamp_from_datetime(date)
-            self._bullet_cache[date] = self.actions.get_bills('dueDate = %s' % time)
+            self._bullet_cache[date] = self.actions.get_bills({'dueDate': date})
 
         if self._bullet_cache[date]:
             amount = 0
