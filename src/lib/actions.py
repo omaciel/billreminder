@@ -92,7 +92,7 @@ class Actions(object):
 
         return records
 
-    def get_bills(self, kwargs):
+    def get_bills(self, **kwargs):
         """
         Returns a list of all bills filtered by values.
         """
@@ -101,6 +101,22 @@ class Actions(object):
         try:
             session = self.dal.Session()
             records = session.query(Bill).filter_by(**kwargs).all()
+        except Exception, e:
+            print str(e)
+        finally:
+            session.close()
+
+        return records
+
+    def get_categories(self, **kwargs):
+        """
+        Returns a list of all categories filtered by values.
+        """
+        records = []
+
+        try:
+            session = self.dal.Session()
+            records = session.query(Category).filter_by(**kwargs).all()
         except Exception, e:
             print str(e)
         finally:
