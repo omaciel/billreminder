@@ -21,7 +21,7 @@ class Actions(object):
 
         self.dal = databaselayer
 
-    def get_interval_bills(self, status, start, end):
+    def get_interval_bills(self, start, end, paid=None):
         """
         """
 
@@ -29,7 +29,10 @@ class Actions(object):
 
         try:
             session = self.dal.Session()
-            records = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end).all()
+            q = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end)
+            if status:
+                q = q.filter(Bill.paid == status)
+            records = q.all()
         except Exception, e:
             print str(e)
             pass
@@ -38,42 +41,50 @@ class Actions(object):
 
         return records
 
-    def get_monthly_totals(self, status, month, year):
+    def get_monthly_totals(self, month, year, paid=None):
         """
         Return a list of categories and totals for the given month
         """
 
-        records = 0.00
+        total = 0.00
 
-        firstOfMonth = scheduler.first_of_month(month, year)
-        lastOfMonth = scheduler.last_of_month(month, year)
+        firstDay = scheduler.first_of_month(month, year)
+        lastDay = scheduler.last_of_month(month, year)
 
         try:
             session = self.dal.Session()
             # records is a tuple of type Decimal
-            records = session.query(func.sum(Bill.amount)).filter(Bill.dueDate >= dt).filter(Bill.dueDate <= to).one()[0]
-            records = float(records)
+            q = session.query(func.sum(Bill.amount)).filter(Bill.dueDate >= dt).filter(Bill.dueDate <= to)
+            if status:
+                q = q.filter(Bill.paid == status)
+            # Got anything back?
+            if q.count():
+                # Result is of type Decimal and needs to be converted.
+                total = float(q.one()[0])
         except Exception, e:
             print str(e)
             pass
         finally:
             session.close()
 
-        return records
+        return total
 
-    def get_monthly_bills(self, status, month, year):
+    def get_monthly_bills(self, month, year, paid=None):
         """
         Return a list of all bills for the given month with STATUS
         """
 
         records = []
 
-        firstOfMonth = scheduler.first_of_month(month, year)
-        lastOfMonth = scheduler.last_of_month(month, year)
+        firstDay = scheduler.first_of_month(month, year)
+        lastDay = scheduler.last_of_month(month, year)
 
         try:
             session = self.dal.Session()
-            records = session.query(Bill).filter(Bill.dueDate >= firstOfMonth).filter(Bill.dueDate <= lastOfMonth).all()
+            q = session.query(Bill).filter(Bill.dueDate >= firstDay).filter(Bill.dueDate <= lastDay)
+            if status:
+                q = q.filter(Bill.paid == status)
+            records = q.all()
         except Exception, e:
             print str(e)
         finally:
@@ -96,4 +107,3 @@ class Actions(object):
             session.close()
 
         return records
-
