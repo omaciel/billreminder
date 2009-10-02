@@ -212,7 +212,7 @@ class MainDialog:
             b_id = model_[index][0]
 
             try:
-                records = self.actions.get_bills({'id': b_id})
+                records = self.actions.get_bills(id=b_id)
                 self.currentrecord = records[0]
             except Exception, e:
                 print str(e)
@@ -256,7 +256,7 @@ class MainDialog:
         first = self.timeline.start_date
         last = self.timeline.end_date
         # Get list of records
-        records = self.actions.get_interval_bills(status, first, last)
+        records = self.actions.get_interval_bills(first, last, status)
 
         # Populate treeview
         self.populate_view(records)
@@ -303,7 +303,7 @@ class MainDialog:
 
     def _populate_chart(self, status, start, end):
         chartdata = []
-        #records = self.actions.get_interval_totals(status, start, end)
+        #records = self.actions.get_interval_totals(start, end, status)
         records = []
         for rec in records:
             chartdata.append([field for field in rec])
@@ -606,7 +606,7 @@ class MainDialog:
         # TODO: Improve tooltip
         # TODO: Improve cache
         if not date in self._bullet_cache.keys():
-            self._bullet_cache[date] = self.actions.get_bills({'dueDate': date})
+            self._bullet_cache[date] = self.actions.get_bills(dueDate=date)
 
         if self._bullet_cache[date]:
             amount = 0
