@@ -246,8 +246,8 @@ class MainDialog:
         # Update list with updated record
         status = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
 
-        month = self.timeline.value.month
-        year = self.timeline.value.year
+        #month = self.timeline.value.month
+        #year = self.timeline.value.year
 
         path = self.list.get_cursor()[0]
         self.list.listStore.clear()
@@ -602,7 +602,6 @@ class MainDialog:
         self.timeline.refresh()
 
     def on_timeline_cb(self, date):
-        return None
         # TODO: Improve tooltip
         # TODO: Improve cache
         if not date in self._bullet_cache.keys():
@@ -616,13 +615,13 @@ class MainDialog:
             bullet.date = date
 
             for bill in self._bullet_cache[date]:
-                paid *= bill['paid']
-                amount += bill['amountDue']
+                paid *= bill.paid
+                amount += bill.amount
                 if tooltip:
                     tooltip += '\n'
-                tooltip += bill['payee'] + '\n' + str(bill['amountDue']) 
-                if bill['notes']:
-                    tooltip += '\n' + bill['notes']
+                tooltip += bill.payee + '\n' + str(bill.amount)
+                if bill.notes:
+                    tooltip += '\n' + bill.notes
 
             bullet.amountDue = amount
             if paid:
