@@ -30,8 +30,8 @@ class Actions(object):
         try:
             session = self.dal.Session()
             q = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end)
-            if status:
-                q = q.filter(Bill.paid == status)
+            if paid:
+                q = q.filter(Bill.paid == paid)
             records = q.all()
         except Exception, e:
             print str(e)
@@ -55,8 +55,8 @@ class Actions(object):
             session = self.dal.Session()
             # records is a tuple of type Decimal
             q = session.query(func.sum(Bill.amount)).filter(Bill.dueDate >= dt).filter(Bill.dueDate <= to)
-            if status:
-                q = q.filter(Bill.paid == status)
+            if paid:
+                q = q.filter(Bill.paid == paid)
             # Got anything back?
             if q.count():
                 # Result is of type Decimal and needs to be converted.
@@ -71,7 +71,7 @@ class Actions(object):
 
     def get_monthly_bills(self, month, year, paid=None):
         """
-        Return a list of all bills for the given month with STATUS
+        Return a list of all bills for the given month with paid
         """
 
         records = []
@@ -82,8 +82,8 @@ class Actions(object):
         try:
             session = self.dal.Session()
             q = session.query(Bill).filter(Bill.dueDate >= firstDay).filter(Bill.dueDate <= lastDay)
-            if status:
-                q = q.filter(Bill.paid == status)
+            if paid:
+                q = q.filter(Bill.paid == paid)
             records = q.all()
         except Exception, e:
             print str(e)
