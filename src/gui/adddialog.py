@@ -13,7 +13,7 @@ import gobject
 from lib import utils
 from lib import common
 from lib import scheduler
-from lib.bill import Bill
+from db.entities import Bill, Category
 from lib.actions import Actions
 from lib.utils import create_pixbuf
 from lib import i18n
@@ -43,7 +43,7 @@ class AddDialog(gtk.Dialog):
 
         # If we have a selected date, then set calendar to use it
         if not selectedDate:
-            selectedDate = datetime.datetime.today()
+            selectedDate = datetime.date.today()
         self.selectedDate = selectedDate
 
         self.gconf_client = gconf.client_get_default()
@@ -260,27 +260,27 @@ class AddDialog(gtk.Dialog):
 
     def _populate_widgets_with_record(self):
         # Format the amount field
-        if self.currentrecord.AmountDue:
-            self.amount.set_text(utils.float_to_currency(self.currentrecord.AmountDue))
+        if self.currentrecord.amount:
+            self.amount.set_text(utils.float_to_currency(self.currentrecord.amount))
         else:
             self.amount.set_text("")
         # Format the dueDate field
-        dt = scheduler.datetime_from_timestamp(self.currentrecord.DueDate)
+        dt = self.currentrecord.dueDate
         self.dueDate.set_date(dt)
-        utils.select_combo_text(self.payee, self.currentrecord.Payee)
+        utils.select_combo_text(self.payee, self.currentrecord.payee)
         actions = Actions()
-        records = actions.get_categories({'id': self.currentrecord.Category})
+        records = actions.get_categories(id=self.currentrecord.category[0])
         if records:
-            categoryname = records[0]['categoryname']
+            categoryname = records[0].name
             utils.select_combo_text(self.category, categoryname, 1)
         else:
             self.category.set_active(0)
 
-        self.txtbuffer.set_text(self.currentrecord.Notes)
+        self.txtbuffer.set_text(self.currentrecord.notes)
         #self.chkPaid.set_active(self.currentrecord.Paid)
 
-        if self.currentrecord.Alarm > 0:
-            self.alarmbutton.set_date(self.currentrecord.Alarm)
+        if self.currentrecord.alarm > 0:
+            self.alarmbutton.set_date(self.currentrecord.alarm)
 
     def _populate_payee(self):
         """ Populates combobox with existing payees """
@@ -289,10 +289,10 @@ class AddDialog(gtk.Dialog):
 
         # List of payees from database
         payees = []
-        records = actions.get_bills("paid IN (0,1) ORDER BY payee ASC")
+        records = actions.get_bills()
         for rec in records:
-            if rec['payee'] not in payees:
-                payees.append(rec['payee'])
+            if rec.payee not in payees:
+                payees.append(rec.payee)
 
         store = gtk.ListStore(gobject.TYPE_STRING)
         for payee in payees:
@@ -332,17 +332,17 @@ class AddDialog(gtk.Dialog):
 
         # List of categories from database
         categories = []
-        records = actions.get_categories("id > 0 ORDER BY categoryname ASC") or []
+        records = actions.get_categories()
 
         ret = 0
         empty_color = create_pixbuf()
         for rec in records:
             #if [rec['categoryname'], rec['id']] not in categories:
             #TODO: Better put color creation in a function
-            color = rec['color']
+            color = rec.color and rec.color or '#000'
 
-            categories.append([create_pixbuf(color=color), rec['categoryname'], int(rec['id'])])
-            if categoryname and categoryname == rec['categoryname']:
+            categories.append([create_pixbuf(color=color), rec.name, int(rec.id)])
+            if categoryname and categoryname == rec.name:
                 ret = len(categories) + 1
 
         store = gtk.ListStore(gtk.gdk.Pixbuf, str, int)
@@ -375,11 +375,11 @@ class AddDialog(gtk.Dialog):
         if not name or name == _("None"):
             return None
 
-        records = actions.get_categories({'categoryname': name})
+        records = actions.get_categories(name=name)
         if records:
-            cat_id = records[0]['id']
-
-        return cat_id and int(cat_id) or None
+            return records[0]
+        else:
+            return None
 
     def get_record(self):
 
@@ -432,19 +432,23 @@ class AddDialog(gtk.Dialog):
             for day in days:
                 if alarm != -1:
                     alarm = self.__get_alarm_date(day)
-                rec = Bill(payee, category, day, amount, sbuffer, 0, -1, alarm)
+                rec = Bill(payee, amount, day, sbuffer, 0)
+                if category:
+                    rec.category.append(category)
+                #rec = Bill(payee, category, day, amount, sbuffer, 0, -1, alarm)
                 records.append (rec)
 
             print records
             return records
         else:
             # Edit existing bill
-            self.currentrecord.Category = category
-            self.currentrecord.Payee = payee
-            self.currentrecord.DueDate = int(scheduler.timestamp_from_datetime(selectedDate))
-            self.currentrecord.AmountDue = amount
-            self.currentrecord.Notes = sbuffer
-            self.currentrecord.Alarm = alarm
+            self.currentrecord.payee = payee
+            self.currentrecord.dueDate = selectedDate
+            self.currentrecord.amountDue = amount
+            self.currentrecord.notes = sbuffer
+            self.currentrecord.alarm = alarm
+            if category:
+                self.currentrecord.category.append(category)
 
             #return the bill
             return [self.currentrecord]
@@ -527,4 +531,3 @@ class AddDialog(gtk.Dialog):
             adays = 3
 
         return scheduler.get_alarm_timestamp(adays, atime, date)
-

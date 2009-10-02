@@ -376,17 +376,14 @@ class MainDialog:
         self.box.pack_start(menubar, expand=False, fill=True, padding=0)
 
     def add_bill(self):
-        #selectedDate = scheduler.datetime_from_timestamp(selectedDate)
         selectedDate = self.timeline.value
-        # Convert from datetime.date to datetime.datetime
-        selectedDate = datetime.datetime(selectedDate.year, selectedDate.month, selectedDate.day)
         records = dialogs.add_dialog(parent=self.window, selectedDate=selectedDate)
 
         # Checks if the user did not cancel the action
         if records:
             # Add new bill to database
             for rec in records:
-                bill = self.actions.add_bill(rec.Dictionary)
+                bill = self.actions.add_bill(rec)
                 if bill:
                     self.list.add(self.format_row(bill))
             self.update_statusbar()

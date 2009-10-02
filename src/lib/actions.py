@@ -123,3 +123,7 @@ class Actions(object):
             session.close()
 
         return records
+
+    def add_bill(self, bill):
+        return self.dal.add(bill)
+

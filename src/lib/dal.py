@@ -31,14 +31,12 @@ class DAL(object):
         # Creates all database tables
         Bill.metadata.create_all(self.engine)
 
-    def add(self, dbobjects):
-        if not isinstance(dbobjects, list):
-            dbobjects = [dbobjects]
+    def add(self, dbobject):
 
         session = self.Session()
 
         try:
-            session.add_all(dbobjects)
+            session.add(dbobject)
             session.commit()
         except Exception, e:
             session.rollback()
