@@ -3,9 +3,14 @@
 import os
 import sys
 
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+try:
+    from sqlalchemy.orm import sessionmaker
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+except ImportError:
+    print "Please install SQLAlchemy!"
+    raise SystemExit
+
 
 from db.entities import Bill, Category
 
