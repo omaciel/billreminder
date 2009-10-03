@@ -100,7 +100,7 @@ class Actions(object):
 
         try:
             session = self.dal.Session()
-            records = session.query(Bill).filter_by(**kwargs).all()
+            records = session.query(Bill).options(eagerload('category')).filter_by(**kwargs).all()
         except Exception, e:
             print str(e)
         finally:
@@ -126,4 +126,3 @@ class Actions(object):
 
     def add_bill(self, bill):
         return self.dal.add(bill)
-
