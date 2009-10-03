@@ -426,7 +426,7 @@ class AddDialog(gtk.Dialog):
             # Verify how many bills will be inserted
             # this will only work for new bills
             records = []
-            days = scheduler.get_schedule_timestamp(
+            days = scheduler.get_schedule_date(
                 frequency, selectedDate, endDate)
 
             for day in days:

@@ -43,7 +43,7 @@ def datetime_from_timestamp(timestamp):
 
     return ret
 
-def get_schedule_timestamp(frequency, startDate, endDate=None):
+def get_schedule_date(frequency, startDate, endDate=None):
     ''' Returns a list of scheduled date from original date. '''
 
     # Takes care of endDates in the past
@@ -57,14 +57,12 @@ def get_schedule_timestamp(frequency, startDate, endDate=None):
     days = []
 
     for i in range(multiplier):
-        # Convert to timestamps
-        dtstamp = timestamp_from_datetime(startDate)
-        days.append(dtstamp)
+        days.append(startDate)
 
         if frequency == SC_MONTHLY:
             nextMonth = startDate.month % 12 + 1
             nextMonthYear = startDate.year + ((startDate.month) / 12)
-            startDate = datetime.datetime(nextMonthYear, nextMonth, startDate.day)
+            startDate = datetime.date(nextMonthYear, nextMonth, startDate.day)
         else:
             delta = datetime.timedelta(days=MULTIPLIER[frequency])
             startDate = startDate + delta
@@ -118,38 +116,38 @@ if __name__ == "__main__":
 
     # Tests for non-repeatable tasks
     print "Repeat once, starting today, ending yesterday"
-    repeats = get_schedule_timestamp(SC_ONCE, today, yesterday)
+    repeats = get_schedule_date(SC_ONCE, today, yesterday)
     assert len(repeats) == 1, "Should have gotten one result back! Got %s" % len(repeats)
     assert repeats[0] == timestamp_from_datetime(today), "The date is wrong"
 
     print "Repeat once, starting today, ending nextweek"
-    repeats = get_schedule_timestamp(SC_ONCE, today, nextweek)
+    repeats = get_schedule_date(SC_ONCE, today, nextweek)
     assert len(repeats) == 1, "Should have gotten one result back! Got %s" % len(repeats)
     assert repeats[0] == timestamp_from_datetime(today), "The date is wrong"
 
     print "Repeat once, starting yesterday, ending today"
-    repeats = get_schedule_timestamp(SC_ONCE, yesterday, today)
+    repeats = get_schedule_date(SC_ONCE, yesterday, today)
     assert len(repeats) == 1, "Should have gotten one result back! Got %s" % len(repeats)
     assert repeats[0] == timestamp_from_datetime(yesterday), "The date is wrong"
 
     print "Repeat once, starting nextyear, ending today"
-    repeats = get_schedule_timestamp(SC_ONCE, nextyear, today)
+    repeats = get_schedule_date(SC_ONCE, nextyear, today)
     assert len(repeats) == 1, "Should have gotten one result back! Got %s" % len(repeats)
     assert repeats[0] == timestamp_from_datetime(nextyear), "The date is wrong"
 
     # Tests for weekly tasks
     print "Repeat weekly, starting today, ending yesterday"
-    repeats = get_schedule_timestamp(SC_WEEKLY, today, yesterday)
+    repeats = get_schedule_date(SC_WEEKLY, today, yesterday)
     assert len(repeats) == 1, "Should have gotten one result back! Got %s" % len(repeats)
     assert repeats[0] == timestamp_from_datetime(today), "The date is wrong"
 
     print "Repeat weekly, starting today, ending 9 days ahead"
-    repeats = get_schedule_timestamp(SC_WEEKLY, today, ninedaysahead)
+    repeats = get_schedule_date(SC_WEEKLY, today, ninedaysahead)
     assert len(repeats) == 2, "Should have gotten 2 result back! Got %s" % len(repeats)
     assert repeats[0] == timestamp_from_datetime(today), "The date is wrong"
 
     print "Repeat weekly, starting today, ending 3 weeks ahead"
-    repeats = get_schedule_timestamp(SC_WEEKLY, today, next3weeks)
+    repeats = get_schedule_date(SC_WEEKLY, today, next3weeks)
     assert len(repeats) == 4, "Should have gotten four result back! Got %s" % len(repeats)
     assert repeats[0] == timestamp_from_datetime(today), "The date is wrong"
 
