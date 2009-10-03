@@ -124,7 +124,7 @@ class MainDialog:
         # Timeline
         self.timelinebox = gtk.HBox(homogeneous=False, spacing=4)
         self.timeline = Timeline(callback=self.on_timeline_cb)
-        #self.timeline.connect("value-changed", self._on_timeline_changed)
+        self.timeline.connect("value-changed", self._on_timeline_changed)
         ## Pack it all up
         self.timelinebox.pack_start(self.timeline, expand=True, fill=True)
 
@@ -261,7 +261,7 @@ class MainDialog:
         # Populate treeview
         self.populate_view(records)
         # Update status bar
-        #self._update_statusbar()
+        self.update_statusbar()
         # populate chart
         #self._populate_chart(status, first, last)
 
@@ -400,12 +400,7 @@ class MainDialog:
             for rec in records:
                 try:
                     # Edit bill to database
-                    self.actions.edit_bill(rec.Dictionary)
-                    # Update list with updated record
-                    idx = self.list.get_cursor()[0][0]
-                    self.list.listStore[idx] = \
-                        self.format_row(rec.Dictionary)
-                    self.update_statusbar(idx)
+                    rec = self.actions.add_bill(rec)
                 except Exception, e:
                     print str(e)
             # Reload records tree (something changed)

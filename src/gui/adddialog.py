@@ -268,19 +268,22 @@ class AddDialog(gtk.Dialog):
         dt = self.currentrecord.dueDate
         self.dueDate.set_date(dt)
         utils.select_combo_text(self.payee, self.currentrecord.payee)
-        actions = Actions()
-        records = actions.get_categories(id=self.currentrecord.category[0])
-        if records:
-            categoryname = records[0].name
-            utils.select_combo_text(self.category, categoryname, 1)
+
+        if self.currentrecord.category:
+            actions = Actions()
+            records = actions.get_categories(id=self.currentrecord.category[0])
+            if records:
+                categoryname = records[0].name
+                utils.select_combo_text(self.category, categoryname, 1)
         else:
             self.category.set_active(0)
 
-        self.txtbuffer.set_text(self.currentrecord.notes)
+        if self.currentrecord.notes:
+            self.txtbuffer.set_text(self.currentrecord.notes)
         #self.chkPaid.set_active(self.currentrecord.Paid)
 
-        if self.currentrecord.alarm > 0:
-            self.alarmbutton.set_date(self.currentrecord.alarm)
+        #if self.currentrecord.alarm > 0:
+        #    self.alarmbutton.set_date(self.currentrecord.alarm)
 
     def _populate_payee(self):
         """ Populates combobox with existing payees """
@@ -444,9 +447,9 @@ class AddDialog(gtk.Dialog):
             # Edit existing bill
             self.currentrecord.payee = payee
             self.currentrecord.dueDate = selectedDate
-            self.currentrecord.amountDue = amount
+            self.currentrecord.amount = amount
             self.currentrecord.notes = sbuffer
-            self.currentrecord.alarm = alarm
+            #self.currentrecord.alarm = alarm
             if category:
                 self.currentrecord.category.append(category)
 
