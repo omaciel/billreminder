@@ -26,7 +26,7 @@ class DatePicker(gtk.VBox):
         gtk.VBox.__init__(self, False, 4)
 
         if not date:
-            date = datetime.datetime.today()
+            date = datetime.date.today()
         self.currentDate = date
 
         # Create a new calendar
@@ -51,7 +51,7 @@ class DatePicker(gtk.VBox):
 
         # Connect events
         #self.calendar.connect("day-selected-double-click", self.on_day_selected)
-        #self.calendar.connect("day-selected", self.on_day_selected)
+        self.calendar.connect("day-selected", self.on_day_selected)
 
         self.pack_start(self.expander)
 
@@ -63,7 +63,7 @@ class DatePicker(gtk.VBox):
 
     def on_day_selected(self, calendar):
         (year, month, day) = self.calendar.get_date()
-        self.currentDate = datetime.datetime(year, month + 1, day)
+        self.currentDate = datetime.date(year, month + 1, day)
 
         # Update the date label
         self.__update_label()
@@ -106,7 +106,7 @@ class BasicWindow(object):
 
         hbox = gtk.HBox()
 
-        datepicker = DatePicker(datetime.datetime(1974, 6, 8))
+        datepicker = DatePicker(datetime.date(1974, 6, 8))
         hbox.pack_start(datepicker)
         self.window.add(hbox)
         self.window.show_all()
