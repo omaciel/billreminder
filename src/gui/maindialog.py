@@ -96,7 +96,7 @@ class MainDialog:
 
         # ViewBill
         self.list = ViewBill()
-        #self.list.connect('cursor_changed', self._on_list_cursor_changed)
+        self.list.connect('cursor_changed', self._on_list_cursor_changed)
         self.list.connect('row_activated', self._on_list_row_activated)
         self.list.connect('button_press_event', self._on_list_button_press_event)
 
@@ -409,25 +409,31 @@ class MainDialog:
 
     def remove_bill(self):
         try:
-            if self.actions.delete_bill(self.currentrecord.Id):
-                self.list.remove()
-                self.update_statusbar()
-                self.reloadTimeline()
+            session = DAL().Session()
+            session.delete(self.currentrecord)
+            session.commit()
+            self.list.remove()
+            self.update_statusbar()
+            self.reloadTimeline()
         except Exception, e:
             print str(e)
 
     def toggle_bill_paid(self):
-        # Toggle paid field
-        self.currentrecord.Paid = (self.currentrecord.Paid == 0) and 1 or 0
-
         try:
+             # Toggle paid field
+            self.currentrecord.paid = (self.currentrecord.paid == 0) and 1 or 0
             # Edit bill to database
-            self.actions.edit_bill(self.currentrecord.Dictionary)
+            session = DAL().Session()
+            session.update(self.currentrecord)
+            session.commit()
+            self._bullet_cache[self.currentrecord.dueDate] = self.actions.get_bills(
+                dueDate=self.currentrecord.dueDate
+            )
             # Update list with updated record
             idx = self.list.get_cursor()[0][0]
-            self.list.listStore[idx] = \
-                            self.format_row(self.currentrecord.Dictionary)
             self.update_statusbar(idx)
+            #self.reloadTreeView()
+            self.reloadTimeline()
         except Exception, e:
             print str(e)
 
@@ -523,7 +529,7 @@ class MainDialog:
             c.addMenuItem(None,
                 self.on_btnEdit_clicked, gtk.STOCK_EDIT)
             c.addMenuItem('-', None)
-            if not self.currentrecord.Paid:
+            if not self.currentrecord.paid:
                 c.addMenuItem(_('_Paid'),
                     self.on_btnPaid_clicked, gtk.STOCK_APPLY, True)
             else:
@@ -555,7 +561,7 @@ class MainDialog:
         if self.currentrecord:
             resp = self.message.ShowQuestionYesNo(
                 _("Do you really want to delete \"%s\"?") % \
-                self.currentrecord.Payee,
+                self.currentrecord.payee,
                 self.window, _("Confirmation"))
             if resp:
                 self.remove_bill()
@@ -593,7 +599,7 @@ class MainDialog:
         self._bullet_cache = {}
         self.timeline.refresh()
 
-    def on_timeline_cb(self, date):
+    def on_timeline_cb(self, date, display_type):
         # TODO: Improve tooltip
         # TODO: Improve cache
         if not date in self._bullet_cache.keys():
@@ -601,13 +607,11 @@ class MainDialog:
 
         if self._bullet_cache[date]:
             amount = 0
-            paid = 1
             tooltip = ''
             bullet = Bullet()
             bullet.date = date
 
             for bill in self._bullet_cache[date]:
-                paid *= bill.paid
                 amount += bill.amount
                 if tooltip:
                     tooltip += '\n'
@@ -615,13 +619,14 @@ class MainDialog:
                 if bill.notes:
                     tooltip += '\n' + bill.notes
 
+                if bill.paid:
+                    bullet.status = bullet.status | bullet.PAID
+                elif date <= datetime.date.today():
+                    bullet.status = bullet.status | bullet.OVERDUE
+                else:
+                    bullet.status = bullet.status | bullet.TO_BE_PAID
+
             bullet.amountDue = amount
-            if paid:
-                bullet.status = bullet.PAID
-            elif date <= datetime.date.today():
-                bullet.status = bullet.OVERDUE
-            else:
-                bullet.status = bullet.TO_BE_PAID
 
             if len(self._bullet_cache[date]) > 1:
                 bullet.multi = True
