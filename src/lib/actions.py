@@ -126,3 +126,9 @@ class Actions(object):
 
     def add_bill(self, bill):
         return self.dal.add(bill)
+
+    def add_category(self, category):
+        return self.dal.add(category)
+
+    def delete(self, dbobject):
+        pass

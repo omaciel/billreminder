@@ -13,7 +13,7 @@ from lib import i18n
 from lib.utils import create_pixbuf
 from lib.utils import Message
 from gui.widgets.viewcategory import ViewCategory
-from db.categoriestable import CategoriesTable
+from db.entities import Category
 
 class CategoriesDialog(gtk.Dialog):
     """
@@ -33,14 +33,14 @@ class CategoriesDialog(gtk.Dialog):
             self.set_transient_for(parent)
             self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
-        self.currentrecord = {}
+        self.currentrecord = None
 
         # Set up the UI
         self._initialize_dialog_widgets()
         self._connect_fields()
         #self._populate_fields()
         self.actions = Actions()
-        self._populateTreeView(self.actions.get_categories("id > 0 ORDER BY categoryname ASC"))
+        self._populateTreeView(self.actions.get_categories())
 
         if new:
             self._on_newbutton_clicked(None)
@@ -136,8 +136,9 @@ class CategoriesDialog(gtk.Dialog):
 
         for rec in records:
             self.list.add(self._formated_row(rec))
-            if rec['categoryname'] == self.currentrecord.get('categoryname', ''):
-                found = path
+            if self.currentrecord:
+                if rec.name == self.currentrecord.category[0]:
+                    found = path
             path += 1
 
         # Only select an item if we have data
@@ -148,18 +149,14 @@ class CategoriesDialog(gtk.Dialog):
 
     def _formated_row(self, row):
         """ Formats a bill to be displayed as a row. """
-        # Make sure the row is created using fields in proper order
-        fields = CategoriesTable.Fields
-        # Initial list
+        color = row.color and row.color or '#fff'
+
         formated = []
-        # Loop through 'fields' and color code them
-        for key in fields:
-            if key == 'color':
-                color = row['color']
-                formated.append(create_pixbuf(color=color))
-            else:
-                formated.append(row[key])
-        formated.append(row['color'])
+        formated.append(row.id)
+        formated.append(create_pixbuf(color=color))
+        formated.append(row.color)
+        formated.append(row.color)
+
         return formated
 
     def _on_list_cursor_changed(self, widget):
@@ -178,18 +175,18 @@ class CategoriesDialog(gtk.Dialog):
             # The ID for the selected record
             category_id = _model.get_value(iteration, 0)
             # Now fetch it from the database
-            self.currentrecord = self.actions.get_categories({'id': category_id})[0]
+            self.currentrecord = self.actions.get_categories({'id': id})[0]
         else:
-            self.currentrecord = {}
+            self.currentrecord = None
 
     def _update_fields(self):
         if not self.currentrecord:
             self.name_.set_text("")
             self.color.set_color(gtk.gdk.color_parse("#000"))
             return
-        self.name_.set_text(self.currentrecord['categoryname'])
+        self.name_.set_text(self.currentrecord.name)
         try:
-            color = gtk.gdk.color_parse(self.currentrecord['color'])
+            color = gtk.gdk.color_parse(self.currentrecord.color)
         except ValueError:
             color = gtk.gdk.color_parse("#000")
         self.color.set_color(color)
@@ -197,10 +194,10 @@ class CategoriesDialog(gtk.Dialog):
     def reloadTreeView(self, *arg):
         # Update list with updated record
         self.list.listStore.clear()
-        self._populateTreeView(self.actions.get_categories(""))
+        self._populateTreeView(self.actions.get_categories())
 
     def _on_newbutton_clicked(self, button):
-        self.currentrecord = {}
+        self.currentrecord = None
         self.name_.set_text("")
         self.color.set_color(gtk.gdk.color_parse("#000"))
         self.deletebutton.set_sensitive(False)
@@ -213,7 +210,7 @@ class CategoriesDialog(gtk.Dialog):
         color = self.color.get_color().to_string()
 
         # Check if it already exists
-        rec = self.actions.get_categories("UPPER(categoryname) = '%s'" % name.upper())
+        rec = self.actions.get_categories({'name': name})
         if rec:
             message = Message()
             if message.ShowQuestionYesNo(_("The category \"%s\" already exists in the database!\n\n"\
@@ -222,23 +219,23 @@ class CategoriesDialog(gtk.Dialog):
             #return
                 # We're updating an existing category.
                 if self.currentrecord:
-                    id = self.currentrecord['id']
+                    id = self.currentrecord.id
                     row = self.actions.edit_category({'id': id,
-                        'categoryname': name,
+                        'name': name,
                         'color': color})
                 # We're adding a new category.
         else:
             row = self.actions.add_category({'categoryname': name,
                 'color': color})
             # Update our local "copy" directly from database
-            self.currentrecord = self.actions.get_categories({'categoryname': name})[0]
+            self.currentrecord = self.actions.get_categories({'name': name})[0]
 
         # Repopulate the grid
         self.reloadTreeView()
 
     def _on_deletebutton_clicked(self, button):
         if self.currentrecord:
-            id = self.currentrecord['id']
+            id = self.currentrecord.id
             more = self.actions.get_bills({'catId': id})
             if len(more) > 1:
                 message = Message()
@@ -251,7 +248,7 @@ class CategoriesDialog(gtk.Dialog):
                 if not confirm:
                     return
             row = self.actions.delete_category(int(id))
-            self.currentrecord = {}
+            self.currentrecord = None
             self.name_.set_text("")
             self.color.set_color(gtk.gdk.color_parse("#000"))
             self.savebutton.set_sensitive(False)
