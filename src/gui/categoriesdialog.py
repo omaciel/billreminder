@@ -154,7 +154,7 @@ class CategoriesDialog(gtk.Dialog):
         formated = []
         formated.append(row.id)
         formated.append(create_pixbuf(color=color))
-        formated.append(row.color)
+        formated.append(row.name)
         formated.append(row.color)
 
         return formated
