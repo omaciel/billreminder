@@ -175,21 +175,20 @@ class CategoriesDialog(gtk.Dialog):
             # The ID for the selected record
             category_id = _model.get_value(iteration, 0)
             # Now fetch it from the database
-            self.currentrecord = self.actions.get_categories({'id': id})[0]
+            self.currentrecord = self.actions.get_categories(id=category_id)[0]
         else:
             self.currentrecord = None
 
     def _update_fields(self):
         if not self.currentrecord:
             self.name_.set_text("")
-            self.color.set_color(gtk.gdk.color_parse("#000"))
-            return
-        self.name_.set_text(self.currentrecord.name)
-        try:
-            color = gtk.gdk.color_parse(self.currentrecord.color)
-        except ValueError:
-            color = gtk.gdk.color_parse("#000")
-        self.color.set_color(color)
+            self.color.set_color(gtk.gdk.color_parse("#fff"))
+        else:
+            self.name_.set_text(self.currentrecord.name)
+
+            color = self.currentrecord.color and self.currentrecord.color or '#fff'
+            color = gtk.gdk.color_parse(color)
+            self.color.set_color(color)
 
     def reloadTreeView(self, *arg):
         # Update list with updated record
@@ -210,7 +209,7 @@ class CategoriesDialog(gtk.Dialog):
         color = self.color.get_color().to_string()
 
         # Check if it already exists
-        rec = self.actions.get_categories({'name': name})
+        rec = self.actions.get_categories(name=name)
         if rec:
             message = Message()
             if message.ShowQuestionYesNo(_("The category \"%s\" already exists in the database!\n\n"\

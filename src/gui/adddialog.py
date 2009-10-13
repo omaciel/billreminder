@@ -477,7 +477,7 @@ class AddDialog(gtk.Dialog):
                 categories._on_savebutton_clicked(None)
             category = categories.currentrecord
 
-            self._populate_category(category['categoryname'])
+            self._populate_category(category.name)
 
         categories.destroy()
         return ret
