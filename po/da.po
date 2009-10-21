@@ -1,0 +1,692 @@
+# Danish translation for billreminder.
+# Copyright (C) 2009 Joe Hansen.
+# This file is distributed under the same license as the billreminder package.
+# Joe Hansen (joedalton2@yahoo.dk), 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: billreminder master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-21 22:47+0200\n"
+"PO-Revision-Date: 2009-10-21 14:52+0000\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
+#: ../src/daemon/alarm.py:121 ../src/daemon/dbus_manager.py:45
+msgid "BillReminder Notifier"
+msgstr "Regningshusker"
+
+#: ../data/billreminderd.desktop.in.h:2 ../data/billreminder.desktop.in.h:2
+msgid "Bills manager"
+msgstr "Regningshåndtering"
+
+#: ../data/billreminderd.desktop.in.h:3 ../data/billreminder.desktop.in.h:3
+msgid "Never forget to pay a bill again!"
+msgstr "Glem aldrig mere at betale en regning!"
+
+#: ../data/billreminder.desktop.in.h:1 ../src/gui/widgets/trayicon.py:29
+#: ../src/lib/utils.py:138
+msgid "BillReminder"
+msgstr "Regningshusker"
+
+#: ../data/billreminder.schemas.in.h:1
+msgid "Default X coordinate for the application."
+msgstr "Standard x-koordinat for programmet."
+
+#: ../data/billreminder.schemas.in.h:2
+msgid "Default Y coordinate for the application."
+msgstr "Standard y-koordinat for programmet."
+
+#: ../data/billreminder.schemas.in.h:3
+msgid "Default height of the application."
+msgstr "Standardhøjde på programmet."
+
+#: ../data/billreminder.schemas.in.h:4
+msgid "Default width of the application."
+msgstr "Standardbredde på programmet."
+
+#: ../data/billreminder.schemas.in.h:5
+msgid "Defines the default X coordinate for the application."
+msgstr "Definerer standard x-koordinaten for programmet."
+
+#: ../data/billreminder.schemas.in.h:6
+msgid "Defines the default Y coordinate for the application."
+msgstr "Definerer standard y-koordinaten for programmet."
+
+#: ../data/billreminder.schemas.in.h:7
+msgid "Defines the default height of the application."
+msgstr "Definerer standardhøjden på programmet."
+
+#: ../data/billreminder.schemas.in.h:8
+msgid "Defines the default width of the application."
+msgstr "Definerer standardbredden på programmet."
+
+#: ../data/billreminder.schemas.in.h:9
+msgid "Delay between notifications."
+msgstr "Forsinkelse mellem påmindelser."
+
+#: ../data/billreminder.schemas.in.h:10
+msgid "Display only paid bills."
+msgstr "Vis kun betalte regninger."
+
+#: ../data/billreminder.schemas.in.h:11
+msgid "Display the menu bar."
+msgstr "Vis menbjælken."
+
+#: ../data/billreminder.schemas.in.h:12
+msgid "Display the toolbar."
+msgstr "Vis værktøjslinjen."
+
+#: ../data/billreminder.schemas.in.h:13
+msgid "How long to display the alarm notification."
+msgstr "Hvor længe skal alarmpåmindelsen vises."
+
+#: ../data/billreminder.schemas.in.h:14
+msgid "How many days prior to due date to alert."
+msgstr "Hvor mange dage før forfaldsdato skal der alarmeres."
+
+#: ../data/billreminder.schemas.in.h:15
+msgid "How many days prior to due date to notify."
+msgstr "Hvor mange dage før forfaldsdato skal der påmindes."
+
+#: ../data/billreminder.schemas.in.h:16
+msgid "Start the application in the system's tray."
+msgstr "Start programmet i systemets statusfelt."
+
+#: ../data/billreminder.schemas.in.h:17
+msgid "The date a bill is due."
+msgstr "Den dato en regning er forfalden."
+
+#: ../data/billreminder.schemas.in.h:18
+msgid "What specific time to display alert."
+msgstr "Hvilket specifikt tidspunkt alarmer skal vises."
+
+#: ../data/billreminder.schemas.in.h:19
+msgid "Whether to display notifications on startup."
+msgstr "Hvorvidt påmindelser skal vises ved opstart."
+
+#: ../data/billreminder.schemas.in.h:20
+msgid "Whether to display the menu bar or not."
+msgstr "Hvorvidt menubjælken skal vises eller ej."
+
+#: ../data/billreminder.schemas.in.h:21
+msgid "Whether to display the toolbar or not."
+msgstr "Hvorvidt værktøjslinjen skal vises eller ej."
+
+#: ../data/billreminder.schemas.in.h:22
+msgid "Whether to show alarms before a bill is due."
+msgstr "Hvorvidt der skal vises alarmer, før en regning er forfalden."
+
+#: ../data/billreminder.schemas.in.h:23
+msgid "Whether to show alarms."
+msgstr "Hvorvidt alarmer skal vises."
+
+#: ../data/billreminder.schemas.in.h:24
+msgid "Whether to show notifications for paid bills."
+msgstr "Hvorvidt påmindelser om betalte regninger skal vises."
+
+#: ../data/billreminder.schemas.in.h:25
+msgid "Whether to start the application in the system's tray."
+msgstr "Hvorvidt programmet skal startes i systemets statusfelt."
+
+#: ../data/billreminder.schemas.in.h:26
+msgid "Whether to use dialogs for notifications."
+msgstr "Hvorvidt der skal bruges dialogvinduer for påmindelser."
+
+#: ../src/billreminder.py:39 ../src/billreminderd.py:23
+msgid "Usage:  billreminder [OPTIONS...]"
+msgstr "Brug:  billreminder [TILVALG...]"
+
+#: ../src/billreminder.py:40 ../src/billreminderd.py:24
+msgid "Displays the version number for this application."
+msgstr "Viser versionnummeret på dette program."
+
+#: ../src/billreminder.py:41
+msgid "About this application."
+msgstr "Om dette program."
+
+#: ../src/billreminder.py:42
+msgid "Adds a new bill to the database."
+msgstr "Tilføjer en en regning til databasen."
+
+#: ../src/billreminder.py:43
+msgid "Access database directly, without daemon."
+msgstr "Tilgå database direkte, uden dæmon."
+
+#: ../src/billreminder.py:52
+msgid "This option is not implemented yet."
+msgstr "Denne indstilling er endnu ikke implementeret."
+
+#: ../src/billreminder.py:54 ../src/billreminderd.py:42
+#: ../src/daemon/dbus_manager.py:44
+#, python-format
+msgid "This is %(appname)s - Version: %(version)s"
+msgstr "Dette er %(appname)s - Version: %(version)s"
+
+#: ../src/billreminderd.py:25
+msgid "Print output messages."
+msgstr "Vis uddatabeskeder."
+
+# daemon -> måske tjeneste
+#: ../src/billreminderd.py:26
+msgid "Don't run as a daemon."
+msgstr "Kør ikke som dæmon."
+
+#: ../src/billreminderd.py:27
+msgid "Start daemon and launch GUI."
+msgstr "Start dæmon og anvend GUI."
+
+#: ../src/billreminderd.py:28
+msgid "Stop daemon."
+msgstr "Stop dæmon."
+
+#: ../src/daemon/alarm.py:63
+#, python-format
+msgid "You have %s outstanding bill to pay!"
+msgid_plural "You have %s outstanding bills to pay!"
+msgstr[0] "Du har %s udestående regning til betaling!"
+msgstr[1] "Du har %s udestående regninger til betaling!"
+
+#: ../src/daemon/alarm.py:68
+msgid "Show BillReminder"
+msgstr "Vis Regningshusker"
+
+#: ../src/daemon/alarm.py:70 ../src/daemon/alarm.py:131
+msgid "Cancel"
+msgstr "Afbryd"
+
+# skal det være %(day)s -> %(day)e  %(dag)e og hvad med bill?
+#: ../src/daemon/alarm.py:105 ../src/daemon/alarm.py:202
+#, python-format
+msgid "The bill %(bill)s will be due at %(day)s."
+msgstr "Regningen %(bill)s vil være forfalden om %(day)s."
+
+#: ../src/daemon/alarm.py:117
+#, python-format
+msgid "The bill %s is due."
+msgstr "Regningen %s er forfalden."
+
+#. Button Title
+#: ../src/daemon/alarm.py:128 ../src/gui/maindialog.py:298
+#: ../src/gui/maindialog.py:332 ../src/lib/utils.py:135
+msgid "Mark as paid"
+msgstr "Marker som betalt"
+
+#: ../src/daemon/alarm.py:130 ../src/lib/utils.py:136
+msgid "Edit"
+msgstr "Rediger"
+
+#: ../src/daemon/main.py:85
+#, python-format
+msgid "Lock File found: You have another instance running. (pid=%d)"
+msgstr "Låst fil fundet: Du har en anden session kørende. (pid=%d)"
+
+#: ../src/daemon/main.py:90
+msgid "Lock File found: Possibly the program was exited unexpectedly."
+msgstr "Låst fil fundet: Måske blev programmet uventet afsluttet."
+
+#: ../src/daemon/main.py:93
+msgid "Removing Lock File..."
+msgstr "Fjerner låst fil..."
+
+#: ../src/daemon/main.py:95
+msgid "Successfully."
+msgstr "Lykkedes."
+
+#: ../src/daemon/main.py:97
+msgid "Failed."
+msgstr "Mislykkedes."
+
+#: ../src/daemon/main.py:101
+msgid "BillReminder Notifier is already running."
+msgstr "Regningshuskers påmindelse kører allerede."
+
+#: ../src/gui/aboutdialog.py:21
+msgid "translator-credits"
+msgstr ""
+"Joe Hansen <joedalton2@yahoo.dk>, 2009.\n"
+"\n"
+"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
+"Mere info: http://www.dansk-gruppen.dk"
+
+#: ../src/gui/aboutdialog.py:44
+msgid "BillReminder Website"
+msgstr "Regningshuskers internetside"
+
+#: ../src/gui/adddialog.py:80
+msgid "<b>_Repeat:</b>"
+msgstr "<b>_Gentag:</b>"
+
+#: ../src/gui/adddialog.py:86
+msgid "<b>Due Date:</b>"
+msgstr "<b>Forfaldsdato:</b>"
+
+#. TRANSLATORS: This is the end date for repeating bills.
+#: ../src/gui/adddialog.py:90
+msgid "<b>End Date:</b>"
+msgstr "<b>Afslutningsdato:</b>"
+
+#: ../src/gui/adddialog.py:107
+msgid "<b>_Payee:</b>"
+msgstr "<b>_Modtager</b>"
+
+#: ../src/gui/adddialog.py:110
+msgid "<b>_Amount:</b>"
+msgstr "<b>_Beløb:</b>"
+
+#: ../src/gui/adddialog.py:113
+msgid "<b>_Category:</b>"
+msgstr "<b>_Kategori:</b>"
+
+#: ../src/gui/adddialog.py:116
+msgid "<b>_Notes:</b>"
+msgstr "<b>Bemærk_ninger:</b>"
+
+#: ../src/gui/adddialog.py:119
+msgid "<b>A_larm:</b>"
+msgstr "<b>A_larm:</b>"
+
+#: ../src/gui/adddialog.py:144
+msgid "Manage Categories"
+msgstr "Håndter kategorier"
+
+#: ../src/gui/adddialog.py:167 ../src/gui/widgets/datebutton.py:40
+msgid "Select Date and Time"
+msgstr "Vælg dato og tidspunkt"
+
+#. # Expander
+#: ../src/gui/adddialog.py:202
+msgid "<b>Optional Fields:</b>"
+msgstr "<b>Ekstra felter:</b>"
+
+#. TRANSLATORS: No date selected
+#: ../src/gui/adddialog.py:354 ../src/gui/adddialog.py:378
+#: ../src/gui/maindialog.py:273 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/widgets/datebutton.py:26
+msgid "None"
+msgstr "Ingen"
+
+#: ../src/gui/adddialog.py:360 ../src/gui/categoriesdialog.py:48
+msgid "New Category"
+msgstr "Ny kategori"
+
+#: ../src/gui/adddialog.py:400
+msgid ""
+"The end date is set to a date prior to the start date. Setting it to match "
+"the start date."
+msgstr ""
+"Afslutningsdatoen er indstillet til en dato før startdatoen. Indstillingen "
+"skal svare mindst til startdatoen."
+
+#: ../src/gui/adddialog.py:401
+msgid "Date set in the past"
+msgstr "Dato er sat til en dato i fortiden"
+
+#: ../src/gui/adddialog.py:506
+#, python-format
+msgid "\"%s\" and \"%s\" are required fields."
+msgstr "\"%s\" og \"%s\" er krævede felter."
+
+#: ../src/gui/adddialog.py:507 ../src/gui/adddialog.py:511
+#: ../src/gui/widgets/viewbill.py:85
+msgid "Payee"
+msgstr "Modtager"
+
+#: ../src/gui/adddialog.py:507 ../src/gui/widgets/viewbill.py:89
+msgid "Amount"
+msgstr "Beløb"
+
+#: ../src/gui/adddialog.py:511
+#, python-format
+msgid "\"%s\" is required field."
+msgstr "\"%s\" er et påkrævet felt."
+
+#: ../src/gui/categoriesdialog.py:23
+msgid "Categories Manager"
+msgstr "Kategorihåndtering"
+
+#: ../src/gui/categoriesdialog.py:59
+msgid "Categories"
+msgstr "Kategorier"
+
+#: ../src/gui/categoriesdialog.py:82
+msgid "Name:"
+msgstr "Navn:"
+
+#: ../src/gui/categoriesdialog.py:85
+msgid "Color:"
+msgstr "Farve:"
+
+#: ../src/gui/categoriesdialog.py:215
+#, python-format
+msgid ""
+"The category \"%s\" already exists in the database!\n"
+"\n"
+"Do you want to save your change to the existing category?"
+msgstr ""
+"Kategorien \"%s\" eksisterer allerede i databasen!\n"
+"\n"
+"Ønsker du at gemme dine ændringer til den eksisterende kategori?"
+
+#: ../src/gui/categoriesdialog.py:242
+msgid "Do you really want to delete this category?\n"
+msgstr "Ønsker du virkelig at slette denne kategori?\n"
+
+#: ../src/gui/categoriesdialog.py:243
+#, python-format
+msgid "There is %d more bill in this category."
+msgid_plural "There are %d more bills in this category."
+msgstr[0] "Der er %d yderligere regning i denne kategori."
+msgstr[1] "Der er %d yderligere regninger i denne kategori."
+
+#: ../src/gui/categoriesdialog.py:246 ../src/gui/maindialog.py:565
+msgid "Confirmation"
+msgstr "Bekræftelse"
+
+#: ../src/gui/maindialog.py:280
+msgid "%m/%d"
+msgstr "%d/%m"
+
+#: ../src/gui/maindialog.py:291
+msgid "New"
+msgstr "Ny"
+
+#. Dialog Title
+#: ../src/gui/maindialog.py:291 ../src/gui/maindialog.py:328
+#: ../src/lib/dialogs.py:51
+msgid "Add a new bill"
+msgstr "Tilføj en ny regning"
+
+#. Dialog Title
+#: ../src/gui/maindialog.py:293 ../src/gui/maindialog.py:329
+#: ../src/lib/dialogs.py:62
+msgid "Edit a bill"
+msgstr "Rediger en regning"
+
+#: ../src/gui/maindialog.py:295 ../src/gui/maindialog.py:330
+msgid "Delete selected bill"
+msgstr "Slet valgte regning"
+
+#: ../src/gui/maindialog.py:298 ../src/gui/widgets/viewbill.py:93
+msgid "Paid"
+msgstr "Betalt"
+
+#: ../src/gui/maindialog.py:301
+msgid "Not Paid"
+msgstr "Ikke betalt"
+
+#: ../src/gui/maindialog.py:301 ../src/gui/maindialog.py:333
+msgid "Mark as not paid"
+msgstr "Marker som betalt"
+
+#: ../src/gui/maindialog.py:327
+msgid "_File"
+msgstr "_Fil"
+
+#: ../src/gui/maindialog.py:328 ../src/gui/maindialog.py:523
+msgid "_Add New"
+msgstr "_Tilføj ny"
+
+#: ../src/gui/maindialog.py:331
+msgid "_Edit"
+msgstr "_Rediger"
+
+#: ../src/gui/maindialog.py:332 ../src/gui/maindialog.py:533
+msgid "_Paid"
+msgstr "_Betalt"
+
+#: ../src/gui/maindialog.py:333
+msgid "_Not Paid"
+msgstr "_Ikke betalt"
+
+#: ../src/gui/maindialog.py:334
+msgid "Edit preferences"
+msgstr "Rediger indstillinger"
+
+#: ../src/gui/maindialog.py:335
+msgid "Quit the Program"
+msgstr "Afslut programmet"
+
+#: ../src/gui/maindialog.py:336
+msgid "_View"
+msgstr "_Vis"
+
+#: ../src/gui/maindialog.py:337
+msgid "_Help"
+msgstr "_Hjælp"
+
+#: ../src/gui/maindialog.py:338
+msgid "About the application"
+msgstr "Om programmet"
+
+#: ../src/gui/maindialog.py:348
+msgid "_Show Toolbar"
+msgstr "_Vis værktøjslinje"
+
+#: ../src/gui/maindialog.py:348
+msgid "Show the toolbar"
+msgstr "Vis værktøjslinjen"
+
+#: ../src/gui/maindialog.py:352
+msgid "_Not Paid Only"
+msgstr "_Kun ikke betalte"
+
+#: ../src/gui/maindialog.py:352
+msgid "Display all unpaid bills only"
+msgstr "Vis kun alle ubetalte regninger"
+
+#: ../src/gui/maindialog.py:353
+msgid "_Paid Only"
+msgstr "_Kun betalte"
+
+#: ../src/gui/maindialog.py:353
+msgid "Display all paid bills only"
+msgstr "Vis kun alle betalte regninger"
+
+#: ../src/gui/maindialog.py:354
+msgid "_All Bills"
+msgstr "_Alle regninger"
+
+#: ../src/gui/maindialog.py:354
+msgid "Display all bills"
+msgstr "Vis alle regninger"
+
+#: ../src/gui/maindialog.py:536
+msgid "Not _Paid"
+msgstr "Ikke _betalt"
+
+#: ../src/gui/maindialog.py:563
+#, python-format
+msgid "Do you really want to delete \"%s\"?"
+msgstr "Ønsker du virkelig at slette \"%s\"?"
+
+#: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: ../src/gui/prefdialog.py:54
+msgid "<b>Alarms</b>"
+msgstr "<b>Alarmer</b>"
+
+#: ../src/gui/prefdialog.py:60
+msgid "_Alert before due date:"
+msgstr "_Alarm før forfaldsdato:"
+
+#: ../src/gui/prefdialog.py:65 ../src/gui/prefdialog.py:115
+msgid "day(s)."
+msgstr "dag(e)."
+
+# ? Foretrukne
+#: ../src/gui/prefdialog.py:68
+msgid "_Preferred time:"
+msgstr "_Foretrukket tidspunkt:"
+
+#: ../src/gui/prefdialog.py:71
+msgid "Get alerted when individual bills are due."
+msgstr "Bliv alarmeret når individuelle regninger er forfaldne."
+
+#: ../src/gui/prefdialog.py:95
+msgid "<b>Notifications</b>"
+msgstr "<b>Påmindelser</b>"
+
+#: ../src/gui/prefdialog.py:101
+msgid "Define when to be notified of upcoming bills."
+msgstr "Definer hvornår du skal påmindes om kommende regninger."
+
+#: ../src/gui/prefdialog.py:109
+msgid "_Notify before due date:"
+msgstr "_Påmind før forfaldsdato:"
+
+#: ../src/gui/prefdialog.py:130
+msgid "<b>Alert Type</b>"
+msgstr "<b>Alarmtype</b>"
+
+#: ../src/gui/prefdialog.py:140
+msgid "Notification _Bubble"
+msgstr "Påmindelses_boble"
+
+#: ../src/gui/prefdialog.py:142
+msgid "Alert _Dialog"
+msgstr "Alarmvin_due"
+
+#: ../src/gui/prefdialog.py:154
+msgid ""
+"<b>Warning:</b> BillReminder Notifier is \n"
+"not running! You need to start it in order \n"
+" to receive notifications."
+msgstr ""
+"<b>Advarsel:</b> Regningshusker kører ikke! \n"
+"Du skal køre programmet for at kunne modtage påmindelser."
+
+#: ../src/gui/prefdialog.py:161
+msgid "_Start BillReminder Notifier"
+msgstr "_Start Regningshusker"
+
+#: ../src/gui/prefdialog.py:233
+msgid "<b>Note:</b> BillReminder Notifier is now running."
+msgstr "<b>Bemærk:</b> Regningshusker kører ikke."
+
+#. TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
+#: ../src/gui/widgets/datepicker.py:87
+msgid "%m/%d/%Y"
+msgstr "%d/%m/%Y"
+
+#: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:65
+msgid "%Y/%m/%d %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+#: ../src/gui/widgets/datebutton.py:43 ../src/gui/widgets/datebutton.py:73
+msgid "_None"
+msgstr "_Ingen"
+
+#: ../src/gui/widgets/datebutton.py:70
+msgid "Select date and time"
+msgstr "Vælg dato og tidspunkt"
+
+#: ../src/gui/widgets/datebutton.py:94
+msgid "<b>_Time:</b>"
+msgstr "<b>_Tidspunkt:</b>"
+
+#: ../src/gui/widgets/statusbar.py:16
+msgid "Bills:"
+msgstr "Regninger:"
+
+#: ../src/gui/widgets/statusbar.py:26
+msgid "Notes:"
+msgstr "Bemærkninger:"
+
+#: ../src/gui/widgets/timewidget.py:39
+msgid "(hh/mm)"
+msgstr "(tt/mm)"
+
+#: ../src/gui/widgets/trayicon.py:42
+msgid "Hide Window"
+msgstr "Skjul vindue"
+
+#: ../src/gui/widgets/trayicon.py:44
+msgid "Show Window"
+msgstr "Vis vindue"
+
+#: ../src/gui/widgets/trayicon.py:50
+msgid "About"
+msgstr "Om"
+
+#: ../src/gui/widgets/trayicon.py:54
+msgid "Quit"
+msgstr "Afslut"
+
+#: ../src/gui/widgets/viewbill.py:83 ../src/gui/widgets/viewcategory.py:39
+msgid "Category"
+msgstr "Kategori"
+
+#: ../src/gui/widgets/viewbill.py:87
+msgid "Date"
+msgstr "Dato"
+
+#: ../src/gui/widgets/viewbill.py:91
+msgid "Notes"
+msgstr "Bemærkninger"
+
+#: ../src/gui/widgets/viewbill.py:95
+msgid "Alarm"
+msgstr "Alarm"
+
+#: ../src/lib/common.py:18
+msgid "Developers:"
+msgstr "Udviklere:"
+
+#: ../src/lib/common.py:22
+msgid "Contributors:"
+msgstr "Bidragydere:"
+
+#: ../src/lib/dbus_actions.py:29
+msgid ""
+"An error occurred while connecting to BillReminder Notifier!\n"
+"Do you want to launch it and restart BillReminder?"
+msgstr ""
+"En fejl opstod under forbindelsen med Regningshusker!\n"
+"Ønsker du at starte den op og genstarte Regningshusker?"
+
+#. Dialog Title
+#: ../src/lib/utils.py:83
+msgid "Question"
+msgstr "Spørgsmål"
+
+#. Dialog Title
+#: ../src/lib/utils.py:96 ../src/lib/utils.py:109
+msgid "Error"
+msgstr "Fejl"
+
+#. Dialog Title
+#: ../src/lib/utils.py:122
+msgid "Information"
+msgstr "Information"
+
+#: ../src/lib/utils.py:150
+msgid "Close _Without Saving"
+msgstr "Luk _uden at gemme"
+
+#: ../src/lib/utils.py:156
+msgid "Save changes before closing?"
+msgstr "Gem ændringer før programmet lukkes?"
+
+#: ../src/lib/utils.py:157
+msgid "If you close without saving, your changes will be discarded."
+msgstr "Hvis du lukker uden at gemme, vil dine ændringer blive kasseret."
+
+#: ../src/lib/scheduler.py:6
+msgid "Once"
+msgstr "En gang"
+
+#: ../src/lib/scheduler.py:7
+msgid "Weekly"
+msgstr "Ugentligt"
+
+#: ../src/lib/scheduler.py:8
+msgid "Monthly"
+msgstr "Månedligt"
