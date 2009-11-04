@@ -17,7 +17,7 @@ class Toolbar(gtk.Toolbar):
     def add_button(self, image, title, tip_text=None, callback=None):
         toolitem = gtk.ToolButton(image)
         toolitem.set_label(title)
-        toolitem.set_tooltip(gtk.Tooltips(), tip_text, tip_text)
+        toolitem.set_tooltip_text(tip_text)
         if callback:
             toolitem.connect('clicked', callback)
         self.insert(toolitem,-1)
@@ -26,7 +26,7 @@ class Toolbar(gtk.Toolbar):
 
     def add_stock(self, stock_id, tip_text=None, callback=None):
         toolitem = gtk.ToolButton(stock_id)
-        toolitem.set_tooltip(gtk.Tooltips(), tip_text, tip_text)
+        toolitem.set_tooltip_text(tip_text)
         if callback:
             toolitem.connect('clicked', callback)
         self.insert(toolitem,-1)
@@ -34,7 +34,7 @@ class Toolbar(gtk.Toolbar):
     def add_toggle(self, stock_id, title, tip_text, callback):
         toolitem = gtk.ToggleToolButton(stock_id)
         toolitem.connect('toggled', callback)
-        toolitem.set_tooltip(gtk.Tooltips(), tip_text, tip_text)
+        toolitem.set_tooltip_text(tip_text)
         self.insert(toolitem,-1)
 
     def add_widget(self, widget, tip_text, private_text):
@@ -42,5 +42,5 @@ class Toolbar(gtk.Toolbar):
         toolitem.add(widget)
         toolitem.set_expand(False)
         toolitem.set_homogeneous(False)
-        toolitem.set_tooltip(gtk.Tooltips(), tip_text, tip_text)
+        toolitem.set_tooltip_text(tip_text)
         self.insert(toolitem,-1)
