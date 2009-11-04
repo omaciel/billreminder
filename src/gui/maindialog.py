@@ -307,8 +307,8 @@ class MainDialog:
         records = []
         for rec in records:
             chartdata.append([field for field in rec])
-        #if chartdata:
-        self.chart.plot(chartdata)
+        if chartdata:
+            self.chart.plot(chartdata)
 
     def _populate_menubar(self):
         # Create a UIManager instance

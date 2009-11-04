@@ -138,7 +138,7 @@ class Chart(gtk.DrawingArea):
         if self.orient_vertical:
             # for simple bars figure, when there is way too much data for bars
             # and go to lines (yay!)
-            if len(self.data) == 0 or (widget.allocation.width / len(self.data)) > 30: #this is big enough
+            if not self.data or len(self.data) == 0 or (widget.allocation.width / len(self.data)) > 30: #this is big enough
                 self._bar_chart(context)
             else:
                 self._area_chart(context)
@@ -335,10 +335,11 @@ class Chart(gtk.DrawingArea):
 
     def _bar_chart(self, context):
         rect = self.get_allocation()  #x, y, width, height
-        data, records = self.data, len(self.data)
 
-        if not data:
+        if not self.data:
             return
+
+        data, records = self.data, len(self.data)
 
         # graph box dimensions
         graph_x = self.legend_width or 50 #give some space to scale labels
