@@ -271,7 +271,7 @@ class MainDialog:
         """ Formats a bill to be displayed as a row. """
 
         categoryName = len(row.category) and row.category[0].name or _('None')
-        categoryColor = len(row.category) and row.category[0].color or '#000'
+        categoryColor = len(row.category) and row.category[0].color or '#d3d7cf'
         formatted = [
             row.id,
             create_pixbuf(color=categoryColor),

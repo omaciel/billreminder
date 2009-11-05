@@ -137,7 +137,7 @@ class CategoriesDialog(gtk.Dialog):
         for rec in records:
             self.list.add(self._formated_row(rec))
             if self.currentrecord:
-                if rec.name == self.currentrecord.category[0]:
+                if rec.name == self.currentrecord.name:
                     found = path
             path += 1
 
@@ -149,7 +149,7 @@ class CategoriesDialog(gtk.Dialog):
 
     def _formated_row(self, row):
         """ Formats a bill to be displayed as a row. """
-        color = row.color and row.color or '#fff'
+        color = row.color and row.color or '#d3d7cf'
 
         formated = []
         formated.append(row.id)
@@ -182,11 +182,11 @@ class CategoriesDialog(gtk.Dialog):
     def _update_fields(self):
         if not self.currentrecord:
             self.name_.set_text("")
-            self.color.set_color(gtk.gdk.color_parse("#fff"))
+            self.color.set_color(gtk.gdk.color_parse("#d3d7cf"))
         else:
             self.name_.set_text(self.currentrecord.name)
 
-            color = self.currentrecord.color and self.currentrecord.color or '#fff'
+            color = self.currentrecord.color and self.currentrecord.color or '#d3d7cf'
             color = gtk.gdk.color_parse(color)
             self.color.set_color(color)
 
@@ -198,7 +198,7 @@ class CategoriesDialog(gtk.Dialog):
     def _on_newbutton_clicked(self, button):
         self.currentrecord = None
         self.name_.set_text("")
-        self.color.set_color(gtk.gdk.color_parse("#000"))
+        self.color.set_color(gtk.gdk.color_parse("#d3d7cf"))
         self.deletebutton.set_sensitive(False)
         self.savebutton.set_sensitive(False)
         self.name_.grab_focus()
@@ -214,20 +214,17 @@ class CategoriesDialog(gtk.Dialog):
             message = Message()
             if message.ShowQuestionYesNo(_("The category \"%s\" already exists in the database!\n\n"\
                 "Do you want to save your change to the existing category?") % name, self):
-            #message.ShowError(_("The category %s already exists in the database!") % name, self)
-            #return
                 # We're updating an existing category.
-                if self.currentrecord:
-                    id = self.currentrecord.id
-                    row = self.actions.edit_category({'id': id,
-                        'name': name,
-                        'color': color})
-                # We're adding a new category.
+                cat = rec[0]
+                cat.name = name
+                cat.color = color
+                row = self.actions.edit(cat)
+        # We're adding a new category.
         else:
-            row = self.actions.add_category({'categoryname': name,
-                'color': color})
+            cat = Category(name, color)
+            row = self.actions.add_category(cat)
             # Update our local "copy" directly from database
-            self.currentrecord = self.actions.get_categories({'name': name})[0]
+            self.currentrecord = self.actions.get_categories(name=name)[0]
 
         # Repopulate the grid
         self.reloadTreeView()
@@ -235,7 +232,7 @@ class CategoriesDialog(gtk.Dialog):
     def _on_deletebutton_clicked(self, button):
         if self.currentrecord:
             id = self.currentrecord.id
-            more = self.actions.get_bills({'catId': id})
+            more = self.actions.get_bills(id=id)
             if len(more) > 1:
                 message = Message()
                 confirm = message.ShowQuestionYesNo("%s%s" % (
@@ -249,7 +246,7 @@ class CategoriesDialog(gtk.Dialog):
             row = self.actions.delete_category(int(id))
             self.currentrecord = None
             self.name_.set_text("")
-            self.color.set_color(gtk.gdk.color_parse("#000"))
+            self.color.set_color(gtk.gdk.color_parse("#d3d7cf"))
             self.savebutton.set_sensitive(False)
             self.reloadTreeView()
 
