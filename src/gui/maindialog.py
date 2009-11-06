@@ -219,6 +219,7 @@ class MainDialog:
                 self.currentrecord = None
         else:
             self.currentrecord = None
+        print "Current record is: %s" % self.currentrecord
 
     def populate_view(self, records):
         """ Populates the treeview control with the records passed """
@@ -420,22 +421,26 @@ class MainDialog:
 
     def toggle_bill_paid(self):
         try:
-             # Toggle paid field
-            self.currentrecord.paid = (self.currentrecord.paid == 0) and 1 or 0
-            # Edit bill to database
-            session = DAL().Session()
-            session.update(self.currentrecord)
-            session.commit()
-            self._bullet_cache[self.currentrecord.dueDate] = self.actions.get_bills(
-                dueDate=self.currentrecord.dueDate
-            )
+            # Toggle paid field
+            paidBill = self.currentrecord
+            paidBill.paid = paidBill.paid == 0 and 1 or 0
+            import epdb; epdb.st()
+            try:
+                # Edit bill in the database
+                rec = self.actions.add_bill(paidBill)
+            except Exception, e:
+                print "Failed to edit bill's payment status: %s" % str(e)
+
+            paidBill = self.actions.get_bills(id = paidBill.id)
+            # Update timeline widget to reflect change
+            self._bullet_cache[paidBill.dueDate] = [paidBill]
             # Update list with updated record
             idx = self.list.get_cursor()[0][0]
             self.update_statusbar(idx)
             #self.reloadTreeView()
             self.reloadTimeline()
         except Exception, e:
-            print str(e)
+            print "Failed to toggle payment: %s" % str(e)
 
     def about(self):
         dialogs.about_dialog(parent=self.window)
