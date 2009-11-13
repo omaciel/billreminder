@@ -384,7 +384,7 @@ class MainDialog:
         if records:
             # Add new bill to database
             for rec in records:
-                bill = self.actions.add_bill(rec)
+                bill = self.actions.add(rec)
                 if bill:
                     self.list.add(self.format_row(bill))
             self.update_statusbar()
@@ -401,7 +401,7 @@ class MainDialog:
             for rec in records:
                 try:
                     # Edit bill to database
-                    rec = self.actions.add_bill(rec)
+                    rec = self.actions.add(rec)
                 except Exception, e:
                     print str(e)
             # Reload records tree (something changed)
@@ -428,7 +428,7 @@ class MainDialog:
 
             try:
                 # Edit bill in the database
-                transaction = self.actions.add_bill(record)
+                transaction = self.actions.add(record)
             except Exception, e:
                 print "Failed to edit bill's payment status: %s" % str(e)
                 print "Transaction: %s" % transaction

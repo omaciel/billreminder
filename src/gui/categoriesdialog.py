@@ -222,7 +222,7 @@ class CategoriesDialog(gtk.Dialog):
         # We're adding a new category.
         else:
             cat = Category(name, color)
-            row = self.actions.add_category(cat)
+            row = self.actions.add(cat)
             # Update our local "copy" directly from database
             self.currentrecord = self.actions.get_categories(name=name)[0]
 

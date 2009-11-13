@@ -124,11 +124,8 @@ class Actions(object):
 
         return records
 
-    def add_bill(self, bill):
+    def add(self, dbobject):
         return self.dal.add(bill)
-
-    def add_category(self, category):
-        return self.dal.add(category)
 
     def edit(self, dbobject):
         return self.dal.add(dbobject)

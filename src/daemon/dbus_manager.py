@@ -118,7 +118,7 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='a{ss}')
     def add_bill(self, kwargs):
         """ Add a record to the database """
-        ret = self.actions.add_bill(kwargs)
+        ret = self.actions.add(kwargs)
         if ret:
             self.bill_added(kwargs)
         return force_string(ret)
@@ -158,7 +158,7 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='a{ss}')
     def add_category(self, kwargs):
         """ Add a record to the database """
-        ret = self.actions.add_category(kwargs)
+        ret = self.actions.add(kwargs)
         return force_string(ret)
 
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='i', out_signature='b')
