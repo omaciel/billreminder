@@ -421,19 +421,22 @@ class MainDialog:
 
     def toggle_bill_paid(self):
         try:
+            # Fetch record from database
+            record = self.actions.get_bills(id=self.currentrecord.id)[0]
             # Toggle paid field
-            paidBill = self.currentrecord
-            paidBill.paid = paidBill.paid == 0 and 1 or 0
-            import epdb; epdb.st()
+            record.paid = record.paid == False and True or False
+
             try:
                 # Edit bill in the database
-                rec = self.actions.add_bill(paidBill)
+                transaction = self.actions.add_bill(record)
             except Exception, e:
                 print "Failed to edit bill's payment status: %s" % str(e)
+                print "Transaction: %s" % transaction
 
-            paidBill = self.actions.get_bills(id = paidBill.id)
+            # Update our current copy
+            self.currentrecord = self.actions.get_bills(id = self.currentrecord.id)[0]
             # Update timeline widget to reflect change
-            self._bullet_cache[paidBill.dueDate] = [paidBill]
+            self._bullet_cache[self.currentrecord.dueDate] = [self.currentrecord]
             # Update list with updated record
             idx = self.list.get_cursor()[0][0]
             self.update_statusbar(idx)
