@@ -424,7 +424,7 @@ class MainDialog:
             # Fetch record from database
             record = self.actions.get_bills(id=self.currentrecord.id)[0]
             # Toggle paid field
-            record.paid = record.paid == False and True or False
+            record.paid = False if record.paid else True
 
             try:
                 # Edit bill in the database
