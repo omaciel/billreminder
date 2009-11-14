@@ -243,12 +243,15 @@ class CategoriesDialog(gtk.Dialog):
                     parentWindow=self, title=_("Confirmation"))
                 if not confirm:
                     return
-            row = self.actions.delete_category(int(id))
-            self.currentrecord = None
-            self.name_.set_text("")
-            self.color.set_color(gtk.gdk.color_parse("#d3d7cf"))
-            self.savebutton.set_sensitive(False)
-            self.reloadTreeView()
+            try:
+                row = self.actions.delete(self.currentrecord)
+                self.currentrecord = None
+                self.name_.set_text("")
+                self.color.set_color(gtk.gdk.color_parse("#d3d7cf"))
+                self.savebutton.set_sensitive(False)
+                self.reloadTreeView()
+            except Exception, e:
+                print "Failed to delete the selected category with error: %s" % str(e)
 
     def _on_edit(self, widget):
         self.savebutton.set_sensitive(True)
