@@ -410,14 +410,12 @@ class MainDialog:
 
     def remove_bill(self):
         try:
-            session = DAL().Session()
-            session.delete(self.currentrecord)
-            session.commit()
+            self.actions.delete(self.currentrecord)
             self.list.remove()
             self.update_statusbar()
             self.reloadTimeline()
         except Exception, e:
-            print str(e)
+            print "Failed to remove selected bill with error: %s" % str(e)
 
     def toggle_bill_paid(self):
         try:
