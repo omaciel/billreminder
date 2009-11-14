@@ -44,6 +44,19 @@ class DAL(object):
         finally:
             session.close()
 
+    def edit(self, dbobject):
+
+        session = self.Session()
+
+        if session.dirty:
+            try:
+                session.commit()
+            except Exception, e:
+                session.rollback()
+                print str(e)
+            finally:
+                session.close()
+
     def delete(self, dbobjects):
         if not isinstance(dbobjects, list):
             dbobjects = [dbobjects]
