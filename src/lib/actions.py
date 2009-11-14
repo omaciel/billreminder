@@ -27,6 +27,8 @@ class Actions(object):
 
         records = []
 
+        paid = bool(paid) if (paid and paid < 2) else None
+
         try:
             session = self.dal.Session()
             q = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end)
@@ -128,7 +130,7 @@ class Actions(object):
         return self.dal.add(dbobject)
 
     def edit(self, dbobject):
-        return self.dal.add(dbobject)
+        return self.dal.edit(dbobject)
 
     def delete(self, dbobject):
         return self.dal.delete(dbobject)

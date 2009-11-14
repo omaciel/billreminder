@@ -246,6 +246,7 @@ class MainDialog:
     def reloadTreeView(self, *arg):
         # Update list with updated record
         status = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
+        print "Status is: %s" % status
 
         #month = self.timeline.value.month
         #year = self.timeline.value.year
@@ -401,7 +402,7 @@ class MainDialog:
             for rec in records:
                 try:
                     # Edit bill to database
-                    rec = self.actions.add(rec)
+                    rec = self.actions.edit(rec)
                 except Exception, e:
                     print str(e)
             # Reload records tree (something changed)
@@ -601,13 +602,13 @@ class MainDialog:
             self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", False)
 
     def reloadTimeline(self, *args):
-        print 'reloadtimeline'
         self._bullet_cache = {}
         self.timeline.refresh()
 
     def on_timeline_cb(self, date, display_type):
         # TODO: Improve tooltip
         # TODO: Improve cache
+
         if not date in self._bullet_cache.keys():
             self._bullet_cache[date] = self.actions.get_bills(dueDate=date)
 

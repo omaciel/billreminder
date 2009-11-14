@@ -271,7 +271,8 @@ class AddDialog(gtk.Dialog):
 
         if self.currentrecord.category:
             actions = Actions()
-            records = actions.get_categories(id=self.currentrecord.category[0])
+            cat_name = self.currentrecord.category[0].name
+            records = actions.get_categories(name=cat_name)
             if records:
                 categoryname = records[0].name
                 utils.select_combo_text(self.category, categoryname, 1)
@@ -466,6 +467,8 @@ class AddDialog(gtk.Dialog):
             self.endDate.set_sensitive(True)
 
     def _on_categoriesbutton_clicked(self, button, new=False):
+        category = None
+
         # if new == True, a simpler categories dialog pops up
         categories = CategoriesDialog(parent=self, new=new)
         ret = categories.run()
@@ -477,9 +480,15 @@ class AddDialog(gtk.Dialog):
                 categories._on_savebutton_clicked(None)
             category = categories.currentrecord
 
-            self._populate_category(category.name)
-
         categories.destroy()
+
+        # Always re-populate the categories dropdown widget, regardless if
+        # newer category was added. If something was returned, select it.
+        if category:
+            self._populate_category(category.name)
+        else:
+            self._populate_category()
+
         return ret
 
     def _on_categorycombo_changed(self, combobox):
