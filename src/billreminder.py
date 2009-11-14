@@ -27,6 +27,12 @@ except ImportError:
     print "Please install gtk"
     raise SystemExit
 
+try:
+    import sqlalchemy
+except ImportError:
+    print "Please install sqlalchemy"
+    raise SystemExit
+
 from lib import dialogs
 from lib import common
 from lib import i18n
