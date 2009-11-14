@@ -125,7 +125,7 @@ class Actions(object):
         return records
 
     def add(self, dbobject):
-        return self.dal.add(bill)
+        return self.dal.add(dbobject)
 
     def edit(self, dbobject):
         return self.dal.add(dbobject)
