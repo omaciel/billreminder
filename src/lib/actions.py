@@ -131,4 +131,4 @@ class Actions(object):
         return self.dal.add(dbobject)
 
     def delete(self, dbobject):
-        pass
+        return self.dal.delete(dbobject)
