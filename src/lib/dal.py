@@ -4,7 +4,7 @@ import os
 import sys
 
 try:
-    from sqlalchemy.orm import sessionmaker
+    from sqlalchemy.orm import sessionmaker, eagerload
     from sqlalchemy import create_engine
     from sqlalchemy.orm import sessionmaker
 except ImportError:
@@ -35,14 +35,52 @@ class DAL(object):
 
         session = self.Session()
 
-        try:
-            session.add(dbobject)
-            session.commit()
-        except Exception, e:
-            session.rollback()
-            print str(e)
-        finally:
-            session.close()
+        if isinstance(dbobject, Bill):
+            try:
+                bill = session.query(Bill).options(eagerload('category')).filter_by(id=dbobject.id).one()
+                if bill:
+                    bill.payee = dbobject.payee
+                    bill.amount = dbobject.amount
+                    bill.dueDate = dbobject.dueDate
+                    bill.notes = dbobject.notes
+                    bill.paid = dbobject.paid
+                    if dbobject.category and bill.category[0].name != dbobject.category[0].name:
+                        bill.category = []
+                        try:
+                            category = session.query(Category).filter_by(name=dbobject.category[0].name).one()
+                            bill.category.append(category)
+                        except Exception, e:
+                            print "Failed to retrieve category \"%s\" for bill \"%s\": %s" \
+                                % (dbobject.name, dbobject.category[0].name, str(e))
+                else:
+                    session.add(dbobject)
+
+                if session.dirty:
+                    session.commit()
+
+            except Exception, e:
+                session.rollback()
+                print str(e)
+            finally:
+                session.close()
+
+        elif isinstance(dbobject, Category):
+            try:
+                category = session.query(Category).filter_by(id=dbobject.id).one()
+                if category:
+                    category.name = dbobject.name
+                    category.color = dbobject.color
+                else:
+                    session.add(dbobject)
+
+                if session.dirty:
+                    session.commit()
+
+            except Exception, e:
+                session.rollback()
+                print str(e)
+            finally:
+                session.close()
 
     def edit(self, dbobject):
 

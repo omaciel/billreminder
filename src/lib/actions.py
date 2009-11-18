@@ -130,7 +130,8 @@ class Actions(object):
         return self.dal.add(dbobject)
 
     def edit(self, dbobject):
-        return self.dal.edit(dbobject)
+        return self.dal.add(dbobject)
+        #return self.dal.edit(dbobject)
 
     def delete(self, dbobject):
         return self.dal.delete(dbobject)
