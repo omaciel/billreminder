@@ -452,6 +452,7 @@ class AddDialog(gtk.Dialog):
             self.currentrecord.notes = sbuffer
             #self.currentrecord.alarm = alarm
             if category:
+                self.currentrecord.category = []
                 self.currentrecord.category.append(category)
 
             #return the bill
