@@ -4,9 +4,9 @@ import os
 import sys
 
 try:
-    from sqlalchemy.orm import sessionmaker, eagerload
     from sqlalchemy import create_engine
-    from sqlalchemy.orm import sessionmaker
+    from sqlalchemy.orm import sessionmaker, eagerload
+    from sqlalchemy.orm.exc import NoResultFound
 except ImportError:
     print "Please install SQLAlchemy!"
     raise SystemExit
@@ -44,7 +44,7 @@ class DAL(object):
                     bill.dueDate = dbobject.dueDate
                     bill.notes = dbobject.notes
                     bill.paid = dbobject.paid
-                    if dbobject.category and bill.category[0].name != dbobject.category[0].name:
+                    if dbobject.category:
                         bill.category = []
                         try:
                             category = session.query(Category).filter_by(name=dbobject.category[0].name).one()
@@ -52,11 +52,13 @@ class DAL(object):
                         except Exception, e:
                             print "Failed to retrieve category \"%s\" for bill \"%s\": %s" \
                                 % (dbobject.name, dbobject.category[0].name, str(e))
-                else:
-                    session.add(dbobject)
 
                 if session.dirty:
                     session.commit()
+
+            except NoResultFound, e:
+                session.add(dbobject)
+                session.commit()
 
             except Exception, e:
                 session.rollback()
@@ -70,12 +72,13 @@ class DAL(object):
                 if category:
                     category.name = dbobject.name
                     category.color = dbobject.color
-                else:
-                    session.add(dbobject)
 
                 if session.dirty:
                     session.commit()
 
+            except NoResultFound, e:
+                session.add(dbobject)
+                session.commit()
             except Exception, e:
                 session.rollback()
                 print str(e)
