@@ -48,28 +48,27 @@ class Actions(object):
         Return a list of categories and totals for the given month
         """
 
-        total = 0.00
+        records = []
 
         firstDay = scheduler.first_of_month(month, year)
         lastDay = scheduler.last_of_month(month, year)
 
         try:
             session = self.dal.Session()
-            # records is a tuple of type Decimal
-            q = session.query(func.sum(Bill.amount)).filter(Bill.dueDate >= dt).filter(Bill.dueDate <= to)
+            # records is a tuple of Category.name and total as type Decimal
+            q = session.query(Category.name, func.sum(Bill.amount)).select_from(outerjoin(Bill, Category)).filter(Bill.dueDate >= dt).filter(Bill.dueDate <= to).group_by(Category.name)
+
             if paid:
                 q = q.filter(Bill.paid == paid)
-            # Got anything back?
-            if q.count():
-                # Result is of type Decimal and needs to be converted.
-                total = float(q.one()[0])
+
+            records = q.all()
         except Exception, e:
             print str(e)
             pass
         finally:
             session.close()
 
-        return total
+        return records
 
     def get_monthly_bills(self, month, year, paid=None):
         """
