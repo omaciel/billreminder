@@ -4,17 +4,14 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
-from charting import Chart
+import sys
+import cairo
+from pycha import bar
 
-class ChartWidget(gtk.EventBox):
+class ChartWidget(gtk.HBox):
     def __init__(self):
-        gtk.EventBox.__init__(self)
-        self.chart = Chart(
-            max_bar_width = 40,
-            animate = False,
-            values_on_bars = True,
-            stretch_grid = True,
-            legend_width = 80)
+        gtk.HBox.__init__(self)
+        self.chart = gtk.Image()
 
         self.add(self.chart)
 
@@ -22,7 +19,59 @@ class ChartWidget(gtk.EventBox):
         """
         Populates chart with data passed in.
         """
-        self.chart.plot(data)
+        pass
+        surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 400, 200)
+
+        dataSet = (
+            ('data', [(i, l[1]) for i, l in enumerate(data)]),
+
+        )
+
+        options = {
+            'axis': {
+                'x': {
+                    'ticks': [dict(v=i, label=l[0]) for i, l in enumerate(data)],
+
+                    'rotate': 25,
+                    'label': 'Categories',
+                },
+                'y': {
+                    #'tickCount': 2,
+                    'label': 'Amount',
+                }
+            },
+            'colorScheme': {
+                'name': 'gradient',
+                'args': {
+                    'initialColor': 'red',
+                },
+            },
+            'colorScheme': {
+                'name': 'gradient',
+                'args': {
+                    'initialColor': 'red',
+                },
+               #'name': 'fixed',
+               #'args': {
+               #    'colors': ['#ff0000', '#00ff00', '#ff0000', '#00ff00'],
+               #},
+            },
+            'legend': {
+                'hide': True,
+            },
+            'padding': {
+                'left': 45,
+                'bottom': 45,
+            },
+        }
+
+        chart = bar.VerticalBarChart(surface, options)
+
+        chart.addDataset(dataSet)
+        chart.render()
+
+        #TODO: the widget's Image object should take a dynamically created image object
+        surface.write_to_png('foobar.png')
 
 class BasicWindow:
 
@@ -49,9 +98,8 @@ class BasicWindow:
         self.window.add(place)
         self.window.show_all()
 
-        data = [["Rent", 790, '#808080'], ["Gas", 120], ["Food", 280],
-                ["Education", 60], ["Utilities", 140, '#1a3def'], ["Insurance", 0], ["Travel", 0]]
-        self.chart.plot(data)
+        #data = [(None, 150.0), (u'House', 132.55000000000001)]
+        #self.chart.plot(data)
 
 
 def main():
