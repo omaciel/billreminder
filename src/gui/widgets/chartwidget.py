@@ -6,6 +6,7 @@ import gtk
 
 import sys
 import cairo
+import StringIO
 from pycha import bar
 
 class ChartWidget(gtk.HBox):
@@ -71,7 +72,16 @@ class ChartWidget(gtk.HBox):
         chart.render()
 
         #TODO: the widget's Image object should take a dynamically created image object
-        surface.write_to_png('foobar.png')
+        buf = StringIO.StringIO()
+        surface.write_to_png(buf)
+
+        # Move pointer to start of buffer
+        buf.seek(0)
+        loader = gtk.gdk.PixbufLoader()
+        loader.write(buf.getvalue())
+        loader.close()
+
+        self.chart.set_from_pixbuf(loader.get_pixbuf())
 
 class BasicWindow:
 
@@ -98,8 +108,8 @@ class BasicWindow:
         self.window.add(place)
         self.window.show_all()
 
-        #data = [(None, 150.0), (u'House', 132.55000000000001)]
-        #self.chart.plot(data)
+        data = (('None', 150.0), (u'House', 132.55))
+        self.chart.plot(data)
 
 
 def main():
