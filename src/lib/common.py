@@ -33,13 +33,23 @@ ARTISTS = [
 
 
 LICENSE = """
-This application is distributed under the BSD
-Licensing scheme.  An online version of the
-license can be obtained from
-http://www.opensource.org/licenses/bsd-license.html.
+    <one line to give the program's name and a brief idea of what it does.>
+        Copyright (C) <year>  <name of author>
+This file is part of BillReminder.
+Copyright (C) 2006 - 2009 - Og Maciel <ogmaciel@gnome.org>.
 
-Copyright (c) 2006-2008 Og Maciel
-All rights reserved.
+BillReminder is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+BillReminder is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with BillReminder.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 # Media path
