@@ -20,7 +20,12 @@ class ChartWidget(gtk.HBox):
         """
         Populates chart with data passed in.
         """
-        pass
+
+        # Clear the image widget if there is no data passed.
+        if not data:
+            self.chart.clear()
+            return
+
         surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 400, 200)
 
         dataSet = (

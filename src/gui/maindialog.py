@@ -304,16 +304,18 @@ class MainDialog:
         self.btnUnpaid.set_is_important(True)
 
     def _populate_chart(self, status, start, end):
-        chartdata = []
-        records = self.actions.get_monthly_totals(start, end)
-        #records = []
-        #for rec in records:
-        #    chartdata.append([field for field in rec])
-        #if chartdata:
-        print records
-        if records:
-            records = [(c,float(t)) for c,t in records]
-            self.chart.plot(records)
+
+        records = []
+
+        try:
+            records = self.actions.get_monthly_totals(start, end)
+            # Chart widget takes data in format (('CategoryName', amount),)
+            records = [(c if c else 'None',float(t)) for c,t in records]
+        except Exception, e:
+            print "%s - %s" % (records, str(e))
+            pass
+
+        self.chart.plot(records)
 
     def _populate_menubar(self):
         # Create a UIManager instance
