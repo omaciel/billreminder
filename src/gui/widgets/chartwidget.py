@@ -24,7 +24,7 @@ class ChartWidget(gtk.HBox):
         surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 400, 200)
 
         dataSet = (
-            ('data', [(i, l[1]) for i, l in enumerate(data)]),
+            ('data', [(i, float(l[1])) for i, l in enumerate(data)]),
 
         )
 

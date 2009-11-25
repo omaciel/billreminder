@@ -8,7 +8,8 @@ import dal
 import time
 import datetime
 from db.entities import Bill, Category
-from sqlalchemy.orm import eagerload
+from sqlalchemy.sql import func
+from sqlalchemy.orm import eagerload, outerjoin
 from lib import common, scheduler
 from lib.utils import force_string
 from lib.utils import verify_dbus_service
@@ -43,20 +44,17 @@ class Actions(object):
 
         return records
 
-    def get_monthly_totals(self, month, year, paid=None):
+    def get_monthly_totals(self, start, end, paid=None):
         """
         Return a list of categories and totals for the given month
         """
 
         records = []
 
-        firstDay = scheduler.first_of_month(month, year)
-        lastDay = scheduler.last_of_month(month, year)
-
         try:
             session = self.dal.Session()
             # records is a tuple of Category.name and total as type Decimal
-            q = session.query(Category.name, func.sum(Bill.amount)).select_from(outerjoin(Bill, Category)).filter(Bill.dueDate >= dt).filter(Bill.dueDate <= to).group_by(Category.name)
+            q = session.query(Category.name, func.sum(Bill.amount)).select_from(outerjoin(Bill, Category)).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end).group_by(Category.name)
 
             if paid:
                 q = q.filter(Bill.paid == paid)

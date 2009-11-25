@@ -265,7 +265,7 @@ class MainDialog:
         # Update status bar
         self.update_statusbar()
         # populate chart
-        #self._populate_chart(status, first, last)
+        self._populate_chart(status, first, last)
 
         return len(records)
 
@@ -305,12 +305,15 @@ class MainDialog:
 
     def _populate_chart(self, status, start, end):
         chartdata = []
-        #records = self.actions.get_interval_totals(start, end, status)
-        records = []
-        for rec in records:
-            chartdata.append([field for field in rec])
-        if chartdata:
-            self.chart.plot(chartdata)
+        records = self.actions.get_monthly_totals(start, end)
+        #records = []
+        #for rec in records:
+        #    chartdata.append([field for field in rec])
+        #if chartdata:
+        print records
+        if records:
+            records = [(c,float(t)) for c,t in records]
+            self.chart.plot(records)
 
     def _populate_menubar(self):
         # Create a UIManager instance
