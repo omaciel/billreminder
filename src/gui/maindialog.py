@@ -312,7 +312,7 @@ class MainDialog:
         try:
             records = self.actions.get_monthly_totals(start, end)
             # Chart widget takes data in format (('CategoryName', amount),)
-            categories = [cat for cat,total in records]
+            categories = ['None' if not cat else cat for cat,total in records]
             totals = [float(total) for cat,total in records]
             #records = [(c if c else 'None',float(t)) for c,t in records]
         except Exception, e:
