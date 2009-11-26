@@ -45,10 +45,9 @@ class DAL(object):
                     bill.notes = dbobject.notes
                     bill.paid = dbobject.paid
                     if dbobject.category:
-                        bill.category = []
                         try:
-                            category = session.query(Category).filter_by(name=dbobject.category[0].name).one()
-                            bill.category.append(category)
+                            category = session.query(Category).filter_by(name=dbobject.category.name).one()
+                            bill.category = category
                         except Exception, e:
                             print "Failed to retrieve category \"%s\" for bill \"%s\": %s" \
                                 % (dbobject.name, dbobject.category[0].name, str(e))
