@@ -4,122 +4,64 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
-import sys
-import cairo
-import StringIO
-from pycha import bar
+from charting import BarChart
 
-class ChartWidget(gtk.HBox):
-    def __init__(self):
-        gtk.HBox.__init__(self)
-        self.chart = gtk.Image()
+class ChartWidget(gtk.EventBox):
+   background = (0.975, 0.975, 0.975)
+   x_offset = 90 # align all graphs to the left edge
 
-        self.add(self.chart)
+   def __init__(self):
+       gtk.EventBox.__init__(self)
 
-    def plot(self, data):
-        """
-        Populates chart with data passed in.
-        """
+       self.chart = BarChart(
+           background = self.background,
+           bar_base_color = (238,221,221),
+           legend_width = self.x_offset,
+           max_bar_width = 35,
+           values_on_bars = True
+       )
 
-        # Clear the image widget if there is no data passed.
-        if not data:
-            self.chart.clear()
-            return
+       self.add(self.chart)
 
-        surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 400, 200)
+   def plot(self, keys, values):
+       """
+       Populates chart with data passed in.
+       """
+       self.chart.plot(keys, values)
 
-        dataSet = (
-            ('data', [(i, float(l[1])) for i, l in enumerate(data)]),
-
-        )
-
-        options = {
-            'axis': {
-                'x': {
-                    'ticks': [dict(v=i, label=l[0]) for i, l in enumerate(data)],
-
-                    'rotate': 25,
-                    'label': 'Categories',
-                },
-                'y': {
-                    #'tickCount': 2,
-                    'label': 'Amount',
-                }
-            },
-            'colorScheme': {
-                'name': 'gradient',
-                'args': {
-                    'initialColor': 'red',
-                },
-            },
-            'colorScheme': {
-                'name': 'gradient',
-                'args': {
-                    'initialColor': 'red',
-                },
-               #'name': 'fixed',
-               #'args': {
-               #    'colors': ['#ff0000', '#00ff00', '#ff0000', '#00ff00'],
-               #},
-            },
-            'legend': {
-                'hide': True,
-            },
-            'padding': {
-                'left': 45,
-                'bottom': 45,
-            },
-        }
-
-        chart = bar.VerticalBarChart(surface, options)
-
-        chart.addDataset(dataSet)
-        chart.render()
-
-        #TODO: the widget's Image object should take a dynamically created image object
-        buf = StringIO.StringIO()
-        surface.write_to_png(buf)
-
-        # Move pointer to start of buffer
-        buf.seek(0)
-        loader = gtk.gdk.PixbufLoader()
-        loader.write(buf.getvalue())
-        loader.close()
-
-        self.chart.set_from_pixbuf(loader.get_pixbuf())
 
 class BasicWindow:
 
-    # close the window and quit
-    def delete_event(self, widget, event, data=None):
-        gtk.main_quit()
-        return False
+   # close the window and quit
+   def delete_event(self, widget, event, data=None):
+       gtk.main_quit()
+       return False
 
-    def __init__(self):
-        # Create a new window
-        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+   def __init__(self):
+       # Create a new window
+       self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
 
-        self.window.set_title("Basic Window")
+       self.window.set_title("Basic Window")
 
-        self.window.set_size_request(500, 200)
+       self.window.set_size_request(500, 200)
 
-        self.window.connect("delete_event", self.delete_event)
+       self.window.connect("delete_event", self.delete_event)
 
-        #self.activity_chart = Chart(max_bar_width = 20, collapse_whitespace = True)
-        self.chart = ChartWidget()
+       #self.activity_chart = Chart(max_bar_width = 20, collapse_whitespace = True)
+       self.chart = ChartWidget()
 
-        place = gtk.Frame()
-        place.add(self.chart)
-        self.window.add(place)
-        self.window.show_all()
+       place = gtk.Frame()
+       place.add(self.chart)
+       self.window.add(place)
 
-        data = (('None', 150.0), (u'House', 132.55))
-        self.chart.plot(data)
+       self.window.show_all()
+
+       self.chart.plot(['None', 'House'], [150.0, 132.55])
 
 
 def main():
-    gtk.main()
+   gtk.main()
 
 if __name__ == "__main__":
-    example = BasicWindow()
-    main()
+   example = BasicWindow()
+   main()
