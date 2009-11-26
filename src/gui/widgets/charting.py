@@ -18,691 +18,683 @@
 # along with Project Hamster.  If not, see <http://www.gnu.org/licenses/>.
 
 
-"""Small charting library that enables you to draw simple bar and
+"""Small charting library that enables you to draw bar and
 horizontal bar charts. This library is not intended for scientific graphs.
 More like some visual clues to the user.
 
-Currently chart understands only list of four member lists, in label, value
-fashion. Like:
-    data = [
-        ["Label1", value1, color(optional), background(optional)],
-        ["Label2", value2 color(optional), background(optional)],
-        ["Label3", value3 color(optional), background(optional)],
-    ]
+The whole thing is a bit of minefield, but it can bring pretty decent results
+if you don't ask for much.
+
+For graph options see the Chart class and Chart.plot function
 
 Author: toms.baugis@gmail.com
 Feel free to contribute - more info at Project Hamster web page:
 http://projecthamster.wordpress.com/
 
-Example:
-    # create new chart object
-    chart = Chart(max_bar_width = 40, collapse_whitespace = True) 
-    
-    eventBox = gtk.EventBox() # charts go into eventboxes, or windows
-    place = self.get_widget("totals_by_day") #just some placeholder
-
-    eventBox.add(chart);
-    place.add(eventBox)
-
-    #Let's imagine that we count how many apples we have gathered, by day
-    data = [["Mon", 20], ["Tue", 12], ["Wed", 80],
-            ["Thu", 60], ["Fri", 40], ["Sat", 0], ["Sun", 0]]
-    self.day_chart.plot(data)
-
 """
 
 import gtk
 import gobject
-import cairo
+import cairo, pango
 import copy
 import math
+from sys import maxint
+import datetime as dt
+import time
+import colorsys
+import logging
 
-def set_color(context, color="#f5f5f5"):
-    # Parse out color value
-    if color is None:
-        color = "#2e9455"
-    color = gtk.gdk.color_parse(color)
-    r = float(color.red) / 65536
-    g = float(color.green) / 65536
-    b = float(color.blue) / 65536
-    #r,g,b = color[0] / 255.0, color[1] / 255.0, color[2] / 255.0
-    #r,g,b = color[0], color[1], color[2]
-    context.set_source_rgb(r, g, b)
+import graphics, pytweener
 
-class Chart(gtk.DrawingArea):
+
+def size_list(set, target_set):
+    """turns set lenghts into target set - trim it, stretches it, but
+       keeps values for cases when lengths match
+    """
+    set = set[:min(len(set), len(target_set))] #shrink to target
+    set += target_set[len(set):] #grow to target
+
+    #nest
+    for i in range(len(set)):
+        if isinstance(set[i], list):
+            set[i] = size_list(set[i], target_set[i])
+    return set
+
+def get_limits(set, stack_subfactors = True):
+    # stack_subfactors indicates whether we should sum up nested lists
+    max_value, min_value = -maxint, maxint
+    for col in set:
+        if type(col) in [int, float]:
+            max_value = max(col, max_value)
+            min_value = min(col, min_value)
+        elif stack_subfactors:
+            max_value = max(sum(col), max_value)
+            min_value = min(sum(col), min_value)
+        else:
+            for row in col:
+                max_value = max(row, max_value)
+                min_value = max(row, min_value)
+
+    return min_value, max_value
+    
+
+class Bar(object):
+    def __init__(self, value, size = 0):
+        self.value = value
+        self.size = size
+    
+    def __repr__(self):
+        return str((self.value, self.size))
+        
+
+class Chart(graphics.Area):
     """Chart constructor. Optional arguments:
-        orient_vertical = [True|False] - Chart orientation.
-                                         Defaults to vertical
-        max_bar_width = pixels - Maximal width of bar. If not specified,
+        self.max_bar_width     = pixels. Maximal width of bar. If not specified,
                                  bars will stretch to fill whole area
-        values_on_bars = [True|False] - Should bar values displayed on each bar.
-                                        Defaults to False
-        collapse_whitespace = [True|False] - If max_bar_width is set, should
-                                             we still fill the graph area with
-                                             the white stuff and grids and such.
-                                             Defaults to false
-        stretch_grid = [True|False] - Should the grid be of fixed or flex
-                                      size. If set to true, graph will be split
-                                      in 4 parts, which will stretch on resize.
-                                      Defaults to False.
-        animate = [True|False] - Should the bars grow/shrink on redrawing.
-                                 Animation happens only if labels and their
-                                 order match.
-                                 Defaults to True.
-        legend_width = pixels - Legend width in pixels. Will keep you graph
-                                from floating horizontally
+        self.legend_width      = pixels. Legend width will keep you graph
+                                 from floating around.
+        self.animate           = Should transitions be animated.
+                                 Defaults to TRUE
+        self.framerate         = Frame rate for animation. Defaults to 60
 
-        Then there are some defaults, you can override:
-        default_grid_stride - If stretch_grid is set to false, this allows you
-                              to choose granularity of grid. Defaults to 50
-        animation_frames - in how many steps should the animation be done
-        animation_timeout - after how many miliseconds should we draw next frame
+        self.background        = Tripplet-tuple of background color in RGB
+        self.chart_background  = Tripplet-tuple of chart background color in RGB
+        self.bar_base_color    = Tripplet-tuple of bar color in RGB
+        self.bars_beveled      = Should bars be beveled. 
+
+        self.show_scale        = Should we show scale values. See grid_stride!
+        self.grid_stride       = Step of grid. If expressed in normalized range
+                                 (0..1), will be treated as percentage.
+                                 Otherwise will be striding through maximal value.
+                                 Defaults to 0. Which is "don't draw"
+
+        self.values_on_bars    = Should values for each bar displayed on top of
+                                 it.
+        self.value_format      = Format string for values. Defaults to "%s"
+
+        self.show_stack_labels = If the labels of stack bar chart should be
+                                 displayed. Defaults to False
+        self.labels_at_end     = If stack bars are displayed, this allows to
+                                 show them at right end of graph.
     """
     def __init__(self, **args):
-        """here is init"""
-        gtk.DrawingArea.__init__(self)
-        self.connect("expose_event", self._expose)
-        self.data, self.prev_data = None, None #start off with an empty hand
+        graphics.Area.__init__(self)
+
+        # options
+        self.max_bar_width     = args.get("max_bar_width", 500)
+        self.legend_width      = args.get("legend_width", 0)
+        self.animate           = args.get("animate", True)
+
+        self.background        = args.get("background", None)
+        self.chart_background  = args.get("chart_background", None)
+        self.bar_base_color    = args.get("bar_base_color", None)
+
+        self.grid_stride       = args.get("grid_stride", None)
+        self.bars_beveled      = args.get("bars_beveled", False)
+        self.values_on_bars    = args.get("values_on_bars", False)
+        self.value_format      = args.get("value_format", "%s")
+        self.show_scale        = args.get("show_scale", False)
+
+        self.show_stack_labels = args.get("show_stack_labels", False)
+        self.labels_at_end     = args.get("labels_at_end", False)
+        self.framerate         = args.get("framerate", 60)
+
+        # other stuff
+        self.tweener = pytweener.Tweener(0.4, pytweener.Easing.Cubic.easeInOut)
+        self.last_frame_time = None
+        self.moving = False
         
-        """now see what we have in args!"""
-        self.orient_vertical = "orient" not in args or args["orient"] == "vertical" # defaults to true
+        self.bars = []
         
-        self.max_bar_width = None
-        if "max_bar_width" in args: self.max_bar_width = args["max_bar_width"]        
-
-        self.values_on_bars = "values_on_bars" in args and args["values_on_bars"] #defaults to false
-
-        self.collapse_whitespace = "collapse_whitespace" in args and args["collapse_whitespace"] #defaults to false
         
-        self.stretch_grid = "stretch_grid" in args and args["stretch_grid"] #defaults to false
-
-        self.animate = "animate" not in args or args["animate"] # defaults to true
+    def get_bar_color(self, index):
+        # returns color darkened by it's index
+        # the approach reduces contrast by each step
+        base_color = self.bar_base_color or (220, 220, 220)
         
-        self.legend_width = None
-        if "legend_width" in args: self.legend_width = args["legend_width"]
+        base_hls = colorsys.rgb_to_hls(*base_color)
         
-        #and some defaults
-        self.default_grid_stride = 50
+        step = (base_hls[1] - 30) / 10 #will go from base down to 20 and max 22 steps
         
-        self.animation_frames = 150
-        self.animation_timeout = 20 #in miliseconds
-
-        self.current_frame = self.animation_frames
-        self.freeze_animation = False
+        return colorsys.hls_to_rgb(base_hls[0],
+                                   base_hls[1] - step * index,
+                                   base_hls[2])
         
-    def _expose(self, widget, event): # expose is when drawing's going on
-        context = widget.window.cairo_create()
-        context.rectangle(event.area.x, event.area.y, event.area.width, event.area.height)
-        context.clip()
-        
-        if self.orient_vertical:
-            # for simple bars figure, when there is way too much data for bars
-            # and go to lines (yay!)
-            if not self.data or len(self.data) == 0 or (widget.allocation.width / len(self.data)) > 30: #this is big enough
-                self._bar_chart(context)
-            else:
-                self._area_chart(context)
 
-        else:
-            self._horizontal_bar_chart(context)
+    def draw_bar(self, x, y, w, h, color = None):
+        """ draws a simple bar"""
+        base_color = color or self.bar_base_color or (220, 220, 220)
+        self.fill_area(x, y, w, h, base_color)
 
-        return False
 
-    def plot(self, data):
-        """Draw chart with given data
-            Currently chart understands only list of two member lists, in label, value
-            fashion. Like:
-                data = [
-                    ["Label1", value1],
-                    ["Label2", value2],
-                    ["Label3", value3],
-                ]
-        """
+    def plot(self, keys, data, stack_keys = None):
+        """Draw chart with given data"""
+        self.keys, self.data, self.stack_keys = keys, data, stack_keys
 
-        #check if maybe this chart is animation enabled and we are in middle of animation
-        if self.animate and self.current_frame < self.animation_frames: #something's going on here!
-            self.freeze_animation = True #so we don't catch some nasty race condition
+        self.show()
 
-            self.prev_data = copy.copy(self.data)
-            self.new_data, self.max = self._get_factors(data)
-
-            #if so, let's start where we are and move to the new set inst
-            self.current_frame = 0 #start the animation from beginning
-            self.freeze_animation = False
+        if not data: #if there is no data, let's just draw blank
+            self.redraw_canvas()
             return
+
+
+        min, self.max_value = get_limits(data)
+
+        self._update_targets()
 
         if self.animate:
-            """chart animation means gradually moving from previous data set
-               to the new one. prev_data will be the previous set, new_data
-               is copy of the data we have been asked to plot, and data itself
-               will be the moving thing"""
-               
-            self.current_frame = 0
-            self.new_data, self.max = self._get_factors(data)
-
-            if not self.prev_data: #if there is no previous data, set it to zero, so we get a growing animation
-                self.prev_data = copy.deepcopy(self.new_data)
-                for i in range(len(self.prev_data)):
-                    self.prev_data[i]["factor"] = 0
-                    
-            self.data = copy.copy(self.prev_data)
-
-
-            gobject.timeout_add(self.animation_timeout, self._replot)
+            self.last_frame_time = dt.datetime.now()
+            if not self.moving: #if we are moving, then there is a timeout somewhere already
+                gobject.timeout_add(1000 / self.framerate, self._interpolate)
         else:
-            self.data, self.max = self._get_factors(data)
-            self._invalidate()
+            self.tweener.update(self.tweener.defaultDuration) # set to end frame
 
-    
-    def _replot(self):
+            self.redraw_canvas()
+
+
+    def _interpolate(self):
         """Internal function to do the math, going from previous set to the
            new one, and redraw graph"""
-        if self.freeze_animation:
-            return True #just wait until they release us!
+        #this can get called before expose    
+        self.moving = self.tweener.hasTweens()
 
-        if self.window:    #this can get called before expose    
-            # do some sanity checks before thinking about animation
-            # are the source and target of same length?
-            if len(self.prev_data) != len(self.new_data):
-                self.prev_data = copy.copy(self.new_data)
-                self.data = copy.copy(self.new_data)
-                self.current_frame = self.animation_frames #stop animation
-                self._invalidate()
-                return False
-            
-            # have they same labels? (that's important!)
-            for i in range(len(self.prev_data)):
-                if self.prev_data[i]["label"] != self.new_data[i]["label"]:
-                    self.prev_data = copy.copy(self.new_data)
-                    self.data = copy.copy(self.new_data)
-                    self.current_frame = self.animation_frames #stop animation
-                    self._invalidate()
-                    return False
-            
-
-            #ok, now we are good!
-            self.current_frame = self.current_frame + 1
-            
-
-            # using sines for some "swoosh" animation (not really noticeable)
-            # sin(0) = 0; sin(pi/2) = 1
-            pi_factor = math.sin((math.pi / 2.0) * (self.current_frame / float(self.animation_frames)))
-            #pi_factor = math.sqrt(pi_factor) #stretch it a little so the animation can be seen a little better
-            
-            # here we do the magic - go from prev to new
-            # we are fiddling with the calculated sizes instead of raw data - that's much safer
-            bars_below_lim = 0
-            
-            for i in range(len(self.data)):
-                diff_in_factors = self.prev_data[i]["factor"] - self.new_data[i]["factor"]
-                diff_in_values = self.prev_data[i]["value"] - self.new_data[i]["value"]
-                
-                if abs(diff_in_factors * pi_factor) < 0.001:
-                    bars_below_lim += 1
-                
-                
-                self.data[i]["factor"] = self.prev_data[i]["factor"] - (diff_in_factors * pi_factor)
-                self.data[i]["value"] = self.prev_data[i]["value"] - (diff_in_values * pi_factor)
-                
-            if bars_below_lim == len(self.data): #all bars done - stop animation!
-                self.current_frame = self.animation_frames
-                
-
-        if self.current_frame < self.animation_frames:
-            self._invalidate()
-            return True
-        else:
-            self.data = copy.copy(self.new_data)
-            self.prev_data = copy.copy(self.new_data)
-            self._invalidate()
+        if not self.window:
+            self.redraw_canvas()
             return False
 
-    def _invalidate(self):
-        """Force redrawal of chart"""
-        if self.window:    #this can get called before expose    
-            alloc = self.get_allocation()
-            rect = gtk.gdk.Rectangle(alloc.x, alloc.y, alloc.width, alloc.height)
-            self.window.invalidate_rect(rect, True)
-            self.window.process_updates(True)
-            
+        time_since_start = (dt.datetime.now() - self.last_frame_time).microseconds / 1000000.0
+        self.tweener.update(time_since_start)
+        self.redraw_canvas()
+        self.last_frame_time = dt.datetime.now()
+
+        return self.moving
+
+    def _render(self):
+        # fill whole area 
+        if self.background:
+            self.fill_area(0, 0, self.width, self.height, self.background)
+        
+
+    def _update_targets(self):
+        # calculates new factors and then updates existing set
+        max_value = float(self.max_value) or 1 # avoid division by zero
+        
+        self.bars = size_list(self.bars, self.data)
+
+        #need function to go recursive
+        def retarget(bars, new_values):
+            for i in range(len(new_values)):
+                if isinstance(new_values[i], list):
+                    bars[i] = retarget(bars[i], new_values[i])
+                else:
+                    if isinstance(bars[i], Bar) == False:
+                        bars[i] = Bar(new_values[i], 0)
+                    else:
+                        bars[i].value = new_values[i]
+                        for tween in self.tweener.getTweensAffectingObject(bars[i]):
+                            self.tweener.removeTween(tween)
+
+                    self.tweener.addTween(bars[i], size = bars[i].value / float(max_value))
+            return bars
     
-    def _get_factors(self, data):
-        """get's max value out of data and calculates each record's factor
-           against it"""
-        max_value = 0
-        self.there_are_floats = False
-        self.there_are_colors = False
-        self.there_are_backgrounds = False
+        retarget(self.bars, self.data)
+    
+    def draw(self):
+        logging.error("OMG OMG, not implemented!!!")
+
+
+class BarChart(Chart):
+    def _render(self):
+        context = self.context
+        Chart._render(self)
         
-        for i in range(len(data)):
-            max_value = max(max_value, data[i][1])
-            if isinstance(data[i][1], float):
-                self.there_are_floats = True #we need to know for the scale labels
-                
-            if len(data[i]) > 3 and data[i][2] != None:
-                self.there_are_colors = True
-                
-            if len(data[i]) > 4 and data[i][3] != None:
-                self.there_are_backgrounds = True
-                
-        
-        res = []
-        for i in range(len(data)):
-            if max_value > 0:
-                factor = data[i][1] / float(max_value)
+        # determine graph dimensions
+        if self.show_stack_labels:
+            legend_width = self.legend_width or self.longest_label(self.keys)
+        elif self.show_scale:
+            if self.grid_stride < 1:
+                grid_stride = int(self.max_value * self.grid_stride)
             else:
-                factor = 0
+                grid_stride = int(self.grid_stride)
             
-            if len(data[i]) > 2:
-                color = data[i][2]
-            else:
-                color = None
+            scale_labels = [self.value_format % i
+                  for i in range(grid_stride, int(self.max_value), grid_stride)]
+            self.legend_width = legend_width = self.legend_width or self.longest_label(scale_labels)
+        else:
+            legend_width = self.legend_width
 
-            if len(data[i]) > 3:
-                background = data[i][3]
-            else:
-                background = None
+        if self.stack_keys and self.labels_at_end:
+            self.graph_x = 0
+            self.graph_width = self.width - legend_width
+        else:
+            self.graph_x = legend_width + 8 # give some space to scale labels
+            self.graph_width = self.width - self.graph_x - 10
 
-            res.append({"label": data[i][0],
-                        "value": data[i][1],
-                        "color": color,
-                        "background": background,
-                        "factor": factor
-                        })
+        self.graph_y = 0
+        self.graph_height = self.height - 15
+
+        if self.chart_background:
+            self.fill_area(self.graph_x, self.graph_y,
+                           self.graph_width, self.graph_height,
+                           self.chart_background)
+
+        self.context.stroke()
+
+        bar_width = min(self.graph_width / float(len(self.keys)),
+                                                             self.max_bar_width)
+        gap = bar_width * 0.05
         
-        return res, max_value
+        # flip hamster.graphics matrix so we don't think upside down
+        self.set_value_range(y_max = 0, y_min = self.graph_height)
+
+        # bars and keys
+        max_bar_size = self.graph_height
+        #make sure bars don't hit the ceiling
+        if self.animate or self.before_drag_animate:
+            max_bar_size = self.graph_height - 10
+
+
+        prev_label_end = None
+        self.layout.set_width(-1)
+
+        for i in range(len(self.keys)):
+            self.set_color(graphics.Colors.aluminium[5]);
+            self.layout.set_text(self.keys[i])
+            label_w, label_h = self.layout.get_pixel_size()
+
+            intended_x = (bar_width * i) + (bar_width - label_w) / 2.0
+            
+            if not prev_label_end or intended_x > prev_label_end:
+                self.move_to(intended_x, -4)
+                context.show_layout(self.layout)
+            
+                prev_label_end = intended_x + label_w + 3
+                
+
+            bar_start = 0
+            base_color = self.bar_base_color or (220, 220, 220)
+            bar_x = round(self.graph_x + bar_width * i + gap)
+
+            if self.stack_keys:
+                for j, bar in enumerate(self.bars[i]):
+                    if bar.size > 0:
+                        bar_size = round(max_bar_size * bar.size)
+                        bar_start += bar_size
+                        
+                        self.draw_bar(bar_x,
+                                      self.graph_height - bar_start,
+                                      round(bar_width - (gap * 2)),
+                                      bar_size,
+                                      self.get_bar_color(j))
+            else:
+                bar_size = round(max_bar_size * self.bars[i].size)
+                bar_start = bar_size
+
+                self.draw_bar(bar_x,
+                              self.graph_y + self.graph_height - bar_size,
+                              round(bar_width - (gap * 2)),
+                              bar_size,
+                              base_color)
+
+
+            if self.values_on_bars:  # it's either stack labels or values at the end for now
+                if self.stack_keys:
+                    total_value = sum(self.data[i])
+                else:
+                    total_value = self.data[i]
+                
+                self.layout.set_width(-1)
+                self.layout.set_text(self.value_format % total_value)
+                label_w, label_h = self.layout.get_pixel_size()
     
 
-    def _draw_bar(self, context, x, y, w, h, color):
-        """ draws a nice bar"""
-        
-        context.rectangle(x, y, w, h)
-        set_color(context, color)
-        context.fill_preserve()    
-        context.stroke()
-
-        if w > 2 and h > 2:
-            context.rectangle(x + 1, y + 1, w - 2, h - 2)
-            set_color(context, color)
-            context.fill_preserve()    
-            context.stroke()
-
-        if w > 3 and h > 3:
-            context.rectangle(x + 2, y + 2, w - 4, h - 4)
-            set_color(context, color)
-            context.fill_preserve()    
-            context.stroke()
-
-    def _bar_chart(self, context):
-        rect = self.get_allocation()  #x, y, width, height
-
-        if not self.data:
-            return
-
-        data, records = self.data, len(self.data)
-
-        # graph box dimensions
-        graph_x = self.legend_width or 50 #give some space to scale labels
-        graph_width = rect.width + rect.x - graph_x
-
-        step = graph_width / float(records)
-        if self.max_bar_width:
-            step = min(step, self.max_bar_width)
-            if self.collapse_whitespace:
-                graph_width = step * records #no need to have that white stuff
-
-        graph_y = rect.y
-        graph_height = graph_y - rect.x + rect.height - 15
-
-        max_size = graph_height - 15
-
-        context.set_line_width(1)
-
-        # TODO put this somewhere else - drawing background and some grid
-        context.rectangle(graph_x - 1, graph_y, graph_width, graph_height)
-        context.set_source_rgb(1, 1, 1)
-        context.fill_preserve()
-        context.stroke()
-
-        #backgrounds
-        if self.there_are_backgrounds:
-            for i in range(records):
-                if data[i]["background"] != None:
-                    set_color(context);
-                    context.rectangle(graph_x + (step * i), 0, step, graph_height)
-                    context.fill_preserve()
-                    context.stroke()
-
-        context.set_line_width(1)
-        context.set_dash ([1, 3]);
-        set_color(context, '#000000')
-
-        # scale lines
-        stride = self.default_grid_stride and self.stretch_grid == False or int(graph_height / 4)
-
-        for y in range(graph_y, graph_y + graph_height, stride):
-            context.move_to(graph_x - 10, y)
-            context.line_to(graph_x + graph_width, y)
-
-        # and borders on both sides, so the graph doesn't fall out
-        context.move_to(graph_x - 1, graph_y)
-        context.line_to(graph_x - 1, graph_y + graph_height + 1)
-        context.move_to(graph_x + graph_width, graph_y)
-        context.line_to(graph_x + graph_width, graph_y + graph_height + 1)
-        
-
-        context.stroke()
-        
-        
-        context.set_dash ([]);
-
-
-        # labels
-        set_color(context, '#000000');
-        for i in range(records):
-            extent = context.text_extents(data[i]["label"]) #x, y, width, height
-            context.move_to(graph_x + (step * i) + (step - extent[2]) / 2.0,
-                            graph_y + graph_height + 13)
-            context.show_text(data[i]["label"])
-
-        # values for max min and average
-        max_label =  self.there_are_floats and "%.2f" % self.max or "%d" % self.max
-        extent = context.text_extents(max_label) #x, y, width, height
-
-        context.move_to(graph_x - extent[2] - 16, rect.y + 10)
-        context.show_text(max_label)
-
-
-        #flip the matrix vertically, so we do not have to think upside-down
-        context.transform(cairo.Matrix(yy = -1, y0 = graph_height))
-
-        context.set_dash ([]);
-        context.set_line_width(0)
-        context.set_antialias(cairo.ANTIALIAS_NONE)
-
-        # bars themselves
-        for i in range(records):
-            color = data[i]["color"]
-            bar_size = graph_height * data[i]["factor"]
-            #on animations we keep labels on top, so we need some extra space there
-            bar_size = bar_size * 0.8 and (self.values_on_bars and self.animate) or bar_size * 0.9
-            bar_size = max(bar_size, 1)
-            
-            gap = step * 0.05
-            bar_x = graph_x + (step * i) + gap
-            bar_width = step - (gap * 2)
-            
-            self._draw_bar(context, bar_x, 0, bar_width, bar_size, color)
-
-        #values
-        #flip the matrix back, so text doesn't come upside down
-        context.transform(cairo.Matrix(yy = -1, y0 = 0))
-        set_color(context, '#000000')
-        context.set_antialias(cairo.ANTIALIAS_DEFAULT)
-
-        if self.values_on_bars:
-            for i in range(records):
-                label = self.there_are_floats and "%.2f" % data[i]["value"] or "%d" % data[i]["value"]
-                extent = context.text_extents(label) #x, y, width, height
+                if bar_start > label_h + 2:
+                    label_y = self.graph_y + self.graph_height - bar_start + 5
+                else:
+                    label_y = self.graph_y + self.graph_height - bar_start - label_h + 5
                 
-                bar_size = graph_height * data[i]["factor"]
+                context.move_to(self.graph_x + (bar_width * i) + (bar_width - label_w) / 2.0, label_y)
+                context.show_layout(self.layout)
+    
+                # values on bars
+                if self.stack_keys:
+                    total_value = sum(self.data[i])
+                else:
+                    total_value = self.data[i]
+
+
+        #fill with white background (necessary for those dragging cases)
+        if self.background:
+            self.fill_area(0, 0, legend_width, self.height, self.background)
+
+        #white grid and scale values
+        self.layout.set_width(-1)
+        if self.grid_stride and self.max_value:
+            # if grid stride is less than 1 then we consider it to be percentage
+            if self.grid_stride < 1:
+                grid_stride = int(self.max_value * self.grid_stride)
+            else:
+                grid_stride = int(self.grid_stride)
+            
+            context.set_line_width(1)
+            for i in range(grid_stride, int(self.max_value), grid_stride):
+                y = max_bar_size * (i / self.max_value)
+
+                if self.show_scale:
+                    self.layout.set_text(self.value_format % i)
+                    label_w, label_h = self.layout.get_pixel_size()
+                    context.move_to(legend_width - label_w - 8,
+                                    self.get_pixel(y_value=y) - label_h / 2)
+                    self.set_color(graphics.Colors.aluminium[4])
+                    context.show_layout(self.layout)
+
+                self.set_color((255, 255, 255))
+                self.context.move_to(legend_width, self.get_pixel(y_value=y))
+                self.context.line_to(self.width, self.get_pixel(y_value=y))
+
+
+        #stack keys
+        context.save()
+        if self.show_stack_labels:
+            context.set_line_width(1)
+            context.set_antialias(cairo.ANTIALIAS_DEFAULT)
+
+            #put series keys
+            self.set_color(graphics.Colors.aluminium[5]);
+            
+            y = self.graph_height
+            label_y = None
+
+            # if labels are at end, then we need show them for the last bar! 
+            if self.labels_at_end:
+                factors = self.bars[0]
+            else:
+                factors = self.bars[-1]
+            
+            if isinstance(factors, Bar):
+                factors = [factors]
+
+            self.layout.set_ellipsize(pango.ELLIPSIZE_END)
+            self.layout.set_width(self.graph_x * pango.SCALE)
+            if self.labels_at_end:
+                self.layout.set_alignment(pango.ALIGN_LEFT)
+            else:
+                self.layout.set_alignment(pango.ALIGN_RIGHT)
+    
+            for j in range(len(factors)):
+                factor = factors[j].size
+                bar_size = factor * max_bar_size
                 
-                bar_size = bar_size * 0.8 and self.animate or bar_size * 0.9
+                if round(bar_size) > 0 and self.stack_keys:
+                    label = "%s" % self.stack_keys[j]
+
                     
-                vertical_offset = (step - extent[2]) / 2.0
-                
-                if self.animate or bar_size - vertical_offset < extent[3]:
-                    graph_y = -bar_size - 3
-                else:
-                    graph_y = -bar_size + extent[3] + vertical_offset
-                
-                context.move_to(graph_x + (step * i) + (step - extent[2]) / 2.0,
-                                graph_y)
-                context.show_text(label)
+                    self.layout.set_text(label)
+                    label_w, label_h = self.layout.get_pixel_size()
+                    
+                    y -= bar_size
+                    intended_position = round(y + (bar_size - label_h) / 2)
+                    
+                    if label_y:
+                        label_y = min(intended_position, label_y - label_h)
+                    else:
+                        label_y = intended_position
+                    
+                    if self.labels_at_end:
+                        label_x = self.graph_x + self.graph_width 
+                        line_x1 = self.graph_x + self.graph_width - 1
+                        line_x2 = self.graph_x + self.graph_width - 6
+                    else:
+                        label_x = -8
+                        line_x1 = self.graph_x - 6
+                        line_x2 = self.graph_x
 
 
-    def _ellipsize_text (self, context, text, width):
-        """try to constrain text into pixels by ellipsizing end
-           TODO - check if cairo maybe has ability to ellipsize automatically
-        """
-        extent = context.text_extents(text) #x, y, width, height
-        if extent[2] <= width:
-            return text
-        
-        res = text
-        while res:
-            res = res[:-1]
-            extent = context.text_extents(res + "…") #x, y, width, height
-            if extent[2] <= width:
-                return res + "…"
-        
-        return text # if can't fit - return what we have
-        
-    def _horizontal_bar_chart(self, context):
-        rect = self.get_allocation()  #x, y, width, height
-        data, records = self.data, len(self.data)
-        
-        # ok, start with labels - get the longest now
-        # TODO - figure how to wrap text
-        if self.legend_width:
-            max_extent = self.legend_width
-        else:
-            max_extent = 0
-            for i in range(records):
-                extent = context.text_extents(data[i]["label"]) #x, y, width, height
-                max_extent = max(max_extent, extent[2] + 8)
-        
-        
-        #push graph to the right, so it doesn't overlap, and add little padding aswell
-        graph_x = rect.x + max_extent
-        graph_width = rect.width + rect.x - graph_x
+                    context.move_to(label_x, label_y)
+                    context.show_layout(self.layout)
 
-        graph_y = rect.y
-        graph_height = graph_y - rect.x + rect.height
-        
-        
-        step = int(graph_height / float(records)) and records > 0 or 30
-        if self.max_bar_width:
-            step = min(step, self.max_bar_width)
-            if self.collapse_whitespace:
-                graph_height = step * records #resize graph accordingly
-        
-        max_size = graph_width - 15
-
-
-        ellipsize_label = lambda(text): 3
-
-        #now let's put the labels and align them right
-        set_color(context, '#000000');
-        for i in range(records):
-            label = data[i]["label"]
-            if self.legend_width:
-                label = self._ellipsize_text(context, label, max_extent - 8)
-            extent = context.text_extents(label) #x, y, width, height
-            
-            context.move_to(rect.x + max_extent - extent[2] - 8, rect.y + (step * i) + (step + extent[3]) / 2)
-            context.show_text(label)
-        
-        context.stroke()        
-        
-        
-        context.set_line_width(1)
-        
-        # TODO put this somewhere else - drawing background and some grid
-        context.rectangle(graph_x, graph_y, graph_width, graph_height)
-        context.set_source_rgb(1, 1, 1)
-        context.fill_preserve()
-        context.stroke()
-
-
-        context.set_dash ([1, 3]);
-        set_color(context, '#000000')
-
-        # scale lines        
-        grid_stride = self.default_grid_stride and self.stretch_grid == False or (graph_width) / 3.0
-        for x in range(graph_x + grid_stride, graph_x + graph_width - grid_stride, grid_stride):
-            context.move_to(x, graph_y)
-            context.line_to(x, graph_y + graph_height)
-
-        context.move_to(graph_x + graph_width, graph_y)
-        context.line_to(graph_x + graph_width, graph_y + graph_height)
-
-
-        # and borders on both sides, so the graph doesn't fall out
-        context.move_to(graph_x, graph_y)
-        context.line_to(graph_x + graph_width, graph_y)
-        context.move_to(graph_x, graph_y + graph_height)
-        context.line_to(graph_x + graph_width, graph_y + graph_height)
+                    if label_y != intended_position:
+                        context.move_to(line_x1, label_y + label_h / 2)
+                        context.line_to(line_x2, round(y + bar_size / 2))
 
         context.stroke()
+        context.restore()
 
-        gap = step * 0.05
+
+class HorizontalBarChart(Chart):
+    def _render(self):
+        context = self.context
+        Chart._render(self)
+        rowcount, keys = len(self.keys), self.keys
         
-        context.set_dash ([]);
-        context.set_line_width(0)
-        context.set_antialias(cairo.ANTIALIAS_NONE)
-
-        # bars themselves
-        for i in range(records):
-            color = data[i]["color"]
-            bar_y = graph_y + (step * i) + gap
-            bar_size = max_size * data[i]["factor"]
-            bar_size = max(bar_size, 1)
-            bar_height = step - (gap * 2)
-
-            self._draw_bar(context, graph_x, bar_y, bar_size, bar_height, color)
-
-
-        #values
-        context.set_antialias(cairo.ANTIALIAS_DEFAULT)
-        set_color(context, '#000000')        
-        if self.values_on_bars:
-            for i in range(records):
-                label = "%.2f" % data[i]["value"] and self.there_are_floats or "%d" % data[i]["value"]
-                extent = context.text_extents(label) #x, y, width, height
-                
-                bar_size = max_size * data[i]["factor"]
-                horizontal_offset = (step + extent[3]) / 2.0 - extent[3]
-                
-                if  bar_size - horizontal_offset < extent[2]:
-                    label_x = graph_x + bar_size + horizontal_offset
-                else:
-                    label_x = graph_x + bar_size - extent[2] - horizontal_offset
-                
-                context.move_to(label_x, graph_y + (step * i) + (step + extent[3]) / 2.0)
-                context.show_text(label)
-
-        else:
-            # values for max min and average
-            context.move_to(graph_x + graph_width + 10, graph_y + 10)
-            max_label = "%.2f" % self.max and self.there_are_floats or "%d" % self.max
-            context.show_text(max_label)
+        # push graph to the right, so it doesn't overlap
+        legend_width = self.legend_width or self.longest_label(keys)
         
+        self.graph_x = legend_width
+        self.graph_x += 8 #add another 8 pixes of padding
         
-    def _area_chart(self, context):
-        rect = self.get_allocation()  #x, y, width, height        
-        data, records = self.data, len(self.data)
+        self.graph_width = self.width - self.graph_x
+        self.graph_y, self.graph_height = 0, self.height
 
-        if not data:
+
+        if self.chart_background:
+            self.fill_area(self.graph_x, self.graph_y, self.graph_width, self.graph_height, self.chart_background)
+
+    
+        if not self.data:  #if we have nothing, let's go home
             return
 
-        # graph box dimensions
-        graph_x = self.legend_width or 50 #give some space to scale labels
-        graph_width = rect.width + rect.x - graph_x
         
-        step = graph_width / float(records)
-        graph_y = rect.y
-        graph_height = graph_y - rect.x + rect.height - 15
+        bar_width = int(self.graph_height / float(rowcount))
+        bar_width = min(bar_width, self.max_bar_width)
+
         
-        max_size = graph_height - 15
+        max_bar_size = self.graph_width - 15
+        gap = bar_width * 0.05
 
 
-
-        context.set_line_width(1)
+        self.layout.set_alignment(pango.ALIGN_RIGHT)
+        self.layout.set_ellipsize(pango.ELLIPSIZE_END)
         
-        # TODO put this somewhere else - drawing background and some grid
-        context.rectangle(graph_x, graph_y, graph_width, graph_height)
-        context.set_source_rgb(1, 1, 1)
-        context.fill_preserve()
+
+        
+        context.set_line_width(0)
+
+        # bars and labels
+        self.layout.set_width(legend_width * pango.SCALE)
+        
+
+        for i, label in enumerate(keys):
+            self.layout.set_width(legend_width * pango.SCALE)
+            self.set_color(graphics.Colors.aluminium[5])        
+            
+            self.layout.set_text(label)
+            label_w, label_h = self.layout.get_pixel_size()
+
+            context.move_to(0, (bar_width * i) + (bar_width - label_h) / 2)
+            context.show_layout(self.layout)
+
+            base_color = self.bar_base_color or (220, 220, 220)
+
+            gap = bar_width * 0.05
+
+            bar_y = round(self.graph_y + (bar_width * i) + gap)
+
+            last_color = (255,255,255)
+
+            if self.stack_keys:
+                bar_start = 0
+
+                for j, bar in enumerate(self.bars[i]):
+                    if bar.size > 0:
+                        bar_size = round(max_bar_size * bar.size)
+                        bar_height = round(bar_width - (gap * 2))
+                        
+                        last_color = self.get_bar_color(j)
+                        self.draw_bar(self.graph_x + bar_start,
+                                      bar_y,
+                                      bar_size,
+                                      bar_height,
+                                      last_color)
+                        bar_start += bar_size
+            else:
+                bar_size = round(max_bar_size * self.bars[i].size)
+                bar_start = bar_size
+
+                bar_height = round(bar_width - (gap * 2))
+                self.draw_bar(self.graph_x, bar_y, bar_size, bar_height,
+                                                                     base_color)
+
+            # values on bars
+            if self.stack_keys:
+                total_value = sum(self.data[i])
+            else:
+                total_value = self.data[i]
+            
+            self.layout.set_width(-1)
+            self.layout.set_text(self.value_format % total_value)
+            label_w, label_h = self.layout.get_pixel_size()
+
+            vertical_padding = (bar_width - (bar_width + label_h) / 2.0 ) / 2.0
+            if  bar_start - vertical_padding < label_w:
+                label_x = self.graph_x + bar_start + vertical_padding
+                self.set_color(graphics.Colors.aluminium[5])        
+            else:
+                # we are in the bar so make sure that the font color is distinguishable
+                # this is a hamster fix
+                # TODO - drop the library bit, we will never be adopted
+                if colorsys.rgb_to_hls(*last_color)[1] < 150:
+                    self.set_color(graphics.Colors.almost_white)
+                else:
+                    self.set_color(graphics.Colors.aluminium[5])        
+                    
+                label_x = self.graph_x + bar_start - label_w - vertical_padding
+            
+            context.move_to(label_x, self.graph_y + (bar_width * i) + (bar_width - label_h) / 2.0)
+            context.show_layout(self.layout)
+
         context.stroke()
 
+
+
+
+class HorizontalDayChart(Chart):
+    """Pretty much a horizontal bar chart, except for values it expects tuple
+    of start and end time, and the whole thing hangs in air"""
+    def plot_day(self, keys, data, start_time = None, end_time = None):
+        self.keys, self.data = keys, data
+        self.start_time, self.end_time = start_time, end_time
+        self.show()
+        self.redraw_canvas()
+    
+    def _render(self):
+        context = self.context
+        Chart._render(self)
+        rowcount, keys = len(self.keys), self.keys
+        
+        start_hour = 0
+        if self.start_time:
+            start_hour = self.start_time
+        end_hour = 24 * 60        
+        if self.end_time:
+            end_hour = self.end_time
+        
+        
+        # push graph to the right, so it doesn't overlap
+        legend_width = self.legend_width or self.longest_label(keys)
+
+        self.graph_x = legend_width
+        self.graph_x += 8 #add another 8 pixes of padding
+        
+        self.graph_width = self.width - self.graph_x
+        
+        #on the botttom leave some space for label
+        self.layout.set_text("1234567890:")
+        label_w, label_h = self.layout.get_pixel_size()
+        
+        self.graph_y, self.graph_height = 0, self.height - label_h - 4
+
+
+        if self.chart_background:
+            self.fill_area(self.graph_x, self.graph_y, self.graph_width, self.graph_height, self.chart_background)
+
+        if not self.data:  #if we have nothing, let's go home
+            return
+
+        
+        bar_width = int(self.graph_height / float(rowcount))
+        bar_width = min(bar_width, self.max_bar_width)
+
+        
+        max_bar_size = self.graph_width - 15
+        gap = bar_width * 0.05
+
+
+        self.layout.set_alignment(pango.ALIGN_RIGHT)
+        self.layout.set_ellipsize(pango.ELLIPSIZE_END)
+        
+        context.set_line_width(0)
+
+        # bars and labels
+        self.layout.set_width(legend_width * pango.SCALE)
+
+        factor = max_bar_size / float(end_hour - start_hour)
+
+
+        for i, label in enumerate(keys):
+            self.set_color(graphics.Colors.aluminium[5])        
+            
+            self.layout.set_text(label)
+            label_w, label_h = self.layout.get_pixel_size()
+
+            context.move_to(0, (bar_width * i) + (bar_width - label_h) / 2)
+            context.show_layout(self.layout)
+
+            base_color = self.bar_base_color or [220, 220, 220]
+
+            gap = bar_width * 0.05
+
+            bar_y = round(self.graph_y + (bar_width * i) + gap)
+
+            
+            bar_height = round(bar_width - (gap * 2))
+            
+            if isinstance(self.data[i], list) == False:
+                self.data[i] = [self.data[i]]
+            
+            for row in self.data[i]:
+                bar_x = round((row[0]- start_hour) * factor)
+                bar_size = round((row[1] - start_hour) * factor - bar_x)
+                
+                self.draw_bar(self.graph_x + bar_x,
+                              bar_y,
+                              bar_size,
+                              bar_height,
+                              base_color)
+
+        #white grid and scale values
+        self.layout.set_width(-1)
+
         context.set_line_width(1)
-        context.set_dash ([1, 3]);
 
+        pace = ((end_hour - start_hour) / 3) / 60 * 60
+        for i in range(start_hour + 60, end_hour, pace):
+            x = (i - start_hour) * factor
+            
+            minutes = i % (24 * 60)
 
-        #backgrounds
-        if self.there_are_backgrounds:
-            for i in range(records):
-                if data[i]["background"] != None:
-                    set_color(context);
-                    context.rectangle(graph_x + (step * i), 1, step, graph_height - 1)
-                    context.fill_preserve()
-                    context.stroke()
+            self.layout.set_markup(dt.time(minutes / 60, minutes % 60).strftime("%H<small><sup>%M</sup></small>"))
+            label_w, label_h = self.layout.get_pixel_size()
+
+            context.move_to(self.graph_x + x - label_w / 2,
+                            bar_y + bar_height + 4)
+            self.set_color(graphics.Colors.aluminium[4])
+            context.show_layout(self.layout)
 
             
-        set_color(context, '#000000')
-        
-        # scale lines
-        stride = self.default_grid_stride and self.stretch_grid == False or int(graph_height / 4)
-            
-        for y in range(graph_y, graph_y + graph_height, stride):
-            context.move_to(graph_x - 10, y)
-            context.line_to(graph_x + graph_width, y)
+            self.set_color((255, 255, 255))
+            self.context.move_to(self.graph_x + x, self.graph_y)
+            self.context.line_to(self.graph_x + x, bar_y + bar_height)
 
-        # and borders on both sides, so the graph doesn't fall out
-        context.move_to(graph_x - 1, graph_y)
-        context.line_to(graph_x - 1, graph_y + graph_height + 1)
-        context.move_to(graph_x + graph_width, graph_y)
-        context.line_to(graph_x + graph_width, graph_y + graph_height + 1)
-        
-
-        context.stroke()
-        
-        
-        context.set_dash ([]);
-
-        # labels
-        set_color(context, '#000000');
-        for i in range(records):
-            if i % 5 == 0:
-                context.move_to(graph_x + 5 + (step * i), graph_y + graph_height + 13)
-                context.show_text(data[i]["label"])
-
-        # values for max min and average
-        max_label = "%.2f" % self.max and self.there_are_floats or "%d" % self.max
-        extent = context.text_extents(max_label) #x, y, width, height
-
-        context.move_to(graph_x - extent[2] - 16, rect.y + 10)
-        context.show_text(max_label)
-
-
-        context.rectangle(graph_x, graph_y, graph_width, graph_height + 1)
-        context.clip()
-
-        #flip the matrix vertically, so we do not have to think upside-down
-        context.transform(cairo.Matrix(yy = -1, y0 = graph_height))
-
-
-        set_color(context, '#000000');
-        # chart itself
-        for i in range(records):
-            if i == 0:
-                context.move_to(graph_x, -10)
-                context.line_to(graph_x, graph_height * data[i]["factor"] * 0.9)
                 
-            context.line_to(graph_x + (step * i) + (step * 0.5), graph_height * data[i]["factor"] * 0.9)
-
-            if i == records - 1:
-                context.line_to(graph_x  + (step * i) + (step * 0.5),  0)
-                context.line_to(graph_x + graph_width, 0)
-                context.line_to(graph_x + graph_width, -10)
-                
-
-
-        set_color(context)
-        context.fill_preserve()    
-
-        context.set_line_width(3)
-        context.set_line_join (cairo.LINE_JOIN_ROUND);
-        set_color(context, '#000000');
         context.stroke()
