@@ -22,7 +22,6 @@ from gui.widgets.timeline import Timeline, Bullet
 from lib.bill import Bill
 from lib.dal import DAL
 from lib.actions import Actions
-from db.billstable import BillsTable
 
 # Import common utilities
 from lib import common
@@ -272,8 +271,8 @@ class MainDialog:
     def format_row(self, row):
         """ Formats a bill to be displayed as a row. """
 
-        categoryName = len(row.category) and row.category[0].name or _('None')
-        categoryColor = len(row.category) and row.category[0].color or '#d3d7cf'
+        categoryName = row.category.name if row.category else _('None')
+        categoryColor = row.category.color if row.category else '#d3d7cf'
         formatted = [
             row.id,
             create_pixbuf(color=categoryColor),

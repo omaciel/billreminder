@@ -438,7 +438,7 @@ class AddDialog(gtk.Dialog):
                     alarm = self.__get_alarm_date(day)
                 rec = Bill(payee, amount, day, sbuffer, 0)
                 if category:
-                    rec.category.append(category)
+                    rec.category = category
                 #rec = Bill(payee, category, day, amount, sbuffer, 0, -1, alarm)
                 records.append (rec)
 
@@ -452,8 +452,7 @@ class AddDialog(gtk.Dialog):
             self.currentrecord.notes = sbuffer
             #self.currentrecord.alarm = alarm
             if category:
-                self.currentrecord.category = []
-                self.currentrecord.category.append(category)
+                self.currentrecord.category = category
 
             #return the bill
             return [self.currentrecord]
