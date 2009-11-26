@@ -10,7 +10,6 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(length=255, convert_unicode=True))
     color = Column(String(length=6, convert_unicode=True))
-    bill_id = Column(Integer, ForeignKey('bills.id'))
 
     def __init__(self, name, color=None):
         self.name = name
@@ -31,6 +30,7 @@ class Bill(Base):
     paid = Column(Boolean)
     repeats = Column(Boolean)
 
+    catId = Column(Integer, ForeignKey('categories.id'))
     category = relation(Category, backref=backref('bills', order_by=id))
 
     def __init__(self, payee, amount, dueDate, notes=None, paid=False, repeats=False):
