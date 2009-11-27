@@ -34,7 +34,6 @@ http://projecthamster.wordpress.com/
 """
 
 import gtk
-import gobject
 import cairo, pango
 import copy
 import math
@@ -44,7 +43,7 @@ import time
 import colorsys
 import logging
 
-import graphics, pytweener
+import graphics
 
 
 def size_list(set, target_set):
@@ -100,7 +99,6 @@ class Chart(graphics.Area):
         self.background        = Tripplet-tuple of background color in RGB
         self.chart_background  = Tripplet-tuple of chart background color in RGB
         self.bar_base_color    = Tripplet-tuple of bar color in RGB
-        self.bars_beveled      = Should bars be beveled. 
 
         self.show_scale        = Should we show scale values. See grid_stride!
         self.grid_stride       = Step of grid. If expressed in normalized range
@@ -123,14 +121,13 @@ class Chart(graphics.Area):
         # options
         self.max_bar_width     = args.get("max_bar_width", 500)
         self.legend_width      = args.get("legend_width", 0)
-        self.animate           = args.get("animate", True)
+        self.animation           = args.get("animate", True)
 
         self.background        = args.get("background", None)
         self.chart_background  = args.get("chart_background", None)
         self.bar_base_color    = args.get("bar_base_color", None)
 
         self.grid_stride       = args.get("grid_stride", None)
-        self.bars_beveled      = args.get("bars_beveled", False)
         self.values_on_bars    = args.get("values_on_bars", False)
         self.value_format      = args.get("value_format", "%s")
         self.show_scale        = args.get("show_scale", False)
@@ -140,11 +137,17 @@ class Chart(graphics.Area):
         self.framerate         = args.get("framerate", 60)
 
         # other stuff
-        self.tweener = pytweener.Tweener(0.4, pytweener.Easing.Cubic.easeInOut)
-        self.last_frame_time = None
-        self.moving = False
-        
         self.bars = []
+        self.keys = []
+        self.stack_keys = []
+        
+        self.key_colors = {} # key:color dictionary. if key's missing will grab basecolor
+        self.stack_key_colors = {} # key:color dictionary. if key's missing will grab basecolor
+        
+
+        # use these to mark area where the "real" drawing is going on
+        self.graph_x, self.graph_y = 0, 0
+        self.graph_width, self.graph_height = None, None
         
         
     def get_bar_color(self, index):
@@ -182,34 +185,13 @@ class Chart(graphics.Area):
 
         self._update_targets()
 
-        if self.animate:
-            self.last_frame_time = dt.datetime.now()
-            if not self.moving: #if we are moving, then there is a timeout somewhere already
-                gobject.timeout_add(1000 / self.framerate, self._interpolate)
-        else:
-            self.tweener.update(self.tweener.defaultDuration) # set to end frame
+        if not self.animation:
+            self.tweener.finish()
 
-            self.redraw_canvas()
-
-
-    def _interpolate(self):
-        """Internal function to do the math, going from previous set to the
-           new one, and redraw graph"""
-        #this can get called before expose    
-        self.moving = self.tweener.hasTweens()
-
-        if not self.window:
-            self.redraw_canvas()
-            return False
-
-        time_since_start = (dt.datetime.now() - self.last_frame_time).microseconds / 1000000.0
-        self.tweener.update(time_since_start)
         self.redraw_canvas()
-        self.last_frame_time = dt.datetime.now()
 
-        return self.moving
 
-    def _render(self):
+    def on_expose(self):
         # fill whole area 
         if self.background:
             self.fill_area(0, 0, self.width, self.height, self.background)
@@ -238,15 +220,26 @@ class Chart(graphics.Area):
             return bars
     
         retarget(self.bars, self.data)
+
+
+    def longest_label(self, labels):
+        """returns width of the longest label"""
+        max_extent = 0
+        for label in labels:
+            self.layout.set_text(label)
+            label_w, label_h = self.layout.get_pixel_size()
+            max_extent = max(label_w + 5, max_extent)
+        
+        return max_extent
     
     def draw(self):
         logging.error("OMG OMG, not implemented!!!")
 
 
 class BarChart(Chart):
-    def _render(self):
+    def on_expose(self):
         context = self.context
-        Chart._render(self)
+        Chart.on_expose(self)
         
         # determine graph dimensions
         if self.show_stack_labels:
@@ -284,9 +277,6 @@ class BarChart(Chart):
                                                              self.max_bar_width)
         gap = bar_width * 0.05
         
-        # flip hamster.graphics matrix so we don't think upside down
-        self.set_value_range(y_max = 0, y_min = self.graph_height)
-
         # bars and keys
         max_bar_size = self.graph_height
         #make sure bars don't hit the ceiling
@@ -305,7 +295,7 @@ class BarChart(Chart):
             intended_x = (bar_width * i) + (bar_width - label_w) / 2.0
             
             if not prev_label_end or intended_x > prev_label_end:
-                self.move_to(intended_x, -4)
+                self.context.move_to(intended_x, self.graph_height - 4)
                 context.show_layout(self.layout)
             
                 prev_label_end = intended_x + label_w + 3
@@ -321,20 +311,24 @@ class BarChart(Chart):
                         bar_size = round(max_bar_size * bar.size)
                         bar_start += bar_size
                         
+                        last_color = self.stack_key_colors.get(self.stack_keys[j],
+                                                               self.get_bar_color(j))
                         self.draw_bar(bar_x,
                                       self.graph_height - bar_start,
                                       round(bar_width - (gap * 2)),
                                       bar_size,
-                                      self.get_bar_color(j))
+                                      last_color)
             else:
                 bar_size = round(max_bar_size * self.bars[i].size)
                 bar_start = bar_size
 
+                last_color = self.key_colors.get(self.keys[i],
+                                                  base_color)
                 self.draw_bar(bar_x,
                               self.graph_y + self.graph_height - bar_size,
                               round(bar_width - (gap * 2)),
                               bar_size,
-                              base_color)
+                              last_color)
 
 
             if self.values_on_bars:  # it's either stack labels or values at the end for now
@@ -354,6 +348,13 @@ class BarChart(Chart):
                     label_y = self.graph_y + self.graph_height - bar_start - label_h + 5
                 
                 context.move_to(self.graph_x + (bar_width * i) + (bar_width - label_w) / 2.0, label_y)
+
+                # we are in the bar so make sure that the font color is distinguishable
+                if colorsys.rgb_to_hls(*graphics.Colors.rgb(last_color))[1] < 150:
+                    self.set_color(graphics.Colors.almost_white)
+                else:
+                    self.set_color(graphics.Colors.aluminium[5])        
+
                 context.show_layout(self.layout)
     
                 # values on bars
@@ -462,9 +463,9 @@ class BarChart(Chart):
 
 
 class HorizontalBarChart(Chart):
-    def _render(self):
+    def on_expose(self):
         context = self.context
-        Chart._render(self)
+        Chart.on_expose(self)
         rowcount, keys = len(self.keys), self.keys
         
         # push graph to the right, so it doesn't overlap
@@ -530,7 +531,8 @@ class HorizontalBarChart(Chart):
                         bar_size = round(max_bar_size * bar.size)
                         bar_height = round(bar_width - (gap * 2))
                         
-                        last_color = self.get_bar_color(j)
+                        last_color = self.stack_key_colors.get(self.stack_keys[j],
+                                                               self.get_bar_color(j))
                         self.draw_bar(self.graph_x + bar_start,
                                       bar_y,
                                       bar_size,
@@ -542,8 +544,12 @@ class HorizontalBarChart(Chart):
                 bar_start = bar_size
 
                 bar_height = round(bar_width - (gap * 2))
+
+                last_color = self.key_colors.get(self.keys[i],
+                                                 base_color)
+
                 self.draw_bar(self.graph_x, bar_y, bar_size, bar_height,
-                                                                     base_color)
+                                                                     last_color)
 
             # values on bars
             if self.stack_keys:
@@ -561,9 +567,7 @@ class HorizontalBarChart(Chart):
                 self.set_color(graphics.Colors.aluminium[5])        
             else:
                 # we are in the bar so make sure that the font color is distinguishable
-                # this is a hamster fix
-                # TODO - drop the library bit, we will never be adopted
-                if colorsys.rgb_to_hls(*last_color)[1] < 150:
+                if colorsys.rgb_to_hls(*graphics.Colors.rgb(last_color))[1] < 150:
                     self.set_color(graphics.Colors.almost_white)
                 else:
                     self.set_color(graphics.Colors.aluminium[5])        
@@ -587,9 +591,9 @@ class HorizontalDayChart(Chart):
         self.show()
         self.redraw_canvas()
     
-    def _render(self):
+    def on_expose(self):
         context = self.context
-        Chart._render(self)
+        Chart.on_expose(self)
         rowcount, keys = len(self.keys), self.keys
         
         start_hour = 0
