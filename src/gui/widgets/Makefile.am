@@ -8,6 +8,8 @@ billreminder_widgets_PYTHON = \
 	datebutton.py \
 	datepicker.py \
 	genericlistview.py \
+	graphics.py \
+	pytweener.py \
 	statusbar.py \
 	timeline.py \
 	timewidget.py \
