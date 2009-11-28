@@ -47,7 +47,8 @@ else
 endif
 
 resources_DATA = \
-	main.ui
+	main.ui \
+        add_bill.ui
 
 EXTRA_DIST = \
 	$(schemas_in_files) \

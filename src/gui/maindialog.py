@@ -275,8 +275,7 @@ class MainDialog:
             self.reloadTimeline()
 
     def edit_bill(self):
-        records = dialogs.edit_dialog(parent=self.window,
-            record=self.currentrecord)
+        records = dialogs.edit_dialog(parent=self.window, record=self.currentrecord)
 
         # Checks if the user did not cancel the action
         if records:
@@ -379,7 +378,7 @@ class MainDialog:
 
     def _on_list_row_activated(self, widget, path, column):
         self._on_list_cursor_changed(widget)
-        self.on_btnEdit_clicked(None)
+        self.on_editBill_activate(None)
 
     def _on_list_cursor_changed(self, widget):
         # Get currently selected bill

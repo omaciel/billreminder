@@ -49,23 +49,23 @@ def add_dialog(parent=None, selectedDate=None):
     record = None
     # Dialog Title
     dialog = AddDialog(title=_("Add a new bill"), parent=parent, record=record, selectedDate=selectedDate)
-    response = dialog.run()
+    response = dialog.window.run()
     # Checks if the user did not cancel the action
     if response == gtk.RESPONSE_ACCEPT:
         record = dialog.get_record()
-    dialog.destroy()
+    dialog.window.destroy()
 
     return record
 
 def edit_dialog(record, parent=None):
     # Dialog Title
     dialog = AddDialog(title=_("Edit a bill"), parent=parent, record=record)
-    response = dialog.run()
+    response = dialog.window.run()
     # Checks if the user did not cancel the action
     if response == gtk.RESPONSE_ACCEPT:
         record = dialog.get_record()
     else:
         record = None
-    dialog.destroy()
+    dialog.window.destroy()
 
     return record

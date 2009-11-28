@@ -2,6 +2,7 @@
 
 __all__ = ['AddDialog']
 
+import os
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -20,26 +21,22 @@ from lib import i18n
 from gui.widgets.datebutton import DateButton
 from gui.widgets.datepicker import DatePicker
 from gui.categoriesdialog import CategoriesDialog
-from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
+from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH, DEFAULT_CFG_PATH
 
-class AddDialog(gtk.Dialog):
+class AddDialog(object):
     """
     Class used to generate dialog to allow user to enter/edit records.
     """
     def __init__(self, title=None, parent=None, record=None, selectedDate=None):
-        gtk.Dialog.__init__(self, title=title, parent=parent,
-                            #flags=gtk.DIALOG_MODAL|gtk.DIALOG_NO_SEPARATOR,
-                            flags=gtk.DIALOG_NO_SEPARATOR,
-                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                     gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT))
+        self.ui = gtk.Builder()
+        self.ui.add_from_file(os.path.join(DEFAULT_CFG_PATH, "add_bill.ui"))
+        
+        self.window = self.ui.get_object("add_bill_dialog")
 
-        self.set_icon_from_file(common.APP_ICON)
-        self.set_border_width(6)
-        self.set_resizable(False)
+        self.window.set_icon_from_file(common.APP_ICON)
 
         if parent:
-            self.set_transient_for(parent)
-            self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+            self.window.set_transient_for(parent)
 
         # If we have a selected date, then set calendar to use it
         if not selectedDate:
@@ -58,11 +55,12 @@ class AddDialog(gtk.Dialog):
 
         # Set up the UI
         self._initialize_dialog_widgets()
-        self._connect_fields()
+
+
         self._populate_widgets()
         self.category_index_before = 0
 
-        self.connect("response", self._on_response)
+        self.ui.connect_signals(self)
 
     def _set_currency(self):
         self.decimal_sep = locale.localeconv()['mon_decimal_point']
@@ -72,66 +70,22 @@ class AddDialog(gtk.Dialog):
         self.allowed_digts += [str(i) for i in range(10)]
 
     def _initialize_dialog_widgets(self):
-        self.vbox.set_spacing(12)
-        self.fieldbox = gtk.VBox(homogeneous=False, spacing=6)
+        self.frequency = self.ui.get_object("frequency")
 
-        ## repeat times
-        self.repeatlabel = gtk.Label()
-        self.repeatlabel.set_markup_with_mnemonic(_("<b>_Repeat:</b>"))
-        self.repeatlabel.set_alignment(0.00, 0.50)
-        adj = gtk.Adjustment(00.0, 1.0, 23.0, 1.0)
-
-        # Datepickers
-        self.dueDateLabel = gtk.Label()
-        self.dueDateLabel.set_markup_with_mnemonic(_("<b>Due Date:</b>"))
         self.dueDate = DatePicker()
-        self.endDateLabel = gtk.Label()
-        #TRANSLATORS: This is the end date for repeating bills.
-        self.endDateLabel.set_markup_with_mnemonic(_("<b>End Date:</b>"))
+        self.ui.get_object("due_date_box").add(self.dueDate)
+        self.dueDate.connect('date_changed', self._on_datepicker_date_changed)
+
         self.endDate = DatePicker()
+        self.ui.get_object("end_date_box").add(self.endDate)
 
-        ## Repeating bills
-        self.frequency = gtk.combo_box_new_text()
-        self.repeatlabel.set_mnemonic_widget(self.frequency)
-        #self.frequency.set_row_separator_func(self._determine_separator)
-
-        # Fields
-        ## Table of 6 x 2
-        self.table = gtk.Table(rows=6, columns=2, homogeneous=False)
-        ### Spacing to make things look better
-        self.table.set_col_spacings(12)
-        self.table.set_row_spacings(6)
-
-        ## Labels
-        self.payeelabel = gtk.Label()
-        self.payeelabel.set_markup_with_mnemonic(_("<b>_Payee:</b>"))
-        self.payeelabel.set_alignment(0.00, 0.50)
-        self.amountlabel = gtk.Label()
-        self.amountlabel.set_markup_with_mnemonic(_("<b>_Amount:</b>"))
-        self.amountlabel.set_alignment(0.00, 0.50)
-        self.categorylabel = gtk.Label()
-        self.categorylabel.set_markup_with_mnemonic(_("<b>_Category:</b>"))
-        self.categorylabel.set_alignment(0.00, 0.50)
-        self.noteslabel = gtk.Label()
-        self.noteslabel.set_markup_with_mnemonic(_("<b>_Notes:</b>"))
-        self.noteslabel.set_alignment(0.00, 0.00)
-        self.alarmlabel = gtk.Label()
-        self.alarmlabel.set_markup_with_mnemonic(_("<b>A_larm:</b>"))
-        self.alarmlabel.set_alignment(0.00, 0.50)
-        ## Fields
-        ### Payee
-        self.payee = gtk.ComboBoxEntry()
-        self.payeelabel.set_mnemonic_widget(self.payee)
+        self.payee = self.ui.get_object("payee")
         self.payeecompletion = gtk.EntryCompletion()
         self.payee.child.set_completion(self.payeecompletion)
-        ### Amount
-        self.amount = gtk.Entry()
-        self.amountlabel.set_mnemonic_widget(self.amount)
-        self.amount.set_alignment(1.00)
-        ### Category
-        self.categorydock = gtk.HBox(homogeneous=False, spacing=4)
-        self.category = gtk.ComboBox()
-        self.categorylabel.set_mnemonic_widget(self.category)
+
+        self.amount = self.ui.get_object("amount")
+
+        self.category = self.ui.get_object("category")
         px = gtk.CellRendererPixbuf()
         txt = gtk.CellRendererText()
         self.category.pack_start(px, False)
@@ -140,79 +94,17 @@ class AddDialog(gtk.Dialog):
         self.category.add_attribute(txt, "text", 1)
         self.category.set_row_separator_func(self._determine_separator)
 
-        self.categorybutton = gtk.Button()
-        self.categorybutton.set_tooltip_text(_("Manage Categories"))
-        self.categorybuttonimage = gtk.Image()
-        self.categorybuttonimage.set_from_stock(gtk.STOCK_EDIT,
-                                                gtk.ICON_SIZE_BUTTON)
-        self.categorybutton.set_image(self.categorybuttonimage)
-        self.categorydock.pack_start(self.category, expand=True,
-                                     fill=True, padding=0)
-        self.categorydock.pack_start(self.categorybutton, expand=False,
-                                     fill=True, padding=0)
-
-        ### Notes
-        self.notesdock = gtk.ScrolledWindow()
-        self.notesdock.set_shadow_type(gtk.SHADOW_OUT)
-        self.notesdock.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.notes = gtk.TextView()
-        self.noteslabel.set_mnemonic_widget(self.notes)
-        self.notes.set_wrap_mode(gtk.WRAP_WORD)
-        self.notesdock.add(self.notes)
-        ### Buffer object for Notes field
+        self.categorybutton = self.ui.get_object("edit_categories")
+        
+        self.notes = self.ui.get_object("notes")
         self.txtbuffer = self.notes.get_buffer()
-        ### Alarm
-        self.alarmbutton = DateButton(self)
-        self.alarmlabel.set_mnemonic_widget(self.alarmbutton)
+        
+        self.alarmbutton = DateButton(self.window)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
+        self.ui.get_object("alarm_button_box").add(self.alarmbutton)
+        self.ui.get_object("alarm_label").set_mnemonic_widget(self.alarmbutton)
 
-        ## Pack it all into the table
-        ### Label widgets
-        self.table.attach(self.payeelabel,      0, 1, 0, 1, gtk.FILL, gtk.FILL)
-        self.table.attach(self.amountlabel,     0, 1, 1, 2, gtk.FILL, gtk.FILL)
-        self.table.attach(self.dueDateLabel,    0, 1, 2, 3, gtk.FILL, gtk.FILL)
-        self.table.attach(self.categorylabel,   0, 1, 3, 4, gtk.FILL, gtk.FILL)
-        self.table.attach(self.repeatlabel,     0, 1, 4, 5, gtk.FILL, gtk.FILL)
-        self.table.attach(self.endDateLabel,    0, 1, 5, 6, gtk.FILL, gtk.FILL)
-        ### "Value" widgets
-        self.table.attach(self.payee,           1, 2, 0, 1, gtk.FILL, gtk.FILL)
-        self.table.attach(self.amount,          1, 2, 1, 2, gtk.FILL, gtk.FILL)
-        self.table.attach(self.dueDate,         1, 2, 2, 3, gtk.FILL, gtk.FILL)
-        self.table.attach(self.categorydock,    1, 2, 3, 4, gtk.FILL, gtk.FILL)
-        self.table.attach(self.frequency,       1, 2, 4, 5, gtk.FILL, gtk.FILL)
-        self.table.attach(self.endDate,         1, 2, 5, 6, gtk.FILL, gtk.FILL)
-
-        ## Pack table
-        self.fieldbox.pack_start(self.table, expand=True, fill=True, padding=0)
-
-        ## Container with optional fields
-        vbox = gtk.VBox(homogeneous=False, spacing=2)
-        hbox1 = gtk.HBox(homogeneous=False, spacing=2)
-        hbox2 = gtk.HBox(homogeneous=False, spacing=2)
-
-        ### "Value" widgets
-        hbox1.pack_start(self.noteslabel, expand=False, fill=True, padding=0)
-        hbox1.pack_start(self.notesdock, expand=True, fill=True, padding=0)
-        hbox2.pack_start(self.alarmlabel, expand=False, fill=True, padding=0)
-        hbox2.pack_start(self.alarmbutton, expand=True, fill=True, padding=0)
-
-        vbox.pack_start(hbox1, expand=True, fill=True, padding=0)
-        vbox.pack_start(hbox2, expand=True, fill=True, padding=0)
-        ## Expander
-        self.optExpander = gtk.Expander(_("<b>Optional Fields:</b>"))
-        self.optExpander.set_use_markup(True)
-        self.optExpander.set_expanded(False)
-        self.optExpander.add(vbox)
-
-
-        # Everything
-        self.vbox.pack_start(self.fieldbox, expand=False, fill=True)
-        self.vbox.pack_start(self.optExpander, expand=True, fill=True, padding=0)
-
-        # Connect events
-
-        # Show all widgets
-        self.show_all()
+        self.window.show_all()
 
     def _populate_widgets(self):
         """ Populate dialog widgets so they can be used. """
@@ -225,8 +117,6 @@ class AddDialog(gtk.Dialog):
             self._populate_widgets_with_record()
             #in edit mode we must disable repetition
             self.frequency.set_sensitive(False)
-            self.repeatlabel.set_sensitive(False)
-            self.endDateLabel.set_sensitive(False)
             self.endDate.set_sensitive(False)
 
         else:
@@ -246,15 +136,6 @@ class AddDialog(gtk.Dialog):
                 self.alarmbutton.set_date(alarmDate)
 
 
-    def _connect_fields(self):
-        self.category.connect("changed", self._on_categorycombo_changed)
-        self.categorybutton.connect("clicked",
-            self._on_categoriesbutton_clicked)
-        self.amount.connect("insert-text", self._on_amount_insert)
-        self.frequency.connect('changed', self._on_frequency_changed)
-        self.dueDate.connect('date_changed', self._on_datepicker_date_changed)
-
-
     def _determine_separator(self, model, iter, data=None):
         return model.get_value(iter, 1) == "---"
 
@@ -271,7 +152,7 @@ class AddDialog(gtk.Dialog):
 
         if self.currentrecord.category:
             actions = Actions()
-            cat_name = self.currentrecord.category[0].name
+            cat_name = self.currentrecord.category.name
             records = actions.get_categories(name=cat_name)
             if records:
                 categoryname = records[0].name
@@ -323,11 +204,19 @@ class AddDialog(gtk.Dialog):
         """ Populates combobox with allowable frequency. """
         store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_INT)
         self.frequency.set_model(store)
-        store.append([scheduler.SC_ONCE, 0])
-        store.append([scheduler.SC_MONTHLY, 1])
-        store.append([scheduler.SC_WEEKLY, 2])
+
+        cell = gtk.CellRendererText()
+        self.frequency.pack_start(cell, True)
+        self.frequency.add_attribute(cell, 'text', 0)
+        
+        for i, frequency in enumerate([scheduler.SC_ONCE,
+                                       scheduler.SC_MONTHLY,
+                                       scheduler.SC_WEEKLY]):
+            store.append([frequency, i])
+
         # Set SC_ONCE as default
         self.frequency.set_active(0)
+        self.on_frequency_changed(self.frequency)
 
     def _populate_category(self, categoryname=None):
         """ Populates combobox with existing categories """
@@ -441,8 +330,6 @@ class AddDialog(gtk.Dialog):
                     rec.category = category
                 #rec = Bill(payee, category, day, amount, sbuffer, 0, -1, alarm)
                 records.append (rec)
-
-            print records
             return records
         else:
             # Edit existing bill
@@ -457,20 +344,19 @@ class AddDialog(gtk.Dialog):
             #return the bill
             return [self.currentrecord]
 
-    def _on_frequency_changed(self, widget):
+    def on_frequency_changed(self, widget):
         frequency = widget.get_active_text()
         if frequency == scheduler.SC_ONCE:
-            self.endDateLabel.set_sensitive(False)
             self.endDate.set_sensitive(False)
         else:
-            self.endDateLabel.set_sensitive(True)
             self.endDate.set_sensitive(True)
 
-    def _on_categoriesbutton_clicked(self, button, new=False):
+    def on_edit_categories_clicked(self, button, new = False):
         category = None
 
         # if new == True, a simpler categories dialog pops up
-        categories = CategoriesDialog(parent=self, new=new)
+        self.window.category = self.category
+        categories = CategoriesDialog(parent = self.window, new = new)
         ret = categories.run()
 
         if ret == gtk.RESPONSE_OK:
@@ -491,15 +377,15 @@ class AddDialog(gtk.Dialog):
 
         return ret
 
-    def _on_categorycombo_changed(self, combobox):
+    def on_category_changed(self, combobox):
         index = self.category.get_active()
         model = self.category.get_model()
         if index == len(model) - 1:
             self.category.set_active(self.category_index_before)
-            self._on_categoriesbutton_clicked(combobox, True)
+            self.on_edit_categories_clicked(combobox, True)
         self.category_index_before = index
 
-    def _on_amount_insert(self, entry, string, len, position):
+    def on_amount_insert_text(self, entry, string, len, position):
         for char in string:
             if char not in self.allowed_digts:
                 print "Invalid Character: %s" % char
@@ -507,19 +393,17 @@ class AddDialog(gtk.Dialog):
                 gtk.gdk.beep()
                 return
 
-    def _on_response(self, dialog, response_id):
-        message = utils.Message()
-        if response_id == gtk.RESPONSE_ACCEPT:
-            if not self._get_payee().strip() and \
-                not self.amount.get_text().strip():
-                message.ShowError(_("\"%s\" and \"%s\" are required fields.") \
-                    % (_("Payee"), _("Amount")), self)
-                self.emit_stop_by_name("response")
-                self.payee.grab_focus()
-            elif not self._get_payee().strip():
-                message.ShowError(_("\"%s\" is required field.") % _("Payee"), self)
-                self.emit_stop_by_name("response")
-                self.payee.grab_focus()
+    def on_save_clicked(self, widget):
+        if not self._get_payee().strip() and \
+            not self.amount.get_text().strip():
+            message.ShowError(_("\"%s\" and \"%s\" are required fields.") \
+                % (_("Payee"), _("Amount")), self)
+            self.payee.grab_focus()
+        elif not self._get_payee().strip():
+            message.ShowError(_("\"%s\" is required field.") % _("Payee"), self)
+            self.payee.grab_focus()
+        
+        self.window.response(gtk.RESPONSE_ACCEPT)
 
     def _on_datepicker_date_changed(self, widget, args):
         # Only reprogram alarm if it is not None
