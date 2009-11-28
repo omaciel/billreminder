@@ -1,2 +1,16 @@
 *~
 *.pyc
+config.*
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/
+configure
+billreminder
+billreminderd
+install-sh
+m4/
+missing
+mkinstalldirs
+py-compile
+
