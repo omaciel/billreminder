@@ -22,18 +22,18 @@ class Actions(object):
 
         self.dal = databaselayer
 
-    def get_interval_bills(self, start, end, paid=None):
+    def get_interval_bills(self, start, end, paid = None):
         """
         """
 
         records = []
 
-        paid = bool(paid) if (paid and paid < 2) else None
+        paid = bool(paid) if paid in (0,1) else None
 
         try:
             session = self.dal.Session()
             q = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end)
-            if paid:
+            if paid != None:
                 q = q.filter(Bill.paid == paid)
             records = q.all()
         except Exception, e:
