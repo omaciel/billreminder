@@ -1,0 +1,416 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="main_window">
+    <signal name="delete_event" handler="on_delete_event"/>
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkAlignment" id="menu_box">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkMenuBar" id="menubar1">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkMenuItem" id="menuitem1">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">_Bill</property>
+                    <property name="use_underline">True</property>
+                    <child type="submenu">
+                      <object class="GtkMenu" id="menu1">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkImageMenuItem" id="imagemenuitem1">
+                            <property name="label">gtk-new</property>
+                            <property name="visible">True</property>
+                            <property name="related_action">newBill</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImageMenuItem" id="imagemenuitem2">
+                            <property name="label">gtk-open</property>
+                            <property name="visible">True</property>
+                            <property name="related_action">editBill</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImageMenuItem" id="imagemenuitem3">
+                            <property name="label">gtk-save</property>
+                            <property name="visible">True</property>
+                            <property name="related_action">removeBill</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkSeparatorMenuItem" id="separatormenuitem1">
+                            <property name="visible">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImageMenuItem" id="btnQuit">
+                            <property name="label">gtk-quit</property>
+                            <property name="visible">True</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_btnQuit_activate"/>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkMenuItem" id="menuitem2">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">_Edit</property>
+                    <property name="use_underline">True</property>
+                    <child type="submenu">
+                      <object class="GtkMenu" id="menu2">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkImageMenuItem" id="imagemenuitem6">
+                            <property name="label">gtk-cut</property>
+                            <property name="visible">True</property>
+                            <property name="related_action">markPaid</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImageMenuItem" id="imagemenuitem7">
+                            <property name="label">gtk-copy</property>
+                            <property name="visible">True</property>
+                            <property name="related_action">markNotPaid</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkSeparatorMenuItem" id="menuitem5">
+                            <property name="visible">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImageMenuItem" id="btnPrefs">
+                            <property name="label">gtk-preferences</property>
+                            <property name="visible">True</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_btnPrefs_activate"/>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkMenuItem" id="menuitem3">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">_View</property>
+                    <property name="use_underline">True</property>
+                    <child type="submenu">
+                      <object class="GtkMenu" id="menu4">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkCheckMenuItem" id="menuitem6">
+                            <property name="visible">True</property>
+                            <property name="related_action">showToolbar</property>
+                            <property name="label" translatable="yes">Show Toolbar</property>
+                            <property name="use_underline">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkSeparatorMenuItem" id="menuitem7">
+                            <property name="visible">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkRadioMenuItem" id="showPaid">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Paid Only</property>
+                            <property name="use_underline">True</property>
+                            <property name="draw_as_radio">True</property>
+                            <signal name="toggled" handler="on_showPaid_toggled"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkRadioMenuItem" id="showNotPaid">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Not Paid Only</property>
+                            <property name="use_underline">True</property>
+                            <property name="draw_as_radio">True</property>
+                            <property name="group">showPaid</property>
+                            <signal name="toggled" handler="on_showNotPaid_toggled"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkRadioMenuItem" id="showAll">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">All Bills</property>
+                            <property name="use_underline">True</property>
+                            <property name="draw_as_radio">True</property>
+                            <property name="group">showPaid</property>
+                            <signal name="toggled" handler="on_showAll_toggled"/>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkMenuItem" id="menuitem4">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">_Help</property>
+                    <property name="use_underline">True</property>
+                    <child type="submenu">
+                      <object class="GtkMenu" id="menu3">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkImageMenuItem" id="btnAbout">
+                            <property name="label">gtk-about</property>
+                            <property name="visible">True</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_btnAbout_activate"/>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolbar" id="toolbar">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkToolButton" id="toolbutton1">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Add a new bill</property>
+                <property name="related_action">newBill</property>
+                <property name="label" translatable="yes">New</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-new</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="btnEdit">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Edit a bill</property>
+                <property name="related_action">editBill</property>
+                <property name="label" translatable="yes">Edit</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-edit</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="btnRemove">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Delete selected bill</property>
+                <property name="related_action">removeBill</property>
+                <property name="label" translatable="yes">Delete</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-delete</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="btnPaid">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Mark as paid</property>
+                <property name="related_action">markPaid</property>
+                <property name="label" translatable="yes">Paid</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-apply</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="btnNotPaid">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Mark as not paid</property>
+                <property name="related_action">markNotPaid</property>
+                <property name="label" translatable="yes">Not Paid</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-undo</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkAlignment" id="timeline_box">
+            <property name="height_request">70</property>
+            <property name="visible">True</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkAlignment" id="bill_box">
+                <property name="visible">True</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkAlignment" id="chart_box">
+                <property name="visible">True</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkAlignment" id="statusbar_box">
+            <property name="visible">True</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAction" id="newBill">
+    <property name="label">Add New</property>
+    <property name="tooltip">Add new bill</property>
+    <property name="stock_id">gtk-new</property>
+    <signal name="activate" handler="on_newBill_activate"/>
+  </object>
+  <object class="GtkAction" id="editBill">
+    <property name="label">Edit</property>
+    <property name="tooltip">Edit a bill</property>
+    <property name="stock_id">gtk-edit</property>
+    <signal name="activate" handler="on_editBill_activate"/>
+  </object>
+  <object class="GtkAction" id="removeBill">
+    <property name="label">Delete</property>
+    <property name="tooltip">Delete selected bill</property>
+    <property name="stock_id">gtk-delete</property>
+    <signal name="activate" handler="on_removeBill_activate"/>
+  </object>
+  <object class="GtkAction" id="markPaid">
+    <property name="label">Paid</property>
+    <property name="tooltip">Mark as paid</property>
+    <property name="stock_id">gtk-apply</property>
+    <property name="is_important">True</property>
+    <signal name="activate" handler="on_markPaid_activate"/>
+  </object>
+  <object class="GtkAction" id="markNotPaid">
+    <property name="label">Not Paid</property>
+    <property name="tooltip">Mark as not paid</property>
+    <property name="stock_id">gtk-undo</property>
+    <property name="is_important">True</property>
+    <signal name="activate" handler="on_markNotPaid_activate"/>
+  </object>
+  <object class="GtkToggleAction" id="showToolbar">
+    <property name="label">Show Toolbar</property>
+    <property name="tooltip">Show the toolbar</property>
+    <property name="active">True</property>
+    <signal name="toggled" handler="on_showToolbar_toggled"/>
+  </object>
+  <object class="GtkMenu" id="context_menu">
+    <property name="visible">True</property>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem8">
+        <property name="visible">True</property>
+        <property name="related_action">newBill</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem9">
+        <property name="visible">True</property>
+        <property name="related_action">removeBill</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem10">
+        <property name="visible">True</property>
+        <property name="related_action">editBill</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem11">
+        <property name="visible">True</property>
+        <property name="related_action">markPaid</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem12">
+        <property name="visible">True</property>
+        <property name="related_action">markNotPaid</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+      </object>
+    </child>
+  </object>
+</interface>

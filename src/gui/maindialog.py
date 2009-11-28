@@ -2,6 +2,8 @@
 
 __all__ = ['MainDialog']
 
+import os
+
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -11,7 +13,6 @@ import datetime
 from gobject import timeout_add
 
 # Import widgets modules
-from gui.widgets.toolbar import Toolbar
 from gui.widgets.statusbar import Statusbar
 from gui.widgets.viewbill import ViewBill as ViewBill
 from gui.widgets.trayicon import NotifyIcon
@@ -20,14 +21,12 @@ from gui.widgets.timeline import Timeline, Bullet
 
 # Import data model modules
 from lib.bill import Bill
-from lib.dal import DAL
 from lib.actions import Actions
 
 # Import common utilities
 from lib import common
 from lib import dialogs
 from lib import scheduler
-from lib.utils import ContextMenu
 from lib.utils import Message
 from lib.utils import get_dbus_interface
 from lib.utils import force_string
@@ -36,40 +35,10 @@ from lib import i18n
 
 from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
 from lib.common import CFG_NAME
-from lib.common import USER_CFG_PATH
+from lib.common import USER_CFG_PATH, DEFAULT_CFG_PATH
 from os.path import exists, join
 
 class MainDialog:
-
-    menu_ui = '''
-        <ui>
-            <menubar name="MenuBar">
-              <menu action="File">
-                <menuitem action="New"/>
-                <menuitem action="Edit"/>
-                <menuitem action="Delete"/>
-                <separator/>
-                <menuitem action="Quit"/>
-              </menu>
-              <menu action="EditMenu">
-                <menuitem action="Paid"/>
-                <menuitem action="NotPaid"/>
-                <separator/>
-                <menuitem action="Preferences"/>
-              </menu>
-              <menu action="View">
-                <menuitem action="ShowToolbar"/>
-                <separator/>
-                <menuitem action="PaidRecords"/>
-                <menuitem action="NotPaidRecords"/>
-                <menuitem action="AllRecords"/>
-              </menu>
-              <menu action="Help">
-                <menuitem action="About"/>
-              </menu>
-            </menubar>
-        </ui>'''
-
     search_text = ""
     _bullet_cache = {}
 
@@ -83,66 +52,40 @@ class MainDialog:
         # Connects to the database
         self.actions = Actions()
 
-        # Create a new window
-        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.window.set_title("%s" % common.APPNAME)
-        self.window.set_border_width(0)
-        self.window.set_size_request(385, 380)
-        self.window.set_icon_from_file(common.APP_ICON)
-        self.window.connect("delete_event", self.on_delete_event)
 
-        self.box = gtk.VBox(homogeneous=False, spacing=0)
+        self.ui = gtk.Builder()
+        self.ui.add_from_file(os.path.join(DEFAULT_CFG_PATH, "main.ui"))
+        
+        self.window = self.ui.get_object("main_window")
+        self.window.set_title("%s" % common.APPNAME)
+        self.window.set_icon_from_file(common.APP_ICON)
 
         # ViewBill
         self.list = ViewBill()
         self.list.connect('cursor_changed', self._on_list_cursor_changed)
         self.list.connect('row_activated', self._on_list_row_activated)
         self.list.connect('button_press_event', self._on_list_button_press_event)
+        
+        self.ui.get_object("bill_box").add(self.list)
 
         # Toolbar
-        self.toolbar = Toolbar()
-        self._populate_toolbar()
+        self.toolbar = self.ui.get_object("toolbar")
 
         # Menubar
         self._populate_menubar()
 
-        self.listbox = gtk.VBox(homogeneous=False, spacing=6)
-        # ScrolledWindow
-        self.scrolledwindow = gtk.ScrolledWindow()
-        self.scrolledwindow.set_shadow_type(gtk.SHADOW_IN)
-        self.scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC,
-                                       gtk.POLICY_AUTOMATIC)
-        self.scrolledwindow.add(self.list)
-        ## Pack it all up
-        self.listbox.pack_start(self.scrolledwindow,
-           expand=True, fill=True, padding=2)
-
         # Statusbar
         self.statusbar = Statusbar()
+        self.ui.get_object("statusbar_box").add(self.statusbar)
 
         # Timeline
-        self.timelinebox = gtk.HBox(homogeneous=False, spacing=4)
         self.timeline = Timeline(callback=self.on_timeline_cb)
         self.timeline.connect("value-changed", self._on_timeline_changed)
-        ## Pack it all up
-        self.timelinebox.pack_start(self.timeline, expand=True, fill=True)
+        self.ui.get_object("timeline_box").add(self.timeline)
 
         # Chart
         self.chart = ChartWidget()
-
-        # Pack it all up
-        self.box.pack_start(self.toolbar,
-            expand=False, fill=True, padding=0)
-        self.box.pack_start(self.timelinebox,
-            expand=False, fill=True, padding=0)
-        self.box.pack_start(self.listbox,
-            expand=True, fill=True, padding=4)
-        self.box.pack_start(self.chart,
-            expand=True, fill=True, padding=2)
-        self.box.pack_start(self.statusbar,
-            expand=False, fill=True, padding=2)
-
-        self.window.add(self.box)
+        self.ui.get_object("chart_box").add(self.chart)
 
         # Restore position and size of window
         width = self.gconf_client.get_int(GCONF_GUI_PATH + 'width')
@@ -155,8 +98,9 @@ class MainDialog:
             self.window.move(x, y)
 
         self.window.show_all()
+
         # Whether to display toolbar or not
-        self._on_show_toolbar(self.showToolbar)
+        self.on_showToolbar_toggled(self.ui.get_object("showToolbar"))
         self.list.grab_focus()
 
         if self.gconf_client.get_bool(GCONF_PATH + 'start_in_tray'):
@@ -178,6 +122,8 @@ class MainDialog:
             self.iface = iface
             timeout_add(2000, self._send_tray_hints)
 
+        self.ui.connect_signals(self)
+
     # Methods:  UI
     def _send_tray_hints(self):
         self.iface.set_tray_hints(force_string(self.notify.get_hints()))
@@ -192,13 +138,6 @@ class MainDialog:
         else:
             self.window.show()
 
-    def _change_view(self, action, current):
-        #TODO: Change the records selection based on option chose
-        self.gconf_client.set_int(GCONF_GUI_PATH + 'show_paid_bills',
-            current.get_current_value())
-        self.reloadTreeView()
-        return True
-
     def get_selected_record(self):
         """ Returns a bill object from the current selected record """
         if len(self.list.listStore) > 0:
@@ -210,12 +149,9 @@ class MainDialog:
 
             b_id = model_[index][0]
 
-            try:
-                records = self.actions.get_bills(id=b_id)
-                self.currentrecord = records[0]
-            except Exception, e:
-                print str(e)
-                self.currentrecord = None
+            records = self.actions.get_bills(id=b_id)
+            self.currentrecord = records[0]
+
         else:
             self.currentrecord = None
         print "Current record is: %s" % self.currentrecord
@@ -287,20 +223,6 @@ class MainDialog:
 
         return formatted
 
-    def _populate_toolbar(self):
-        self.btnNew = self.toolbar.add_button(gtk.STOCK_NEW,
-            _("New"), _("Add a new bill"), self.on_btnNew_clicked)
-        self.btnEdit = self.toolbar.add_button(gtk.STOCK_EDIT,
-            None, _("Edit a bill"), self.on_btnEdit_clicked)
-        self.btnRemove = self.toolbar.add_button(gtk.STOCK_DELETE,
-            None, _("Delete selected bill"), self.on_btnDelete_clicked)
-        self.toolbar.add_space()
-        self.btnPaid = self.toolbar.add_button(gtk.STOCK_APPLY,
-            _("Paid"), _("Mark as paid"), self.on_btnPaid_clicked)
-        self.btnPaid.set_is_important(True)
-        self.btnUnpaid = self.toolbar.add_button(gtk.STOCK_UNDO,
-            _("Not Paid"), _("Mark as not paid"), self.on_btnPaid_clicked)
-        self.btnUnpaid.set_is_important(True)
 
     def _populate_chart(self, status, start, end):
 
@@ -308,82 +230,33 @@ class MainDialog:
         categories = []
         totals = []
 
-        try:
-            records = self.actions.get_monthly_totals(start, end)
-            # Chart widget takes data in format (('CategoryName', amount),)
-            categories = ['None' if not cat else cat for cat,total in records]
-            totals = [float(total) for cat,total in records]
-            #records = [(c if c else 'None',float(t)) for c,t in records]
-        except Exception, e:
-            print "%s - %s" % (records, str(e))
-            pass
+        records = self.actions.get_monthly_totals(start, end)
+        # Chart widget takes data in format (('CategoryName', amount),)
+        categories = ['None' if not cat else cat for cat,total in records]
+        totals = [float(total) for cat,total in records]
+        #records = [(c if c else 'None',float(t)) for c,t in records]
+
 
         self.chart.plot(categories, totals)
 
     def _populate_menubar(self):
-        # Create a UIManager instance
-        self.uimanager = gtk.UIManager()
-
-        # Add the accelerator group to the toplevel window
-        accelgroup = self.uimanager.get_accel_group()
-        self.window.add_accel_group(accelgroup)
-
-        # Create an ActionGroup
-        actiongroup = gtk.ActionGroup('UIManagerExample')
-        self.actiongroup = actiongroup
-
-        # Create actions
-        actiongroup.add_actions([
-            ('File', None, _("_File")),
-            ('New', gtk.STOCK_NEW, _("_Add New"), '<Control>n', _("Add a new bill"), self.on_btnNew_clicked),
-            ('Edit', gtk.STOCK_EDIT, None, '<Control>e', _("Edit a bill"), self.on_btnEdit_clicked),
-            ('Delete', gtk.STOCK_DELETE, None, '<Control>d', _("Delete selected bill"), self.on_btnDelete_clicked),
-            ('EditMenu', None, _("_Edit")),
-            ('Paid', gtk.STOCK_APPLY, _("_Paid"), '<Control>p', _("Mark as paid"), self.on_btnPaid_clicked),
-            ('NotPaid', gtk.STOCK_UNDO, _("_Not Paid"), '<Control>u', _("Mark as not paid"), self.on_btnPaid_clicked),
-            ('Preferences', gtk.STOCK_PREFERENCES, None, None, _("Edit preferences"), self.on_btnPref_clicked),
-            ('Quit', gtk.STOCK_QUIT, None, '<Control>q', _("Quit the Program"), self.on_btnQuit_clicked),
-            ('View', None, _("_View")),
-            ('Help', None, _("_Help")),
-            ('About', gtk.STOCK_ABOUT, None, None, _("About the application"), self.on_btnAbout_clicked),
-            ])
-
         try:
             saved_view = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
         except:
             saved_view = 1
             self.gconf_client.set_int(GCONF_GUI_PATH + "show_paid_bills", saved_view)
 
-        actiongroup.add_toggle_actions([
-            ('ShowToolbar', None, _("_Show Toolbar"), None, _("Show the toolbar"), self._on_show_toolbar)
-        ])
+        if saved_view == 0:
+            self.ui.get_object("showNotPaid").set_active(True)
+        elif saved_view == 1:
+            self.ui.get_object("showPaid").set_active(True)
+        else:
+            self.ui.get_object("showAll").set_active(True)
 
-        actiongroup.add_radio_actions([
-            ('NotPaidRecords', None, _("_Not Paid Only"), None, _("Display all unpaid bills only"), 0),
-            ('PaidRecords', None, _("_Paid Only"), None, _("Display all paid bills only"), 1),
-            ('AllRecords', None, _("_All Bills"), None, _("Display all bills"), 2),
-        ], saved_view , self._change_view)
-
-        # Add the actiongroup to the uimanager
-        self.uimanager.insert_action_group(actiongroup, 0)
-
-        # Add a UI description
-        self.uimanager.add_ui_from_string(self.menu_ui)
-
-        # Create a MenuBar
-        menubar = self.uimanager.get_widget('/MenuBar')
-
-        self.menuNew = self.uimanager.get_widget('/MenuBar/File/New')
-        self.menuEdit = self.uimanager.get_widget('/MenuBar/File/Edit')
-        self.menuRemove = self.uimanager.get_widget('/MenuBar/File/Delete')
-        self.menuPaid = self.uimanager.get_widget('/MenuBar/EditMenu/Paid')
-        self.menuUnpaid = self.uimanager.get_widget('/MenuBar/EditMenu/NotPaid')
+        
         # Check whether we display the toolbar or not
-        self.showToolbar = actiongroup.get_action('ShowToolbar')
-        self.showToolbar.set_active(self.gconf_client.get_bool(GCONF_GUI_PATH + 'show_toolbar'))
+        self.ui.get_object("showToolbar").set_active(self.gconf_client.get_bool(GCONF_GUI_PATH + 'show_toolbar'))
 
-        # Pack it
-        self.box.pack_start(menubar, expand=False, fill=True, padding=0)
 
     def add_bill(self):
         selectedDate = self.timeline.value
@@ -408,49 +281,37 @@ class MainDialog:
         # Checks if the user did not cancel the action
         if records:
             for rec in records:
-                try:
-                    # Edit bill to database
-                    rec = self.actions.edit(rec)
-                except Exception, e:
-                    print str(e)
+                # Edit bill to database
+                rec = self.actions.edit(rec)
+
             # Reload records tree (something changed)
             self.reloadTreeView()
             self.reloadTimeline()
 
     def remove_bill(self):
-        try:
-            self.actions.delete(self.currentrecord)
-            self.list.remove()
-            self.update_statusbar()
-            self.reloadTimeline()
-        except Exception, e:
-            print "Failed to remove selected bill with error: %s" % str(e)
+        self.actions.delete(self.currentrecord)
+        self.list.remove()
+        self.update_statusbar()
+        self.reloadTimeline()
 
     def toggle_bill_paid(self):
-        try:
-            # Fetch record from database
-            record = self.actions.get_bills(id=self.currentrecord.id)[0]
-            # Toggle paid field
-            record.paid = False if record.paid else True
+        # Fetch record from database
+        record = self.actions.get_bills(id=self.currentrecord.id)[0]
+        # Toggle paid field
+        record.paid = False if record.paid else True
 
-            try:
-                # Edit bill in the database
-                transaction = self.actions.add(record)
-            except Exception, e:
-                print "Failed to edit bill's payment status: %s" % str(e)
-                print "Transaction: %s" % transaction
+        # Edit bill in the database
+        transaction = self.actions.add(record)
 
-            # Update our current copy
-            self.currentrecord = self.actions.get_bills(id = self.currentrecord.id)[0]
-            # Update timeline widget to reflect change
-            self._bullet_cache[self.currentrecord.dueDate] = [self.currentrecord]
-            # Update list with updated record
-            idx = self.list.get_cursor()[0][0]
-            self.update_statusbar(idx)
-            #self.reloadTreeView()
-            self.reloadTimeline()
-        except Exception, e:
-            print "Failed to toggle payment: %s" % str(e)
+        # Update our current copy
+        self.currentrecord = self.actions.get_bills(id = self.currentrecord.id)[0]
+        # Update timeline widget to reflect change
+        self._bullet_cache[self.currentrecord.dueDate] = [self.currentrecord]
+        # Update list with updated record
+        idx = self.list.get_cursor()[0][0]
+        self.update_statusbar(idx)
+        #self.reloadTreeView()
+        self.reloadTimeline()
 
     def about(self):
         dialogs.about_dialog(parent=self.window)
@@ -478,34 +339,14 @@ class MainDialog:
     def toggle_buttons(self, paid=None):
         """ Toggles all buttons conform number of records present and
             their state """
+            
+        for widget in ["editBill", "removeBill", "markPaid", "markNotPaid"]:
+            self.ui.get_object(widget).set_sensitive(len(self.list.listStore) > 0)
+
+
         if len(self.list.listStore) > 0:
-            self.btnEdit.set_sensitive(True)
-            self.menuEdit.set_sensitive(True)
-            self.btnRemove.set_sensitive(True)
-            self.menuRemove.set_sensitive(True)
-            """
-            Enable/disable paid and unpaid buttons.
-            If paid = True, paid button and menu will be enabled.
-            """
-            if paid:
-                self.btnPaid.set_sensitive(False)
-                self.menuPaid.set_sensitive(False)
-                self.btnUnpaid.set_sensitive(True)
-                self.menuUnpaid.set_sensitive(True)
-            else:
-                self.btnPaid.set_sensitive(True)
-                self.menuPaid.set_sensitive(True)
-                self.btnUnpaid.set_sensitive(False)
-                self.menuUnpaid.set_sensitive(False)
-        else:
-            self.btnEdit.set_sensitive(False)
-            self.menuEdit.set_sensitive(False)
-            self.btnRemove.set_sensitive(False)
-            self.menuRemove.set_sensitive(False)
-            self.btnPaid.set_sensitive(False)
-            self.menuPaid.set_sensitive(False)
-            self.btnUnpaid.set_sensitive(False)
-            self.menuUnpaid.set_sensitive(False)
+            self.ui.get_object("markPaid").set_sensitive(paid == False)
+            self.ui.get_object("markNotPaid").set_sensitive(paid == True)
 
     def update_statusbar(self, index=0):
         """ This function is used to update status bar informations
@@ -531,28 +372,9 @@ class MainDialog:
             sent by a right click on tvBill widget. """
         if event.button == 3 and event.type == gtk.gdk.BUTTON_PRESS:
             self.get_selected_record()
-            timeout_add(200, self._create_list_contextmenu, widget, event)
 
-    def _create_list_contextmenu(self, widget, event):
-        c = ContextMenu(self)
-        c.addMenuItem(_('_Add New'),
-            self.on_btnNew_clicked, gtk.STOCK_NEW, True)
-        if self.currentrecord:
-            c.addMenuItem('-', None)
-            c.addMenuItem(None,
-                self.on_btnDelete_clicked, gtk.STOCK_DELETE)
-            c.addMenuItem(None,
-                self.on_btnEdit_clicked, gtk.STOCK_EDIT)
-            c.addMenuItem('-', None)
-            if not self.currentrecord.paid:
-                c.addMenuItem(_('_Paid'),
-                    self.on_btnPaid_clicked, gtk.STOCK_APPLY, True)
-            else:
-                c.addMenuItem(_('Not _Paid'),
-                    self.on_btnPaid_clicked, gtk.STOCK_UNDO, True)
-        c.addMenuItem('-', None)
-        c.addMenuItem(None, None, gtk.STOCK_CANCEL)
-        c.popup(None, None, None, 3, event.get_time())
+            c = self.ui.get_object("context_menu")
+            c.popup(None, None, None, event.button, event.get_time())
 
 
     def _on_list_row_activated(self, widget, path, column):
@@ -565,14 +387,14 @@ class MainDialog:
         # Update statusbar
         self.update_statusbar()
 
-    def on_btnNew_clicked(self, toolbutton):
+    def on_newBill_activate(self, toolbutton):
         self.add_bill()
 
-    def on_btnEdit_clicked(self, toolbutton):
+    def on_editBill_activate(self, toolbutton):
         if self.currentrecord:
             self.edit_bill()
 
-    def on_btnDelete_clicked(self, toolbutton):
+    def on_removeBill_activate(self, toolbutton):
         if self.currentrecord:
             resp = self.message.ShowQuestionYesNo(
                 _("Do you really want to delete \"%s\"?") % \
@@ -581,17 +403,20 @@ class MainDialog:
             if resp:
                 self.remove_bill()
 
-    def on_btnPaid_clicked(self, toolbutton):
+    def on_markNotPaid_activate(self, toolbutton):
+        self.on_markPaid_activate(toolbutton) # forward
+        
+    def on_markPaid_activate(self, toolbutton):
         if self.currentrecord:
             self.toggle_bill_paid()
 
-    def on_btnAbout_clicked(self, toolbutton):
+    def on_btnAbout_activate(self, toolbutton):
         self.about()
 
-    def on_btnPref_clicked(self, toolbutton):
+    def on_btnPrefs_activate(self, toolbutton):
         self.preferences()
 
-    def on_btnQuit_clicked(self, toolbutton):
+    def on_btnQuit_activate(self, toolbutton):
         self._quit_application()
 
     def on_delete_event(self, widget, event, data=None):
@@ -600,14 +425,31 @@ class MainDialog:
     def _on_timeline_changed(self, widget, args):
         self.reloadTreeView()
 
-    def _on_show_toolbar(self, action):
+
+    def switch_view(self, view_number):
+        self.gconf_client.set_int(GCONF_GUI_PATH + 'show_paid_bills', view_number)
+        self.reloadTreeView()
+        
+    def on_showNotPaid_toggled(self, action):
+        if action.get_active():
+            self.switch_view(0)
+
+    def on_showPaid_toggled(self, action):
+        if action.get_active():
+            self.switch_view(1)
+
+    def on_showAll_toggled(self, action):
+        if action.get_active():
+            self.switch_view(2)
+
+    def on_showToolbar_toggled(self, action):
         # Toggle toolbar's visibility
         if action.get_active():
             self.toolbar.show_all()
-            self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", True)
         else:
             self.toolbar.hide_all()
-            self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", False)
+
+        self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", action.get_active())
 
     def reloadTimeline(self, *args):
         self._bullet_cache = {}

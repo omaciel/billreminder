@@ -46,8 +46,12 @@ else
 	done
 endif
 
+resources_DATA = \
+	main.ui
+
 EXTRA_DIST = \
 	$(schemas_in_files) \
 	$(service_in_files) \
 	$(desktop_in_files) \
-	$(autostart_in_files)
+	$(autostart_in_files) \
+        $(resources_DATA)
