@@ -32,10 +32,7 @@ ARTISTS = [
 ]
 
 
-LICENSE = """
-    <one line to give the program's name and a brief idea of what it does.>
-        Copyright (C) <year>  <name of author>
-This file is part of BillReminder.
+LICENSE = """BillReminder
 Copyright (C) 2006 - 2009 - Og Maciel <ogmaciel@gnome.org>.
 
 BillReminder is free software: you can redistribute it and/or modify
