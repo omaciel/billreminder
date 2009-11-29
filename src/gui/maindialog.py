@@ -309,7 +309,7 @@ class MainDialog:
         # Update list with updated record
         idx = self.list.get_cursor()[0][0]
         self.update_statusbar(idx)
-        #self.reloadTreeView()
+        self.reloadTreeView()
         self.reloadTimeline()
 
     def about(self):
