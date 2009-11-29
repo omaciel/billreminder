@@ -24,19 +24,33 @@ from gui.prefdialog import PrefDialog
 from gui.categoriesdialog import CategoriesDialog
 from lib import i18n
 
-def about_dialog(parent=None):
-    about = AboutDialog()
-    ret = about.run()
-    about.destroy()
 
-    return ret
+class OneWindow(object):
+    def __init__(self, dialog_class):
+        self.dialog = None
+        self.dialog_class = dialog_class
+    
+    def on_dialog_destroy(self):
+        self.dialog = None
+
+    def show(self, parent = None):
+        if self.dialog:
+            self.dialog.present()
+        else:
+            if parent:
+                self.dialog = self.dialog_class(parent)
+            else:
+                self.dialog = self.dialog_class()
+            self.dialog.connect("destroy", lambda *args: self.on_dialog_destroy())
+
+about = OneWindow(AboutDialog)
+prefs = OneWindow(PrefDialog)
+
+def about_dialog(parent=None):
+    about.show(parent)
 
 def preferences_dialog(parent=None):
-    pref = PrefDialog(parent=parent)
-    ret = pref.run()
-    pref.destroy()
-
-    return ret
+    prefs.show(parent)
 
 def categories_dialog(parent=None):
     categories = CategoriesDialog(parent=parent)
