@@ -35,7 +35,7 @@ class Actions(object):
             q = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end)
             if paid != None:
                 q = q.filter(Bill.paid == paid)
-            records = q.all()
+            records = q.order_by(Bill.dueDate.desc()).all()
         except Exception, e:
             print str(e)
             pass
@@ -83,7 +83,7 @@ class Actions(object):
             q = session.query(Bill).filter(Bill.dueDate >= firstDay).filter(Bill.dueDate <= lastDay)
             if paid:
                 q = q.filter(Bill.paid == paid)
-            records = q.all()
+            records = q.order_by(Bill.dueDate.desc()).all()
         except Exception, e:
             print str(e)
         finally:
