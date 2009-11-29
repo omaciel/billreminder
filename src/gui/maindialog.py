@@ -232,10 +232,13 @@ class MainDialog:
 
         records = self.actions.get_monthly_totals(start, end)
         # Chart widget takes data in format (('CategoryName', amount),)
-        categories = ['None' if not cat else cat for cat,total in records]
+        categories = [cat or 'None' for cat, total in records]
         totals = [float(total) for cat,total in records]
         #records = [(c if c else 'None',float(t)) for c,t in records]
 
+        # set bar colors
+        all_categories = self.actions.get_categories()
+        self.chart.chart.key_colors = dict([(cat.name, cat.color) for cat in all_categories])
 
         self.chart.plot(categories, totals)
 
