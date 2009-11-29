@@ -40,6 +40,7 @@ class PrefDialog(gtk.Dialog):
         self._initialize_dialog_widgets()
         self._populate_fields()
         self._connect_fields()
+        self.connect("response", lambda self, *args: self.destroy())
 
 
     def _initialize_dialog_widgets(self):
