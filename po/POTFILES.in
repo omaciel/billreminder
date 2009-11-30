@@ -4,6 +4,8 @@
 data/billreminderd.desktop.in
 data/billreminder.desktop.in
 data/billreminder.schemas.in
+[type: gettext/glade]data/main.ui
+[type: gettext/glade]data/add_bill.ui
 src/billreminder.py
 src/billreminderd.py
 src/daemon/alarm.py
