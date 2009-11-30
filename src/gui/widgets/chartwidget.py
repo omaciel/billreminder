@@ -4,7 +4,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
-from charting import BarChart
+from charting import HorizontalBarChart
 
 class ChartWidget(gtk.EventBox):
    background = (0.975, 0.975, 0.975)
@@ -13,7 +13,7 @@ class ChartWidget(gtk.EventBox):
    def __init__(self):
        gtk.EventBox.__init__(self)
 
-       self.chart = BarChart(
+       self.chart = HorizontalBarChart(
            background = self.background,
            bar_base_color = (238,221,221),
            legend_width = self.x_offset,
