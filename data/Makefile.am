@@ -46,13 +46,14 @@ else
 	done
 endif
 
+resourcesdir = $(pkgdatadir)
 resources_DATA = \
 	main.ui \
         add_bill.ui
 
 EXTRA_DIST = \
-	$(schemas_in_files) \
-	$(service_in_files) \
-	$(desktop_in_files) \
-	$(autostart_in_files) \
+        $(schemas_in_files) \
+        $(service_in_files) \
+        $(desktop_in_files) \
+        $(autostart_in_files) \
         $(resources_DATA)
