@@ -294,6 +294,7 @@ class MainDialog:
         self.actions.delete(self.currentrecord)
         self.list.remove()
         self.update_statusbar()
+        self.reloadTreeView()
         self.reloadTimeline()
 
     def toggle_bill_paid(self):
