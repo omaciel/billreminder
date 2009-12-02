@@ -13,9 +13,9 @@ import warnings
 debug = False
 
 class Bullet(object):
-    OVERDUE = 0b001
-    TO_BE_PAID = 0b010
-    PAID = 0b100
+    OVERDUE = int('001', 2)
+    TO_BE_PAID = int('010', 2)
+    PAID = int('100', 2)
 
     debug = False
 
