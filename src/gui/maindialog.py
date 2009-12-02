@@ -432,6 +432,7 @@ class MainDialog:
     def switch_view(self, view_number):
         self.gconf_client.set_int(GCONF_GUI_PATH + 'show_paid_bills', view_number)
         self.reloadTreeView()
+        self.reloadTimeline()
         
     def on_showNotPaid_toggled(self, action):
         if action.get_active():
@@ -466,6 +467,7 @@ class MainDialog:
             self._bullet_cache[date] = self.actions.get_bills(dueDate=date)
 
         if self._bullet_cache[date]:
+            status = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
             amount = 0
             tooltip = ''
             bullet = Bullet()
@@ -480,10 +482,14 @@ class MainDialog:
                     tooltip += '\n' + bill.notes
 
                 if bill.paid:
+                    if status == 0: return False
+                    
                     bullet.status = bullet.status | bullet.PAID
                 elif date <= datetime.date.today():
+                    if status == 1: return False
                     bullet.status = bullet.status | bullet.OVERDUE
                 else:
+                    if status == 1: return False
                     bullet.status = bullet.status | bullet.TO_BE_PAID
 
             bullet.amountDue = amount
