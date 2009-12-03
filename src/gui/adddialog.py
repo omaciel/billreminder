@@ -394,16 +394,20 @@ class AddDialog(object):
                 return
 
     def on_save_clicked(self, widget):
+        message = utils.Message()
         if not self._get_payee().strip() and \
             not self.amount.get_text().strip():
             message.ShowError(_("\"%s\" and \"%s\" are required fields.") \
-                % (_("Payee"), _("Amount")), self)
+                % (_("Payee"), _("Amount")), self.window)
             self.payee.grab_focus()
         elif not self._get_payee().strip():
-            message.ShowError(_("\"%s\" is required field.") % _("Payee"), self)
+            message.ShowError(_("\"%s\" is required field.") % _("Payee"), self.window)
             self.payee.grab_focus()
-        
-        self.window.response(gtk.RESPONSE_ACCEPT)
+        elif not self.amount.get_text().strip():
+            message.ShowError(_("\"%s\" is required field.") % _("Amount"), self.window)
+            self.amount.grab_focus()
+        else:
+            self.window.response(gtk.RESPONSE_ACCEPT)
 
     def _on_datepicker_date_changed(self, widget, args):
         # Only reprogram alarm if it is not None
