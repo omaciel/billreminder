@@ -31,7 +31,7 @@ class DatePicker(gtk.VBox):
 
         # Create a new calendar
         self.calendar = gtk.Calendar()
-        self.calendar.select_month(date.month, date.year)
+        self.calendar.select_month(date.month - 1, date.year)
         self.calendar.select_day(date.day)
 
         # Label to display the date selected

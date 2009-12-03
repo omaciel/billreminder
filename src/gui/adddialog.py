@@ -30,7 +30,7 @@ class AddDialog(object):
     def __init__(self, title=None, parent=None, record=None, selectedDate=None):
         self.ui = gtk.Builder()
         self.ui.add_from_file(os.path.join(DEFAULT_CFG_PATH, "add_bill.ui"))
-        
+
         self.window = self.ui.get_object("add_bill_dialog")
 
         self.window.set_icon_from_file(common.APP_ICON)
@@ -319,17 +319,23 @@ class AddDialog(object):
             # Verify how many bills will be inserted
             # this will only work for new bills
             records = []
+
+            # Figures out how many times we're repeating this bill
             days = scheduler.get_schedule_date(
                 frequency, selectedDate, endDate)
 
             for day in days:
                 if alarm != -1:
                     alarm = self.__get_alarm_date(day)
-                rec = Bill(payee, amount, day, sbuffer, 0)
+                rec = Bill(payee, amount, day, sbuffer, False)
+
+                # Bill repeats...
+                if len(days) > 1:
+                    rec.repeats = True
+                # ... and has a category.
                 if category:
                     rec.category = category
-                #rec = Bill(payee, category, day, amount, sbuffer, 0, -1, alarm)
-                records.append (rec)
+                records.append(rec)
             return records
         else:
             # Edit existing bill
