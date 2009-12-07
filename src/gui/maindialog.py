@@ -181,7 +181,6 @@ class MainDialog:
     def reloadTreeView(self, *arg):
         # Update list with updated record
         status = self.gconf_client.get_int(GCONF_GUI_PATH + 'show_paid_bills')
-        print "Status is: %s" % status
 
         #month = self.timeline.value.month
         #year = self.timeline.value.year
@@ -230,7 +229,7 @@ class MainDialog:
         categories = []
         totals = []
 
-        records = self.actions.get_monthly_totals(start, end)
+        records = self.actions.get_monthly_totals(start, end, status)
         # Chart widget takes data in format (('CategoryName', amount),)
         categories = [cat or 'None' for cat, total in records]
         totals = [float(total) for cat,total in records]
@@ -238,7 +237,7 @@ class MainDialog:
 
         # set bar colors
         all_categories = self.actions.get_categories()
-        self.chart.chart.key_colors = dict([(cat.name, cat.color) for cat in all_categories])
+        self.chart.chart.key_colors = dict([(cat.name or 'None', cat.color) for cat in all_categories])
 
         self.chart.plot(categories, totals)
 

@@ -33,7 +33,7 @@ class Actions(object):
         try:
             session = self.dal.Session()
             q = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end)
-            if paid != None:
+            if paid is not None:
                 q = q.filter(Bill.paid == paid)
             records = q.order_by(Bill.dueDate.desc()).all()
         except Exception, e:
@@ -51,12 +51,13 @@ class Actions(object):
 
         records = []
 
+        paid = bool(paid) if paid in (0,1) else None
+
         try:
             session = self.dal.Session()
             # records is a tuple of Category.name and total as type Decimal
             q = session.query(Category.name, func.sum(Bill.amount)).select_from(outerjoin(Bill, Category)).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end).group_by(Category.name)
-
-            if paid:
+            if paid is not None:
                 q = q.filter(Bill.paid == paid)
 
             records = q.all()
