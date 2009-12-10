@@ -202,7 +202,6 @@
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Add a new bill</property>
                 <property name="related_action">newBill</property>
-                <property name="label" translatable="yes">New</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-new</property>
               </object>
@@ -216,7 +215,6 @@
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Edit a bill</property>
                 <property name="related_action">editBill</property>
-                <property name="label" translatable="yes">Edit</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-edit</property>
               </object>
@@ -230,7 +228,6 @@
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Delete selected bill</property>
                 <property name="related_action">removeBill</property>
-                <property name="label" translatable="yes">Delete</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-delete</property>
               </object>
@@ -244,7 +241,6 @@
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Mark as paid</property>
                 <property name="related_action">markPaid</property>
-                <property name="label" translatable="yes">Paid</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-apply</property>
               </object>
@@ -258,7 +254,6 @@
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Mark as not paid</property>
                 <property name="related_action">markNotPaid</property>
-                <property name="label" translatable="yes">Not Paid</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-undo</property>
               </object>
@@ -356,40 +351,28 @@
     </child>
   </object>
   <object class="GtkAction" id="newBill">
-    <property name="label">Add New</property>
-    <property name="tooltip">Add new bill</property>
     <property name="stock_id">gtk-new</property>
     <signal name="activate" handler="on_newBill_activate"/>
   </object>
   <object class="GtkAction" id="editBill">
-    <property name="label">Edit</property>
-    <property name="tooltip">Edit a bill</property>
     <property name="stock_id">gtk-edit</property>
     <signal name="activate" handler="on_editBill_activate"/>
   </object>
   <object class="GtkAction" id="removeBill">
-    <property name="label">Delete</property>
-    <property name="tooltip">Delete selected bill</property>
     <property name="stock_id">gtk-delete</property>
     <signal name="activate" handler="on_removeBill_activate"/>
   </object>
   <object class="GtkAction" id="markPaid">
-    <property name="label">Paid</property>
-    <property name="tooltip">Mark as paid</property>
     <property name="stock_id">gtk-apply</property>
     <property name="is_important">True</property>
     <signal name="activate" handler="on_markPaid_activate"/>
   </object>
   <object class="GtkAction" id="markNotPaid">
-    <property name="label">Not Paid</property>
-    <property name="tooltip">Mark as not paid</property>
     <property name="stock_id">gtk-undo</property>
     <property name="is_important">True</property>
     <signal name="activate" handler="on_markNotPaid_activate"/>
   </object>
   <object class="GtkToggleAction" id="showToolbar">
-    <property name="label">Show Toolbar</property>
-    <property name="tooltip">Show the toolbar</property>
     <property name="active">True</property>
     <signal name="toggled" handler="on_showToolbar_toggled"/>
   </object>

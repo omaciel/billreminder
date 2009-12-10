@@ -122,8 +122,30 @@ class MainDialog:
             self.iface = iface
             timeout_add(2000, self._send_tray_hints)
 
+        self.set_action_strings()
         self.ui.connect_signals(self)
 
+    def set_action_strings(self):
+        # for some reason the actions strings do not get translated yet
+        # so we define them here so they would be picked up by the pyfile scanner
+        self.ui.get_object("newBill").set_label(_("Add New"))
+        self.ui.get_object("newBill").set_tooltip(_("Add new bill"))
+
+        self.ui.get_object("editBill").set_label(_("Edit"))
+        self.ui.get_object("editBill").set_tooltip(_("Edit a bill"))
+        
+        self.ui.get_object("removeBill").set_label(_("Delete"))
+        self.ui.get_object("removeBill").set_tooltip(_("Delete selected bill"))
+        
+        self.ui.get_object("markPaid").set_label(_("Paid"))
+        self.ui.get_object("markPaid").set_tooltip(_("Mark as paid"))
+
+        self.ui.get_object("markNotPaid").set_label(_("Not Paid"))
+        self.ui.get_object("markNotPaid").set_tooltip(_("Mark as not paid"))
+        
+        self.ui.get_object("showToolbar").set_label(_("Show Toolbar"))
+        self.ui.get_object("showToolbar").set_tooltip(_("Show the toolbar"))
+        
     # Methods:  UI
     def _send_tray_hints(self):
         self.iface.set_tray_hints(force_string(self.notify.get_hints()))
