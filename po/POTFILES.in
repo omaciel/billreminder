@@ -12,11 +12,6 @@ src/daemon/alarm.py
 src/daemon/dbus_manager.py
 src/daemon/device.py
 src/daemon/main.py
-src/db/billstable.py
-src/db/categoriestable.py
-src/db/fieldstable.py
-src/db/generictable.py
-src/db/versionstable.py
 src/gui/aboutdialog.py
 src/gui/adddialog.py
 src/gui/categoriesdialog.py
