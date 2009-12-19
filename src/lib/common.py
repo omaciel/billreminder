@@ -11,19 +11,21 @@ except:
 
 # Application info
 APPNAME = "BillReminder"
-COPYRIGHTS = "%s - Copyright (c) 2006-2008\n" \
-             "Og Maciel <ogmaciel@gnome.org>" % APPNAME
+COPYRIGHT_YEAR = '2006 - 2009'
+COPYRIGHTS = "%s - Copyright (c) %s\n" \
+             "Og Maciel <ogmaciel@gnome.org>" % (APPNAME, COPYRIGHT_YEAR)
 WEBSITE = "http://billreminder.gnulinuxbrasil.org/"
 AUTHORS = [
     _('Developers:'),
     'Og Maciel <ogmaciel@gnome.com>',
-    'Luiz Armesto <luiz.armesto@gmail.com>',
     '',
     _('Contributors:'),
-    'Laudeci Oliveira <laudeci@gmail.com>',
     'Giovanni Deganni <tiefox@gmail.com>',
+    'Laudeci Oliveira <laudeci@gmail.com>',
+    'Luiz Armesto <luiz.armesto@gmail.com>',
+    'Mario Danic <mario.danic@gmail.com>',
     'Ruivaldo <ruivaldo@gmail.com>',
-    'Mario Danic <mario.danic@gmail.com>'
+    'Toms Bauģis <toms.baugis@gmail.com>',
 ]
 
 ARTISTS = [
@@ -33,7 +35,7 @@ ARTISTS = [
 
 
 LICENSE = """BillReminder
-Copyright (C) 2006 - 2009 - Og Maciel <ogmaciel@gnome.org>.
+Copyright (C) %s - Og Maciel <ogmaciel@gnome.org>.
 
 BillReminder is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -47,7 +49,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with BillReminder.  If not, see <http://www.gnu.org/licenses/>.
-"""
+""" % COPYRIGHT_YEAR
 
 # Media path
 if os.path.exists(os.path.abspath('../data/images/')):
