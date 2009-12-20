@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Numeric, Text, Date, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Numeric, Text, Date, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import relation, backref
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -26,6 +26,7 @@ class Bill(Base):
     payee = Column(String(length=255, convert_unicode=True))
     amount = Column(Numeric)
     dueDate = Column(Date)
+    alarmDate = Column(DateTime)
     notes = Column(Text(convert_unicode=True))
     paid = Column(Boolean)
     repeats = Column(Boolean)
@@ -33,10 +34,12 @@ class Bill(Base):
     catId = Column(Integer, ForeignKey('categories.id'))
     category = relation(Category, backref=backref('bills', order_by=id))
 
-    def __init__(self, payee, amount, dueDate, notes=None, paid=False, repeats=False):
+    def __init__(self, payee, amount, dueDate, alarmDate=None, notes=None, paid=False, repeats=False):
         self.payee = payee
         self.amount=amount
         self.dueDate = dueDate
+        if alarmDate:
+            self.alarmDate = alarmDate
         if notes:
             self.notes = notes
         self.paid = paid

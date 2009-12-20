@@ -98,9 +98,6 @@ def get_alarm_timestamp(alertDays, alertTime, origDate):
 
     ret = datetime.datetime(alertDate.year, alertDate.month, alertDate.day, int(alertTime[0]), int(alertTime[1]))
 
-    # Convert to timestamp
-    ret = timestamp_from_datetime(ret)
-
     return ret
 
 if __name__ == "__main__":
