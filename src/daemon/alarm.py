@@ -21,7 +21,7 @@ from lib.bubble import NotifyMessage
 from lib.utils import verify_pid
 from lib.utils import Message
 from lib.bill import Bill
-from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
+from lib.config import Configuration
 
 class Alarm(object):
 
@@ -30,15 +30,21 @@ class Alarm(object):
         self.tray_hints = {}
         self.parent = parent
         self.tray_hints = {}
-        self.gconf_client = gconf.client_get_default()
+        self.gconf_client = Configuration()
         self.start()
 
     def start(self):
-        start_delay = self.gconf_client.get_int(GCONF_PATH + 'delay') * 60000
-        if self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_startup_notification'):
+
+        start_delay = self.gconf_client.start_delay()
+
+        showStartup = self.gconf_client.show_startup_notifications()
+
+        if showStartup:
             timeout_add(start_delay, self.show_pay_notification)
             timeout_add(start_delay + 12000, self.verify_due)
-        interval = self.gconf_client.get_int(GCONF_ALARM_PATH + 'interval') * 1000
+
+        interval = self.gconf_client.get_interval()
+
         if interval:
             timeout_add(interval, self.timer)
 
@@ -52,13 +58,15 @@ class Alarm(object):
         return notify
 
     def show_pay_notification(self):
-        today = time.mktime(datetime.date.today().timetuple())
-        limit = self.gconf_client.get_int(GCONF_ALARM_PATH + 'notification_days_limit') * 86400.0
+        print "Got here 3"
+        today = datetime.date.today()
+        limit = self.gconf_client.notification_days_limit()
+        limit = datetime.timedelta(days=limit)
         if limit:
-            records = self.parent.actions.get_bills('dueDate <= %s AND ' \
-                                               'paid = 0' % (today + limit))
+            records = self.parent.actions.get_interval_bills(end=today+limit, paid=False)
+            #'dueDate <= %s AND paid = 0' % (today + limit))
         else:
-            records = self.parent.actions.get_bills('paid = 0')
+            records = self.parent.actions.get_bills(paid=False)
 
         msg = ngettext('You have %s outstanding bill to pay!',
             'You have %s outstanding bills to pay!',
@@ -73,28 +81,30 @@ class Alarm(object):
         return False
 
     def verify_due(self, sum=0):
-        if not self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_due_alarm'):
+        print "Got here 2"
+        showDueAlarm = self.gconf_client.show_due_alarm
+        if not showDueAlarm:
             return
-        today = time.mktime(datetime.date.today().timetuple())
+        today = datetime.date.today()
         if sum > 0:
-            records = self.parent.actions.get_bills('dueDate <= %s ' \
-                'AND dueDate > %s AND paid = 0' % (today + (sum * 86400), today))
-            print records
+            records = self.parent.actions.get_interval_bills(today, today, False)
         else:
-            records = self.parent.actions.get_bills('dueDate < %s AND paid = 0' %  today)
+            records = self.parent.actions.get_interval_bills(end=today, paid=False)
 
         i = 1
-        use_dialog = self.gconf_client.get_bool(GCONF_ALARM_PATH + 'use_alert_dialog')
+
+        use_dialog = self.gconf_client.use_alert_dialog()
+
         # TODO: use only one dialog for all bills, if use_dialog == True
         for bill in records:
             if sum > 0:
                 # date format string
                 dtformat = locale.nl_langinfo(locale.D_FMT)
                 # date from record in timestamp format
-                dtstamp = datetime.datetime.fromtimestamp(int(bill['dueDate']))
+                dtstamp = bill.dueDate
                 # record dictionary
                 recDict = {
-                    'bill': "<b>\"%s\"</b>" % bill['payee'],
+                    'bill': "<b>\"%s\"</b>" % bill.payee,
                     'day': "<b>\"%s\"</b>" % dtstamp.strftime(dtformat).encode('ASCII')
                 }
 
@@ -114,8 +124,8 @@ class Alarm(object):
 
     def show_bill_notification(self, bill=None, msg=None, alert=False, timeout=None):
         if msg is None:
-            msg = _('The bill %s is due.') % "<b>\"%s\"</b>" % bill['payee']
-        if self.parent.actions.get_bills({'Id': bill['Id']})[0]['paid'] == 0:
+            msg = _('The bill %s is due.') % "<b>\"%s\"</b>" % bill.payee
+        if not self.parent.actions.get_bills(id=bill.id)[0].paid:
             if alert:
                 alert = Message().ShowBillInfo(text=msg,
                     title=_("BillReminder Notifier"))
@@ -146,7 +156,7 @@ class Alarm(object):
     def __cb_mark_as_paid(self, *arg):
         record = arg[1][0]
         if record:
-            record['paid'] = 1
+            record.paid = True
             try:
                 # Edit bill to database
                 self.parent.dbus_server.edit_bill(record)
@@ -158,41 +168,41 @@ class Alarm(object):
         if record:
             try:
                 # Edit bill to database
-                self.parent.dbus_server.edit_bill(record.Dictionary)
+                self.parent.dbus_server.edit_bill(record)
             except Exception, e:
                 print str(e)
 
     def timer(self):
-
-        interval = self.gconf_client.get_int(GCONF_ALARM_PATH + 'interval')
+        interval = self.gconf_client.get_interval()
         now = datetime.datetime.now()
-        alert_hour, alert_minute = self.gconf_client.get_string(GCONF_ALARM_PATH + \
-            'show_alarm_at_time').split(':')
+
+        alert_hour, alert_minute = self.gconf_client.show_alarm_at_time()
+
         alert_hour = int(alert_hour)
         alert_minute = int(alert_minute)
-        alert = datetime.datetime(now.year, now.month, now.day,
-            alert_hour, alert_minute)
+        alert = datetime.datetime(now.year, now.month, now.day, alert_hour, alert_minute)
         now = int(time.mktime(now.timetuple()))
         alert = int(time.mktime(alert.timetuple()))
         # Alarm for bills which will be due before n days
-        if self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_before_alarm') \
-           and alert >= (now - interval/2) and alert < (now + interval/2):
-            days = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
+        beforeAlarm = self.gconf_client.show_before_alarm()
+        if beforeAlarm and alert >= (now - interval/2) and alert < (now + interval/2):
+            days = self.gconf_client.show_alarm_before_days()
             self.verify_due(days)
 
-        records = self.parent.actions.get_bills('alarm >= %d AND alarm < %d AND paid = 0' \
-                        % (now - interval/2, now + interval/2))
+        startAlarm = now - interval/2
+        endAlarm = now + interval/2
+        records = self.parent.actions.get_alarm_bills(startAlarm, endAlarm, 0)
 
         i = 0
-        use_dialog = self.gconf_client.get_bool(GCONF_ALARM_PATH + 'use_alert_dialog')
+        use_dialog = self.gconf_client.use_alert_dialog()
         for bill in records:
             # date format string
             dtformat = locale.nl_langinfo(locale.D_FMT)
             # date from record in timestamp format
-            dtstamp = datetime.datetime.fromtimestamp(int(bill['dueDate']))
+            dtstamp = bill.dueDate
             # record dictionary
             recDict = {
-                'bill': "<b>\"%s\"</b>" % bill['payee'],
+                'bill': "<b>\"%s\"</b>" % bill.payee,
                 'day': "<b>\"%s\"</b>" % dtstamp.strftime(dtformat).encode('ASCII')
             }
 
