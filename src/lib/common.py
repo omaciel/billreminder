@@ -6,7 +6,7 @@ import i18n
 try:
     from defs import *
 except:
-    APPVERSION = "0.3.2"
+    APPVERSION = "0.4.0"
     datadir = "/usr/share"
 
 # Application info
