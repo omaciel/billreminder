@@ -22,7 +22,7 @@ class Actions(object):
 
         self.dal = databaselayer
 
-    def get_interval_bills(self, start, end, paid = None):
+    def get_interval_bills(self, start=None, end=None, paid=None):
         """
         """
 
@@ -32,7 +32,37 @@ class Actions(object):
 
         try:
             session = self.dal.Session()
-            q = session.query(Bill).options(eagerload('category')).filter(Bill.dueDate >= start).filter(Bill.dueDate <= end)
+            q = session.query(Bill).options(eagerload('category'))
+            if start:
+                q = q.filter(Bill.dueDate >= start)
+            if end:
+                q = q.filter(Bill.dueDate <= end)
+            if paid is not None:
+                q = q.filter(Bill.paid == paid)
+            records = q.order_by(Bill.dueDate.desc()).all()
+        except Exception, e:
+            print str(e)
+            pass
+        finally:
+            session.close()
+
+        return records
+
+    def get_alarm_bills(self, start=None, end=None, paid=None):
+        """
+        """
+
+        records = []
+
+        paid = bool(paid) if paid in (0,1) else None
+
+        try:
+            session = self.dal.Session()
+            q = session.query(Bill).options(eagerload('category'))
+            if start:
+                q = q.filter(Bill.alarmDate >= start)
+            if end:
+                q = q.filter(Bill.alarmDate <= end)
             if paid is not None:
                 q = q.filter(Bill.paid == paid)
             records = q.order_by(Bill.dueDate.desc()).all()
