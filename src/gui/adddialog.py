@@ -6,7 +6,6 @@ import os
 import pygtk
 pygtk.require('2.0')
 import gtk
-import gconf
 import datetime
 import locale
 import gobject
@@ -21,7 +20,7 @@ from lib import i18n
 from gui.widgets.datebutton import DateButton
 from gui.widgets.datepicker import DatePicker
 from gui.categoriesdialog import CategoriesDialog
-from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH, DEFAULT_CFG_PATH
+from lib.config import Configuration
 
 class AddDialog(object):
     """
@@ -43,7 +42,7 @@ class AddDialog(object):
             selectedDate = datetime.date.today()
         self.selectedDate = selectedDate
 
-        self.gconf_client = gconf.client_get_default()
+        self.gconf_client = Configuration()
 
         # Private copy of any record passed
         self.currentrecord = record
@@ -95,10 +94,10 @@ class AddDialog(object):
         self.category.set_row_separator_func(self._determine_separator)
 
         self.categorybutton = self.ui.get_object("edit_categories")
-        
+
         self.notes = self.ui.get_object("notes")
         self.txtbuffer = self.notes.get_buffer()
-        
+
         self.alarmbutton = DateButton(self.window)
         self.alarmbutton.set_tooltip_text(_("Select Date and Time"))
         self.ui.get_object("alarm_button_box").add(self.alarmbutton)
@@ -123,15 +122,11 @@ class AddDialog(object):
             self.dueDate.set_date(self.selectedDate)
             self.endDate.set_date(self.selectedDate)
             # Use alarm values from preferences
-            showalarm = self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_alarm')
-            atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
-            adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
-            if not atime:
-                showalarm  ='true'
-                atime = '13:00'
-                adays = 3
+            showalarm = self.gconf_client.show_alarm()
+            atime = self.gconf_client.show_alarm_at_time()
+            adays = self.gconf_client.show_alarm_before_days()
 
-            if showalarm == 'true':
+            if showalarm:
                 alarmDate = scheduler.get_alarm_timestamp(adays, atime, self.selectedDate)
                 self.alarmbutton.set_date(alarmDate)
 
@@ -164,8 +159,8 @@ class AddDialog(object):
             self.txtbuffer.set_text(self.currentrecord.notes)
         #self.chkPaid.set_active(self.currentrecord.Paid)
 
-        #if self.currentrecord.alarm > 0:
-        #    self.alarmbutton.set_date(self.currentrecord.alarm)
+        if self.currentrecord.alarm > 0:
+            self.alarmbutton.set_date(self.currentrecord.alarm)
 
     def _populate_payee(self):
         """ Populates combobox with existing payees """
@@ -208,7 +203,7 @@ class AddDialog(object):
         cell = gtk.CellRendererText()
         self.frequency.pack_start(cell, True)
         self.frequency.add_attribute(cell, 'text', 0)
-        
+
         for i, frequency in enumerate([scheduler.SC_ONCE,
                                        scheduler.SC_MONTHLY,
                                        scheduler.SC_WEEKLY]):
@@ -304,7 +299,7 @@ class AddDialog(object):
         category = self._get_category()
 
         # Gets the alarm date
-        alarm = self.alarmbutton.get_date()  or -1
+        alarm = self.alarmbutton.get_date()  or None
 
         # Validate form
         if not payee.strip():
@@ -325,9 +320,9 @@ class AddDialog(object):
                 frequency, selectedDate, endDate)
 
             for day in days:
-                if alarm != -1:
+                if alarm:
                     alarm = self.__get_alarm_date(day)
-                rec = Bill(payee, amount, day, sbuffer, False)
+                rec = Bill(payee=payee, amount=amount, dueDate=day, alarmDate=alarm, notes=sbuffer, repeats=False)
 
                 # Bill repeats...
                 if len(days) > 1:
@@ -343,7 +338,7 @@ class AddDialog(object):
             self.currentrecord.dueDate = selectedDate
             self.currentrecord.amount = amount
             self.currentrecord.notes = sbuffer
-            #self.currentrecord.alarm = alarm
+            self.currentrecord.alarm = alarm
             if category:
                 self.currentrecord.category = category
 
@@ -428,12 +423,7 @@ class AddDialog(object):
 
     def __get_alarm_date(self, date):
         # Use alarm values from preferences
-        atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
-        adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days')
-
-        # If not running installed, there is no gconf schema.
-        if not atime:
-            atime = '13:00'
-            adays = 3
+        atime = self.gconf_client.show_alarm_at_time()
+        adays = self.gconf_client.show_alarm_before_days()
 
         return scheduler.get_alarm_timestamp(adays, atime, date)
