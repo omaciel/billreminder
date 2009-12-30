@@ -2,3 +2,5 @@
 
 APPVERSION = "@VERSION@"
 datadir="@datadir@"
+
+SETTINGS_IMPL = "GConf"
