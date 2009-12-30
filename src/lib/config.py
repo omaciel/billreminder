@@ -55,7 +55,7 @@ class Configuration(object):
         return use_dialog
 
     def show_alarm(self):
-        showalarm = self.client.'show_alarm') or SHOW_ALARM
+        showalarm = self.client.show_alarm() or SHOW_ALARM
 
         return showalarm
 
