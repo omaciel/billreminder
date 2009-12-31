@@ -6,47 +6,69 @@ try:
 except ImportError:
     from gnome import gconf
 
-import conduit.platform
+class Settings(object):
+    def __init__(self, defaults, changedCb):
+        self._defaults = defaults
+        self._changedCb = changedCb
+        self._overrides = {}
+
+    def get(self, key, **kwargs):
+        return None
+
+    def set(self, key, val, **kwargs):
+        return False
+
+    def set_overrides(self, **overrides):
+        self._overrides = overrides
+
+    def proxy_enabled(self):
+        return False
+
+    def get_proxy(self):
+        return ("",0,"","")
+
+    def save(self):
+        pass
 
 import logging
 log = logging.getLogger("Settings")
-    
-class SettingsImpl(conduit.platform.Settings):
+
+class SettingsImpl(Settings):
     """
     Settings implementation which stores settings in GConf
     """
-    
-    CONDUIT_GCONF_DIR = "/apps/conduit/"
+
+    BILLREMINDER_GCONF_DIR = "/apps/billreminder/"
     VALID_KEY_TYPES = (bool, str, int, list, tuple)
-    
+
     def __init__(self, defaults, changedCb):
-        conduit.platform.Settings.__init__(self, defaults, changedCb)
+        Settings.__init__(self, defaults, changedCb)
 
         self._client = gconf.client_get_default()
-        self._client.add_dir(self.CONDUIT_GCONF_DIR[:-1], gconf.CLIENT_PRELOAD_RECURSIVE)  
+        self._client.add_dir(self.BILLREMINDER_GCONF_DIR[:-1], gconf.CLIENT_PRELOAD_RECURSIVE)  
         self._notifications = []
 
     def _fix_key(self, key):
         """
-        Appends the CONDUIT_GCONF_PREFIX to the key if needed
-        
+        Appends the BILLREMINDER_GCONF_PREFIX to the key if needed
+
         @param key: The key to check
         @type key: C{string}
         @returns: The fixed key
         @rtype: C{string}
         """
-        if not key.startswith(self.CONDUIT_GCONF_DIR):
-            return self.CONDUIT_GCONF_DIR + key
+        if not key.startswith(self.BILLREMINDER_GCONF_DIR):
+            return self.BILLREMINDER_GCONF_DIR + key
         else:
             return key
-            
+
     def _key_changed(self, client, cnxn_id, entry, data=None):
         """
         Callback when a gconf key changes
         """
         key = self._fix_key(entry.key)
         self._changedCb(key)
-        
+
     def get(self, key, default=None):
         """
         Returns the value of the key or the default value if the key is 
@@ -80,7 +102,7 @@ class SettingsImpl(conduit.platform.Settings):
         if key not in self._notifications:
             self._client.notify_add(key, self._key_changed)
             self._notifications.append(key)
-        
+
         value = self._client.get(key)
         if not value:
             self.set(key, default)
@@ -97,7 +119,7 @@ class SettingsImpl(conduit.platform.Settings):
             for i in value.get_list():
                 l.append(i.get_string())
             return l
-            
+
         log.warn("Unknown gconf key: %s" % key)
         return None
 
@@ -136,50 +158,3 @@ class SettingsImpl(conduit.platform.Settings):
             self._client.set_list(key, gconf.VALUE_STRING, strvalues)
 
         return True
-        
-    def proxy_enabled(self):
-        """
-        @returns: True if the user has specified a http proxy via
-        the http_proxy environment variable, or in gconf
-        """
-        return os.environ.has_key("http_proxy") or \
-                self._client.get_bool("/system/http_proxy/use_http_proxy")
-        
-    def get_proxy(self):
-        """
-        Returns the details of the configured http proxy. 
-        The http_proxy environment variable overrides the GNOME setting
-        @returns: host,port,user,password
-        """
-        if self.proxy_enabled():
-            #env vars have preference
-            if os.environ.has_key("http_proxy"):
-                #re taken from python boto
-                pattern = re.compile(
-                    '(?:http://)?' \
-                    '(?:(?P<user>\w+):(?P<pass>.*)@)?' \
-                    '(?P<host>[\w\-\.]+)' \
-                    '(?::(?P<port>\d+))?'
-                )
-                match = pattern.match(os.environ['http_proxy'])
-                if match:
-                    return (match.group('host'),
-                            int(match.group('port')),
-                            match.group('user'),
-                            match.group('pass'))
-            #now try gconf
-            if self._client.get_bool("/system/http_proxy/use_authentication"):
-                return (self._client.get_string("/system/http_proxy/host"),
-                        self._client.get_int("/system/http_proxy/port"),
-                        self._client.get_string("/system/http_proxy/authentication_user"),
-                        self._client.get_string("/system/http_proxy/authentication_password"))
-            else:
-                return (self._client.get_string("/system/http_proxy/host"),
-                        self._client.get_int("/system/http_proxy/port"),
-                        "",
-                        "")
-
-        return ("",0,"","")
-
-
-

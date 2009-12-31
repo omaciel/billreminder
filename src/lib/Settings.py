@@ -35,13 +35,13 @@ def string_to_bool(stringy):
         return True
     else:
         return False
-    
+
 def list_to_string(listy):
     s = ""
     if type(listy) is list:
         s = ",".join(listy) #cool
     return s
-    
+
 def string_to_list(string, listInternalVtype=str):
     l = string.split(",")
     internalTypeName = TYPE_TO_TYPE_NAME[listInternalVtype]
@@ -51,10 +51,8 @@ def string_to_list(string, listInternalVtype=str):
 
 class Settings(gobject.GObject):
     """
-    Class for storing conduit.GLOBALS.settings. Keys of type str, bool, int, 
+    Class for storing settings. Keys of type str, bool, int,
     and list of strings supported at this stage.
-    
-    Also stores the special proxy settings.
     """
     __gsignals__ = {
         'changed' : (gobject.SIGNAL_RUN_LAST | gobject.SIGNAL_DETAILED, gobject.TYPE_NONE, ()),
@@ -62,10 +60,10 @@ class Settings(gobject.GObject):
 
     #Default values for conduit settings
     DEFAULTS = {
-        'startup_delay'             :   1,              #How long to wait before starting the backend
+        'startup_delay'             :   60000,          #How long to wait before starting the backend
         'start_in_tray'             :   False,          #Show the application start minimized
         'show_startup_notification' :   True,
-        'show_pay_notification',    :   True,
+        'show_pay_notification'     :   True,
         'show_before_alarm'         :   True,
         'show_due_alarm'            :   True,
         'show_alarm'                :   True,
@@ -73,7 +71,7 @@ class Settings(gobject.GObject):
         'use_alert_dialog'          :   False,
         'show_alarm_before_days'    :   3,
         'show_alarm_at_time'        :   '13:00',
-        'interval'                  :   60,
+        'interval'                  :   60000,
         'window_position_x'         :   0,
         'window_position_y'         :   0,
         'window_width'              :   550,
@@ -94,7 +92,7 @@ class Settings(gobject.GObject):
         except Exception, e:
             SETTINGS_IMPL = 'GConf'
 
-        implName = kwargs.get("implName", conduit.SETTINGS_IMPL)
+        implName = kwargs.get("implName", SETTINGS_IMPL)
         if implName == "GConf":
             import SettingsGConf as SettingsImpl
         else:
@@ -131,5 +129,3 @@ class Settings(gobject.GObject):
         Performs any necessary tasks to ensure settings are saved between sessions
         """
         self._settings.save()
-
-
