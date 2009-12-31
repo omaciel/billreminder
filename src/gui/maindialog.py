@@ -26,7 +26,8 @@ from lib.actions import Actions
 from lib import common
 from lib import dialogs
 from lib import scheduler
-from lib.config import Configuration
+#from lib.config import Configuration
+from lib.Settings import Settings as Configuration
 from lib.utils import Message
 from lib.utils import get_dbus_interface
 from lib.utils import force_string
@@ -88,10 +89,10 @@ class MainDialog:
         self.ui.get_object("chart_box").add(self.chart)
 
         # Restore position and size of window
-        width = self.gconf_client.get_window_width()
-        height = self.gconf_client.get_window_height()
-        x = self.gconf_client.get_window_x()
-        y = self.gconf_client.get_window_y()
+        width = self.gconf_client.get('window_width')
+        height = self.gconf_client.get('window_height')
+        x = self.gconf_client.get('window_position_x')
+        y = self.gconf_client.get('window_position_y')
         if width and height:
             self.window.resize(width, height)
         if x and y:
@@ -103,7 +104,7 @@ class MainDialog:
         self.on_showToolbar_toggled(self.ui.get_object("showToolbar"))
         self.list.grab_focus()
 
-        if self.gconf_client.start_in_tray():
+        if self.gconf_client.get('start_in_tray'):
             self.window.hide()
 
         self.toggle_buttons()
@@ -202,7 +203,7 @@ class MainDialog:
 
     def reloadTreeView(self, *arg):
         # Update list with updated record
-        status = self.gconf_client.show_paid_bills()
+        status = self.gconf_client.get('show_paid_bills')
 
         #month = self.timeline.value.month
         #year = self.timeline.value.year
@@ -265,10 +266,10 @@ class MainDialog:
 
     def _populate_menubar(self):
         try:
-            saved_view = self.gconf_client.show_paid_bills()
+            saved_view = self.gconf_client.get('show_paid_bills')
         except:
             saved_view = 1
-            self.gconf_client.set_int(GCONF_GUI_PATH + "show_paid_bills", saved_view)
+            self.gconf_client.set("show_paid_bills", saved_view)
 
         if saved_view == 0:
             self.ui.get_object("showNotPaid").set_active(True)
@@ -278,7 +279,7 @@ class MainDialog:
             self.ui.get_object("showAll").set_active(True)
 
         # Check whether we display the toolbar or not
-        self.ui.get_object("showToolbar").set_active(self.gconf_client.show_toolbar())
+        self.ui.get_object("showToolbar").set_active(self.gconf_client.get('show_toolbar'))
 
 
     def add_bill(self):
@@ -351,18 +352,18 @@ class MainDialog:
 
     def save_position(self):
         x, y = self.window.get_position()
-        self.gconf_client.set_int(GCONF_GUI_PATH + 'x', x)
-        self.gconf_client.set_int(GCONF_GUI_PATH + 'y', y)
+        self.gconf_client.set('window_position_x', x)
+        self.gconf_client.set('window_position_y', y)
 
     def save_size(self):
         width, height = self.window.get_size()
-        self.gconf_client.set_int(GCONF_GUI_PATH + 'width', width)
-        self.gconf_client.set_int(GCONF_GUI_PATH + 'height', height)
+        self.gconf_client.set('window_width', width)
+        self.gconf_client.set('window_height', height)
 
     def toggle_buttons(self, paid=None):
         """ Toggles all buttons conform number of records present and
             their state """
-            
+
         for widget in ["editBill", "removeBill", "markPaid", "markNotPaid"]:
             self.ui.get_object(widget).set_sensitive(len(self.list.listStore) > 0)
 
@@ -450,10 +451,10 @@ class MainDialog:
 
 
     def switch_view(self, view_number):
-        self.gconf_client.set_int(GCONF_GUI_PATH + 'show_paid_bills', view_number)
+        self.gconf_client.set('show_paid_bills', view_number)
         self.reloadTreeView()
         self.reloadTimeline()
-        
+
     def on_showNotPaid_toggled(self, action):
         if action.get_active():
             self.switch_view(0)
@@ -473,7 +474,7 @@ class MainDialog:
         else:
             self.toolbar.hide_all()
 
-        self.gconf_client.set_bool(GCONF_GUI_PATH + "show_toolbar", action.get_active())
+        self.gconf_client.set("show_toolbar", action.get_active())
 
     def reloadTimeline(self, *args):
         self._bullet_cache = {}
@@ -487,7 +488,7 @@ class MainDialog:
             self._bullet_cache[date] = self.actions.get_bills(dueDate=date)
 
         if self._bullet_cache[date]:
-            status = self.gconf_client.show_paid_bills()
+            status = self.gconf_client.get('show_paid_bills')
             amount = 0
             tooltip = ''
             bullet = Bullet()

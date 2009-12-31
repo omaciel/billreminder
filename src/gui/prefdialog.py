@@ -16,7 +16,7 @@ from lib import common
 from lib import utils
 from lib import i18n
 from widgets.timewidget import TimeWidget
-from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
+from lib.Settings import Settings
 
 class PrefDialog(gtk.Dialog):
     """
@@ -35,7 +35,7 @@ class PrefDialog(gtk.Dialog):
 
         self.props.skip_taskbar_hint = True
 
-        self.gconf_client = gconf.client_get_default()
+        self.gconf_client = Settings()
 
         self._initialize_dialog_widgets()
         self._populate_fields()
@@ -180,24 +180,21 @@ class PrefDialog(gtk.Dialog):
 
     def _populate_fields(self):
 
-        self.notifyCheckbox.set_active( \
-            self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_before_alarm'))
-        self.alertCheckbox.set_active( \
-            self.gconf_client.get_bool(GCONF_ALARM_PATH + 'show_alarm'))
+        self.notifyCheckbox.set_active(self.gconf_client.get('show_before_alarm'))
+        self.alertCheckbox.set_active(self.gconf_client.get('show_alarm'))
 
-        if not self.gconf_client.get_bool(GCONF_ALARM_PATH + 'use_alert_dialog'):
+        if not self.gconf_client.get('use_alert_dialog'):
             self.alertBubble.set_active(True)
         else:
             self.alertDialog.set_active(True)
 
         # Number of days before showing alarm
-        adays = self.gconf_client.get_int(GCONF_ALARM_PATH + 'notification_days_limit')
+        adays = self.gconf_client.get('notification_days_limit')
         self.notifySpinButton.set_value(adays and adays or 3)
-        self.alertSpinButton.set_value(self.gconf_client.get_int(GCONF_ALARM_PATH + 'show_alarm_before_days'))
+        self.alertSpinButton.set_value(self.gconf_client.get('show_alarm_before_days'))
 
-        atime = self.gconf_client.get_string(GCONF_ALARM_PATH + 'show_alarm_at_time')
-        # Don't crash if running uninstalled and no gconf data
-        atime = atime and atime.split(":") or ['13', '00']
+        atime = self.gconf_client.get('show_alarm_at_time')
+        atime = atime.split(":")
 
         self.notificationTime.setHourMinute(atime[0], atime[1])
 
@@ -220,13 +217,13 @@ class PrefDialog(gtk.Dialog):
     def _on_time_changed(self, spin):
         alarm = self.notificationTime.getTime()
         alarm = ":".join(["%.02d" % x for x in alarm])
-        self.gconf_client.set_string(GCONF_ALARM_PATH + 'show_alarm_at_time', alarm)
+        self.gconf_client.set('show_alarm_at_time', alarm)
 
     def _on_checkbox_toggled(self, togglebutton, item):
-        self.gconf_client.set_bool(GCONF_ALARM_PATH + item, togglebutton.get_active())
+        self.gconf_client.set(item, togglebutton.get_active())
 
     def _on_spin_changed(self, obj, item):
-        self.gconf_client.set_int(GCONF_ALARM_PATH + item, int(obj.get_value()))
+        self.gconf_client.set(item, int(obj.get_value()))
 
     def _launch_daemon(self, button):
         Popen('billreminderd', shell=True)

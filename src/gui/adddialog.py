@@ -20,7 +20,8 @@ from lib import i18n
 from gui.widgets.datebutton import DateButton
 from gui.widgets.datepicker import DatePicker
 from gui.categoriesdialog import CategoriesDialog
-from lib.config import Configuration
+#from lib.config import Configuration
+from lib.Settings import Settings as Configuration
 
 class AddDialog(object):
     """
@@ -28,7 +29,7 @@ class AddDialog(object):
     """
     def __init__(self, title=None, parent=None, record=None, selectedDate=None):
         self.ui = gtk.Builder()
-        self.ui.add_from_file(os.path.join(DEFAULT_CFG_PATH, "add_bill.ui"))
+        self.ui.add_from_file(os.path.join(common.DEFAULT_CFG_PATH, "add_bill.ui"))
 
         self.window = self.ui.get_object("add_bill_dialog")
 
@@ -122,9 +123,9 @@ class AddDialog(object):
             self.dueDate.set_date(self.selectedDate)
             self.endDate.set_date(self.selectedDate)
             # Use alarm values from preferences
-            showalarm = self.gconf_client.show_alarm()
-            atime = self.gconf_client.show_alarm_at_time()
-            adays = self.gconf_client.show_alarm_before_days()
+            showalarm = self.gconf_client.get('show_alarm')
+            atime = self.gconf_client.get('show_alarm_at_time')
+            adays = self.gconf_client.get('show_alarm_before_days')
 
             if showalarm:
                 alarmDate = scheduler.get_alarm_timestamp(adays, atime, self.selectedDate)
@@ -423,7 +424,7 @@ class AddDialog(object):
 
     def __get_alarm_date(self, date):
         # Use alarm values from preferences
-        atime = self.gconf_client.show_alarm_at_time()
-        adays = self.gconf_client.show_alarm_before_days()
+        atime = self.gconf_client.get('show_alarm_at_time')
+        adays = self.gconf_client.get('show_alarm_before_days')
 
         return scheduler.get_alarm_timestamp(adays, atime, date)
