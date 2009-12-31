@@ -27,7 +27,7 @@ class DateButton(gtk.Button):
             return
 
         # Create datetime object
-        self.date = datetime.datetime.fromtimestamp(date)
+        self.date = date
 
         self.set_label(self.date.strftime(_('%Y/%m/%d %H:%M').encode('ASCII')))
 
@@ -42,7 +42,7 @@ class DateButton(gtk.Button):
                             flags=gtk.DIALOG_MODAL |gtk.DIALOG_DESTROY_WITH_PARENT |gtk.DIALOG_NO_SEPARATOR,
                             buttons=(str(_("_None")), gtk.RESPONSE_REJECT,
                                      gtk.STOCK_OK, gtk.RESPONSE_OK))
-        
+
         self.dialog.set_border_width(6)
         self.dialog.set_resizable(False)
         self.dialog.vbox.set_spacing(6)
