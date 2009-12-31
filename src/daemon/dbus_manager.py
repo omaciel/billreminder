@@ -10,7 +10,6 @@ from lib.utils import force_string
 from lib.utils import get_dbus_interface as get_interface
 from lib.utils import verify_dbus_service as verify_service
 
-from lib import bill
 from lib import i18n
 
 # Set up DBus event loop
