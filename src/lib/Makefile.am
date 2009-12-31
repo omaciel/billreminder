@@ -15,6 +15,8 @@ billreminder_lib_PYTHON = \
 	i18n.py \
 	migrate_to_gconf.py \
 	scheduler.py \
+	Settings.py \
+	SettingsGConf.py \
 	utils.py
 
 defs.py: defs.py.in
