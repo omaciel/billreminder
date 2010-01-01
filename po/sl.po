@@ -2,15 +2,16 @@
 # This file is distributed under the same license as the billreminder package.
 # Martin Božič <martin.bozic@gmail.com>, 2008.
 # Matej Urbančič <mateju@svn.gnome.org>, 2009.
+# Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=billreminder&component=general\n"
-"POT-Creation-Date: 2009-09-29 03:53+0000\n"
-"PO-Revision-Date: 2009-11-04 12:57+0100\n"
-"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
-"Language-Team: Slovenian <sl@li.org>\n"
+"POT-Creation-Date: 2009-12-20 20:13+0000\n"
+"PO-Revision-Date: 2009-12-28 09:58+0100\n"
+"Last-Translator: Andrej Žnidaršič <andrej.znidarsic@gmail.com>\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +22,7 @@ msgstr ""
 
 #: ../data/billreminderd.desktop.in.h:1
 #: ../src/billreminderd.py:43
-#: ../src/daemon/alarm.py:121
+#: ../src/daemon/alarm.py:131
 #: ../src/daemon/dbus_manager.py:45
 msgid "BillReminder Notifier"
 msgstr "Opomnik BillReminder"
@@ -88,7 +89,7 @@ msgstr "Prikaži menijsko vrstico."
 
 #: ../data/billreminder.schemas.in.h:12
 msgid "Display the toolbar."
-msgstr "Prikaži orodno vrstico"
+msgstr "Prikaži orodno vrstico."
 
 #: ../data/billreminder.schemas.in.h:13
 msgid "How long to display the alarm notification."
@@ -146,34 +147,137 @@ msgstr "Ali naj se program zažene v sistemski vrstici?"
 msgid "Whether to use dialogs for notifications."
 msgstr "Ali naj bodo za obvestila uporabljena pogovorna okna?"
 
-#: ../src/billreminder.py:39
+#. Dialog Title
+#: ../data/main.ui.h:1
+#: ../src/lib/dialogs.py:65
+msgid "Add a new bill"
+msgstr "Dodajanje novega računa"
+
+#: ../data/main.ui.h:2
+msgid "All Bills"
+msgstr "Vsi računi"
+
+#: ../data/main.ui.h:3
+#: ../src/gui/maindialog.py:138
+msgid "Delete selected bill"
+msgstr "Izbriši izbrani račun"
+
+#. Dialog Title
+#: ../data/main.ui.h:4
+#: ../src/gui/maindialog.py:135
+#: ../src/lib/dialogs.py:76
+msgid "Edit a bill"
+msgstr "Urejanje računa"
+
+#: ../data/main.ui.h:5
+#: ../src/gui/maindialog.py:144
+msgid "Mark as not paid"
+msgstr "Označi kot neplačano"
+
+#. Button Title
+#: ../data/main.ui.h:6
+#: ../src/daemon/alarm.py:138
+#: ../src/gui/maindialog.py:141
+#: ../src/lib/utils.py:135
+msgid "Mark as paid"
+msgstr "Označi kot plačano"
+
+#: ../data/main.ui.h:7
+msgid "Not Paid Only"
+msgstr "Le neplačani"
+
+#: ../data/main.ui.h:8
+msgid "Paid Only"
+msgstr "Le plačani"
+
+#: ../data/main.ui.h:9
+#: ../src/gui/maindialog.py:146
+msgid "Show Toolbar"
+msgstr "Pokaži orodno vrstico"
+
+#: ../data/main.ui.h:10
+msgid "_Bill"
+msgstr "_Račun"
+
+#: ../data/main.ui.h:11
+msgid "_Edit"
+msgstr "_Uredi"
+
+#: ../data/main.ui.h:12
+msgid "_Help"
+msgstr "Pomo_č"
+
+#: ../data/main.ui.h:13
+msgid "_View"
+msgstr "_Pogled"
+
+#: ../data/add_bill.ui.h:1
+msgid "A_larm:\t"
+msgstr "Opo_zorilo:\t"
+
+#: ../data/add_bill.ui.h:2
+msgid "Manage Categories"
+msgstr "Upravljanje s kategorijami"
+
+#: ../data/add_bill.ui.h:3
+msgid "Optional Fields"
+msgstr "Dodatna polja"
+
+#: ../data/add_bill.ui.h:4
+msgid "_Amount:"
+msgstr "_Znesek:"
+
+#: ../data/add_bill.ui.h:5
+msgid "_Category:"
+msgstr "_Kategorija:"
+
+#: ../data/add_bill.ui.h:6
+msgid "_Due Date:"
+msgstr "_Rok plačila:"
+
+#: ../data/add_bill.ui.h:7
+msgid "_End Date:"
+msgstr "_Končni datum:"
+
+#: ../data/add_bill.ui.h:8
+msgid "_Notes:"
+msgstr "_Opombe:"
+
+#: ../data/add_bill.ui.h:9
+msgid "_Payee:"
+msgstr "Pr_ejemnik:"
+
+#: ../data/add_bill.ui.h:10
+msgid "_Repeat:"
+msgstr "_Ponovi:"
+
+#: ../src/billreminder.py:45
 #: ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
 msgstr "Uporaba: billreminder [MOŽNOSTI ...]"
 
-#: ../src/billreminder.py:40
+#: ../src/billreminder.py:46
 #: ../src/billreminderd.py:24
 msgid "Displays the version number for this application."
 msgstr "Prikaže različico tega programa."
 
-#: ../src/billreminder.py:41
+#: ../src/billreminder.py:47
 msgid "About this application."
 msgstr "O tem programu."
 
-#: ../src/billreminder.py:42
-#| msgid "Adds a new record to the database."
+#: ../src/billreminder.py:48
 msgid "Adds a new bill to the database."
 msgstr "Doda nov račun v zbirko podatkov."
 
-#: ../src/billreminder.py:43
+#: ../src/billreminder.py:49
 msgid "Access database directly, without daemon."
 msgstr "Neposreden dostop do zbirke podatkov brez ozadnjega programa."
 
-#: ../src/billreminder.py:52
+#: ../src/billreminder.py:58
 msgid "This option is not implemented yet."
 msgstr "Ta možnost še ni podprta."
 
-#: ../src/billreminder.py:54
+#: ../src/billreminder.py:60
 #: ../src/billreminderd.py:42
 #: ../src/daemon/dbus_manager.py:44
 #, python-format
@@ -196,7 +300,7 @@ msgstr "Zaženi ozadnji program in grafični vmesnik."
 msgid "Stop daemon."
 msgstr "Ustavi ozadnji program."
 
-#: ../src/daemon/alarm.py:63
+#: ../src/daemon/alarm.py:71
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
@@ -205,35 +309,28 @@ msgstr[1] "Imate %s neporavnan račun!"
 msgstr[2] "Imate %s neporavnana računa!"
 msgstr[3] "Imate %s neporavnane račune!"
 
-#: ../src/daemon/alarm.py:68
+#: ../src/daemon/alarm.py:76
 msgid "Show BillReminder"
 msgstr "Prikaži BillReminder"
 
-#: ../src/daemon/alarm.py:70
-#: ../src/daemon/alarm.py:131
+#: ../src/daemon/alarm.py:78
+#: ../src/daemon/alarm.py:141
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: ../src/daemon/alarm.py:105
-#: ../src/daemon/alarm.py:202
+#: ../src/daemon/alarm.py:115
+#: ../src/daemon/alarm.py:212
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr "Rok plačila računa %(bill)s bo v %(day)s."
 
-#: ../src/daemon/alarm.py:117
+#: ../src/daemon/alarm.py:127
 #, python-format
 msgid "The bill %s is due."
 msgstr "Rok plačila računa %s je potekel."
 
-#. Button Title
-#: ../src/daemon/alarm.py:128
-#: ../src/gui/maindialog.py:291
-#: ../src/gui/maindialog.py:325
-#: ../src/lib/utils.py:135
-msgid "Mark as paid"
-msgstr "Označi kot plačano"
-
-#: ../src/daemon/alarm.py:130
+#: ../src/daemon/alarm.py:140
+#: ../src/gui/maindialog.py:134
 #: ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Uredi"
@@ -263,99 +360,60 @@ msgstr "Spodletelo."
 msgid "BillReminder Notifier is already running."
 msgstr "Opomnik BillReminder je že zagnan."
 
-#: ../src/gui/aboutdialog.py:21
+#: ../src/gui/aboutdialog.py:16
 msgid "translator-credits"
 msgstr "Andrej Žnidaršič <andrej.znidarsic@gmail.com>"
 
-#: ../src/gui/aboutdialog.py:44
+#: ../src/gui/aboutdialog.py:30
 msgid "BillReminder Website"
-msgstr "Spletišče BillReminder "
+msgstr "Spletišče BillReminder"
 
-#: ../src/gui/adddialog.py:80
-msgid "<b>_Repeat:</b>"
-msgstr "<b>_Ponovi:</b>"
-
-#: ../src/gui/adddialog.py:86
-msgid "<b>Due Date:</b>"
-msgstr "<b>Rok plačila:</b>"
-
-#. TRANSLATORS: This is the end date for repeating bills.
-#: ../src/gui/adddialog.py:90
-msgid "<b>End Date:</b>"
-msgstr "<b>Končni datum:</b>"
-
-#: ../src/gui/adddialog.py:107
-msgid "<b>_Payee:</b>"
-msgstr "<b>_Prejemnik:</b>"
-
-#: ../src/gui/adddialog.py:110
-msgid "<b>_Amount:</b>"
-msgstr "<b>Ko_ličina:</b>"
-
-#: ../src/gui/adddialog.py:113
-msgid "<b>_Category:</b>"
-msgstr "<b>_Kategorija:</b>"
-
-#: ../src/gui/adddialog.py:116
-msgid "<b>_Notes:</b>"
-msgstr "<b>_Opombe:</b>"
-
-#: ../src/gui/adddialog.py:119
-msgid "<b>A_larm:</b>"
-msgstr "<b>O_pozorilo:</b>"
-
-#: ../src/gui/adddialog.py:144
-msgid "Manage Categories"
-msgstr "Upravljanje s kategorijami"
-
-#: ../src/gui/adddialog.py:167
+#: ../src/gui/adddialog.py:102
 #: ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Izbor datuma in časa"
 
-#. # Expander
-#: ../src/gui/adddialog.py:202
-msgid "<b>Optional Fields:</b>"
-msgstr "<b>Dodatna polja:</b>"
-
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:351
-#: ../src/gui/adddialog.py:375
+#: ../src/gui/adddialog.py:239
+#: ../src/gui/adddialog.py:263
+#: ../src/gui/maindialog.py:231
 #: ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "Noben"
 
-#: ../src/gui/adddialog.py:357
+#: ../src/gui/adddialog.py:245
 #: ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Nova kategorija"
 
-#: ../src/gui/adddialog.py:397
+#: ../src/gui/adddialog.py:285
 msgid "The end date is set to a date prior to the start date. Setting it to match the start date."
 msgstr "Rok plačila je nastavljen pred datumom začetka. Popravljen bo na datum začetka."
 
-#: ../src/gui/adddialog.py:398
+#: ../src/gui/adddialog.py:286
 msgid "Date set in the past"
 msgstr "Datum je nastavljen v preteklosti"
 
-#: ../src/gui/adddialog.py:499
+#: ../src/gui/adddialog.py:401
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" in \"%s\" sta zahtevani polji."
 
-#: ../src/gui/adddialog.py:500
-#: ../src/gui/adddialog.py:504
-#: ../src/gui/widgets/viewbill.py:89
+#: ../src/gui/adddialog.py:402
+#: ../src/gui/adddialog.py:405
+#: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Prejemnik"
 
-#: ../src/gui/adddialog.py:500
-#: ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/adddialog.py:402
+#: ../src/gui/adddialog.py:408
+#: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Znesek"
 
-#: ../src/gui/adddialog.py:504
+#: ../src/gui/adddialog.py:405
+#: ../src/gui/adddialog.py:408
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" je zahtevano polje."
@@ -376,7 +434,7 @@ msgstr "Ime:"
 msgid "Color:"
 msgstr "Barva:"
 
-#: ../src/gui/categoriesdialog.py:219
+#: ../src/gui/categoriesdialog.py:215
 #, python-format
 msgid ""
 "The category \"%s\" already exists in the database!\n"
@@ -387,144 +445,56 @@ msgstr ""
 "\n"
 "Ali želite shraniti vaše spremembe v obstoječo kategorijo?"
 
-#: ../src/gui/categoriesdialog.py:246
+#: ../src/gui/categoriesdialog.py:239
 msgid "Do you really want to delete this category?\n"
 msgstr "Ali res želite izbrisati to kategorijo?\n"
 
-#: ../src/gui/categoriesdialog.py:247
+#: ../src/gui/categoriesdialog.py:240
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] "V tej kategoriji je %d računov več. "
-msgstr[1] "V tej kategoriji je %d račun več. "
-msgstr[2] "V tej kategoriji sta %d računa več. "
-msgstr[3] "V tej kategoriji so %d računi več. "
+msgstr[0] "V tej kategoriji je %d računov več."
+msgstr[1] "V tej kategoriji je %d račun več."
+msgstr[2] "V tej kategoriji sta %d računa več."
+msgstr[3] "V tej kategoriji so %d računi več."
 
-#: ../src/gui/categoriesdialog.py:250
-#: ../src/gui/maindialog.py:560
+#: ../src/gui/categoriesdialog.py:243
+#: ../src/gui/maindialog.py:425
 msgid "Confirmation"
 msgstr "Potrditev"
 
-#: ../src/gui/maindialog.py:284
-msgid "New"
-msgstr "Nov"
+#. for some reason the actions strings do not get translated yet
+#. so we define them here so they would be picked up by the pyfile scanner
+#: ../src/gui/maindialog.py:131
+msgid "Add New"
+msgstr "Dodaj nov"
 
-#. Dialog Title
-#: ../src/gui/maindialog.py:284
-#: ../src/gui/maindialog.py:321
-#: ../src/lib/dialogs.py:51
-#| msgid "Add a new record"
-msgid "Add a new bill"
+#: ../src/gui/maindialog.py:132
+msgid "Add new bill"
 msgstr "Dodajanje novega računa"
 
-#. Dialog Title
-#: ../src/gui/maindialog.py:286
-#: ../src/gui/maindialog.py:322
-#: ../src/lib/dialogs.py:62
-msgid "Edit a bill"
-msgstr "Urejanje računa"
+#: ../src/gui/maindialog.py:137
+msgid "Delete"
+msgstr "Izbriši"
 
-#: ../src/gui/maindialog.py:288
-#: ../src/gui/maindialog.py:323
-#| msgid "Delete selected record"
-msgid "Delete selected bill"
-msgstr "Izbriši izbrani račun"
-
-#: ../src/gui/maindialog.py:291
-#: ../src/gui/widgets/viewbill.py:97
+#: ../src/gui/maindialog.py:140
+#: ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
 msgstr "Plačano"
 
-#: ../src/gui/maindialog.py:294
+#: ../src/gui/maindialog.py:143
 msgid "Not Paid"
 msgstr "Neplačano"
 
-#: ../src/gui/maindialog.py:294
-#: ../src/gui/maindialog.py:326
-msgid "Mark as not paid"
-msgstr "Označi kot neplačano"
-
-#: ../src/gui/maindialog.py:320
-msgid "_File"
-msgstr "_Datoteka"
-
-#: ../src/gui/maindialog.py:321
-#: ../src/gui/maindialog.py:518
-msgid "_Add New"
-msgstr "D_odaj novo"
-
-#: ../src/gui/maindialog.py:324
-msgid "_Edit"
-msgstr "_Uredi"
-
-#: ../src/gui/maindialog.py:325
-#: ../src/gui/maindialog.py:528
-msgid "_Paid"
-msgstr "_Plačano"
-
-#: ../src/gui/maindialog.py:326
-msgid "_Not Paid"
-msgstr "_Ni plačano"
-
-#: ../src/gui/maindialog.py:327
-msgid "Edit preferences"
-msgstr "Urejanje nastavitvev"
-
-#: ../src/gui/maindialog.py:328
-msgid "Quit the Program"
-msgstr "Končaj program"
-
-#: ../src/gui/maindialog.py:329
-msgid "_View"
-msgstr "_Pogled"
-
-#: ../src/gui/maindialog.py:330
-msgid "_Help"
-msgstr "Pomo_č"
-
-#: ../src/gui/maindialog.py:331
-msgid "About the application"
-msgstr "O programu"
-
-#: ../src/gui/maindialog.py:341
-msgid "_Show Toolbar"
-msgstr "_Prikaži orodno vrstico"
-
-#: ../src/gui/maindialog.py:341
+#: ../src/gui/maindialog.py:147
 msgid "Show the toolbar"
 msgstr "Pokaže orodno vrstico"
 
-#: ../src/gui/maindialog.py:345
-msgid "_Not Paid Only"
-msgstr "_Samo neplačani"
+#: ../src/gui/maindialog.py:238
+msgid "%m/%d"
+msgstr "%m/%d"
 
-#: ../src/gui/maindialog.py:345
-#| msgid "Display all unpaid records only"
-msgid "Display all unpaid bills only"
-msgstr "Pokaže le neplačane račune"
-
-#: ../src/gui/maindialog.py:346
-msgid "_Paid Only"
-msgstr "_Samo plačani"
-
-#: ../src/gui/maindialog.py:346
-#| msgid "Display all paid records only"
-msgid "Display all paid bills only"
-msgstr "Pokaže le plačane račune"
-
-#: ../src/gui/maindialog.py:347
-msgid "_All Bills"
-msgstr "_Vsi računi"
-
-#: ../src/gui/maindialog.py:347
-msgid "Display all bills"
-msgstr "Pokaže vse račune"
-
-#: ../src/gui/maindialog.py:531
-msgid "Not _Paid"
-msgstr "Ni _plačano"
-
-#: ../src/gui/maindialog.py:558
+#: ../src/gui/maindialog.py:423
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Ali res želite izbrisati \"%s\"?"
@@ -532,54 +502,54 @@ msgstr "Ali res želite izbrisati \"%s\"?"
 #: ../src/gui/prefdialog.py:26
 #: ../src/gui/widgets/trayicon.py:47
 msgid "Preferences"
-msgstr "Nastavitve"
+msgstr "Možnosti"
 
-#: ../src/gui/prefdialog.py:54
+#: ../src/gui/prefdialog.py:55
 msgid "<b>Alarms</b>"
 msgstr "<b>Alarmi</b>"
 
-#: ../src/gui/prefdialog.py:60
+#: ../src/gui/prefdialog.py:61
 msgid "_Alert before due date:"
 msgstr "_Opozorilo pred rokom:"
 
-#: ../src/gui/prefdialog.py:65
-#: ../src/gui/prefdialog.py:115
+#: ../src/gui/prefdialog.py:66
+#: ../src/gui/prefdialog.py:116
 msgid "day(s)."
-msgstr "dan/dni."
+msgstr "dni."
 
-#: ../src/gui/prefdialog.py:68
+#: ../src/gui/prefdialog.py:69
 msgid "_Preferred time:"
 msgstr "_Prednostni čas:"
 
-#: ../src/gui/prefdialog.py:71
+#: ../src/gui/prefdialog.py:72
 msgid "Get alerted when individual bills are due."
 msgstr "Bodite opozorjeni ob rokih plačila posameznih računov."
 
-#: ../src/gui/prefdialog.py:95
+#: ../src/gui/prefdialog.py:96
 msgid "<b>Notifications</b>"
 msgstr "<b>Obvestila</b>"
 
-#: ../src/gui/prefdialog.py:101
+#: ../src/gui/prefdialog.py:102
 msgid "Define when to be notified of upcoming bills."
 msgstr "Določi čas obvestila o prihajajočih računih."
 
-#: ../src/gui/prefdialog.py:109
+#: ../src/gui/prefdialog.py:110
 msgid "_Notify before due date:"
 msgstr "_Obvestilo pred rokom:"
 
-#: ../src/gui/prefdialog.py:130
+#: ../src/gui/prefdialog.py:131
 msgid "<b>Alert Type</b>"
 msgstr "<b>Vrsta opozorila</b>"
 
-#: ../src/gui/prefdialog.py:140
+#: ../src/gui/prefdialog.py:141
 msgid "Notification _Bubble"
 msgstr "_Obvestila v oblačkih"
 
-#: ../src/gui/prefdialog.py:142
+#: ../src/gui/prefdialog.py:143
 msgid "Alert _Dialog"
 msgstr "_Pogovorno okno opozorila"
 
-#: ../src/gui/prefdialog.py:154
+#: ../src/gui/prefdialog.py:155
 msgid ""
 "<b>Warning:</b> BillReminder Notifier is \n"
 "not running! You need to start it in order \n"
@@ -588,17 +558,16 @@ msgstr ""
 "<b>Opozorilo:</b>Opomnik BillReminder ni\n"
 "zagnan! Za prejemanje obvestil ga morate zagnati."
 
-#: ../src/gui/prefdialog.py:161
+#: ../src/gui/prefdialog.py:162
 msgid "_Start BillReminder Notifier"
-msgstr "_Zaženi opomnik BillReminder "
+msgstr "_Zaženi opomnik BillReminder"
 
-#: ../src/gui/prefdialog.py:233
+#: ../src/gui/prefdialog.py:234
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr "<b>Opomba:</b> Opomnik BillReminder je zagnan."
 
 #. TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
 #: ../src/gui/widgets/datepicker.py:87
-#| msgid "%m/%d"
 msgid "%m/%d/%Y"
 msgstr "%d.%m.%Y"
 
@@ -648,24 +617,24 @@ msgstr "O projektu"
 msgid "Quit"
 msgstr "Končaj"
 
-#: ../src/gui/widgets/viewbill.py:87
+#: ../src/gui/widgets/viewbill.py:83
 #: ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
 msgstr "Kategorija"
 
-#: ../src/gui/widgets/viewbill.py:91
+#: ../src/gui/widgets/viewbill.py:87
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/gui/widgets/viewbill.py:95
+#: ../src/gui/widgets/viewbill.py:91
 msgid "Notes"
 msgstr "Opombe"
 
-#: ../src/gui/widgets/viewbill.py:99
+#: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr "Opozorilo"
 
-#: ../src/lib/common.py:18
+#: ../src/lib/common.py:19
 msgid "Developers:"
 msgstr "Razvijalci:"
 
@@ -721,6 +690,38 @@ msgstr "Tedensko"
 msgid "Monthly"
 msgstr "Mesečno"
 
+#~ msgid "<b>_Payee:</b>"
+#~ msgstr "<b>_Prejemnik:</b>"
+#~ msgid "<b>_Amount:</b>"
+#~ msgstr "<b>Ko_ličina:</b>"
+#~ msgid "<b>_Category:</b>"
+#~ msgstr "<b>_Kategorija:</b>"
+#~ msgid "<b>_Notes:</b>"
+#~ msgstr "<b>_Opombe:</b>"
+#~ msgid "<b>A_larm:</b>"
+#~ msgstr "<b>O_pozorilo:</b>"
+#~ msgid "New"
+#~ msgstr "Nov"
+#~ msgid "_File"
+#~ msgstr "_Datoteka"
+#~ msgid "_Paid"
+#~ msgstr "_Plačano"
+#~ msgid "_Not Paid"
+#~ msgstr "_Ni plačano"
+#~ msgid "Edit preferences"
+#~ msgstr "Urejanje možnosti"
+#~ msgid "Quit the Program"
+#~ msgstr "Končaj program"
+#~ msgid "About the application"
+#~ msgstr "O programu"
+#~ msgid "Display all unpaid bills only"
+#~ msgstr "Pokaže le neplačane račune"
+#~ msgid "Display all paid bills only"
+#~ msgstr "Pokaže le plačane račune"
+#~ msgid "Display all bills"
+#~ msgstr "Pokaže vse račune"
+#~ msgid "Not _Paid"
+#~ msgstr "Ni _plačano"
 #~ msgid "How many times to repeat this bill."
 #~ msgstr "Kolikokrat ponoviti ta račun."
 #~ msgid "Edit a record"
