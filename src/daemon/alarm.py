@@ -65,8 +65,9 @@ class Alarm(object):
         limit = self.gconf_client.get('notification_days_limit')
         print limit
         limit = datetime.timedelta(days=limit)
+        end=today+limit
         if limit:
-            records = self.parent.actions.get_interval_bills(end=today+limit, paid=False)
+            records = self.parent.actions.get_interval_bills(end=end, paid=False)
             #'dueDate <= %s AND paid = 0' % (today + limit))
         else:
             print "No limit"
