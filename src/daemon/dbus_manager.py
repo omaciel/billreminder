@@ -55,10 +55,10 @@ class Server(dbus.service.Object):
         return self.parent.client_pid
 
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='iii', out_signature='a(sis)')
-    def get_monthly_totals(self, status, month, year):
+    def get_monthly_totals(self, status, start, end):
         # Return a list of categories and totals for the given month
         ret = []
-        records = self.actions.get_monthly_totals(status, month, year)
+        records = self.actions.get_monthly_totals(start, end, status)
         for record in records:
             ret.append(record)
         return ret
@@ -66,7 +66,7 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='iii', out_signature='aa{ss}')
     def get_monthly_bills(self, status, month, year):
         ret = []
-        records = self.actions.get_monthly_bills(status, month, year)
+        records = self.actions.get_interval_bills(month, year, status)
         for record in records:
             ret.append(force_string(record))
         return ret
@@ -75,7 +75,7 @@ class Server(dbus.service.Object):
     def get_interval_totals(self, status, start, end):
         # Return a list of categories and totals for the given month
         ret = []
-        records = self.actions.get_interval_totals(status, start, end)
+        records = self.actions.get_monthly_totals(start, end, status)
         for record in records:
             ret.append(record)
         return ret
@@ -83,7 +83,7 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='iii', out_signature='aa{ss}')
     def get_interval_bills(self, status, start, end):
         ret = []
-        records = self.actions.get_interval_bills(status, start, end)
+        records = self.actions.get_interval_bills(start, end, status)
         for record in records:
             ret.append(force_string(record))
         return ret
@@ -109,7 +109,7 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='a{ss}')
     def edit_bill(self, kwargs):
         """ Edit a record in the database """
-        ret = self.actions.edit_bill(kwargs)
+        ret = self.actions.edit(kwargs)
         if ret:
             self.bill_edited(ret)
         return force_string(ret)
@@ -125,7 +125,7 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='i', out_signature='b')
     def delete_bill(self, key):
         """ Delete a record in the database """
-        ret = self.actions.delete_bill(key)
+        ret = self.actions.delete(key)
         if ret:
             self.bill_deleted(key)
         return ret
@@ -151,7 +151,7 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='a{ss}')
     def edit_category(self, kwargs):
         """ Edit a record in the database """
-        ret = self.actions.edit_category(kwargs)
+        ret = self.actions.edit(kwargs)
         return force_string(ret)
 
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}', out_signature='a{ss}')
@@ -163,7 +163,7 @@ class Server(dbus.service.Object):
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='i', out_signature='b')
     def delete_category(self, key):
         """ Delete a record in the database """
-        ret = self.actions.delete_category(key)
+        ret = self.actions.delete(key)
         return ret
 
     @dbus.service.method(common.DBUS_INTERFACE, in_signature='a{ss}')
