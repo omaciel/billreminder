@@ -160,8 +160,8 @@ class AddDialog(object):
             self.txtbuffer.set_text(self.currentrecord.notes)
         #self.chkPaid.set_active(self.currentrecord.Paid)
 
-        if self.currentrecord.alarm > 0:
-            self.alarmbutton.set_date(self.currentrecord.alarm)
+        if self.currentrecord.alarmDate:
+            self.alarmbutton.set_date(self.currentrecord.alarmDate)
 
     def _populate_payee(self):
         """ Populates combobox with existing payees """
@@ -339,7 +339,7 @@ class AddDialog(object):
             self.currentrecord.dueDate = selectedDate
             self.currentrecord.amount = amount
             self.currentrecord.notes = sbuffer
-            self.currentrecord.alarm = alarm
+            self.currentrecord.alarmDate = alarm
             if category:
                 self.currentrecord.category = category
 
