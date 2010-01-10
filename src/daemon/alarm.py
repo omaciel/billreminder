@@ -80,7 +80,7 @@ class Alarm(object):
             bubble = self.notification(common.APPNAME, msg)
             bubble.add_action("view", _("Show BillReminder"),
                 self.__cb_launch_gui, None)
-            bubble.add_action("close", _("Cancel"), None)
+            #bubble.add_action("close", _("Cancel"), None)
             bubble.show()
 
         return False
@@ -146,7 +146,7 @@ class Alarm(object):
                 bubble.add_action("paid", _("Mark as paid"),
                     self.__cb_mark_as_paid, bill)
                 bubble.add_action("edit", _("Edit"), self.__cb_edit_bill, bill)
-                bubble.add_action("close", _("Cancel"), None)
+                #bubble.add_action("close", _("Cancel"), None)
                 if timeout:
                     bubble.set_timeout(timeout)
                 bubble.show()
