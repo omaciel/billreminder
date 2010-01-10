@@ -42,6 +42,7 @@ class DAL(object):
                     bill.payee = dbobject.payee
                     bill.amount = dbobject.amount
                     bill.dueDate = dbobject.dueDate
+                    bill.alarmDate = dbobject.alarmDate
                     bill.notes = dbobject.notes
                     bill.paid = dbobject.paid
                     if dbobject.category:
@@ -50,7 +51,7 @@ class DAL(object):
                             bill.category = category
                         except Exception, e:
                             print "Failed to retrieve category \"%s\" for bill \"%s\": %s" \
-                                % (dbobject.name, dbobject.category[0].name, str(e))
+                                % (dbobject.payee, dbobject.category.name, str(e))
 
                 if session.dirty:
                     session.commit()

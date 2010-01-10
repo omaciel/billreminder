@@ -34,7 +34,7 @@ class DateButton(gtk.Button):
     def get_date(self):
         if not self.date:
             return None
-        return time.mktime(self.date.timetuple())
+        return self.date
 
     def show_calendar(self, *arg):
         self.dialog = gtk.Dialog(title=_("Select Date and Time"),
@@ -46,12 +46,12 @@ class DateButton(gtk.Button):
         self.dialog.set_border_width(6)
         self.dialog.set_resizable(False)
         self.dialog.vbox.set_spacing(6)
-        
+
         self._initialize_dialog_widgets()
         self._populate_fields()
 
         response = self.dialog.run()
-        
+
         if response == gtk.RESPONSE_REJECT:
             self.set_date(None)
         elif response == gtk.RESPONSE_OK:
@@ -72,10 +72,10 @@ class DateButton(gtk.Button):
             flags=gtk.DIALOG_MODAL |gtk.DIALOG_DESTROY_WITH_PARENT |gtk.DIALOG_NO_SEPARATOR,
             buttons=(str(_("_None")), gtk.RESPONSE_REJECT,
                      gtk.STOCK_OK, gtk.RESPONSE_OK))
-        
+
         dialog.set_border_width(6)
         dialog.set_resizable(False)
-        
+
         if self.parent_window:
             dialog.set_transient_for(self.parent_window)
             dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
