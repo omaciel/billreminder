@@ -2,13 +2,13 @@
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the billreminder package.
 #
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2008, 2009.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-15 01:57+0200\n"
-"PO-Revision-Date: 2009-08-15 01:58+0200\n"
+"POT-Creation-Date: 2010-01-22 01:03+0100\n"
+"PO-Revision-Date: 2010-01-22 00:59+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
-#: ../src/daemon/alarm.py:121 ../src/daemon/dbus_manager.py:45
+#: ../src/daemon/alarm.py:139 ../src/daemon/dbus_manager.py:44
 msgid "BillReminder Notifier"
 msgstr "Számlafigyelő-értesítő"
 
@@ -140,32 +140,128 @@ msgstr "Az alkalmazás a rendszertálcán induljon-e?"
 msgid "Whether to use dialogs for notifications."
 msgstr "Ablakok használandók-e az értesítésekhez?"
 
-#: ../src/billreminder.py:39 ../src/billreminderd.py:23
+#. Dialog Title
+#: ../data/main.ui.h:1 ../src/lib/dialogs.py:65
+msgid "Add a new bill"
+msgstr "Új számla felvétele"
+
+#: ../data/main.ui.h:2
+msgid "All Bills"
+msgstr "Minden számla"
+
+#: ../data/main.ui.h:3 ../src/gui/maindialog.py:139
+msgid "Delete selected bill"
+msgstr "Kiválasztott számla törlése"
+
+#. Dialog Title
+#: ../data/main.ui.h:4 ../src/gui/maindialog.py:136 ../src/lib/dialogs.py:76
+msgid "Edit a bill"
+msgstr "Számla szerkesztése"
+
+#: ../data/main.ui.h:5 ../src/gui/maindialog.py:145
+msgid "Mark as not paid"
+msgstr "Befizetetlen"
+
+#. Button Title
+#: ../data/main.ui.h:6 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:142
+#: ../src/lib/utils.py:135
+msgid "Mark as paid"
+msgstr "Befizetett"
+
+#: ../data/main.ui.h:7
+msgid "Not Paid Only"
+msgstr "Csak a befizetetlenek"
+
+#: ../data/main.ui.h:8
+msgid "Paid Only"
+msgstr "Csak a befizetettek"
+
+#: ../data/main.ui.h:9 ../src/gui/maindialog.py:147
+msgid "Show Toolbar"
+msgstr "Eszköztár megjelenítése"
+
+#: ../data/main.ui.h:10
+msgid "_Bill"
+msgstr "S_zámla"
+
+#: ../data/main.ui.h:11
+msgid "_Edit"
+msgstr "S_zerkesztés"
+
+#: ../data/main.ui.h:12
+msgid "_Help"
+msgstr "_Súgó"
+
+#: ../data/main.ui.h:13
+msgid "_View"
+msgstr "_Nézet"
+
+#: ../data/add_bill.ui.h:1
+msgid "A_larm:\t"
+msgstr "_Riasztás:\t"
+
+#: ../data/add_bill.ui.h:2
+msgid "Manage Categories"
+msgstr "Kategóriák kezelése"
+
+#: ../data/add_bill.ui.h:3
+msgid "Optional Fields"
+msgstr "Elhagyható mezők"
+
+#: ../data/add_bill.ui.h:4
+msgid "_Amount:"
+msgstr "Össz_eg:"
+
+#: ../data/add_bill.ui.h:5
+msgid "_Category:"
+msgstr "_Kategória:"
+
+#: ../data/add_bill.ui.h:6
+msgid "_Due Date:"
+msgstr "Ese_dékesség napja:"
+
+#: ../data/add_bill.ui.h:7
+msgid "_End Date:"
+msgstr "_Lejárat napja:"
+
+#: ../data/add_bill.ui.h:8
+msgid "_Notes:"
+msgstr "_Megjegyzések:"
+
+#: ../data/add_bill.ui.h:9
+msgid "_Payee:"
+msgstr "_Kiállító:"
+
+#: ../data/add_bill.ui.h:10
+msgid "_Repeat:"
+msgstr "_Ismétlés:"
+
+#: ../src/billreminder.py:45 ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
 msgstr "Használat: billreminder [KAPCSOLÓK…]"
 
-#: ../src/billreminder.py:40 ../src/billreminderd.py:24
+#: ../src/billreminder.py:46 ../src/billreminderd.py:24
 msgid "Displays the version number for this application."
 msgstr "Megjeleníti az alkalmazás verziószámát."
 
-#: ../src/billreminder.py:41
+#: ../src/billreminder.py:47
 msgid "About this application."
 msgstr "Az alkalmazás névjegye."
 
-#: ../src/billreminder.py:42
+#: ../src/billreminder.py:48
 msgid "Adds a new bill to the database."
 msgstr "Új számla hozzáadása az adatbázishoz."
 
-#: ../src/billreminder.py:43
+#: ../src/billreminder.py:49
 msgid "Access database directly, without daemon."
 msgstr "Az adatbázis démon nélküli közvetlen elérése."
 
-#: ../src/billreminder.py:52
+#: ../src/billreminder.py:58
 msgid "This option is not implemented yet."
 msgstr "Ez a lehetőség még nincs megvalósítva."
 
-#: ../src/billreminder.py:54 ../src/billreminderd.py:42
-#: ../src/daemon/dbus_manager.py:44
+#: ../src/billreminder.py:60 ../src/billreminderd.py:42
+#: ../src/daemon/dbus_manager.py:43
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
 msgstr "Ez a %(appname)s %(version)s verziója"
@@ -186,45 +282,37 @@ msgstr "A démon és a grafikus kezelőfelület elindítása."
 msgid "Stop daemon."
 msgstr "A démon leállítása"
 
-#: ../src/daemon/alarm.py:63
+#: ../src/daemon/alarm.py:76
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] "%s befizetetlen számlája van."
 msgstr[1] "%s befizetetlen számlája van."
 
-#: ../src/daemon/alarm.py:68
+#: ../src/daemon/alarm.py:81
 msgid "Show BillReminder"
 msgstr "A Számlafigyelő megjelenítése"
 
-#: ../src/daemon/alarm.py:70 ../src/daemon/alarm.py:131
-msgid "Cancel"
-msgstr "Mégsem"
-
-#: ../src/daemon/alarm.py:105 ../src/daemon/alarm.py:202
+#: ../src/daemon/alarm.py:123 ../src/daemon/alarm.py:230
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr "A(z) %(bill)s számla befizetése ekkor lesz esedékes: %(day)s."
 
-#: ../src/daemon/alarm.py:117
+#: ../src/daemon/alarm.py:135
 #, python-format
 msgid "The bill %s is due."
 msgstr "A(z) %s számla most esedékes."
 
-#. Button Title
-#: ../src/daemon/alarm.py:128 ../src/gui/maindialog.py:299
-#: ../src/gui/maindialog.py:332 ../src/lib/utils.py:135
-msgid "Mark as paid"
-msgstr "Befizetett"
-
-#: ../src/daemon/alarm.py:130 ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:148 ../src/gui/maindialog.py:135
+#: ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Szerkesztés"
 
 #: ../src/daemon/main.py:85
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr "Már létezik a zárolásfájl. Már fut az alkalmazás egy példánya. (pid=%d)"
+msgstr ""
+"Már létezik a zárolásfájl. Már fut az alkalmazás egy példánya. (pid=%d)"
 
 #: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
@@ -248,7 +336,7 @@ msgstr "Sikertelen."
 msgid "BillReminder Notifier is already running."
 msgstr "A Számlafigyelő-értesítő már fut."
 
-#: ../src/gui/aboutdialog.py:21
+#: ../src/gui/aboutdialog.py:16
 msgid "translator-credits"
 msgstr ""
 "Kelemen Gábor <kelemeng@gnome.hu>\n"
@@ -256,92 +344,53 @@ msgstr ""
 "Launchpad közreműködők:\n"
 "  HORVATH, Akos https://launchpad.net/~akos-horvath"
 
-#: ../src/gui/aboutdialog.py:44
+#: ../src/gui/aboutdialog.py:30
 msgid "BillReminder Website"
 msgstr "A Számlafigyelő weboldala"
 
-#: ../src/gui/adddialog.py:80
-msgid "<b>_Repeat:</b>"
-msgstr "<b>_Ismétlés:</b>"
-
-#: ../src/gui/adddialog.py:86
-msgid "<b>Due Date:</b>"
-msgstr "<b>Esedékesség napja:</b>"
-
-#. TRANSLATORS: This is the end date for repeating bills.
-#: ../src/gui/adddialog.py:90
-msgid "<b>End Date:</b>"
-msgstr "<b>Lejárat napja:</b>"
-
-#: ../src/gui/adddialog.py:107
-msgid "<b>_Payee:</b>"
-msgstr "<b>_Kiállító:</b>"
-
-#: ../src/gui/adddialog.py:110
-msgid "<b>_Amount:</b>"
-msgstr "<b>Ö_sszeg:</b>"
-
-#: ../src/gui/adddialog.py:113
-msgid "<b>_Category:</b>"
-msgstr "<b>K_ategória:</b>"
-
-#: ../src/gui/adddialog.py:116
-msgid "<b>_Notes:</b>"
-msgstr "<b>Megjegy_zések:</b>"
-
-#: ../src/gui/adddialog.py:119
-msgid "<b>A_larm:</b>"
-msgstr "<b>_Riasztás:</b>"
-
-#: ../src/gui/adddialog.py:144
-msgid "Manage Categories"
-msgstr "Kategóriák kezelése"
-
-#: ../src/gui/adddialog.py:167 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:103 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Válasszon dátumot és időt"
 
-#. # Expander
-#: ../src/gui/adddialog.py:202
-msgid "<b>Optional Fields:</b>"
-msgstr "<b>Elhagyható mezők:</b>"
-
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:351 ../src/gui/adddialog.py:375
-#: ../src/gui/maindialog.py:280 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:240 ../src/gui/adddialog.py:264
+#: ../src/gui/maindialog.py:232 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "Nincs"
 
-#: ../src/gui/adddialog.py:357 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:246 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Új kategória"
 
-#: ../src/gui/adddialog.py:397
+#: ../src/gui/adddialog.py:286
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
-msgstr "A befejező dátum megelőzi a kezdődátumot. A kezdődátummal egyezőre lesz állítva."
+msgstr ""
+"A befejező dátum megelőzi a kezdődátumot. A kezdődátummal egyezőre lesz "
+"állítva."
 
-#: ../src/gui/adddialog.py:398
+#: ../src/gui/adddialog.py:287
 msgid "Date set in the past"
 msgstr "A dátum a múltban van"
 
-#: ../src/gui/adddialog.py:499
+#: ../src/gui/adddialog.py:402
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "„%s” és „%s” mezőket ki kell tölteni."
 
-#: ../src/gui/adddialog.py:500 ../src/gui/adddialog.py:504
-#: ../src/gui/widgets/viewbill.py:89
+#: ../src/gui/adddialog.py:403 ../src/gui/adddialog.py:406
+#: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Kiállító"
 
-#: ../src/gui/adddialog.py:500 ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/adddialog.py:403 ../src/gui/adddialog.py:409
+#: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Összeg"
 
-#: ../src/gui/adddialog.py:504
+#: ../src/gui/adddialog.py:406 ../src/gui/adddialog.py:409
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "„%s” mezőt ki kell tölteni"
@@ -362,7 +411,7 @@ msgstr "Név:"
 msgid "Color:"
 msgstr "Szín:"
 
-#: ../src/gui/categoriesdialog.py:219
+#: ../src/gui/categoriesdialog.py:215
 #, python-format
 msgid ""
 "The category \"%s\" already exists in the database!\n"
@@ -373,130 +422,52 @@ msgstr ""
 "\n"
 "Akarja a változtatásokat a meglévő kategóriára alkalmazni?"
 
-#: ../src/gui/categoriesdialog.py:246
+#: ../src/gui/categoriesdialog.py:239
 msgid "Do you really want to delete this category?\n"
 msgstr "Valóban törli ezt a kategóriát?\n"
 
-#: ../src/gui/categoriesdialog.py:247
+#: ../src/gui/categoriesdialog.py:240
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
 msgstr[0] "Még %d számla van ebben a kategóriában."
 msgstr[1] "Még %d számla van ebben a kategóriában."
 
-#: ../src/gui/categoriesdialog.py:250 ../src/gui/maindialog.py:567
+#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:426
 msgid "Confirmation"
 msgstr "Jóváhagyás"
 
-#: ../src/gui/maindialog.py:292
-msgid "New"
-msgstr "Új"
+#. for some reason the actions strings do not get translated yet
+#. so we define them here so they would be picked up by the pyfile scanner
+#: ../src/gui/maindialog.py:132
+msgid "Add New"
+msgstr "Új felvitele"
 
-#. Dialog Title
-#: ../src/gui/maindialog.py:292 ../src/gui/maindialog.py:328
-#: ../src/lib/dialogs.py:51
-msgid "Add a new bill"
+#: ../src/gui/maindialog.py:133
+msgid "Add new bill"
 msgstr "Új számla felvétele"
 
-#. Dialog Title
-#: ../src/gui/maindialog.py:294 ../src/gui/maindialog.py:329
-#: ../src/lib/dialogs.py:62
-msgid "Edit a bill"
-msgstr "Számla szerkesztése"
+#: ../src/gui/maindialog.py:138
+msgid "Delete"
+msgstr "Törlés"
 
-#: ../src/gui/maindialog.py:296 ../src/gui/maindialog.py:330
-msgid "Delete selected bill"
-msgstr "Kiválasztott számla törlése"
-
-#: ../src/gui/maindialog.py:299 ../src/gui/widgets/viewbill.py:97
+#: ../src/gui/maindialog.py:141 ../src/gui/widgets/viewbill.py:93
 msgid "Paid"
 msgstr "Befizetett"
 
-#: ../src/gui/maindialog.py:302
+#: ../src/gui/maindialog.py:144
 msgid "Not Paid"
 msgstr "Befizetetlen"
 
-#: ../src/gui/maindialog.py:302 ../src/gui/maindialog.py:333
-msgid "Mark as not paid"
-msgstr "Befizetetlen"
-
-#: ../src/gui/maindialog.py:327
-msgid "_File"
-msgstr "_Fájl"
-
-#: ../src/gui/maindialog.py:328 ../src/gui/maindialog.py:525
-msgid "_Add New"
-msgstr "Új _felvitele"
-
-#: ../src/gui/maindialog.py:331
-msgid "_Edit"
-msgstr "S_zerkesztés"
-
-#: ../src/gui/maindialog.py:332 ../src/gui/maindialog.py:535
-msgid "_Paid"
-msgstr "Befize_tett"
-
-#: ../src/gui/maindialog.py:333
-msgid "_Not Paid"
-msgstr "Befizetet_len"
-
-#: ../src/gui/maindialog.py:334
-msgid "Edit preferences"
-msgstr "Beállítások szerkesztése"
-
-#: ../src/gui/maindialog.py:335
-msgid "Quit the Program"
-msgstr "Kilépés az alkalmazásból"
-
-#: ../src/gui/maindialog.py:336
-msgid "_View"
-msgstr "_Nézet"
-
-#: ../src/gui/maindialog.py:337
-msgid "_Help"
-msgstr "_Súgó"
-
-#: ../src/gui/maindialog.py:338
-msgid "About the application"
-msgstr "Az alkalmazás névjegye"
-
-#: ../src/gui/maindialog.py:348
-msgid "_Show Toolbar"
-msgstr "_Eszköztár megjelenítése"
-
-#: ../src/gui/maindialog.py:348
+#: ../src/gui/maindialog.py:148
 msgid "Show the toolbar"
 msgstr "Az eszköztár megjelenítése"
 
-#: ../src/gui/maindialog.py:352
-msgid "_Not Paid Only"
-msgstr "Csak a befizetet_lenek"
+#: ../src/gui/maindialog.py:239
+msgid "%m/%d"
+msgstr "%m. %d."
 
-#: ../src/gui/maindialog.py:352
-msgid "Display all unpaid bills only"
-msgstr "Csak az összes befizetetlen megjelenítése"
-
-#: ../src/gui/maindialog.py:353
-msgid "_Paid Only"
-msgstr "Csak a befize_tettek"
-
-#: ../src/gui/maindialog.py:353
-msgid "Display all paid bills only"
-msgstr "Csak az összes befizetett megjelenítése"
-
-#: ../src/gui/maindialog.py:354
-msgid "_All Bills"
-msgstr "_Minden számla"
-
-#: ../src/gui/maindialog.py:354
-msgid "Display all bills"
-msgstr "Minden számla megjelenítése"
-
-#: ../src/gui/maindialog.py:538
-msgid "Not _Paid"
-msgstr "Befizete_tlen"
-
-#: ../src/gui/maindialog.py:565
+#: ../src/gui/maindialog.py:424
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Valóban törli a következőt: „%s”?"
@@ -505,51 +476,51 @@ msgstr "Valóban törli a következőt: „%s”?"
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: ../src/gui/prefdialog.py:54
+#: ../src/gui/prefdialog.py:55
 msgid "<b>Alarms</b>"
 msgstr "<b>Riasztások</b>"
 
-#: ../src/gui/prefdialog.py:60
+#: ../src/gui/prefdialog.py:61
 msgid "_Alert before due date:"
 msgstr "_Riasztás az esedékesség dátuma előtt:"
 
-#: ../src/gui/prefdialog.py:65 ../src/gui/prefdialog.py:115
+#: ../src/gui/prefdialog.py:66 ../src/gui/prefdialog.py:116
 msgid "day(s)."
 msgstr "nappal."
 
-#: ../src/gui/prefdialog.py:68
+#: ../src/gui/prefdialog.py:69
 msgid "_Preferred time:"
 msgstr "Ebben az i_dőpontban:"
 
-#: ../src/gui/prefdialog.py:71
+#: ../src/gui/prefdialog.py:72
 msgid "Get alerted when individual bills are due."
 msgstr "Riasztást kérek az egyes számlák befizetésének esedékességéről."
 
-#: ../src/gui/prefdialog.py:95
+#: ../src/gui/prefdialog.py:96
 msgid "<b>Notifications</b>"
 msgstr "<b>Értesítések</b>"
 
-#: ../src/gui/prefdialog.py:101
+#: ../src/gui/prefdialog.py:102
 msgid "Define when to be notified of upcoming bills."
 msgstr "Adja meg, hogy mikor kér értesítést az esedékes számlákról."
 
-#: ../src/gui/prefdialog.py:109
+#: ../src/gui/prefdialog.py:110
 msgid "_Notify before due date:"
 msgstr "Ért_esítés az esedékesség dátuma előtt:"
 
-#: ../src/gui/prefdialog.py:130
+#: ../src/gui/prefdialog.py:131
 msgid "<b>Alert Type</b>"
 msgstr "<b>Riasztás típusa</b>"
 
-#: ../src/gui/prefdialog.py:140
+#: ../src/gui/prefdialog.py:141
 msgid "Notification _Bubble"
 msgstr "Értesítő b_uborék"
 
-#: ../src/gui/prefdialog.py:142
+#: ../src/gui/prefdialog.py:143
 msgid "Alert _Dialog"
 msgstr "Riasztás_ablak"
 
-#: ../src/gui/prefdialog.py:154
+#: ../src/gui/prefdialog.py:155
 msgid ""
 "<b>Warning:</b> BillReminder Notifier is \n"
 "not running! You need to start it in order \n"
@@ -559,11 +530,11 @@ msgstr ""
 "nem fut! Ha szeretne értesítéseket kapni,\n"
 "el kell indítania!"
 
-#: ../src/gui/prefdialog.py:161
+#: ../src/gui/prefdialog.py:162
 msgid "_Start BillReminder Notifier"
 msgstr "A Számlafigyelő-értesítő i_ndítása"
 
-#: ../src/gui/prefdialog.py:233
+#: ../src/gui/prefdialog.py:231
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr "<b>Megjegyzés:</b> a Számlafigyelő-értesítő működik."
 
@@ -616,28 +587,23 @@ msgstr "Névjegy"
 msgid "Quit"
 msgstr "Kilépés"
 
-#. TRANSLATORS: This is a date format. You can change the order.
-#: ../src/gui/widgets/viewbill.py:46
-msgid "%m/%d"
-msgstr "%m. %d."
-
-#: ../src/gui/widgets/viewbill.py:87 ../src/gui/widgets/viewcategory.py:39
+#: ../src/gui/widgets/viewbill.py:83 ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
 msgstr "Kategória"
 
-#: ../src/gui/widgets/viewbill.py:91
+#: ../src/gui/widgets/viewbill.py:87
 msgid "Date"
 msgstr "Dátum"
 
-#: ../src/gui/widgets/viewbill.py:95
+#: ../src/gui/widgets/viewbill.py:91
 msgid "Notes"
 msgstr "Megjegyzések"
 
-#: ../src/gui/widgets/viewbill.py:99
+#: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr "Riasztás"
 
-#: ../src/lib/common.py:18
+#: ../src/lib/common.py:19
 msgid "Developers:"
 msgstr "Fejlesztők:"
 
@@ -691,4 +657,3 @@ msgstr "Hetente"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Havonta"
-
