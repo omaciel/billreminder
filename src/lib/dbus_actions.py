@@ -7,12 +7,10 @@ import dbus.service
 import os
 from subprocess import Popen
 
-import dal
-import bill
 from lib import common, scheduler
 from lib.utils import force_string
 from lib.utils import Message
-from db.billstable import BillsTable
+from db.entities import Bill, Category
 
 class Actions(object):
 
@@ -23,40 +21,54 @@ class Actions(object):
                                          common.DBUS_PATH)
             self.dbus_interface = dbus.Interface(obj, common.DBUS_INTERFACE)
             pid = os.getpid()
-            print self.dbus_interface.register(pid)
+            self.dbus_interface.register(pid)
         except dbus.DBusException:
-            if Message().ShowErrorQuestion( \
+            '''if Message().ShowErrorQuestion( \
               _("An error occurred while connecting to BillReminder Notifier!\n"\
                 "Do you want to launch it and restart BillReminder?")):
                 Popen('python billreminderd --open-gui', shell=True)
                 raise SystemExit
-            return False
+            return False'''
+            print 'error'
 
     def _correct_type(self, record):
         if not isinstance(record, dict):
             return record
 
-        if 'Id' in record.keys():
-            record['Id'] = int(record['Id'])
-        if 'dueDate' in record.keys():
-            record['dueDate'] = int(record['dueDate'])
-        if 'amountDue' in record.keys():
-            record['amountDue'] = float(record['amountDue'].replace(',', '.'))
-        if 'paid' in record.keys():
-            record['paid'] = int(record['paid'])
-        if 'alarm' in record.keys():
-            record['alarm'] = int(record['alarm'])
-        if 'catId' in record.keys():
-            if record['catId'] and 'None' not in record['catId']:
-                record['catId'] = int(record['catId'])
+        
 
         return record
 
-    def get_monthly_totals(self, status, month, year):
+    def get_interval_bills(self, start, end, paid):
+        #try:
+        ret = []
+        records = self.dbus_interface.get_interval_bills(start.toordinal(), end.toordinal(), paid)
+        print records
+        for record in records:
+            record = self._correct_type(record)
+            ret.append(record)
+        return ret
+        #except dbus.DBusException:
+        #    if self.__init__():
+        #        return self.get_monthly_bills(status, start, end)
+
+    def get_alarm_bills(self, start, end, paid):
+        #try:
+        ret = []
+        records = self.dbus_interface.get_alarm_bills(start.toordinal(), end.toordinal(), paid)
+        for record in records:
+            record = self._correct_type(record)
+            ret.append(record)
+        return ret
+        #except dbus.DBusException:
+        #    if self.__init__():
+        #        return self.get_monthly_bills(status, start, end)
+
+    def get_monthly_totals(self, month, year, paid):
         # Return a list of categories and totals for the given month
         #try:
         ret = []
-        records = self.dbus_interface.get_monthly_totals(status, month, year)
+        records = self.dbus_interface.get_monthly_totals(month.toordinal(), year.toordinal(), paid)
         for record in records:
             record = self._correct_type(record)
             ret.append(record)
@@ -66,10 +78,10 @@ class Actions(object):
         #        return self.get_monthly_totals(status, month, year)
 
 
-    def get_monthly_bills(self, status, month, year):
+    def get_monthly_bills(self, month, year, paid):
         #try:
         ret = []
-        records = self.dbus_interface.get_monthly_bills(status, month, year)
+        records = self.dbus_interface.get_monthly_bills(month, year, paid)
         for record in records:
             record = self._correct_type(record)
             ret.append(record)
@@ -78,39 +90,12 @@ class Actions(object):
         #    if self.__init__():
         #        return self.get_monthly_bills(status, month, year)
 
-    def get_interval_totals(self, status, start, end):
-        # Return a list of categories and totals for the given month
-        #try:
-        ret = []
-        records = self.dbus_interface.get_interval_totals(status, start, end)
-        for record in records:
-            record = self._correct_type(record)
-            ret.append(record)
-        return ret
-        #except dbus.DBusException:
-        #    if self.__init__():
-        #        return self.get_interval_totals(status, start, end)
-
-
-    def get_interval_bills(self, status, start, end):
-        #try:
-        ret = []
-        records = self.dbus_interface.get_interval_bills(status, start, end)
-        for record in records:
-            record = self._correct_type(record)
-            ret.append(record)
-        return ret
-        #except dbus.DBusException:
-        #    if self.__init__():
-        #        return self.get_monthly_bills(status, start, end)
-
-        
-    def get_bills(self, kwargs):
+    def get_bills(self, **kwargs):
         """ Returns one or more records that meet the criteria passed """
         try:
             ret = []
             if isinstance(kwargs, basestring):
-                records = self.dbus_interface.get_bills_(kwargs)
+                records = self.dbus_interface.get_bills_(**kwargs)
             else:
                 records = self.dbus_interface.get_bills(force_string(kwargs))
             for record in records:
@@ -119,38 +104,13 @@ class Actions(object):
             return ret
         except dbus.DBusException:
             if self.__init__():
-                return self.get_bills(kwargs)
+                return self.get_bills(**kwargs)
 
-    def add_bill(self, kwargs):
-        """ Adds a bill to the database """
-        try:
-            record = self.dbus_interface.add_bill(force_string(kwargs))
-            return self._correct_type(record)
-        except dbus.DBusException:
-            if self.__init__():
-                return self.add_bill(kwargs)
-
-    def edit_bill(self, kwargs):
-        """ Edit a record in the database """
-        try:
-            record = self.dbus_interface.edit_bill(force_string(kwargs))
-            return self._correct_type(record)
-        except dbus.DBusException:
-            if self.__init__():
-                return self.edit_bill(kwargs)
-
-    def delete_bill(self, key):
-        """ Delete a record in the database """
-        try:
-            return self.dbus_interface.delete_bill(key)
-        except dbus.DBusException:
-            if self.__init__():
-                return self.delete_bill(kwargs)
-
-    def get_categories(self, kwargs):
+    def get_categories(self, **kwargs):
         """ Returns one or more records that meet the criteria passed """
         try:
             ret = []
+            print kwargs
             if isinstance(kwargs, basestring):
                 records = self.dbus_interface.get_categories_(kwargs)
             else:
@@ -161,30 +121,30 @@ class Actions(object):
             return ret
         except dbus.DBusException:
             if self.__init__():
-                return self.get_categories(kwargs)
+                return self.get_categories(**kwargs)
 
-    def add_category(self, kwargs):
-        """ Adds a category to the database """
+    def add(self, kwargs):
+        """ Adds a bill to the database """
         try:
-            record = self.dbus_interface.add_category(force_string(kwargs))
+            record = self.dbus_interface.add(force_string(kwargs.__dict__))
             return self._correct_type(record)
         except dbus.DBusException:
             if self.__init__():
-                return self.add_category(kwargs)
+                return self.add(kwargs)
 
-    def edit_category(self, kwargs):
+    def edit(self, kwargs):
         """ Edit a record in the database """
         try:
-            record = self.dbus_interface.edit_category(force_string(kwargs))
+            record = self.dbus_interface.edit(force_string(kwargs.__dict__))
             return self._correct_type(record)
         except dbus.DBusException:
             if self.__init__():
-                return self.edit_category(kwargs)
+                return self.edit(kwargs)
 
-    def delete_category(self, key):
+    def delete(self, kwargs):
         """ Delete a record in the database """
         try:
-            return self.dbus_interface.delete_category(key)
+            return self.dbus_interface.delete(force_string(props(kwargs)))
         except dbus.DBusException:
             if self.__init__():
-                return self.delete_category(kwargs)
+                return self.delete(kwargs)
