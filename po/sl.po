@@ -1,16 +1,18 @@
+# Slovenian translation for billreminder.
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the billreminder package.
+#
 # Martin Božič <martin.bozic@gmail.com>, 2008.
 # Matej Urbančič <mateju@svn.gnome.org>, 2009.
-# Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009.
+# Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2009 - 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: billreminder\n"
+"Project-Id-Version: billreminder master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=billreminder&component=general\n"
 "POT-Creation-Date: 2009-12-20 20:13+0000\n"
-"PO-Revision-Date: 2009-12-28 09:58+0100\n"
-"Last-Translator: Andrej Žnidaršič <andrej.znidarsic@gmail.com>\n"
+"PO-Revision-Date: 2010-06-03 14:48+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,15 +83,15 @@ msgstr "Zamik med obvestili."
 
 #: ../data/billreminder.schemas.in.h:10
 msgid "Display only paid bills."
-msgstr "Prikaži le plačane račune."
+msgstr "Pokaži le plačane račune."
 
 #: ../data/billreminder.schemas.in.h:11
 msgid "Display the menu bar."
-msgstr "Prikaži menijsko vrstico."
+msgstr "Pokaži menijsko vrstico."
 
 #: ../data/billreminder.schemas.in.h:12
 msgid "Display the toolbar."
-msgstr "Prikaži orodno vrstico."
+msgstr "Pokaži orodno vrstico."
 
 #: ../data/billreminder.schemas.in.h:13
 msgid "How long to display the alarm notification."
@@ -213,11 +215,11 @@ msgstr "_Pogled"
 
 #: ../data/add_bill.ui.h:1
 msgid "A_larm:\t"
-msgstr "Opo_zorilo:\t"
+msgstr "_Alarm:\t"
 
 #: ../data/add_bill.ui.h:2
 msgid "Manage Categories"
-msgstr "Upravljanje s kategorijami"
+msgstr "Upravljanje kategorij"
 
 #: ../data/add_bill.ui.h:3
 msgid "Optional Fields"
@@ -311,7 +313,7 @@ msgstr[3] "Imate %s neporavnane račune!"
 
 #: ../src/daemon/alarm.py:76
 msgid "Show BillReminder"
-msgstr "Prikaži BillReminder"
+msgstr "Pokaži BillReminder"
 
 #: ../src/daemon/alarm.py:78
 #: ../src/daemon/alarm.py:141
@@ -338,15 +340,15 @@ msgstr "Uredi"
 #: ../src/daemon/main.py:85
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr "Najdena je bila zaklepna datoteka: zagnan je drug primer programa (pid=%d)"
+msgstr "Najdena je bila datoteka zaklepa: zagnan je drug primer programa (pid=%d)"
 
 #: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
-msgstr "Najdena je bila zaklepna datoteka: morda se je program nepričakovano končal."
+msgstr "Najdena je bila datoteka zaklepa: morda se je program nepričakovano končal."
 
 #: ../src/daemon/main.py:93
 msgid "Removing Lock File..."
-msgstr "Odstranjevanje zaklepne datoteke ..."
+msgstr "Odstranjevanje datoteke zaklepa ..."
 
 #: ../src/daemon/main.py:95
 msgid "Successfully."
@@ -691,9 +693,9 @@ msgid "Monthly"
 msgstr "Mesečno"
 
 #~ msgid "<b>_Payee:</b>"
-#~ msgstr "<b>_Prejemnik:</b>"
+#~ msgstr "<b>_Plačnik:</b>"
 #~ msgid "<b>_Amount:</b>"
-#~ msgstr "<b>Ko_ličina:</b>"
+#~ msgstr "<b>_Znesek:</b>"
 #~ msgid "<b>_Category:</b>"
 #~ msgstr "<b>_Kategorija:</b>"
 #~ msgid "<b>_Notes:</b>"
@@ -715,21 +717,21 @@ msgstr "Mesečno"
 #~ msgid "About the application"
 #~ msgstr "O programu"
 #~ msgid "Display all unpaid bills only"
-#~ msgstr "Pokaže le neplačane račune"
+#~ msgstr "Pokaži le neplačane račune"
 #~ msgid "Display all paid bills only"
-#~ msgstr "Pokaže le plačane račune"
+#~ msgstr "Pokaži le plačane račune"
 #~ msgid "Display all bills"
-#~ msgstr "Pokaže vse račune"
+#~ msgstr "Pokaži vse račune"
 #~ msgid "Not _Paid"
 #~ msgstr "Ni _plačano"
 #~ msgid "How many times to repeat this bill."
-#~ msgstr "Kolikokrat ponoviti ta račun."
+#~ msgstr "Kolikokrat naj se ta račun ponovi?"
 #~ msgid "Edit a record"
 #~ msgstr "Uredi zapis"
 #~ msgid "_All Records"
 #~ msgstr "_Vsi zapisi"
 #~ msgid "Display all records"
-#~ msgstr "Prikaži vse zapise"
+#~ msgstr "Pokaži vse zapise"
 #~ msgid "Records:"
 #~ msgstr "Zapisi:"
 #~ msgid "Add a New Record"
@@ -737,7 +739,7 @@ msgstr "Mesečno"
 #~ msgid "Edit a Record"
 #~ msgstr "Uredi zapis"
 #~ msgid "%Y/%m/%d"
-#~ msgstr "%d/%m/%Y"
+#~ msgstr "%d.%m.%Y"
 #~ msgid "Date:"
 #~ msgstr "Datum:"
 #~ msgid "Time:"
@@ -746,4 +748,3 @@ msgstr "Mesečno"
 #~ msgstr "Ura:"
 #~ msgid "Minute :"
 #~ msgstr "Minuta:"
-
