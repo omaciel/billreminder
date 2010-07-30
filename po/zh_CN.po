@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: billreminder master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=billreminder&component=general\n"
-"POT-Creation-Date: 2010-03-24 14:49+0000\n"
-"PO-Revision-Date: 2010-03-29 13:50+0800\n"
-"Last-Translator: Eleanor Chen <chenyueg@gmail.com>\n"
+"POT-Creation-Date: 2010-06-03 13:01+0000\n"
+"PO-Revision-Date: 2010-07-30 18:58+0800\n"
+"Last-Translator: du baodao <centerpoint@139.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,12 +88,10 @@ msgid "How long to display the alarm notification."
 msgstr "警告通知显示时长。"
 
 #: ../data/billreminder.schemas.in.h:14
-#, fuzzy
 msgid "How many days prior to due date to alert."
 msgstr "应付日期之前多少天发出警报。"
 
 #: ../data/billreminder.schemas.in.h:15
-#, fuzzy
 msgid "How many days prior to due date to notify."
 msgstr "应付日期之前多少天通知。"
 
@@ -287,8 +285,7 @@ msgstr "停止守护进程。"
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "您有 %s 未支付的账单需要支付"
 
 #: ../src/daemon/alarm.py:81
 msgid "Show BillReminder"
@@ -485,7 +482,7 @@ msgstr "喜好的时间(_P)："
 
 #: ../src/gui/prefdialog.py:72
 msgid "Get alerted when individual bills are due."
-msgstr ""
+msgstr "在个别账单到期时发出警报"
 
 #: ../src/gui/prefdialog.py:96
 msgid "<b>Notifications</b>"
@@ -493,7 +490,7 @@ msgstr "<b>通知</b>"
 
 #: ../src/gui/prefdialog.py:102
 msgid "Define when to be notified of upcoming bills."
-msgstr ""
+msgstr "定义什么时候通知将要到来的账单。"
 
 #: ../src/gui/prefdialog.py:110
 msgid "_Notify before due date:"
@@ -505,7 +502,7 @@ msgstr "<b>警报类型</b>"
 
 #: ../src/gui/prefdialog.py:141
 msgid "Notification _Bubble"
-msgstr ""
+msgstr "通知气泡(_B)"
 
 #: ../src/gui/prefdialog.py:143
 msgid "Alert _Dialog"
