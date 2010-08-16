@@ -19,7 +19,6 @@ from gui.widgets.chartwidget import ChartWidget
 from gui.widgets.timeline import Timeline, Bullet
 
 # Import data model modules
-from lib.bill import Bill
 from lib.actions import Actions
 
 # Import common utilities
