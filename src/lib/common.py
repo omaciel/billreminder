@@ -11,7 +11,7 @@ except:
 
 # Application info
 APPNAME = "BillReminder"
-COPYRIGHT_YEAR = '2006 - 2009'
+COPYRIGHT_YEAR = '2006 - 2010'
 COPYRIGHTS = "%s - Copyright (c) %s\n" \
              "Og Maciel <ogmaciel@gnome.org>" % (APPNAME, COPYRIGHT_YEAR)
 WEBSITE = "http://billreminder.gnulinuxbrasil.org/"
