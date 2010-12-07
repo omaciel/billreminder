@@ -86,6 +86,7 @@ class MainDialog:
 
         # Chart
         self.chart = ChartWidget()
+        self.chart.set_border_width(10)
         self.ui.get_object("chart_box").add(self.chart)
 
         # Restore position and size of window

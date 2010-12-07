@@ -4,21 +4,18 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
-from charting import HorizontalBarChart
+from charting import Chart
 
 class ChartWidget(gtk.EventBox):
-   background = (0.975, 0.975, 0.975)
    x_offset = 90 # align all graphs to the left edge
 
    def __init__(self):
        gtk.EventBox.__init__(self)
 
-       self.chart = HorizontalBarChart(
-           background = self.background,
-           bar_base_color = (238,221,221),
+       self.chart = Chart(
            legend_width = self.x_offset,
            max_bar_width = 35,
-           values_on_bars = True
+           interactive = False
        )
 
        self.add(self.chart)

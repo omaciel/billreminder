@@ -5,651 +5,339 @@
 # Heavily based on caurina Tweener: http://code.google.com/p/tweener/
 #
 # Released under M.I.T License - see above url
-# Python version by Ben Harling 2009 
+# Python version by Ben Harling 2009
+# All kinds of slashing and dashing by Toms Baugis 2010
 import math
+import collections
+import datetime as dt
+import time
+import re
 
-class Tweener:
-    def __init__(self, duration = 0.5, tween = None):
+class Tweener(object):
+    def __init__(self, default_duration = None, tween = None):
         """Tweener
         This class manages all active tweens, and provides a factory for
         creating and spawning tween motions."""
-        self.currentTweens = []
-        self.defaultTweenType = tween or Easing.Cubic.easeInOut
-        self.defaultDuration = duration or 1.0
- 
-    def hasTweens(self):
-        return len(self.currentTweens) > 0
- 
- 
-    def addTween(self, obj, **kwargs):
-        """ addTween( object, **kwargs) -> tweenObject or False
- 
-            Example:
-            tweener.addTween( myRocket, throttle=50, setThrust=400, tweenTime=5.0, tweenType=tweener.OUT_QUAD )
- 
-            You must first specify an object, and at least one property or function with a corresponding
-            change value. The tween will throw an error if you specify an attribute the object does
-            not possess. Also the data types of the change and the initial value of the tweened item
-            must match. If you specify a 'set' -type function, the tweener will attempt to get the
-            starting value by call the corresponding 'get' function on the object. If you specify a 
-            property, the tweener will read the current state as the starting value. You add both 
-            functions and property changes to the same tween.
- 
-            in addition to any properties you specify on the object, these keywords do additional
-            setup of the tween.
- 
-            tweenTime = the duration of the motion
-            tweenType = one of the predefined tweening equations or your own function
-            onCompleteFunction = specify a function to call on completion of the tween
-            onUpdateFunction = specify a function to call every time the tween updates
-            tweenDelay = specify a delay before starting.
-            """
-        if "tweenTime" in kwargs:
-            t_time = kwargs.pop("tweenTime")
-        else: t_time = self.defaultDuration
- 
-        if "tweenType" in kwargs:
-            t_type = kwargs.pop("tweenType")
-        else: t_type = self.defaultTweenType
- 
-        if "onCompleteFunction" in kwargs:
-            t_completeFunc = kwargs.pop("onCompleteFunction")
-        else: t_completeFunc = None
- 
-        if "onUpdateFunction" in kwargs:
-            t_updateFunc = kwargs.pop("onUpdateFunction")
-        else: t_updateFunc = None
- 
-        if "tweenDelay" in kwargs:
-            t_delay = kwargs.pop("tweenDelay")
-        else: t_delay = 0
- 
-        tw = Tween( obj, t_time, t_type, t_completeFunc, t_updateFunc, t_delay, **kwargs )
-        if tw:    
-            self.currentTweens.append( tw )
+        self.current_tweens = collections.defaultdict(set)
+        self.default_easing = tween or Easing.Cubic.ease_in_out
+        self.default_duration = default_duration or 1.0
+
+    def has_tweens(self):
+        return len(self.current_tweens) > 0
+
+
+    def add_tween(self, obj, duration = None, easing = None, on_complete = None, on_update = None, **kwargs):
+        """
+            Add tween for the object to go from current values to set ones.
+            Example: add_tween(sprite, x = 500, y = 200, duration = 0.4)
+            This will move the sprite to coordinates (500, 200) in 0.4 seconds.
+            For parameter "easing" you can use one of the pytweener.Easing
+            functions, or specify your own.
+            The tweener can handle numbers, dates and color strings in hex ("#ffffff").
+            This function performs overwrite style conflict solving - in case
+            if a previous tween operates on same attributes, the attributes in
+            question are removed from that tween.
+        """
+        if duration is None:
+            duration = self.default_duration
+
+        easing = easing or self.default_easing
+
+        tw = Tween(obj, duration, easing, on_complete, on_update, **kwargs )
+
+        if obj in self.current_tweens:
+            for current_tween in tuple(self.current_tweens[obj]):
+                prev_keys = set((key for (key, tweenable) in current_tween.tweenables))
+                dif = prev_keys & set(kwargs.keys())
+
+                for key, tweenable in tuple(current_tween.tweenables):
+                    if key in dif:
+                        current_tween.tweenables.remove((key, tweenable))
+
+                if not current_tween.tweenables:
+                    current_tween.finish()
+                    self.current_tweens[obj].remove(current_tween)
+
+
+        self.current_tweens[obj].add(tw)
         return tw
- 
-    def removeTween(self, tweenObj):
-        if tweenObj in self.currentTweens:
-            tweenObj.complete = True
-            #self.currentTweens.remove( tweenObj )
- 
-    def getTweensAffectingObject(self, obj):
+
+
+    def get_tweens(self, obj):
         """Get a list of all tweens acting on the specified object
         Useful for manipulating tweens on the fly"""
-        tweens = []
-        for t in self.currentTweens:
-            if t.target is obj:
-                tweens.append(t)
-        return tweens
- 
-    def removeTweeningFrom(self, obj):
-        """Stop tweening an object, without completing the motion
-        or firing the completeFunction"""
-        for t in self.currentTweens:
-            if t.target is obj:
-                t.complete = True
- 
-    def finish(self):
-        #go to last frame for all tweens
-        for t in self.currentTweens:
-            t.update(t.duration)
-        self.currentTweens = []
- 
-    def update(self, timeSinceLastFrame):
-        removable = []
-        for t in self.currentTweens:
-            t.update(timeSinceLastFrame)
+        return self.current_tweens.get(obj, None)
 
-            if t.complete:
-                removable.append(t)
-                
-        for t in removable:
-            self.currentTweens.remove(t)
-            
- 
-class Tween(object):
-    def __init__(self, obj, tduration, tweenType, completeFunction, updateFunction, delay, **kwargs):
-        """Tween object:
-            Can be created directly, but much more easily using Tweener.addTween( ... )
-            """
-        #print obj, tduration, kwargs
-        self.duration = tduration
-        self.delay = delay
-        self.target = obj
-        self.tween = tweenType
-        self.tweenables = kwargs
-        self.delta = 0
-        self.completeFunction = completeFunction
-        self.updateFunction = updateFunction
-        self.complete = False
-        self.tProps = []
-        self.tFuncs = []
-        self.paused = self.delay > 0
-        self.decodeArguments()
- 
-    def decodeArguments(self):
-        """Internal setup procedure to create tweenables and work out
-           how to deal with each"""
- 
-        if len(self.tweenables) == 0:
-            # nothing to do 
-            print "TWEEN ERROR: No Tweenable properties or functions defined"
-            self.complete = True
-            return
- 
-        for k, v in self.tweenables.items():
- 
-        # check that its compatible
-            if not hasattr( self.target, k):
-                print "TWEEN ERROR: " + str(self.target) + " has no function " + k
-                self.complete = True
-                break
- 
-            prop = func = False
-            startVal = 0
-            newVal = v
- 
+    def kill_tweens(self, obj = None):
+        """Stop tweening an object, without completing the motion or firing the
+        on_complete"""
+        if obj:
             try:
-                startVal = self.target.__dict__[k]
-                prop = k
-                propName = k
- 
+                del self.current_tweens[obj]
             except:
-                func = getattr( self.target, k)
-                funcName = k
- 
-            if func:
-                try:
-                    getFunc = getattr(self.target, funcName.replace("set", "get") )
-                    startVal = getFunc()
-                except:
-                    # no start value, assume its 0
-                    # but make sure the start and change
-                    # dataTypes match :)
-                    startVal = newVal * 0
-                tweenable = Tweenable( startVal, newVal - startVal)    
-                newFunc = [ k, func, tweenable]
- 
-                #setattr(self, funcName, newFunc[2])
-                self.tFuncs.append( newFunc )
- 
- 
-            if prop:
-                tweenable = Tweenable( startVal, newVal - startVal)    
-                newProp = [ k, prop, tweenable]
-                self.tProps.append( newProp )  
- 
- 
-    def pause( self, numSeconds=-1 ):
-        """Pause this tween
-            do tween.pause( 2 ) to pause for a specific time
-            or tween.pause() which pauses indefinitely."""
-        self.paused = True
-        self.delay = numSeconds
- 
-    def resume( self ):
-        """Resume from pause"""
-        if self.paused:
-            self.paused=False
- 
-    def update(self, ptime):
-        """Update this tween with the time since the last frame
-            if there is an update function, it is always called
-            whether the tween is running or paused"""
-            
-        if self.complete:
-            return
-        
-        if self.paused:
-            if self.delay > 0:
-                self.delay = max( 0, self.delay - ptime )
-                if self.delay == 0:
-                    self.paused = False
-                    self.delay = -1
-                if self.updateFunction:
-                    self.updateFunction()
-            return
- 
-        self.delta = min(self.delta + ptime, self.duration)
- 
+                pass
+        else:
+            self.current_tweens = collections.defaultdict(set)
 
-        for propName, prop, tweenable in self.tProps:
-            self.target.__dict__[prop] = self.tween( self.delta, tweenable.startValue, tweenable.change, self.duration )
-        for funcName, func, tweenable in self.tFuncs:
-            func( self.tween( self.delta, tweenable.startValue, tweenable.change, self.duration ) )
- 
- 
+    def remove_tween(self, tween):
+        """"remove given tween without completing the motion or firing the on_complete"""
+        if tween.target in self.current_tweens and tween in self.current_tweens[tween.target]:
+            self.current_tweens[tween.target].remove(tween)
+            if not self.current_tweens[tween.target]:
+                del self.current_tweens[tween.target]
+
+    def finish(self):
+        """jump the the last frame of all tweens"""
+        for obj in self.current_tweens:
+            for tween in self.current_tweens[obj]:
+                tween.finish()
+        self.current_tweens = {}
+
+    def update(self, delta_seconds):
+        """update tweeners. delta_seconds is time in seconds since last frame"""
+
+        for obj in tuple(self.current_tweens):
+            for tween in tuple(self.current_tweens[obj]):
+                done = tween._update(delta_seconds)
+                if done:
+                    self.current_tweens[obj].remove(tween)
+                    if tween.on_complete: tween.on_complete(tween.target)
+
+            if not self.current_tweens[obj]:
+                del self.current_tweens[obj]
+
+        return self.current_tweens
+
+
+class Tween(object):
+    __slots__ = ('tweenables', 'target', 'delta', 'duration', 'ease', 'delta',
+                 'on_complete', 'on_update', 'complete')
+
+    def __init__(self, obj, duration, easing, on_complete, on_update, **kwargs):
+        """Tween object use Tweener.add_tween( ... ) to create"""
+        self.duration = duration
+        self.target = obj
+        self.ease = easing
+
+        # list of (property, start_value, delta)
+        self.tweenables = set()
+        for key, value in kwargs.items():
+            self.tweenables.add((key, Tweenable(self.target.__dict__[key], value)))
+
+        self.delta = 0
+        self.on_complete = on_complete
+        self.on_update = on_update
+        self.complete = False
+
+    def finish(self):
+        self._update(self.duration)
+
+    def _update(self, ptime):
+        """Update tween with the time since the last frame"""
+        self.delta = self.delta + ptime
+        if self.delta > self.duration:
+            self.delta = self.duration
+
         if self.delta == self.duration:
+            for key, tweenable in self.tweenables:
+                self.target.__setattr__(key, tweenable.target_value)
+        else:
+            fraction = self.ease(self.delta / self.duration)
+
+            for key, tweenable in self.tweenables:
+                self.target.__setattr__(key, tweenable.update(fraction))
+
+        if self.delta == self.duration or len(self.tweenables) == 0:
             self.complete = True
-            if self.completeFunction:
-                self.completeFunction()
- 
-        if self.updateFunction:
-            self.updateFunction()
- 
- 
- 
-    def getTweenable(self, name):
-        """Return the tweenable values corresponding to the name of the original
-        tweening function or property. 
- 
-        Allows the parameters of tweens to be changed at runtime. The parameters
-        can even be tweened themselves!
- 
-        eg:
- 
-        # the rocket needs to escape!! - we're already moving, but must go faster!
-        twn = tweener.getTweensAffectingObject( myRocket )[0]
-        tweenable = twn.getTweenable( "thrusterPower" )
-        tweener.addTween( tweenable, change=1000.0, tweenTime=0.4, tweenType=tweener.IN_QUAD )
- 
-        """
-        ret = None
-        for n, f, t in self.tFuncs:
-            if n == name:
-                ret = t
-                return ret
-        for n, p, t in self.tProps:
-            if n == name:
-                ret = t
-                return ret
-        return ret
- 
-    def Remove(self):
-        """Disables and removes this tween
-            without calling the complete function"""
-        self.complete = True
 
- 
-class Tweenable:
-    def __init__(self, start, change):
-        """Tweenable:
-            Holds values for anything that can be tweened
-            these are normally only created by Tweens"""
-        self.startValue = start
-        self.change = change
+        if self.on_update:
+            self.on_update(self.target)
+
+        return self.complete
 
 
-"""Robert Penner's easing classes ported over from actionscript by Toms Baugis (at gmail com).
-There certainly is room for improvement, but wanted to keep the readability to some extent.
 
-================================================================================
- Easing Equations
- (c) 2003 Robert Penner, all rights reserved. 
- This work is subject to the terms in
- http://www.robertpenner.com/easing_terms_of_use.html.
-================================================================================
 
-TERMS OF USE - EASING EQUATIONS
+class Tweenable(object):
+    """a single attribute that has to be tweened from start to target"""
+    __slots__ = ('start_value', 'change', 'decode_func', 'target_value', 'update')
 
-Open source under the BSD License.
+    hex_color_normal = re.compile("#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})")
+    hex_color_short = re.compile("#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])")
 
-All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+    def __init__(self, start_value, target_value):
+        self.decode_func = lambda x: x
+        self.target_value = target_value
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the author nor the names of contributors may be used
-      to endorse or promote products derived from this software without specific
-      prior written permission.
+        def float_update(fraction):
+            return self.start_value + self.change * fraction
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        def date_update(fraction):
+            return dt.date.fromtimestamp(self.start_value + self.change * fraction)
+
+        def datetime_update(fraction):
+            return dt.datetime.fromtimestamp(self.start_value + self.change * fraction)
+
+        def color_update(fraction):
+            val = [max(min(self.start_value[i] + self.change[i] * fraction, 255), 0)  for i in range(3)]
+            return "#%02x%02x%02x" % (val[0], val[1], val[2])
+
+
+        if isinstance(start_value, int) or isinstance(start_value, float):
+            self.start_value = start_value
+            self.change = target_value - start_value
+            self.update = float_update
+        else:
+            if isinstance(start_value, dt.datetime) or isinstance(start_value, dt.date):
+                if isinstance(start_value, dt.datetime):
+                    self.update = datetime_update
+                else:
+                    self.update = date_update
+
+                self.decode_func = lambda x: time.mktime(x.timetuple())
+                self.start_value = self.decode_func(start_value)
+                self.change = self.decode_func(target_value) - self.start_value
+
+            elif isinstance(start_value, basestring) \
+             and (self.hex_color_normal.match(start_value) or self.hex_color_short.match(start_value)):
+                self.update = color_update
+                if self.hex_color_normal.match(start_value):
+                    self.decode_func = lambda val: [int(match, 16)
+                                                    for match in self.hex_color_normal.match(val).groups()]
+
+                elif self.hex_color_short.match(start_value):
+                    self.decode_func = lambda val: [int(match + match, 16)
+                                                    for match in self.hex_color_short.match(val).groups()]
+
+                if self.hex_color_normal.match(target_value):
+                    target_value = [int(match, 16)
+                                    for match in self.hex_color_normal.match(target_value).groups()]
+                else:
+                    target_value = [int(match + match, 16)
+                                    for match in self.hex_color_short.match(target_value).groups()]
+
+                self.start_value = self.decode_func(start_value)
+                self.change = [target - start for start, target in zip(self.start_value, target_value)]
+
+
+
+"""Robert Penner's classes stripped from the repetetive c,b,d mish-mash
+(discovery of Patryk Zawadzki). This way we do the math once and apply to
+all the tweenables instead of repeating it for each attribute
 """
-class Easing:
-    class Back:
-        @staticmethod
-        def easeIn(t, b, c, d, s = 1.70158):
-            t = t / d
-            return c * t**2 * ((s+1) * t - s) + b
 
-        @staticmethod
-        def easeOut (t, b, c, d, s = 1.70158):
-            t = t / d - 1
-            return c * (t**2 * ((s + 1) * t + s) + 1) + b
+def inverse(method):
+    def real_inverse(t, *args, **kwargs):
+        t = 1 - t
+        return 1 - method(t, *args, **kwargs)
+    return real_inverse
 
-        @staticmethod
-        def easeInOut (t, b, c, d, s = 1.70158):
-            t = t / (d * 0.5)
-            s = s * 1.525
-            
-            if t < 1:
-                return c * 0.5 * (t**2 * ((s + 1) * t - s)) + b
+def symmetric(ease_in, ease_out):
+    def real_symmetric(t, *args, **kwargs):
+        if t < 0.5:
+            return ease_in(t * 2, *args, **kwargs) / 2
 
-            t = t - 2
-            return c / 2 * (t**2 * ((s + 1) * t + s) + 2) + b
+        return ease_out((t - 0.5) * 2, *args, **kwargs) / 2 + 0.5
+    return real_symmetric
 
-    class Bounce:
-        @staticmethod
-        def easeOut (t, b, c, d):
-            t = t / d
-            if t < 1 / 2.75:
-                return c * (7.5625 * t**2) + b
-            elif t < 2 / 2.75:
-                t = t - 1.5 / 2.75
-                return c * (7.5625 * t**2 + 0.75) + b
-            elif t < 2.5 / 2.75:
-                t = t - 2.25 / 2.75
-                return c * (7.5625 * t**2 + .9375) + b
-            else:
-                t = t - 2.625 / 2.75
-                return c * (7.5625 * t**2 + 0.984375) + b
-
-        @staticmethod
-        def easeIn (t, b, c, d):
-            return c - Easing.Bounce.easeOut(d-t, 0, c, d) + b
-
-        @staticmethod
-        def easeInOut (t, b, c, d):
-            if t < d * 0.5:
-                return Easing.Bounce.easeIn (t * 2, 0, c, d) * .5 + b
-
-            return Easing.Bounce.easeOut (t * 2 -d, 0, c, d) * .5 + c*.5 + b
+class Symmetric(object):
+    def __init__(self, ease_in = None, ease_out = None):
+        self.ease_in = ease_in or inverse(ease_out)
+        self.ease_out = ease_out or inverse(ease_in)
+        self.ease_in_out = symmetric(self.ease_in, self.ease_out)
 
 
-        
-    class Circ:
-        @staticmethod
-        def easeIn (t, b, c, d):
-            t = t / d
-            return -c * (math.sqrt(1 - t**2) - 1) + b
+class Easing(object):
+    """Class containing easing classes to use together with the tweener.
+       All of the classes have :func:`ease_in`, :func:`ease_out` and
+       :func:`ease_in_out` functions."""
 
-        @staticmethod
-        def easeOut (t, b, c, d):
-            t = t / d - 1
-            return c * math.sqrt(1 - t**2) + b
+    Linear = Symmetric(lambda t: t, lambda t: t)
+    Quad = Symmetric(lambda t: t*t)
+    Cubic = Symmetric(lambda t: t*t*t)
+    Quart = Symmetric(lambda t: t*t*t*t)
+    Quint = Symmetric(lambda t: t*t*t*t*t)
+    Strong = Quint #oh i wonder why but the ported code is the same as in Quint
 
-        @staticmethod
-        def easeInOut (t, b, c, d):
-            t = t / (d * 0.5)
-            if t < 1:
-                return -c * 0.5 * (math.sqrt(1 - t**2) - 1) + b
-            
-            t = t - 2
-            return c*0.5 * (math.sqrt(1 - t**2) + 1) + b
+    Circ = Symmetric(lambda t: 1 - math.sqrt(1 - t * t))
+    Sine = Symmetric(lambda t: 1 - math.cos(t * (math.pi / 2)))
 
 
-    class Cubic:
-        @staticmethod
-        def easeIn (t, b, c, d):
-            t = t / d
-            return c * t**3 + b
-
-        @staticmethod
-        def easeOut (t, b, c, d):
-            t = t / d - 1
-            return c * (t**3 + 1) + b
-
-        @staticmethod
-        def easeInOut (t, b, c, d):
-            t = t / (d * 0.5)
-            if t < 1:
-                return c * 0.5 * t**3 + b
-            
-            t = t - 2
-            return c * 0.5 * (t**3 + 2) + b
+    def _back_in(t, s=1.70158):
+        return t * t * ((s + 1) * t - s)
+    Back = Symmetric(_back_in)
 
 
-    class Elastic:
-        @staticmethod
-        def easeIn (t, b, c, d, a = 0, p = 0):
-            if t==0: return b
-
-            t = t / d            
-            if t == 1: return b+c
-            
-            if not p: p = d * .3;
-
-            if not a or a < abs(c):
-                a = c
-                s = p / 4
-            else:
-                s = p / (2 * math.pi) * math.asin(c / a)
-            
-            t = t - 1            
-            return - (a * math.pow(2, 10 * t) * math.sin((t*d-s) * (2 * math.pi) / p)) + b
+    def _bounce_out(t):
+        if t < 1 / 2.75:
+            return 7.5625 * t * t
+        elif t < 2 / 2.75:
+            t = t - 1.5 / 2.75
+            return 7.5625 * t * t + 0.75
+        elif t < 2.5 / 2.75:
+            t = t - 2.25 / 2.75
+            return 7.5625 * t * t + .9375
+        else:
+            t = t - 2.625 / 2.75
+            return 7.5625 * t * t + 0.984375
+    Bounce = Symmetric(ease_out = _bounce_out)
 
 
-        @staticmethod
-        def easeOut (t, b, c, d, a = 0, p = 0):
-            if t == 0: return b
-            
-            t = t / d
-            if (t == 1): return b + c
-            
-            if not p: p = d * .3;
+    def _elastic_in(t, springiness = 0, wave_length = 0):
+        if t in(0, 1):
+            return t
 
-            if not a or a < abs(c):
-                a = c
-                s = p / 4
-            else:
-                s = p / (2 * math.pi) * math.asin(c / a)
-                
-            return a * math.pow(2,-10 * t) * math.sin((t * d - s) * (2 * math.pi) / p) + c + b
+        wave_length = wave_length or (1 - t) * 0.3
 
+        if springiness <= 1:
+            springiness = t
+            s = wave_length / 4
+        else:
+            s = wave_length / (2 * math.pi) * math.asin(t / springiness)
 
-        @staticmethod
-        def easeInOut (t, b, c, d, a = 0, p = 0):
-            if t == 0: return b
-            
-            t = t / (d * 0.5)
-            if t == 2: return b + c
-            
-            if not p: p = d * (.3 * 1.5)
-
-            if not a or a < abs(c):
-                a = c
-                s = p / 4
-            else:
-                s = p / (2 * math.pi) * math.asin(c / a)
-                
-            if (t < 1):
-                t = t - 1
-                return -.5 * (a * math.pow(2, 10 * t) * math.sin((t * d - s) * (2 * math.pi) / p)) + b
-                
-            t = t - 1
-            return a * math.pow(2, -10 * t) * math.sin((t * d - s) * (2 * math.pi) / p) * .5 + c + b
+        t = t - 1
+        return -(springiness * math.pow(2, 10 * t) * math.sin((t * t - s) * (2 * math.pi) / wave_length))
+    Elastic = Symmetric(_elastic_in)
 
 
-    class Expo:
-        @staticmethod
-        def easeIn(t, b, c, d):
-            if t == 0:
-                return b
-            else:
-                return c * math.pow(2, 10 * (t / d - 1)) + b - c * 0.001
-
-        @staticmethod
-        def easeOut(t, b, c, d):
-            if t == d:
-                return b + c
-            else:
-                return c * (-math.pow(2, -10 * t / d) + 1) + b
-
-        @staticmethod
-        def easeInOut(t, b, c, d):
-            if t==0:
-                return b
-            elif t==d:
-                return b+c
-
-            t = t / (d * 0.5)
-            
-            if t < 1:
-                return c * 0.5 * math.pow(2, 10 * (t - 1)) + b
-            
-            return c * 0.5 * (-math.pow(2, -10 * (t - 1)) + 2) + b
-
-
-    class Linear:
-        @staticmethod
-        def easeNone(t, b, c, d):
-            return c * t / d + b
-
-        @staticmethod
-        def easeIn(t, b, c, d):
-            return c * t / d + b
-
-        @staticmethod
-        def easeOut(t, b, c, d):
-            return c * t / d + b
-
-        @staticmethod
-        def easeInOut(t, b, c, d):
-            return c * t / d + b
-
-
-    class Quad:
-        @staticmethod
-        def easeIn (t, b, c, d):
-            t = t / d
-            return c * t**2 + b
-
-        @staticmethod
-        def easeOut (t, b, c, d):
-            t = t / d
-            return -c * t * (t-2) + b
-
-        @staticmethod
-        def easeInOut (t, b, c, d):
-            t = t / (d * 0.5)
-            if t < 1:
-                return c * 0.5 * t**2 + b
-            
-            t = t - 1
-            return -c * 0.5 * (t * (t - 2) - 1) + b
-
-
-    class Quart:
-        @staticmethod
-        def easeIn (t, b, c, d):
-            t = t / d
-            return c * t**4 + b
-
-        @staticmethod
-        def easeOut (t, b, c, d):
-            t = t / d - 1
-            return -c * (t**4 - 1) + b
-
-        @staticmethod
-        def easeInOut (t, b, c, d):
-            t = t / (d * 0.5)
-            if t < 1:
-                return c * 0.5 * t**4 + b
-            
-            t = t - 2
-            return -c * 0.5 * (t**4 - 2) + b
-
-    
-    class Quint:
-        @staticmethod
-        def easeIn (t, b, c, d):
-            t = t / d
-            return c * t**5 + b
-
-        @staticmethod
-        def easeOut (t, b, c, d):
-            t = t / d - 1
-            return c * (t**5 + 1) + b
-
-        @staticmethod
-        def easeInOut (t, b, c, d):
-            t = t / (d * 0.5)
-            if t < 1:
-                return c * 0.5 * t**5 + b
-            
-            t = t - 2
-            return c * 0.5 * (t**5 + 2) + b
-
-    class Sine:
-        @staticmethod
-        def easeIn (t, b, c, d):
-            return -c * math.cos(t / d * (math.pi / 2)) + c + b
-
-        @staticmethod
-        def easeOut (t, b, c, d):
-            return c * math.sin(t / d * (math.pi / 2)) + b
-
-        @staticmethod
-        def easeInOut (t, b, c, d):
-            return -c * 0.5 * (math.cos(math.pi * t / d) - 1) + b
-
-
-    class Strong:
-        @staticmethod
-        def easeIn(t, b, c, d):
-            return c * (t/d)**5 + b
-
-        @staticmethod
-        def easeOut(t, b, c, d):
-            return c * ((t / d - 1)**5 + 1) + b
-
-        @staticmethod
-        def easeInOut(t, b, c, d):
-            t = t / (d * 0.5)
-            
-            if t < 1:
-                return c * 0.5 * t**5 + b
-            
-            t = t - 2
-            return c * 0.5 * (t**5 + 2) + b
+    def _expo_in(t):
+        if t in (0, 1): return t
+        return math.pow(2, 10 * t) * 0.001
+    Expo = Symmetric(_expo_in)
 
 
 
-class TweenTestObject:
-    def __init__(self):
-        self.pos = 20
-        self.rot = 50
- 
-    def update(self):
-        print self.pos, self.rot
- 
-    def setRotation(self, rot):
-        self.rot = rot
- 
-    def getRotation(self):
-        return self.rot
- 
-    def complete(self):
-        print "I'm done tweening now mommy!"
- 
- 
-if __name__=="__main__":
-    import time
-    T = Tweener()
-    tst = TweenTestObject()
-    mt = T.addTween( tst, setRotation=500.0, tweenTime=2.5, tweenType=T.OUT_EXPO, 
-                      pos=-200, tweenDelay=0.4, onCompleteFunction=tst.complete, 
-                      onUpdateFunction=tst.update )
-    s = time.clock()
-    changed = False
-    while T.hasTweens():
-        tm = time.clock()
-        d = tm - s
-        s = tm
-        T.update( d )
-        if mt.delta > 1.0 and not changed:
- 
-            tweenable = mt.getTweenable( "setRotation" )
- 
-            T.addTween( tweenable, change=-1000, tweenTime=0.7 )
-            T.addTween( mt, duration=-0.2, tweenTime=0.2 )
-            changed = True
-        #print mt.duration,
-        print tst.getRotation(), tst.pos
-        time.sleep(0.06)
-    print tst.getRotation(), tst.pos
+class _Dummy(object):
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
+
+if __name__ == "__main__":
+    import datetime as dt
+
+    tweener = Tweener()
+    objects = []
+
+    for i in range(10000):
+        objects.append(_Dummy(dt.datetime.now(), i-100, i-100))
+
+
+    total = dt.datetime.now()
+
+    t = dt.datetime.now()
+    print "Adding 10000 objects..."
+    for i, o in enumerate(objects):
+        tweener.add_tween(o, a = dt.datetime.now() - dt.timedelta(days=3),
+                             b = i,
+                             c = i,
+                             duration = 1.0,
+                             easing=Easing.Circ.ease_in_out)
+    print dt.datetime.now() - t
+
+    t = dt.datetime.now()
+    print "Updating 10 times......"
+    for i in range(11):  #update 1000 times
+        tweener.update(0.1)
+    print dt.datetime.now() - t
