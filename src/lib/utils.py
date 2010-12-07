@@ -225,7 +225,7 @@ def currency_to_float(string):
         ret = locale.atof(string)
     except ValueError:
         ret = locale.atof(string.replace(
-                            locale.localeconv()['mon_thousands_sep'], ''))
+            locale.localeconv()['mon_thousands_sep'], ''))
     return float(ret)
 
 def float_to_currency(number):
