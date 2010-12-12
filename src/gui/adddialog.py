@@ -78,6 +78,7 @@ class AddDialog(object):
 
         self.endDate = DatePicker()
         self.ui.get_object("end_date_box").add(self.endDate)
+        self.endDate.connect('date_changed', self._on_datepicker_date_changed)
 
         self.payee = self.ui.get_object("payee")
         self.payeecompletion = gtk.EntryCompletion()
@@ -412,10 +413,26 @@ class AddDialog(object):
             self.window.response(gtk.RESPONSE_ACCEPT)
 
     def _on_datepicker_date_changed(self, widget, args):
-        # Only reprogram alarm if it is not None
-        print "Date changed"
-        # Update endDate to be equal to dueDate
-        self.endDate.set_date(self.dueDate.get_date())
+
+        startDate = self.dueDate.get_date()
+        endDate = self.endDate.get_date()
+
+        if widget == self.dueDate:
+            if startDate > endDate:
+                # Update endDate to be equal to dueDate
+                self.endDate.set_date(self.dueDate.get_date())
+                message = utils.Message()
+                text = _("The end date is set to a date prior to the start date. Setting it to match the start date.")
+                title = _("Date set in the past")
+                message.ShowInfo(text=text, parentWindow=self.window, title=title)
+        else:
+            if startDate > endDate:
+                # Update endDate to be equal to dueDate
+                self.endDate.set_date(self.dueDate.get_date())
+                message = utils.Message()
+                text = _("The end date is set to a date prior to the start date. Setting it to match the start date.")
+                title = _("Date set in the past")
+                message.ShowInfo(text=text, parentWindow=self.window, title=title)
 
         if self.alarmbutton.get_date():
             # Extracts the date off the datepicker widget
