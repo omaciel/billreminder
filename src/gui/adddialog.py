@@ -286,7 +286,7 @@ class AddDialog(object):
                 message = utils.Message()
                 text = _("The end date is set to a date prior to the start date. Setting it to match the start date.")
                 title = _("Date set in the past")
-                message.ShowInfo(text=text, parentWindow=self, title=title)
+                message.ShowInfo(text=text, parentWindow=self.window, title=title)
         else:
             endDate = None
 
@@ -418,7 +418,7 @@ class AddDialog(object):
         endDate = self.endDate.get_date()
 
         if widget == self.dueDate:
-            if startDate > endDate:
+            if self.endDate.get_sensitive() and  startDate > endDate:
                 # Update endDate to be equal to dueDate
                 self.endDate.set_date(self.dueDate.get_date())
                 message = utils.Message()
@@ -426,13 +426,14 @@ class AddDialog(object):
                 title = _("Date set in the past")
                 message.ShowInfo(text=text, parentWindow=self.window, title=title)
         else:
-            if startDate > endDate:
-                # Update endDate to be equal to dueDate
-                self.endDate.set_date(self.dueDate.get_date())
-                message = utils.Message()
-                text = _("The end date is set to a date prior to the start date. Setting it to match the start date.")
-                title = _("Date set in the past")
-                message.ShowInfo(text=text, parentWindow=self.window, title=title)
+            if self.endDate.get_sensitive():
+                if startDate > endDate:
+                    # Update endDate to be equal to dueDate
+                    self.endDate.set_date(self.dueDate.get_date())
+                    message = utils.Message()
+                    text = _("The end date is set to a date prior to the start date. Setting it to match the start date.")
+                    title = _("Date set in the past")
+                    message.ShowInfo(text=text, parentWindow=self.window, title=title)
 
         if self.alarmbutton.get_date():
             # Extracts the date off the datepicker widget

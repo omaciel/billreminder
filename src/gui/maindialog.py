@@ -206,9 +206,6 @@ class MainDialog:
         # Update list with updated record
         status = self.gconf_client.get('show_paid_bills')
 
-        #month = self.timeline.value.month
-        #year = self.timeline.value.year
-
         path = self.list.get_cursor()[0]
         self.list.listStore.clear()
         self.currentrecord = None
