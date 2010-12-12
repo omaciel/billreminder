@@ -130,22 +130,22 @@ class MainDialog:
     def set_action_strings(self):
         # for some reason the actions strings do not get translated yet
         # so we define them here so they would be picked up by the pyfile scanner
-        self.ui.get_object("newBill").set_label(_("Add New"))
+        self.ui.get_object("newBill").set_label(_("_New"))
         self.ui.get_object("newBill").set_tooltip(_("Add new bill"))
 
-        self.ui.get_object("editBill").set_label(_("Edit"))
+        self.ui.get_object("editBill").set_label(_("_Edit"))
         self.ui.get_object("editBill").set_tooltip(_("Edit a bill"))
 
-        self.ui.get_object("removeBill").set_label(_("Delete"))
+        self.ui.get_object("removeBill").set_label(_("_Delete"))
         self.ui.get_object("removeBill").set_tooltip(_("Delete selected bill"))
 
-        self.ui.get_object("markPaid").set_label(_("Paid"))
+        self.ui.get_object("markPaid").set_label(_("P_aid"))
         self.ui.get_object("markPaid").set_tooltip(_("Mark as paid"))
 
-        self.ui.get_object("markNotPaid").set_label(_("Not Paid"))
+        self.ui.get_object("markNotPaid").set_label(_("No_t Paid"))
         self.ui.get_object("markNotPaid").set_tooltip(_("Mark as not paid"))
 
-        self.ui.get_object("showToolbar").set_label(_("Show Toolbar"))
+        self.ui.get_object("showToolbar").set_label(_("_Show Toolbar"))
         self.ui.get_object("showToolbar").set_tooltip(_("Show the toolbar"))
 
     # Methods:  UI
@@ -430,7 +430,7 @@ class MainDialog:
 
     def on_markNotPaid_activate(self, toolbutton):
         self.on_markPaid_activate(toolbutton) # forward
-        
+
     def on_markPaid_activate(self, toolbutton):
         if self.currentrecord:
             self.toggle_bill_paid()

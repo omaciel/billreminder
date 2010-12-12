@@ -17,7 +17,7 @@
                 <child>
                   <object class="GtkMenuItem" id="menuitem1">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Bill</property>
+                    <property name="label" translatable="yes">_File</property>
                     <property name="use_underline">True</property>
                     <child type="submenu">
                       <object class="GtkMenu" id="menu1">
@@ -135,7 +135,7 @@
                         <child>
                           <object class="GtkRadioMenuItem" id="showPaid">
                             <property name="visible">True</property>
-                            <property name="label" translatable="yes">Paid Only</property>
+                            <property name="label" translatable="yes">_Paid Only</property>
                             <property name="use_underline">True</property>
                             <property name="draw_as_radio">True</property>
                             <signal name="toggled" handler="on_showPaid_toggled"/>
@@ -144,7 +144,7 @@
                         <child>
                           <object class="GtkRadioMenuItem" id="showNotPaid">
                             <property name="visible">True</property>
-                            <property name="label" translatable="yes">Not Paid Only</property>
+                            <property name="label" translatable="yes">_Not Paid Only</property>
                             <property name="use_underline">True</property>
                             <property name="draw_as_radio">True</property>
                             <property name="group">showPaid</property>
@@ -154,7 +154,7 @@
                         <child>
                           <object class="GtkRadioMenuItem" id="showAll">
                             <property name="visible">True</property>
-                            <property name="label" translatable="yes">All Bills</property>
+                            <property name="label" translatable="yes">_All Bills</property>
                             <property name="use_underline">True</property>
                             <property name="draw_as_radio">True</property>
                             <property name="group">showPaid</property>
