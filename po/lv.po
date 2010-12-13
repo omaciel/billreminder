@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-10 02:23+0000\n"
+"POT-Creation-Date: 2010-12-13 16:00-0500\n"
 "PO-Revision-Date: 2009-12-10 01:27+0000\n"
 "Last-Translator: Toms Bauģis <toms.baugis@gmail.com>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "2);\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
-#: ../src/daemon/alarm.py:121 ../src/daemon/dbus_manager.py:45
+#: ../src/daemon/alarm.py:139 ../src/daemon/dbus_manager.py:46
 msgid "BillReminder Notifier"
 msgstr ""
 
@@ -145,52 +145,56 @@ msgstr ""
 msgid "Add a new bill"
 msgstr "Pievienot jaunu rēķinu"
 
-#: ../data/main.ui.h:2
-msgid "All Bills"
-msgstr "Visi reķini"
-
-#: ../data/main.ui.h:3 ../src/gui/maindialog.py:138
+#: ../data/main.ui.h:2 ../src/gui/maindialog.py:140
 msgid "Delete selected bill"
 msgstr "Dzēst iezīmēto rēķinu"
 
 #. Dialog Title
-#: ../data/main.ui.h:4 ../src/gui/maindialog.py:135 ../src/lib/dialogs.py:76
+#: ../data/main.ui.h:3 ../src/gui/maindialog.py:137 ../src/lib/dialogs.py:76
 msgid "Edit a bill"
 msgstr "Rediģēt rēķinu"
 
-#: ../data/main.ui.h:5 ../src/gui/maindialog.py:144
+#: ../data/main.ui.h:4 ../src/gui/maindialog.py:146
 msgid "Mark as not paid"
 msgstr "Atzīmēt kā nesamaksātu"
 
 #. Button Title
-#: ../data/main.ui.h:6 ../src/daemon/alarm.py:128 ../src/gui/maindialog.py:141
+#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:143
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Atzīmēt kā samaksātu"
 
-#: ../data/main.ui.h:7
-msgid "Not Paid Only"
-msgstr "Tikai nesamaksātie"
-
-#: ../data/main.ui.h:8
-msgid "Paid Only"
-msgstr "Tikai samaksātie"
-
-#: ../data/main.ui.h:9 ../src/gui/maindialog.py:146
+#: ../data/main.ui.h:6
 msgid "Show Toolbar"
 msgstr "Rādīt rīkjoslu"
 
-#: ../data/main.ui.h:10
-msgid "_Bill"
-msgstr "Rēķins"
+#: ../data/main.ui.h:7
+#, fuzzy
+msgid "_All Bills"
+msgstr "Visi reķini"
 
-#: ../data/main.ui.h:11
+#: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
 msgid "_Edit"
 msgstr "Labot"
 
-#: ../data/main.ui.h:12
+#: ../data/main.ui.h:9
+#, fuzzy
+msgid "_File"
+msgstr "Rēķins"
+
+#: ../data/main.ui.h:10
 msgid "_Help"
 msgstr "Palīdzība"
+
+#: ../data/main.ui.h:11
+#, fuzzy
+msgid "_Not Paid Only"
+msgstr "Tikai nesamaksātie"
+
+#: ../data/main.ui.h:12
+#, fuzzy
+msgid "_Paid Only"
+msgstr "Tikai samaksātie"
 
 #: ../data/main.ui.h:13
 msgid "_View"
@@ -261,7 +265,7 @@ msgid "This option is not implemented yet."
 msgstr ""
 
 #: ../src/billreminder.py:60 ../src/billreminderd.py:42
-#: ../src/daemon/dbus_manager.py:44
+#: ../src/daemon/dbus_manager.py:45
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
 msgstr ""
@@ -282,33 +286,28 @@ msgstr ""
 msgid "Stop daemon."
 msgstr ""
 
-#: ../src/daemon/alarm.py:63
+#: ../src/daemon/alarm.py:76
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/daemon/alarm.py:68
+#: ../src/daemon/alarm.py:81
 msgid "Show BillReminder"
 msgstr ""
 
-#: ../src/daemon/alarm.py:70 ../src/daemon/alarm.py:131
-msgid "Cancel"
-msgstr ""
-
-#: ../src/daemon/alarm.py:105 ../src/daemon/alarm.py:202
+#: ../src/daemon/alarm.py:123 ../src/daemon/alarm.py:230
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr ""
 
-#: ../src/daemon/alarm.py:117
+#: ../src/daemon/alarm.py:135
 #, python-format
 msgid "The bill %s is due."
 msgstr ""
 
-#: ../src/daemon/alarm.py:130 ../src/gui/maindialog.py:134
-#: ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:148 ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Rediģēt"
 
@@ -345,47 +344,49 @@ msgstr ""
 msgid "BillReminder Website"
 msgstr ""
 
-#: ../src/gui/adddialog.py:103 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:104 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr ""
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:244 ../src/gui/adddialog.py:268
-#: ../src/gui/maindialog.py:231 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:241 ../src/gui/adddialog.py:265
+#: ../src/gui/maindialog.py:230 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr ""
 
-#: ../src/gui/adddialog.py:250 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:247 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr ""
 
-#: ../src/gui/adddialog.py:290
+#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
+#: ../src/gui/adddialog.py:434
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
 msgstr ""
 
-#: ../src/gui/adddialog.py:291
+#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
+#: ../src/gui/adddialog.py:435
 msgid "Date set in the past"
 msgstr ""
 
-#: ../src/gui/adddialog.py:406
+#: ../src/gui/adddialog.py:403
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr ""
 
-#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Saņēmējs"
 
-#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:413
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Summa"
 
-#: ../src/gui/adddialog.py:410 ../src/gui/adddialog.py:413
+#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" ir obligāti ievadāms lauks."
@@ -425,41 +426,50 @@ msgid_plural "There are %d more bills in this category."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:426
+#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:424
 msgid "Confirmation"
 msgstr ""
 
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
-#: ../src/gui/maindialog.py:131
-msgid "Add New"
-msgstr "Pievienot jaunu"
+#: ../src/gui/maindialog.py:133
+#, fuzzy
+msgid "_New"
+msgstr "Skatīt"
 
-#: ../src/gui/maindialog.py:132
+#: ../src/gui/maindialog.py:134
 msgid "Add new bill"
 msgstr "Pievienot jaunu rēķinu"
 
-#: ../src/gui/maindialog.py:137
-msgid "Delete"
+#: ../src/gui/maindialog.py:139
+#, fuzzy
+msgid "_Delete"
 msgstr "Dzēst"
 
-#: ../src/gui/maindialog.py:140 ../src/gui/widgets/viewbill.py:93
-msgid "Paid"
+#: ../src/gui/maindialog.py:142
+#, fuzzy
+msgid "P_aid"
 msgstr "Samaksātie"
 
-#: ../src/gui/maindialog.py:143
-msgid "Not Paid"
+#: ../src/gui/maindialog.py:145
+#, fuzzy
+msgid "No_t Paid"
 msgstr "Nesamaksātie"
 
-#: ../src/gui/maindialog.py:147
+#: ../src/gui/maindialog.py:148
+#, fuzzy
+msgid "_Show Toolbar"
+msgstr "Rādīt rīkjoslu"
+
+#: ../src/gui/maindialog.py:149
 msgid "Show the toolbar"
 msgstr "Rādīt rīkjoslu"
 
-#: ../src/gui/maindialog.py:238
+#: ../src/gui/maindialog.py:237
 msgid "%m/%d"
 msgstr ""
 
-#: ../src/gui/maindialog.py:424
+#: ../src/gui/maindialog.py:422
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Vai patiešām vēlaties dzēst \"%s\"?"
@@ -523,7 +533,7 @@ msgstr ""
 msgid "_Start BillReminder Notifier"
 msgstr ""
 
-#: ../src/gui/prefdialog.py:234
+#: ../src/gui/prefdialog.py:231
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr ""
 
@@ -588,22 +598,20 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
+#: ../src/gui/widgets/viewbill.py:93
+msgid "Paid"
+msgstr "Samaksātie"
+
 #: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr ""
 
-#: ../src/lib/common.py:18
+#: ../src/lib/common.py:19
 msgid "Developers:"
 msgstr ""
 
 #: ../src/lib/common.py:22
 msgid "Contributors:"
-msgstr ""
-
-#: ../src/lib/dbus_actions.py:29
-msgid ""
-"An error occurred while connecting to BillReminder Notifier!\n"
-"Do you want to launch it and restart BillReminder?"
 msgstr ""
 
 #. Dialog Title
@@ -644,3 +652,6 @@ msgstr ""
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr ""
+
+#~ msgid "Add New"
+#~ msgstr "Pievienot jaunu"

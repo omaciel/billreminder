@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-04 21:47+0300\n"
+"POT-Creation-Date: 2010-12-13 16:00-0500\n"
 "PO-Revision-Date: 2008-10-04 21.00+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
-#: ../src/daemon/alarm.py:121 ../src/daemon/dbus_manager.py:45
+#: ../src/daemon/alarm.py:139 ../src/daemon/dbus_manager.py:46
 msgid "BillReminder Notifier"
 msgstr "Laskumuistuttajan huomautin"
 
@@ -142,32 +142,136 @@ msgstr "Näytetäänkö ohjelma ilmoitusalueella."
 msgid "Whether to use dialogs for notifications."
 msgstr "Käytetäänkö huomautuksille ikkunoita."
 
-#: ../src/billreminder.py:39 ../src/billreminderd.py:23
+#. Dialog Title
+#: ../data/main.ui.h:1 ../src/lib/dialogs.py:65
+msgid "Add a new bill"
+msgstr "Lisää uusi lasku"
+
+#: ../data/main.ui.h:2 ../src/gui/maindialog.py:140
+msgid "Delete selected bill"
+msgstr "Poista valittu lasku"
+
+#. Dialog Title
+#: ../data/main.ui.h:3 ../src/gui/maindialog.py:137 ../src/lib/dialogs.py:76
+msgid "Edit a bill"
+msgstr "Muokkaa laskua"
+
+#: ../data/main.ui.h:4 ../src/gui/maindialog.py:146
+msgid "Mark as not paid"
+msgstr "Merkitse maksamattomaksi"
+
+#. Button Title
+#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:143
+#: ../src/lib/utils.py:135
+msgid "Mark as paid"
+msgstr "Merkitse maksetuksi"
+
+#: ../data/main.ui.h:6
+#, fuzzy
+msgid "Show Toolbar"
+msgstr "Näytä _työkalupalkki"
+
+#: ../data/main.ui.h:7
+msgid "_All Bills"
+msgstr "K_aikki laskut"
+
+#: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
+msgid "_Edit"
+msgstr "_Muokkaa"
+
+#: ../data/main.ui.h:9
+msgid "_File"
+msgstr "_Tiedosto"
+
+#: ../data/main.ui.h:10
+msgid "_Help"
+msgstr "_Ohje"
+
+#: ../data/main.ui.h:11
+msgid "_Not Paid Only"
+msgstr "Vain _maksamattomat"
+
+#: ../data/main.ui.h:12
+msgid "_Paid Only"
+msgstr "Vain ma_ksetut"
+
+#: ../data/main.ui.h:13
+msgid "_View"
+msgstr "_Näytä"
+
+#: ../data/add_bill.ui.h:1
+#, fuzzy
+msgid "A_larm:\t"
+msgstr "Muistutus"
+
+#: ../data/add_bill.ui.h:2
+msgid "Manage Categories"
+msgstr "Hallitse luokkia"
+
+#: ../data/add_bill.ui.h:3
+msgid "Optional Fields"
+msgstr ""
+
+#: ../data/add_bill.ui.h:4
+#, fuzzy
+msgid "_Amount:"
+msgstr "Määrä"
+
+#: ../data/add_bill.ui.h:5
+#, fuzzy
+msgid "_Category:"
+msgstr "Luokka"
+
+#: ../data/add_bill.ui.h:6
+#, fuzzy
+msgid "_Due Date:"
+msgstr "<b>Eräpäivä:</b>"
+
+#: ../data/add_bill.ui.h:7
+msgid "_End Date:"
+msgstr ""
+
+#: ../data/add_bill.ui.h:8
+#, fuzzy
+msgid "_Notes:"
+msgstr "Huomautukset:"
+
+#: ../data/add_bill.ui.h:9
+#, fuzzy
+msgid "_Payee:"
+msgstr "Saaja"
+
+#: ../data/add_bill.ui.h:10
+#, fuzzy
+msgid "_Repeat:"
+msgstr "<b>Toista:</b>"
+
+#: ../src/billreminder.py:45 ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
 msgstr "Käyttö: billreminder [VALITSIMET...]"
 
-#: ../src/billreminder.py:40 ../src/billreminderd.py:24
+#: ../src/billreminder.py:46 ../src/billreminderd.py:24
 msgid "Displays the version number for this application."
 msgstr "Näyttää tämän ohjelman versionumeron."
 
-#: ../src/billreminder.py:41
+#: ../src/billreminder.py:47
 msgid "About this application."
 msgstr "Tietoja sovelluksesta."
 
-#: ../src/billreminder.py:42
+#: ../src/billreminder.py:48
 msgid "Adds a new bill to the database."
 msgstr "Lisää uuden lasku tietokantaan."
 
-#: ../src/billreminder.py:43
+#: ../src/billreminder.py:49
 msgid "Access database directly, without daemon."
 msgstr "Ota yhteyttä tietokantaan suoraan, ilman palvelinprosessia."
 
-#: ../src/billreminder.py:52
+#: ../src/billreminder.py:58
 msgid "This option is not implemented yet."
 msgstr "Tätä toimintoa ei ole vielä toteutettu."
 
-#: ../src/billreminder.py:54 ../src/billreminderd.py:42
-#: ../src/daemon/dbus_manager.py:44
+#: ../src/billreminder.py:60 ../src/billreminderd.py:42
+#: ../src/daemon/dbus_manager.py:45
 #, python-format
 msgid "This is %(appname)s - Version: %(version)s"
 msgstr "Tämä on %(appname)s - versio: %(version)s"
@@ -188,67 +292,57 @@ msgstr "Käynnistä taustaprosessi ja avaa graafinen käyttöliittymä."
 msgid "Stop daemon."
 msgstr "Pysäytä taustaprosessi."
 
-#: ../src/daemon/alarm.py:63
+#: ../src/daemon/alarm.py:76
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
 msgstr[0] "Sinulla on %s maksamaton lasku!"
 msgstr[1] "Sinulla on %s maksamatonta laskua!"
 
-#: ../src/daemon/alarm.py:68
+#: ../src/daemon/alarm.py:81
 msgid "Show BillReminder"
 msgstr "Näytä laskumuistuttaja"
 
-#: ../src/daemon/alarm.py:70 ../src/daemon/alarm.py:131
-msgid "Cancel"
-msgstr "Hylkää"
-
-#: ../src/daemon/alarm.py:105 ../src/daemon/alarm.py:202
+#: ../src/daemon/alarm.py:123 ../src/daemon/alarm.py:230
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
 msgstr "Laskun %(bill)s eräpäivä on %(day)s."
 
-#: ../src/daemon/alarm.py:117
+#: ../src/daemon/alarm.py:135
 #, python-format
 msgid "The bill %s is due."
 msgstr "Lasku %s on myöhässä."
 
-#. Button Title
-#: ../src/daemon/alarm.py:128 ../src/gui/maindialog.py:314
-#: ../src/gui/maindialog.py:347 ../src/lib/utils.py:135
-msgid "Mark as paid"
-msgstr "Merkitse maksetuksi"
-
-#: ../src/daemon/alarm.py:130 ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:148 ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: ../src/daemon/main.py:118
+#: ../src/daemon/main.py:85
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
 msgstr "Havaittiin lukkotiedosto: billreminder on jo käynnissä (pid %d)"
 
-#: ../src/daemon/main.py:123
+#: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr "Havaittiin lukkotiedosto: ohjelma on ehkä kaatunut odottamatta."
 
-#: ../src/daemon/main.py:126
+#: ../src/daemon/main.py:93
 msgid "Removing Lock File..."
 msgstr "Poistetaan lukkotiedosto..."
 
-#: ../src/daemon/main.py:128
+#: ../src/daemon/main.py:95
 msgid "Successfully."
 msgstr "Onnistui."
 
-#: ../src/daemon/main.py:130
+#: ../src/daemon/main.py:97
 msgid "Failed."
 msgstr "Epäonnnistui."
 
-#: ../src/daemon/main.py:134
+#: ../src/daemon/main.py:101
 msgid "BillReminder Notifier is already running."
 msgstr "Laskumuistuttajan huomautin on jo käynnissä."
 
-#: ../src/gui/aboutdialog.py:21
+#: ../src/gui/aboutdialog.py:16
 msgid "translator-credits"
 msgstr ""
 "Launchpad-käännökset:\n"
@@ -257,76 +351,53 @@ msgstr ""
 "Og Maciel https://launchpad.net/~ogmaciel\n"
 "Aamukahvi https://launchpad.net/~aamukahvi/"
 
-#: ../src/gui/aboutdialog.py:44
+#: ../src/gui/aboutdialog.py:30
 msgid "BillReminder Website"
 msgstr "Laskumuistuttajan www-sivut"
 
-#: ../src/gui/adddialog.py:96
-msgid "<b>_Due Date:</b>"
-msgstr "<b>Eräpäivä:</b>"
-
-#: ../src/gui/adddialog.py:104
-msgid "<b>_Repeat:</b>"
-msgstr "<b>Toista:</b>"
-
-#: ../src/gui/adddialog.py:108
-msgid "How many times to repeat this bill."
-msgstr "Kuinka monta kertaa tämä lasku toistetaan."
-
-#: ../src/gui/adddialog.py:141
-msgid "<b>_Payee:</b>"
-msgstr "<b>Saaja:</b>"
-
-#: ../src/gui/adddialog.py:144
-msgid "<b>_Amount:</b>"
-msgstr "<b>Määrä:</b>"
-
-#: ../src/gui/adddialog.py:147
-msgid "<b>_Category:</b>"
-msgstr "<b>Luokka:</b>"
-
-#: ../src/gui/adddialog.py:150
-msgid "<b>_Notes:</b>"
-msgstr "<b>Huomautukset:</b>"
-
-#: ../src/gui/adddialog.py:153
-msgid "<b>A_larm:</b>"
-msgstr "<b>Hälytys:</b>"
-
-#: ../src/gui/adddialog.py:179
-msgid "Manage Categories"
-msgstr "Hallitse luokkia"
-
-#: ../src/gui/adddialog.py:202 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:104 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Valitse päivämäärä ja aika"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:336 ../src/gui/adddialog.py:360
-#: ../src/gui/maindialog.py:295 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:241 ../src/gui/adddialog.py:265
+#: ../src/gui/maindialog.py:230 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "Ei lainkaan"
 
-#: ../src/gui/adddialog.py:342 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:247 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Uusi luokka"
 
-#: ../src/gui/adddialog.py:477
+#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
+#: ../src/gui/adddialog.py:434
+msgid ""
+"The end date is set to a date prior to the start date. Setting it to match "
+"the start date."
+msgstr ""
+
+#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
+#: ../src/gui/adddialog.py:435
+msgid "Date set in the past"
+msgstr ""
+
+#: ../src/gui/adddialog.py:403
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" ja \"%s\" ovat pakollisia kohtia."
 
-#: ../src/gui/adddialog.py:478 ../src/gui/adddialog.py:482
-#: ../src/gui/widgets/viewbill.py:89
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
+#: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Saaja"
 
-#: ../src/gui/adddialog.py:478 ../src/gui/widgets/viewbill.py:93
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
+#: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Määrä"
 
-#: ../src/gui/adddialog.py:482
+#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" on pakollinen kohta."
@@ -347,7 +418,7 @@ msgstr "Nimi:"
 msgid "Color:"
 msgstr "Väri:"
 
-#: ../src/gui/categoriesdialog.py:217
+#: ../src/gui/categoriesdialog.py:215
 #, python-format
 msgid ""
 "The category \"%s\" already exists in the database!\n"
@@ -358,130 +429,60 @@ msgstr ""
 "\n"
 "Haluatko tallentaa muutokset olemassaolevaan luokkaan?"
 
-#: ../src/gui/categoriesdialog.py:244
+#: ../src/gui/categoriesdialog.py:239
 msgid "Do you really want to delete this category?\n"
 msgstr "Haluatko varmasti poistaa tämän luokan??\n"
 
-#: ../src/gui/categoriesdialog.py:245
+#: ../src/gui/categoriesdialog.py:240
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
 msgstr[0] "Tässä luokassa on vielä %d lasku."
 msgstr[1] "Tässä luokassa on vielä %d laskua."
 
-#: ../src/gui/categoriesdialog.py:248 ../src/gui/maindialog.py:581
+#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:424
 msgid "Confirmation"
 msgstr "Vahvistus"
 
-#: ../src/gui/maindialog.py:307
-msgid "New"
+#. for some reason the actions strings do not get translated yet
+#. so we define them here so they would be picked up by the pyfile scanner
+#: ../src/gui/maindialog.py:133
+#, fuzzy
+msgid "_New"
 msgstr "Uusi"
 
-#. Dialog Title
-#: ../src/gui/maindialog.py:307 ../src/gui/maindialog.py:343
-#: ../src/lib/dialogs.py:51
-msgid "Add a new bill"
+#: ../src/gui/maindialog.py:134
+#, fuzzy
+msgid "Add new bill"
 msgstr "Lisää uusi lasku"
 
-#. Dialog Title
-#: ../src/gui/maindialog.py:309 ../src/gui/maindialog.py:344
-#: ../src/lib/dialogs.py:62
-msgid "Edit a bill"
-msgstr "Muokkaa laskua"
+#: ../src/gui/maindialog.py:139
+msgid "_Delete"
+msgstr ""
 
-#: ../src/gui/maindialog.py:311 ../src/gui/maindialog.py:345
-msgid "Delete selected bill"
-msgstr "Poista valittu lasku"
-
-#: ../src/gui/maindialog.py:314 ../src/gui/widgets/viewbill.py:97
-msgid "Paid"
+#: ../src/gui/maindialog.py:142
+#, fuzzy
+msgid "P_aid"
 msgstr "Maksettu"
 
-#: ../src/gui/maindialog.py:317
-msgid "Not Paid"
+#: ../src/gui/maindialog.py:145
+#, fuzzy
+msgid "No_t Paid"
 msgstr "Ei maksettu"
 
-#: ../src/gui/maindialog.py:317 ../src/gui/maindialog.py:348
-msgid "Mark as not paid"
-msgstr "Merkitse maksamattomaksi"
-
-#: ../src/gui/maindialog.py:342
-msgid "_File"
-msgstr "_Tiedosto"
-
-#: ../src/gui/maindialog.py:343 ../src/gui/maindialog.py:539
-msgid "_Add New"
-msgstr "_Lisää uusi"
-
-#: ../src/gui/maindialog.py:346
-msgid "_Edit"
-msgstr "_Muokkaa"
-
-#: ../src/gui/maindialog.py:347 ../src/gui/maindialog.py:549
-msgid "_Paid"
-msgstr "_Maksettu"
-
-#: ../src/gui/maindialog.py:348
-msgid "_Not Paid"
-msgstr "_Ei maksettu"
-
-#: ../src/gui/maindialog.py:349
-msgid "Edit preferences"
-msgstr "Muokkaa asetuksia"
-
-#: ../src/gui/maindialog.py:350
-msgid "Quit the Program"
-msgstr "Lopeta ohjelma"
-
-#: ../src/gui/maindialog.py:351
-msgid "_View"
-msgstr "_Näytä"
-
-#: ../src/gui/maindialog.py:352
-msgid "_Help"
-msgstr "_Ohje"
-
-#: ../src/gui/maindialog.py:353
-msgid "About the application"
-msgstr "Tietoja ohjelmasta"
-
-#: ../src/gui/maindialog.py:363
+#: ../src/gui/maindialog.py:148
 msgid "_Show Toolbar"
 msgstr "Näytä _työkalupalkki"
 
-#: ../src/gui/maindialog.py:363
+#: ../src/gui/maindialog.py:149
 msgid "Show the toolbar"
 msgstr "Näytä työkalupalkki"
 
-#: ../src/gui/maindialog.py:367
-msgid "_Not Paid Only"
-msgstr "Vain _maksamattomat"
+#: ../src/gui/maindialog.py:237
+msgid "%m/%d"
+msgstr "%d.%m."
 
-#: ../src/gui/maindialog.py:367
-msgid "Display all unpaid bills only"
-msgstr "Näytä vain maksamattomat laskut"
-
-#: ../src/gui/maindialog.py:368
-msgid "_Paid Only"
-msgstr "Vain ma_ksetut"
-
-#: ../src/gui/maindialog.py:368
-msgid "Display all paid bills only"
-msgstr "Näytä vain maksetut laskut"
-
-#: ../src/gui/maindialog.py:369
-msgid "_All Bills"
-msgstr "K_aikki laskut"
-
-#: ../src/gui/maindialog.py:369
-msgid "Display all bills"
-msgstr "Näytä kaikki laskut"
-
-#: ../src/gui/maindialog.py:552
-msgid "Not _Paid"
-msgstr "_Maksamattomat"
-
-#: ../src/gui/maindialog.py:579
+#: ../src/gui/maindialog.py:422
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Haluatko varmasti poistaa laskun \"%s\"?"
@@ -490,51 +491,51 @@ msgstr "Haluatko varmasti poistaa laskun \"%s\"?"
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: ../src/gui/prefdialog.py:54
+#: ../src/gui/prefdialog.py:55
 msgid "<b>Alarms</b>"
 msgstr "<b>Hälytykset</b>"
 
-#: ../src/gui/prefdialog.py:60
+#: ../src/gui/prefdialog.py:61
 msgid "_Alert before due date:"
 msgstr "_Hälyytä ennen eräpäivää:"
 
-#: ../src/gui/prefdialog.py:65 ../src/gui/prefdialog.py:115
+#: ../src/gui/prefdialog.py:66 ../src/gui/prefdialog.py:116
 msgid "day(s)."
 msgstr "päivää."
 
-#: ../src/gui/prefdialog.py:68
+#: ../src/gui/prefdialog.py:69
 msgid "_Preferred time:"
 msgstr "_Haluttu kellonaika:"
 
-#: ../src/gui/prefdialog.py:71
+#: ../src/gui/prefdialog.py:72
 msgid "Get alerted when individual bills are due."
 msgstr "Huomauta, kun yksittäiset laskut erääntyvät."
 
-#: ../src/gui/prefdialog.py:95
+#: ../src/gui/prefdialog.py:96
 msgid "<b>Notifications</b>"
 msgstr "<b>Huomautukset</b>"
 
-#: ../src/gui/prefdialog.py:101
+#: ../src/gui/prefdialog.py:102
 msgid "Define when to be notified of upcoming bills."
 msgstr "Valitse milloin haluat huomautettavan tulevista laskuista."
 
-#: ../src/gui/prefdialog.py:109
+#: ../src/gui/prefdialog.py:110
 msgid "_Notify before due date:"
 msgstr "_Huomauta ennen eräpäivää."
 
-#: ../src/gui/prefdialog.py:130
+#: ../src/gui/prefdialog.py:131
 msgid "<b>Alert Type</b>"
 msgstr "<b>Hälytyksen tyyppi</b>"
 
-#: ../src/gui/prefdialog.py:140
+#: ../src/gui/prefdialog.py:141
 msgid "Notification _Bubble"
 msgstr "Ilmoitus_kupla"
 
-#: ../src/gui/prefdialog.py:142
+#: ../src/gui/prefdialog.py:143
 msgid "Alert _Dialog"
 msgstr "Ilmoitus_ikkuna"
 
-#: ../src/gui/prefdialog.py:154
+#: ../src/gui/prefdialog.py:155
 msgid ""
 "<b>Warning:</b> BillReminder Notifier is \n"
 "not running! You need to start it in order \n"
@@ -544,21 +545,19 @@ msgstr ""
 "ei ole käynnissä! Jos haluat huomautuksia, sinun\n"
 "täytyy käynnistää se erikseen."
 
-#: ../src/gui/prefdialog.py:161
+#: ../src/gui/prefdialog.py:162
 msgid "_Start BillReminder Notifier"
 msgstr "_Käynnistä laskumuistuttajan huomautin"
 
-#: ../src/gui/prefdialog.py:229
+#: ../src/gui/prefdialog.py:231
 msgid "<b>Note:</b> BillReminder Notifier is now running."
 msgstr "<b>Huomaa:</b> Laskumuistuttajan huomautin on nyt käynnissä."
 
-#: ../src/gui/widgets/calendarwidget.py:55
-msgid "<b>_Monthly Report:</b>"
-msgstr "<b>Kuukausiraportti:</b>"
-
-#: ../src/gui/widgets/calendarwidget.py:62
-msgid "<b>_Year:</b>"
-msgstr "<b>_Vuosi:</b>"
+#. TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
+#: ../src/gui/widgets/datepicker.py:87
+#, fuzzy
+msgid "%m/%d/%Y"
+msgstr "%d.%m."
 
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:65
 msgid "%Y/%m/%d %H:%M"
@@ -604,42 +603,33 @@ msgstr "Tietoja"
 msgid "Quit"
 msgstr "Lopeta"
 
-#. TRANSLATORS: This is a date format. You can change the order.
-#: ../src/gui/widgets/viewbill.py:46
-msgid "%m/%d"
-msgstr "%d.%m."
-
-#: ../src/gui/widgets/viewbill.py:87 ../src/gui/widgets/viewcategory.py:39
+#: ../src/gui/widgets/viewbill.py:83 ../src/gui/widgets/viewcategory.py:39
 msgid "Category"
 msgstr "Luokka"
 
-#: ../src/gui/widgets/viewbill.py:91
+#: ../src/gui/widgets/viewbill.py:87
 msgid "Date"
 msgstr "Päiväys"
 
-#: ../src/gui/widgets/viewbill.py:95
+#: ../src/gui/widgets/viewbill.py:91
 msgid "Notes"
 msgstr "Huomautukset"
 
-#: ../src/gui/widgets/viewbill.py:99
+#: ../src/gui/widgets/viewbill.py:93
+msgid "Paid"
+msgstr "Maksettu"
+
+#: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr "Muistutus"
 
-#: ../src/lib/common.py:18
+#: ../src/lib/common.py:19
 msgid "Developers:"
 msgstr "Kehittäjät:"
 
 #: ../src/lib/common.py:22
 msgid "Contributors:"
 msgstr "Avustajat:"
-
-#: ../src/lib/dbus_actions.py:29
-msgid ""
-"An error occurred while connecting to BillReminder Notifier!\n"
-"Do you want to launch it and restart BillReminder?"
-msgstr ""
-"Tapahtui virhe yhdistettäessä laskunmuistuttajan huomauttimeen!\n"
-"Haluatko käynnistää sen ja käynnistää myös laskumuistuttajan uudestaan?"
 
 #. Dialog Title
 #: ../src/lib/utils.py:83
@@ -679,6 +669,70 @@ msgstr "Viikottain"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "Kuukausittain"
+
+#~ msgid "Cancel"
+#~ msgstr "Hylkää"
+
+#~ msgid "How many times to repeat this bill."
+#~ msgstr "Kuinka monta kertaa tämä lasku toistetaan."
+
+#~ msgid "<b>_Payee:</b>"
+#~ msgstr "<b>Saaja:</b>"
+
+#~ msgid "<b>_Amount:</b>"
+#~ msgstr "<b>Määrä:</b>"
+
+#~ msgid "<b>_Category:</b>"
+#~ msgstr "<b>Luokka:</b>"
+
+#~ msgid "<b>_Notes:</b>"
+#~ msgstr "<b>Huomautukset:</b>"
+
+#~ msgid "<b>A_larm:</b>"
+#~ msgstr "<b>Hälytys:</b>"
+
+#~ msgid "_Add New"
+#~ msgstr "_Lisää uusi"
+
+#~ msgid "_Paid"
+#~ msgstr "_Maksettu"
+
+#~ msgid "_Not Paid"
+#~ msgstr "_Ei maksettu"
+
+#~ msgid "Edit preferences"
+#~ msgstr "Muokkaa asetuksia"
+
+#~ msgid "Quit the Program"
+#~ msgstr "Lopeta ohjelma"
+
+#~ msgid "About the application"
+#~ msgstr "Tietoja ohjelmasta"
+
+#~ msgid "Display all unpaid bills only"
+#~ msgstr "Näytä vain maksamattomat laskut"
+
+#~ msgid "Display all paid bills only"
+#~ msgstr "Näytä vain maksetut laskut"
+
+#~ msgid "Display all bills"
+#~ msgstr "Näytä kaikki laskut"
+
+#~ msgid "Not _Paid"
+#~ msgstr "_Maksamattomat"
+
+#~ msgid "<b>_Monthly Report:</b>"
+#~ msgstr "<b>Kuukausiraportti:</b>"
+
+#~ msgid "<b>_Year:</b>"
+#~ msgstr "<b>_Vuosi:</b>"
+
+#~ msgid ""
+#~ "An error occurred while connecting to BillReminder Notifier!\n"
+#~ "Do you want to launch it and restart BillReminder?"
+#~ msgstr ""
+#~ "Tapahtui virhe yhdistettäessä laskunmuistuttajan huomauttimeen!\n"
+#~ "Haluatko käynnistää sen ja käynnistää myös laskumuistuttajan uudestaan?"
 
 #~ msgid "Edit a record"
 #~ msgstr "Muokkaa laskua"

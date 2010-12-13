@@ -6,9 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=billreminder&component=general\n"
-"POT-Creation-Date: 2010-06-03 13:01+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-13 16:00-0500\n"
 "PO-Revision-Date: 2010-07-30 18:58+0800\n"
 "Last-Translator: du baodao <centerpoint@139.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
@@ -144,52 +143,56 @@ msgstr "是否为通知使用对话框。"
 msgid "Add a new bill"
 msgstr "添加一个新账单"
 
-#: ../data/main.ui.h:2
-msgid "All Bills"
-msgstr "所有账单"
-
-#: ../data/main.ui.h:3 ../src/gui/maindialog.py:139
+#: ../data/main.ui.h:2 ../src/gui/maindialog.py:140
 msgid "Delete selected bill"
 msgstr "删除选中的账单"
 
 #. Dialog Title
-#: ../data/main.ui.h:4 ../src/gui/maindialog.py:136 ../src/lib/dialogs.py:76
+#: ../data/main.ui.h:3 ../src/gui/maindialog.py:137 ../src/lib/dialogs.py:76
 msgid "Edit a bill"
 msgstr "编辑一个账单"
 
-#: ../data/main.ui.h:5 ../src/gui/maindialog.py:145
+#: ../data/main.ui.h:4 ../src/gui/maindialog.py:146
 msgid "Mark as not paid"
 msgstr "标记为未支付"
 
 #. Button Title
-#: ../data/main.ui.h:6 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:142
+#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:143
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "标记为已支付"
 
-#: ../data/main.ui.h:7
-msgid "Not Paid Only"
-msgstr "只有未支付"
-
-#: ../data/main.ui.h:8
-msgid "Paid Only"
-msgstr "只有已支付"
-
-#: ../data/main.ui.h:9 ../src/gui/maindialog.py:147
+#: ../data/main.ui.h:6
 msgid "Show Toolbar"
 msgstr "显示工具栏"
 
-#: ../data/main.ui.h:10
-msgid "_Bill"
-msgstr "账单(_B)"
+#: ../data/main.ui.h:7
+#, fuzzy
+msgid "_All Bills"
+msgstr "所有账单"
 
-#: ../data/main.ui.h:11
+#: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: ../data/main.ui.h:12
+#: ../data/main.ui.h:9
+#, fuzzy
+msgid "_File"
+msgstr "失败。"
+
+#: ../data/main.ui.h:10
 msgid "_Help"
 msgstr "帮助(_H)"
+
+#: ../data/main.ui.h:11
+#, fuzzy
+msgid "_Not Paid Only"
+msgstr "只有未支付"
+
+#: ../data/main.ui.h:12
+#, fuzzy
+msgid "_Paid Only"
+msgstr "只有已支付"
 
 #: ../data/main.ui.h:13
 msgid "_View"
@@ -301,8 +304,7 @@ msgstr "账单 %(bill)s 将在 %(day)s 到期。"
 msgid "The bill %s is due."
 msgstr "账单 %s 已到期。"
 
-#: ../src/daemon/alarm.py:148 ../src/gui/maindialog.py:135
-#: ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:148 ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "编辑"
 
@@ -339,47 +341,49 @@ msgstr "YunQiang Su <wzssyqa@gmail.com>"
 msgid "BillReminder Website"
 msgstr "BillReminder 网站"
 
-#: ../src/gui/adddialog.py:103 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:104 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "选择日期和时间"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:240 ../src/gui/adddialog.py:264
-#: ../src/gui/maindialog.py:232 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:241 ../src/gui/adddialog.py:265
+#: ../src/gui/maindialog.py:230 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "无"
 
-#: ../src/gui/adddialog.py:246 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:247 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "新分类"
 
-#: ../src/gui/adddialog.py:286
+#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
+#: ../src/gui/adddialog.py:434
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
 msgstr "终止日期设在了起始日期之前。正在设置它以匹配起始日期。"
 
-#: ../src/gui/adddialog.py:287
+#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
+#: ../src/gui/adddialog.py:435
 msgid "Date set in the past"
 msgstr "过去设置的日期"
 
-#: ../src/gui/adddialog.py:402
+#: ../src/gui/adddialog.py:403
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" 和 \"%s\" 是必须字段。"
 
-#: ../src/gui/adddialog.py:403 ../src/gui/adddialog.py:406
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "收款人"
 
-#: ../src/gui/adddialog.py:403 ../src/gui/adddialog.py:409
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "数量"
 
-#: ../src/gui/adddialog.py:406 ../src/gui/adddialog.py:409
+#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" 是必须字段。"
@@ -421,41 +425,50 @@ msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
 msgstr[0] "此分类中有 %d 个更多账单。"
 
-#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:426
+#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:424
 msgid "Confirmation"
 msgstr "确认"
 
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
-#: ../src/gui/maindialog.py:132
-msgid "Add New"
-msgstr "添加新的"
-
 #: ../src/gui/maindialog.py:133
+#, fuzzy
+msgid "_New"
+msgstr "查看(_V)"
+
+#: ../src/gui/maindialog.py:134
 msgid "Add new bill"
 msgstr "添加新账单"
 
-#: ../src/gui/maindialog.py:138
-msgid "Delete"
+#: ../src/gui/maindialog.py:139
+#, fuzzy
+msgid "_Delete"
 msgstr "删除"
 
-#: ../src/gui/maindialog.py:141 ../src/gui/widgets/viewbill.py:93
-msgid "Paid"
+#: ../src/gui/maindialog.py:142
+#, fuzzy
+msgid "P_aid"
 msgstr "已付"
 
-#: ../src/gui/maindialog.py:144
-msgid "Not Paid"
+#: ../src/gui/maindialog.py:145
+#, fuzzy
+msgid "No_t Paid"
 msgstr "未付"
 
 #: ../src/gui/maindialog.py:148
+#, fuzzy
+msgid "_Show Toolbar"
+msgstr "显示工具栏"
+
+#: ../src/gui/maindialog.py:149
 msgid "Show the toolbar"
 msgstr "显示工具栏"
 
-#: ../src/gui/maindialog.py:239
+#: ../src/gui/maindialog.py:237
 msgid "%m/%d"
 msgstr "%m/%d"
 
-#: ../src/gui/maindialog.py:424
+#: ../src/gui/maindialog.py:422
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "真的要删除 \"%s\" 吗？"
@@ -586,6 +599,10 @@ msgstr "日期"
 msgid "Notes"
 msgstr "注意"
 
+#: ../src/gui/widgets/viewbill.py:93
+msgid "Paid"
+msgstr "已付"
+
 #: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr "警告"
@@ -636,3 +653,9 @@ msgstr "每周"
 #: ../src/lib/scheduler.py:8
 msgid "Monthly"
 msgstr "每月"
+
+#~ msgid "_Bill"
+#~ msgstr "账单(_B)"
+
+#~ msgid "Add New"
+#~ msgstr "添加新的"

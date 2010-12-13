@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 09:09+0200\n"
+"POT-Creation-Date: 2010-12-13 16:00-0500\n"
 "PO-Revision-Date: 2010-09-27 09:20+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -145,52 +145,56 @@ msgstr "Whether to use dialogs for notifications."
 msgid "Add a new bill"
 msgstr "הוספת חשבון חדש"
 
-#: ../data/main.ui.h:2
-msgid "All Bills"
-msgstr "כל החשבונות"
-
-#: ../data/main.ui.h:3 ../src/gui/maindialog.py:139
+#: ../data/main.ui.h:2 ../src/gui/maindialog.py:140
 msgid "Delete selected bill"
 msgstr "מחיקת החשבון הנבחר"
 
 #. Dialog Title
-#: ../data/main.ui.h:4 ../src/gui/maindialog.py:136 ../src/lib/dialogs.py:76
+#: ../data/main.ui.h:3 ../src/gui/maindialog.py:137 ../src/lib/dialogs.py:76
 msgid "Edit a bill"
 msgstr "עריכת חשבון"
 
-#: ../data/main.ui.h:5 ../src/gui/maindialog.py:145
+#: ../data/main.ui.h:4 ../src/gui/maindialog.py:146
 msgid "Mark as not paid"
 msgstr "סימון כ'לא שולם'"
 
 #. Button Title
-#: ../data/main.ui.h:6 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:142
+#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:143
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "סמן כשולם"
 
-#: ../data/main.ui.h:7
-msgid "Not Paid Only"
-msgstr "לא שולמו בלבד"
-
-#: ../data/main.ui.h:8
-msgid "Paid Only"
-msgstr "שולמו בלבד"
-
-#: ../data/main.ui.h:9 ../src/gui/maindialog.py:147
+#: ../data/main.ui.h:6
 msgid "Show Toolbar"
 msgstr "הצגת סרגל הכלים"
 
-#: ../data/main.ui.h:10
-msgid "_Bill"
-msgstr "_חשבון"
+#: ../data/main.ui.h:7
+#, fuzzy
+msgid "_All Bills"
+msgstr "כל החשבונות"
 
-#: ../data/main.ui.h:11
+#: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
 msgid "_Edit"
 msgstr "ע_ריכה"
 
-#: ../data/main.ui.h:12
+#: ../data/main.ui.h:9
+#, fuzzy
+msgid "_File"
+msgstr "Failed."
+
+#: ../data/main.ui.h:10
 msgid "_Help"
 msgstr "ע_זרה"
+
+#: ../data/main.ui.h:11
+#, fuzzy
+msgid "_Not Paid Only"
+msgstr "לא שולמו בלבד"
+
+#: ../data/main.ui.h:12
+#, fuzzy
+msgid "_Paid Only"
+msgstr "שולמו בלבד"
 
 #: ../data/main.ui.h:13
 msgid "_View"
@@ -303,8 +307,7 @@ msgstr "החשבון %(bill)s יפוג תוך %(day)s ימים."
 msgid "The bill %s is due."
 msgstr "פג תוקפו של החשבון %s."
 
-#: ../src/daemon/alarm.py:148 ../src/gui/maindialog.py:135
-#: ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:148 ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "עריכה"
 
@@ -341,47 +344,49 @@ msgstr "Yaron Shahrabani <sh.yaron@gmail.com>"
 msgid "BillReminder Website"
 msgstr "אתר הבית של מזכיר החשבונות"
 
-#: ../src/gui/adddialog.py:103 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:104 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "בחירת תאריך ושעה"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:240 ../src/gui/adddialog.py:264
-#: ../src/gui/maindialog.py:232 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:241 ../src/gui/adddialog.py:265
+#: ../src/gui/maindialog.py:230 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "ללא"
 
-#: ../src/gui/adddialog.py:246 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:247 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "קטגוריה חדשה"
 
-#: ../src/gui/adddialog.py:286
+#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
+#: ../src/gui/adddialog.py:434
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
 msgstr "תאריך הסיום מוגדר לפני תאריך ההתחלה. הוא יוגדר בהתאמה לתאריך ההתחלה."
 
-#: ../src/gui/adddialog.py:287
+#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
+#: ../src/gui/adddialog.py:435
 msgid "Date set in the past"
 msgstr "התאריך הוגדר לעבר"
 
-#: ../src/gui/adddialog.py:402
+#: ../src/gui/adddialog.py:403
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" ו־\"%s\" הנם שדות נדרשים."
 
-#: ../src/gui/adddialog.py:403 ../src/gui/adddialog.py:406
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "מוטב"
 
-#: ../src/gui/adddialog.py:403 ../src/gui/adddialog.py:409
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "סכום"
 
-#: ../src/gui/adddialog.py:406 ../src/gui/adddialog.py:409
+#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" הנו שדה נחוץ."
@@ -424,41 +429,50 @@ msgid_plural "There are %d more bills in this category."
 msgstr[0] "קיים עוד חשבון אחד בקטגוריה זו."
 msgstr[1] "ישנם עוד %d חשבונות בקטגוריה זו."
 
-#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:426
+#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:424
 msgid "Confirmation"
 msgstr "אישור"
 
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
-#: ../src/gui/maindialog.py:132
-msgid "Add New"
-msgstr "הוספת חדש"
-
 #: ../src/gui/maindialog.py:133
+#, fuzzy
+msgid "_New"
+msgstr "חדש"
+
+#: ../src/gui/maindialog.py:134
 msgid "Add new bill"
 msgstr "הוספת חשבון חדש"
 
-#: ../src/gui/maindialog.py:138
-msgid "Delete"
+#: ../src/gui/maindialog.py:139
+#, fuzzy
+msgid "_Delete"
 msgstr "מחיקה"
 
-#: ../src/gui/maindialog.py:141 ../src/gui/widgets/viewbill.py:93
-msgid "Paid"
+#: ../src/gui/maindialog.py:142
+#, fuzzy
+msgid "P_aid"
 msgstr "שולם"
 
-#: ../src/gui/maindialog.py:144
-msgid "Not Paid"
+#: ../src/gui/maindialog.py:145
+#, fuzzy
+msgid "No_t Paid"
 msgstr "לא שולם"
 
 #: ../src/gui/maindialog.py:148
+#, fuzzy
+msgid "_Show Toolbar"
+msgstr "הצגת סרגל הכלים"
+
+#: ../src/gui/maindialog.py:149
 msgid "Show the toolbar"
 msgstr "הצגת סרגל הכלים"
 
-#: ../src/gui/maindialog.py:239
+#: ../src/gui/maindialog.py:237
 msgid "%m/%d"
 msgstr "%d/%m"
 
-#: ../src/gui/maindialog.py:424
+#: ../src/gui/maindialog.py:422
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "האם באמת ברצונך למחוק את \"%s\"?"
@@ -590,6 +604,10 @@ msgstr "תאריך"
 msgid "Notes"
 msgstr "הערות"
 
+#: ../src/gui/widgets/viewbill.py:93
+msgid "Paid"
+msgstr "שולם"
+
 #: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr "התראה"
@@ -641,6 +659,12 @@ msgstr "בכול שבוע"
 msgid "Monthly"
 msgstr "בכול חודש"
 
+#~ msgid "_Bill"
+#~ msgstr "_חשבון"
+
+#~ msgid "Add New"
+#~ msgstr "הוספת חדש"
+
 #~ msgid "Cancel"
 #~ msgstr "ביטול"
 
@@ -666,9 +690,6 @@ msgstr "בכול חודש"
 #, fuzzy
 #~ msgid "<b>A_larm:</b>"
 #~ msgstr "התראה:"
-
-#~ msgid "New"
-#~ msgstr "חדש"
 
 #~ msgid "Edit a record"
 #~ msgstr "ערוך רשומה"

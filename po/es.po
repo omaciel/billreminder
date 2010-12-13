@@ -10,9 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=billreminder&component=general\n"
-"POT-Creation-Date: 2010-12-12 23:03+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-13 16:00-0500\n"
 "PO-Revision-Date: 2010-12-13 19:59+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -172,7 +171,6 @@ msgid "Show Toolbar"
 msgstr "Mostrar barra de herramientas"
 
 #: ../data/main.ui.h:7
-#| msgid "All Bills"
 msgid "_All Bills"
 msgstr "_Todas las facturas"
 
@@ -189,12 +187,10 @@ msgid "_Help"
 msgstr "Ay_uda"
 
 #: ../data/main.ui.h:11
-#| msgid "Not Paid Only"
 msgid "_Not Paid Only"
 msgstr "Sólo las _no pagadas"
 
 #: ../data/main.ui.h:12
-#| msgid "Paid Only"
 msgid "_Paid Only"
 msgstr "Sólo las paga_das"
 
@@ -460,7 +456,6 @@ msgstr "Confirmación"
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
 #: ../src/gui/maindialog.py:133
-#| msgid "New"
 msgid "_New"
 msgstr "_Nueva"
 
@@ -469,22 +464,18 @@ msgid "Add new bill"
 msgstr "Añadir una factura nueva"
 
 #: ../src/gui/maindialog.py:139
-#| msgid "Delete"
 msgid "_Delete"
 msgstr "_Eliminar"
 
 #: ../src/gui/maindialog.py:142
-#| msgid "Paid"
 msgid "P_aid"
 msgstr "_Pagada"
 
 #: ../src/gui/maindialog.py:145
-#| msgid "Not Paid"
 msgid "No_t Paid"
 msgstr "_Sin pagar"
 
 #: ../src/gui/maindialog.py:148
-#| msgid "Show Toolbar"
 msgid "_Show Toolbar"
 msgstr "Mostrar barra de _herramientas"
 

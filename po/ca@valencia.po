@@ -6,9 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=billreminder&component=general\n"
-"POT-Creation-Date: 2010-01-24 23:22+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-13 16:00-0500\n"
 "PO-Revision-Date: 2009-04-18 12:28+0200\n"
 "Last-Translator: Francesc Dorca i Badia <francesc.dorca@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -144,62 +143,56 @@ msgstr "Si s'han d'utilitzar diàlegs per a les notificacions."
 msgid "Add a new bill"
 msgstr "Afig una factura nova"
 
-#: ../data/main.ui.h:2
-#, fuzzy
-#| msgid "_All Bills"
-msgid "All Bills"
-msgstr "_Totes les factures"
-
-#: ../data/main.ui.h:3 ../src/gui/maindialog.py:139
+#: ../data/main.ui.h:2 ../src/gui/maindialog.py:140
 msgid "Delete selected bill"
 msgstr "Suprimeix la factura seleccionada"
 
 #. Dialog Title
-#: ../data/main.ui.h:4 ../src/gui/maindialog.py:136 ../src/lib/dialogs.py:76
+#: ../data/main.ui.h:3 ../src/gui/maindialog.py:137 ../src/lib/dialogs.py:76
 msgid "Edit a bill"
 msgstr "Edita una factura"
 
-#: ../data/main.ui.h:5 ../src/gui/maindialog.py:145
+#: ../data/main.ui.h:4 ../src/gui/maindialog.py:146
 msgid "Mark as not paid"
 msgstr "Marca com a no pagada"
 
 #. Button Title
-#: ../data/main.ui.h:6 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:142
+#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:143
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Marca com a pagada"
 
-#: ../data/main.ui.h:7
+#: ../data/main.ui.h:6
 #, fuzzy
-#| msgid "_Not Paid Only"
-msgid "Not Paid Only"
-msgstr "_Només els no pagats"
-
-#: ../data/main.ui.h:8
-#, fuzzy
-#| msgid "_Paid Only"
-msgid "Paid Only"
-msgstr "Només els _pagats"
-
-#: ../data/main.ui.h:9 ../src/gui/maindialog.py:147
-#, fuzzy
-#| msgid "_Show Toolbar"
 msgid "Show Toolbar"
 msgstr "Mo_stra la barra d'eines"
 
-#: ../data/main.ui.h:10
+#: ../data/main.ui.h:7
 #, fuzzy
-#| msgid "Bills:"
-msgid "_Bill"
-msgstr "Factures:"
+msgid "_All Bills"
+msgstr "_Totes les factures"
 
-#: ../data/main.ui.h:11
+#: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
 msgid "_Edit"
 msgstr "_Edita"
 
-#: ../data/main.ui.h:12
+#: ../data/main.ui.h:9
+msgid "_File"
+msgstr "_Fitxer"
+
+#: ../data/main.ui.h:10
 msgid "_Help"
 msgstr "A_juda"
+
+#: ../data/main.ui.h:11
+#, fuzzy
+msgid "_Not Paid Only"
+msgstr "_Només els no pagats"
+
+#: ../data/main.ui.h:12
+#, fuzzy
+msgid "_Paid Only"
+msgstr "Només els _pagats"
 
 #: ../data/main.ui.h:13
 msgid "_View"
@@ -207,7 +200,6 @@ msgstr "_Visualitza"
 
 #: ../data/add_bill.ui.h:1
 #, fuzzy
-#| msgid "Alarm"
 msgid "A_larm:\t"
 msgstr "Alarma"
 
@@ -217,49 +209,41 @@ msgstr "Gestioneu les categories"
 
 #: ../data/add_bill.ui.h:3
 #, fuzzy
-#| msgid "<b>Optional Fields:</b>"
 msgid "Optional Fields"
 msgstr "<b>Camps opcionals:</b>"
 
 #: ../data/add_bill.ui.h:4
 #, fuzzy
-#| msgid "Amount"
 msgid "_Amount:"
 msgstr "Import"
 
 #: ../data/add_bill.ui.h:5
 #, fuzzy
-#| msgid "Category"
 msgid "_Category:"
 msgstr "Categoria"
 
 #: ../data/add_bill.ui.h:6
 #, fuzzy
-#| msgid "<b>Due Date:</b>"
 msgid "_Due Date:"
 msgstr "<b>Data de venciment:</b>"
 
 #: ../data/add_bill.ui.h:7
 #, fuzzy
-#| msgid "<b>End Date:</b>"
 msgid "_End Date:"
 msgstr "<b>Data de finalització:</b>"
 
 #: ../data/add_bill.ui.h:8
 #, fuzzy
-#| msgid "Notes:"
 msgid "_Notes:"
 msgstr "Notes:"
 
 #: ../data/add_bill.ui.h:9
 #, fuzzy
-#| msgid "Payee"
 msgid "_Payee:"
 msgstr "Beneficiari"
 
 #: ../data/add_bill.ui.h:10
 #, fuzzy
-#| msgid "<b>_Repeat:</b>"
 msgid "_Repeat:"
 msgstr "<b>_Repetició:</b>"
 
@@ -330,8 +314,7 @@ msgstr "La factura %(bill)s venç el %(day)s."
 msgid "The bill %s is due."
 msgstr "La factura %s està a punt de vèncer."
 
-#: ../src/daemon/alarm.py:148 ../src/gui/maindialog.py:135
-#: ../src/lib/utils.py:136
+#: ../src/daemon/alarm.py:148 ../src/lib/utils.py:136
 msgid "Edit"
 msgstr "Edita"
 
@@ -372,22 +355,23 @@ msgstr "Francesc Dorca <francesc.dorca@gmail.com>"
 msgid "BillReminder Website"
 msgstr "Lloc web del BillReminder"
 
-#: ../src/gui/adddialog.py:103 ../src/gui/widgets/datebutton.py:40
+#: ../src/gui/adddialog.py:104 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
 msgstr "Seleccioneu la data i l'hora"
 
 #. TRANSLATORS: No date selected
-#: ../src/gui/adddialog.py:240 ../src/gui/adddialog.py:264
-#: ../src/gui/maindialog.py:232 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/adddialog.py:241 ../src/gui/adddialog.py:265
+#: ../src/gui/maindialog.py:230 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "Cap"
 
-#: ../src/gui/adddialog.py:246 ../src/gui/categoriesdialog.py:48
+#: ../src/gui/adddialog.py:247 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Categoria nova"
 
-#: ../src/gui/adddialog.py:286
+#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
+#: ../src/gui/adddialog.py:434
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
@@ -395,26 +379,27 @@ msgstr ""
 "La data de finalització és abans que la d'inici. S'establirà com a la "
 "d'inici."
 
-#: ../src/gui/adddialog.py:287
+#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
+#: ../src/gui/adddialog.py:435
 msgid "Date set in the past"
 msgstr "La data es troba en el passat"
 
-#: ../src/gui/adddialog.py:402
+#: ../src/gui/adddialog.py:403
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "«%s» i «%s» són camps obligatoris."
 
-#: ../src/gui/adddialog.py:403 ../src/gui/adddialog.py:406
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Beneficiari"
 
-#: ../src/gui/adddialog.py:403 ../src/gui/adddialog.py:409
+#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Import"
 
-#: ../src/gui/adddialog.py:406 ../src/gui/adddialog.py:409
+#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "«%s» és un camp obligatori."
@@ -457,47 +442,51 @@ msgid_plural "There are %d more bills in this category."
 msgstr[0] "Hi ha %d factura més en esta categoria."
 msgstr[1] "Hi ha %d factures més en esta categoria."
 
-#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:426
+#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:424
 msgid "Confirmation"
 msgstr "Confirmació"
 
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
-#: ../src/gui/maindialog.py:132
-#, fuzzy
-#| msgid "_Add New"
-msgid "Add New"
-msgstr "_Afig com a nova"
-
 #: ../src/gui/maindialog.py:133
 #, fuzzy
-#| msgid "Add a new bill"
+msgid "_New"
+msgstr "Nova"
+
+#: ../src/gui/maindialog.py:134
+#, fuzzy
 msgid "Add new bill"
 msgstr "Afig una factura nova"
 
-#: ../src/gui/maindialog.py:138
+#: ../src/gui/maindialog.py:139
 #, fuzzy
-#| msgid "Date"
-msgid "Delete"
+msgid "_Delete"
 msgstr "Data"
 
-#: ../src/gui/maindialog.py:141 ../src/gui/widgets/viewbill.py:93
-msgid "Paid"
+#: ../src/gui/maindialog.py:142
+#, fuzzy
+msgid "P_aid"
 msgstr "Pagada"
 
-#: ../src/gui/maindialog.py:144
-msgid "Not Paid"
+#: ../src/gui/maindialog.py:145
+#, fuzzy
+msgid "No_t Paid"
 msgstr "No pagada"
 
 #: ../src/gui/maindialog.py:148
+#, fuzzy
+msgid "_Show Toolbar"
+msgstr "Mo_stra la barra d'eines"
+
+#: ../src/gui/maindialog.py:149
 msgid "Show the toolbar"
 msgstr "Mostra la barra d'eines"
 
-#: ../src/gui/maindialog.py:239
+#: ../src/gui/maindialog.py:237
 msgid "%m/%d"
 msgstr "%d/%m"
 
-#: ../src/gui/maindialog.py:424
+#: ../src/gui/maindialog.py:422
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Realment voleu suprimir «%s»?"
@@ -629,6 +618,10 @@ msgstr "Data"
 msgid "Notes"
 msgstr "Notes"
 
+#: ../src/gui/widgets/viewbill.py:93
+msgid "Paid"
+msgstr "Pagada"
+
 #: ../src/gui/widgets/viewbill.py:95
 msgid "Alarm"
 msgstr "Alarma"
@@ -680,6 +673,16 @@ msgstr "Cada setmana"
 msgid "Monthly"
 msgstr "Cada mes"
 
+#, fuzzy
+#~| msgid "Bills:"
+#~ msgid "_Bill"
+#~ msgstr "Factures:"
+
+#, fuzzy
+#~| msgid "_Add New"
+#~ msgid "Add New"
+#~ msgstr "_Afig com a nova"
+
 #~ msgid "Cancel"
 #~ msgstr "Cancel·la"
 
@@ -697,12 +700,6 @@ msgstr "Cada mes"
 
 #~ msgid "<b>A_larm:</b>"
 #~ msgstr "<b>A_larma:</b>"
-
-#~ msgid "New"
-#~ msgstr "Nova"
-
-#~ msgid "_File"
-#~ msgstr "_Fitxer"
 
 #~ msgid "_Paid"
 #~ msgstr "_Pagada"
