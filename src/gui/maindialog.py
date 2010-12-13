@@ -110,10 +110,6 @@ class MainDialog:
 
         self.toggle_buttons()
 
-        # populate treeview
-        self.reloadTreeView()
-        self.notify = NotifyIcon(self)
-
         # Connects to the Daemon
         self.iface = None
         iface = get_dbus_interface(common.DBUS_INTERFACE, common.DBUS_PATH)
@@ -126,6 +122,10 @@ class MainDialog:
 
         self.set_action_strings()
         self.ui.connect_signals(self)
+
+        # populate treeview
+        self.reloadTreeView()
+        self.notify = NotifyIcon(self)
 
     def set_action_strings(self):
         # for some reason the actions strings do not get translated yet
