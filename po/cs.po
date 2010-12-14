@@ -1,18 +1,19 @@
 # Czech translation of BillReminder.
-# Copyright (C) 2008, 2009 the author(s) of BillReminder.
+# Copyright (C) 2008, 2009, 2010 the author(s) of BillReminder.
 # This file is distributed under the same license as the billreminder package.
 # Launchpad Contributions by Pavel Šefránek, https://launchpad.net/~pjoul
 # Pavel Šefránek <ps@pjoul.cz>, 2008.
-# Marek Černocký <marek@manet.cz>, 2009.
+# Marek Černocký <marek@manet.cz>, 2009, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-13 16:00-0500\n"
-"PO-Revision-Date: 2009-12-10 10:02+0100\n"
+"POT-Creation-Date: 2010-12-14 21:52+0100\n"
+"PO-Revision-Date: 2010-12-13 12:43+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -174,32 +175,28 @@ msgid "Show Toolbar"
 msgstr "Zobrazit lištu nástrojů"
 
 #: ../data/main.ui.h:7
-#, fuzzy
 msgid "_All Bills"
-msgstr "Všechny účtenky"
+msgstr "_Všechny účtenky"
 
 #: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
 msgid "_Edit"
 msgstr "_Upravit"
 
 #: ../data/main.ui.h:9
-#, fuzzy
 msgid "_File"
-msgstr "Selhalo."
+msgstr "_Soubor"
 
 #: ../data/main.ui.h:10
 msgid "_Help"
 msgstr "_Nápověda"
 
 #: ../data/main.ui.h:11
-#, fuzzy
 msgid "_Not Paid Only"
-msgstr "Pouze nezaplacené"
+msgstr "Pouze _nezaplacené"
 
 #: ../data/main.ui.h:12
-#, fuzzy
 msgid "_Paid Only"
-msgstr "Pouze zaplacené"
+msgstr "_Pouze zaplacené"
 
 #: ../data/main.ui.h:13
 msgid "_View"
@@ -295,7 +292,7 @@ msgstr "Zastavit démona."
 #, python-format
 msgid "You have %s outstanding bill to pay!"
 msgid_plural "You have %s outstanding bills to pay!"
-msgstr[0] "Máte nezaplacenou jednu účtenku!"
+msgstr[0] "Máte nezaplacenou %s účtenku!"
 msgstr[1] "Máte nezaplaceny %s účtenky!"
 msgstr[2] "Máte nezaplaceno %s účtenek!"
 
@@ -436,7 +433,7 @@ msgstr "Opravdu chcete smazat tuto kategorii?\n"
 #, python-format
 msgid "There is %d more bill in this category."
 msgid_plural "There are %d more bills in this category."
-msgstr[0] "V této kategorii je ještě jedna další účtenka."
+msgstr[0] "V této kategorii je ještě %d další účtenka."
 msgstr[1] "V této kategorii jsou ještě %d další účtenky."
 msgstr[2] "V této kategorii je ještě %d dalších účtenek."
 
@@ -447,33 +444,28 @@ msgstr "Potvrzení"
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
 #: ../src/gui/maindialog.py:133
-#, fuzzy
 msgid "_New"
-msgstr "_Zobrazit"
+msgstr "_Nová"
 
 #: ../src/gui/maindialog.py:134
 msgid "Add new bill"
 msgstr "Přidat novou účtenku"
 
 #: ../src/gui/maindialog.py:139
-#, fuzzy
 msgid "_Delete"
-msgstr "Smazat"
+msgstr "_Smazat"
 
 #: ../src/gui/maindialog.py:142
-#, fuzzy
 msgid "P_aid"
-msgstr "Zaplaceno"
+msgstr "Z_aplaceno"
 
 #: ../src/gui/maindialog.py:145
-#, fuzzy
 msgid "No_t Paid"
-msgstr "Nezaplaceno"
+msgstr "N_ezaplaceno"
 
 #: ../src/gui/maindialog.py:148
-#, fuzzy
 msgid "_Show Toolbar"
-msgstr "Zobrazit lištu nástrojů"
+msgstr "Zobrazit lištu ná_strojů"
 
 #: ../src/gui/maindialog.py:149
 msgid "Show the toolbar"
