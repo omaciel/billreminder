@@ -397,7 +397,12 @@ class AddDialog(object):
                 return
 
     def on_save_clicked(self, widget):
+
         message = utils.Message()
+
+        startDate = self.dueDate.get_date()
+        endDate = self.endDate.get_date()
+
         if not self._get_payee().strip() and \
             not self.amount.get_text().strip():
             message.ShowError(_("\"%s\" and \"%s\" are required fields.") \
@@ -409,6 +414,8 @@ class AddDialog(object):
         elif not self.amount.get_text().strip():
             message.ShowError(_("\"%s\" is required field.") % _("Amount"), self.window)
             self.amount.grab_focus()
+        elif self.endDate.get_sensitive() and startDate > endDate:
+            message.ShowError(_("The end date is set to a date prior to the start date."), self.window)
         else:
             self.window.response(gtk.RESPONSE_ACCEPT)
 
@@ -421,19 +428,11 @@ class AddDialog(object):
             if self.endDate.get_sensitive() and  startDate > endDate:
                 # Update endDate to be equal to dueDate
                 self.endDate.set_date(self.dueDate.get_date())
-                message = utils.Message()
-                text = _("The end date is set to a date prior to the start date. Setting it to match the start date.")
-                title = _("Date set in the past")
-                message.ShowInfo(text=text, parentWindow=self.window, title=title)
         else:
             if self.endDate.get_sensitive():
                 if startDate > endDate:
                     # Update endDate to be equal to dueDate
                     self.endDate.set_date(self.dueDate.get_date())
-                    message = utils.Message()
-                    text = _("The end date is set to a date prior to the start date. Setting it to match the start date.")
-                    title = _("Date set in the past")
-                    message.ShowInfo(text=text, parentWindow=self.window, title=title)
 
         if self.alarmbutton.get_date():
             # Extracts the date off the datepicker widget
