@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-13 16:00-0500\n"
+"POT-Creation-Date: 2010-12-16 17:26-0500\n"
 "PO-Revision-Date: 2009-12-19 18:00-0500\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
@@ -370,8 +370,7 @@ msgstr "Nenhum"
 msgid "New Category"
 msgstr "Nova categoria"
 
-#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
-#: ../src/gui/adddialog.py:434
+#: ../src/gui/adddialog.py:287
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
@@ -379,30 +378,34 @@ msgstr ""
 "A data final está definida como uma data anterior à data inicial. "
 "Configurando para combinar a data de início."
 
-#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
-#: ../src/gui/adddialog.py:435
+#: ../src/gui/adddialog.py:288
 msgid "Date set in the past"
 msgstr "Data definida no passado"
 
-#: ../src/gui/adddialog.py:403
+#: ../src/gui/adddialog.py:408
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" e \"%s\" são campos requeridos."
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
+#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:412
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Titular"
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:415
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Valor"
 
-#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:412 ../src/gui/adddialog.py:415
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" é um campo requerido."
+
+#: ../src/gui/adddialog.py:418
+msgid "The end date is set to a date prior to the start date."
+msgstr ""
+"A data final está definida como uma data anterior à data inicial."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -655,15 +658,15 @@ msgstr "Salvar alterações antes de fechar?"
 msgid "If you close without saving, your changes will be discarded."
 msgstr "Se você fechar sem salvar, as alterações serão descartadas."
 
-#: ../src/lib/scheduler.py:6
+#: ../src/lib/scheduler.py:7
 msgid "Once"
 msgstr "Uma vez"
 
-#: ../src/lib/scheduler.py:7
+#: ../src/lib/scheduler.py:8
 msgid "Weekly"
 msgstr "Semanalmente"
 
-#: ../src/lib/scheduler.py:8
+#: ../src/lib/scheduler.py:9
 msgid "Monthly"
 msgstr "Mensalmente"
 
