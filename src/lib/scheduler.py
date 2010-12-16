@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import calendar
 import time, datetime
 from lib import i18n
 
@@ -46,26 +47,31 @@ def datetime_from_timestamp(timestamp):
 def get_schedule_date(frequency, startDate, endDate=None):
     ''' Returns a list of scheduled date from original date. '''
 
+    start = startDate
     # Takes care of endDates in the past
-    if not endDate or endDate < startDate:
-        endDate = startDate
+    if not endDate or endDate < start:
+        endDate = start
 
-    totalDays = (endDate - startDate).days
+    totalDays = (endDate - start).days
 
     multiplier = frequency == SC_ONCE and 1 or (totalDays / MULTIPLIER[frequency]) + 1
 
     days = []
 
     for i in range(multiplier):
-        days.append(startDate)
+        days.append(start)
 
         if frequency == SC_MONTHLY:
-            nextMonth = startDate.month % 12 + 1
-            nextMonthYear = startDate.year + ((startDate.month) / 12)
-            startDate = datetime.date(nextMonthYear, nextMonth, startDate.day)
+            nextMonth = start.month % 12 + 1
+            nextMonthYear = start.year + ((start.month) / 12)
+            # Check if we can use the same day of the month
+            last_day = calendar.monthrange(nextMonthYear, nextMonth)[1]
+            if startDate.day < last_day:
+                last_day = startDate.day
+            start = datetime.date(nextMonthYear, nextMonth, last_day)
         else:
             delta = datetime.timedelta(days=MULTIPLIER[frequency])
-            startDate = startDate + delta
+            start = start + delta
 
     return days
 
@@ -77,14 +83,9 @@ def first_of_month(month, year):
 
 def last_of_month(month, year):
     ''' Return the timestamp for the last day of the given month. '''
-    nextMonth = month % 12 + 1
-    nextMonthYear = year + ((month) / 12)
-    goback = datetime.timedelta(seconds=1)
-    # Create datetime object with a timestamp corresponding the end of day
-    nextMonth = datetime.date(nextMonthYear, nextMonth, 1)
-    ret = nextMonth - goback
+    last_day = calendar.monthrange(month, year)[1]
 
-    return ret
+    return datetime.date(year, month, last_day)
 
 def get_alarm_timestamp(alertDays, alertTime, origDate):
     ''' Calculate alarm timestamp. '''
