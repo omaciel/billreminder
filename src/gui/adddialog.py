@@ -348,11 +348,17 @@ class AddDialog(object):
             return [self.currentrecord]
 
     def on_frequency_changed(self, widget):
+        startDate = self.dueDate.get_date()
+        endDate = self.endDate.get_date()
+
         frequency = widget.get_active_text()
         if frequency == scheduler.SC_ONCE:
             self.endDate.set_sensitive(False)
         else:
             self.endDate.set_sensitive(True)
+            if startDate > endDate:
+                self.endDate.set_date(self.dueDate.get_date())
+       
 
     def on_edit_categories_clicked(self, button, new = False):
         category = None
