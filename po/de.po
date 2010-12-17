@@ -9,9 +9,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BillReminder 0.3\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-13 16:00-0500\n"
-"PO-Revision-Date: 2010-12-13 20:07+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=billreminder&component=general\n"
+"POT-Creation-Date: 2010-12-16 22:27+0000\n"
+"PO-Revision-Date: 2010-12-17 15:11+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,8 +97,8 @@ msgstr "Anzeigezeit der Alarm-Benachrichtigung."
 #: ../data/billreminder.schemas.in.h:14
 msgid "How many days prior to due date to alert."
 msgstr ""
-"Legt die Anzahl der Tage vor der Fälligkeit fest, wenn mit dem Alarm "
-"begonnen werden soll."
+"Legt die Anzahl der Tage vor der Fälligkeit fest, wenn mit dem Alarm begonnen "
+"werden soll."
 
 #: ../data/billreminder.schemas.in.h:15
 msgid "How many days prior to due date to notify."
@@ -325,8 +326,7 @@ msgstr "Bearbeiten"
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
 msgstr ""
-"Sperrdatei gefunden: Eine andere Instanz des Programms läuft bereits. (pid=%"
-"d)"
+"Sperrdatei gefunden: Eine andere Instanz des Programms läuft bereits. (pid=%d)"
 
 #: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
@@ -385,8 +385,7 @@ msgstr "keine"
 msgid "New Category"
 msgstr "Neue Kategorie"
 
-#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
-#: ../src/gui/adddialog.py:434
+#: ../src/gui/adddialog.py:287
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
@@ -394,30 +393,33 @@ msgstr ""
 "Das Enddatum wurde vor dem Startdatum gesetzt. Ändern Sie es so, dass es zum "
 "Startdatum passt."
 
-#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
-#: ../src/gui/adddialog.py:435
+#: ../src/gui/adddialog.py:288
 msgid "Date set in the past"
 msgstr "Zeitpunkt ist in der Vergangenheit"
 
-#: ../src/gui/adddialog.py:403
+#: ../src/gui/adddialog.py:408
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "»%s« und »%s« sind Pflichtfelder."
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
+#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:412
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Empfänger"
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:415
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Betrag"
 
-#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:412 ../src/gui/adddialog.py:415
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "»%s« ist ein Pflichtfeld."
+
+#: ../src/gui/adddialog.py:418
+msgid "The end date is set to a date prior to the start date."
+msgstr "Das Enddatum wurde vor dem Startdatum gesetzt."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -673,14 +675,14 @@ msgstr ""
 "Wenn Sie das Programm schließen ohne zu speichern, werden Ihre Änderungen "
 "verworfen."
 
-#: ../src/lib/scheduler.py:6
+#: ../src/lib/scheduler.py:7
 msgid "Once"
 msgstr "Einmal"
 
-#: ../src/lib/scheduler.py:7
+#: ../src/lib/scheduler.py:8
 msgid "Weekly"
 msgstr "Wöchentlich"
 
-#: ../src/lib/scheduler.py:8
+#: ../src/lib/scheduler.py:9
 msgid "Monthly"
 msgstr "Monatlich"
