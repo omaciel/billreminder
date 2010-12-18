@@ -68,7 +68,7 @@ class DAL(object):
 
         elif isinstance(dbobject, Category):
             try:
-                category = session.query(Category).filter_by(id=dbobject.id).one()
+                category = session.query(Category).filter_by(name=dbobject.name).one()
                 if category:
                     category.name = dbobject.name
                     category.color = dbobject.color
