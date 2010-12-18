@@ -10,9 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-13 16:00-0500\n"
-"PO-Revision-Date: 2010-12-13 19:59+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=billreminder&component=general\n"
+"POT-Creation-Date: 2010-12-16 22:27+0000\n"
+"PO-Revision-Date: 2010-12-18 14:23+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -377,8 +378,7 @@ msgstr "Ninguno"
 msgid "New Category"
 msgstr "Categoría nueva"
 
-#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
-#: ../src/gui/adddialog.py:434
+#: ../src/gui/adddialog.py:287
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
@@ -386,30 +386,38 @@ msgstr ""
 "La fecha de finalización está establecida a una fecha anterior a la fecha de "
 "comienzo. Ajustándola para coincidir con la fecha de comienzo."
 
-#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
-#: ../src/gui/adddialog.py:435
+#: ../src/gui/adddialog.py:288
 msgid "Date set in the past"
 msgstr "La fecha está establecida en el pasado"
 
-#: ../src/gui/adddialog.py:403
+#: ../src/gui/adddialog.py:408
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "«%s» y «%s» son campos obligatorios."
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
+#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:412
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Beneficiario"
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:415
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Cantidad"
 
-#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:412 ../src/gui/adddialog.py:415
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "«%s» es un campo obligatorio."
+
+#: ../src/gui/adddialog.py:418
+#| msgid ""
+#| "The end date is set to a date prior to the start date. Setting it to "
+#| "match the start date."
+msgid "The end date is set to a date prior to the start date."
+msgstr ""
+"La fecha de finalización está establecida a una fecha anterior a la fecha de "
+"comienzo."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -662,15 +670,15 @@ msgstr "¿Guardar cambios antes de cerrar?"
 msgid "If you close without saving, your changes will be discarded."
 msgstr "Si cierra sin guardar, se perderán los cambios."
 
-#: ../src/lib/scheduler.py:6
+#: ../src/lib/scheduler.py:7
 msgid "Once"
 msgstr "Una vez"
 
-#: ../src/lib/scheduler.py:7
+#: ../src/lib/scheduler.py:8
 msgid "Weekly"
 msgstr "Semanalmente"
 
-#: ../src/lib/scheduler.py:8
+#: ../src/lib/scheduler.py:9
 msgid "Monthly"
 msgstr "Mensualmente"
 
