@@ -51,7 +51,6 @@ class Bill(Base):
 if __name__ == 'main':
     from sqlalchemy.orm import sessionmaker
     from sqlalchemy import create_engine
-    from sqlalchemy.orm import sessionmaker
     from datetime import date
 
     engine = create_engine('sqlite:///:memory:', echo=True)
