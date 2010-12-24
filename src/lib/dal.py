@@ -21,15 +21,27 @@ from xdg.BaseDirectory import *
 class DAL(object):
 
     def __init__(self):
-        data_dir = os.path.join(xdg_data_home, APPNAME)
+
+        new_setup = False
+
+        # This is where the database file should live
+        data_dir = os.path.join(xdg_data_home, APPNAME.lower())
+        # Check that this is a new setup and there's no database yet.
         if not os.path.isdir(data_dir):
+            # Create the directory where the database file will live
             os.mkdir(data_dir)
+            # Safe to assume that this is a new setup.
+            new_setup = True
 
         self.engine = create_engine('sqlite:///%s' % os.path.join(data_dir, DB_NAME))
         self.Session = sessionmaker(bind=self.engine)
 
         # Creates all database tables
         Bill.metadata.create_all(self.engine)
+
+        # Let us make sure to create some default values.
+        if new_setup:
+            self.default_categories()
 
     def add(self, dbobject):
 
@@ -113,3 +125,26 @@ class DAL(object):
             print str(e)
         finally:
             session.close()
+
+    def default_categories(self):
+        categories = [
+                (_("Utilities"), '#f8bcffff0db4'),
+                (_("Food & Dining"), '#cccc00000000'),
+                (_("Mortgage"), '#4e4e9a9a0606'),
+                (_("Rent"), '#c4c4a0a00000'),
+                (_("Medical"), '#34346565a4a4'),
+                (_("Educational"), '#757550507b7b'),
+                (_("Donations"), '#060698209a9a'),
+                (_("Credit Card"), '#d3d3d7d7cfcf'),
+                (_("Gifts"), '#555557575353'),
+                (_("Books"), '#efef29292929'),
+                (_("Online Services"), '#8a8ae2e23434'),
+                (_("Insurance"), '#fcfce9e94f4f'),
+                (_("Auto & Transport"), '#72729f9fcfcf'),
+                (_("Home"), '#adad7f7fa8a8'),
+                (_("Gas & Fuel"), '#3434e2e2e2e2'),
+                (_("Electronics"), '#eeeeeeeeecec'),
+            ]
+
+        for category in categories:
+            self.add(Category(category[0], category[1]))

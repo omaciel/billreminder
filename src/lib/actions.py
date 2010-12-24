@@ -10,7 +10,8 @@ import datetime
 from db.entities import Bill, Category
 from sqlalchemy.sql import func
 from sqlalchemy.orm import eagerload, outerjoin
-from lib import common, scheduler
+from lib import common
+from lib import scheduler
 from lib.utils import force_string
 from lib.utils import verify_dbus_service
 
@@ -21,29 +22,6 @@ class Actions(object):
             databaselayer = dal.DAL()
 
         self.dal = databaselayer
-
-    def default_categories(self):
-        categories = [
-                ("Utilities", '#f8bcffff0db4'),
-                ("Food & Dining", '#cccc00000000'),
-                ("Mortgage", '#4e4e9a9a0606'),
-                ("Rent", '#c4c4a0a00000'),
-                ("Medical", '#34346565a4a4'),
-                ("Educational", '#757550507b7b'),
-                ("Donation", '#060698209a9a'),
-                ("Credit Card", '#d3d3d7d7cfcf'),
-                ("Gifts", '#555557575353'),
-                ("Books", '#efef29292929'),
-                ("Online Services", '#8a8ae2e23434'),
-                ("Insurance", '#fcfce9e94f4f'),
-                ("Auto & Transport", '#72729f9fcfcf'),
-                ("Home", '#adad7f7fa8a8'),
-                ("Gas & Fuel", '#3434e2e2e2e2'),
-                ("Electronics", '#eeeeeeeeecec'),
-            ]
-
-        for category in categories:
-            self.add(Category(category[0], category[1]))
 
     def get_interval_bills(self, start=None, end=None, paid=None):
         """
