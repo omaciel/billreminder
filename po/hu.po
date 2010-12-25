@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-13 16:00-0500\n"
-"PO-Revision-Date: 2010-01-22 00:59+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=billreminder&component=general\n"
+"POT-Creation-Date: 2010-12-16 22:27+0000\n"
+"PO-Revision-Date: 2010-12-25 22:11+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -169,32 +169,28 @@ msgid "Show Toolbar"
 msgstr "Eszköztár megjelenítése"
 
 #: ../data/main.ui.h:7
-#, fuzzy
 msgid "_All Bills"
-msgstr "Minden számla"
+msgstr "Min_den számla"
 
 #: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
 #: ../data/main.ui.h:9
-#, fuzzy
 msgid "_File"
-msgstr "Sikertelen."
+msgstr "_Fájl"
 
 #: ../data/main.ui.h:10
 msgid "_Help"
 msgstr "_Súgó"
 
 #: ../data/main.ui.h:11
-#, fuzzy
 msgid "_Not Paid Only"
-msgstr "Csak a befizetetlenek"
+msgstr "_Csak a befizetetlenek"
 
 #: ../data/main.ui.h:12
-#, fuzzy
 msgid "_Paid Only"
-msgstr "Csak a befizetettek"
+msgstr "Csak a be_fizetettek"
 
 #: ../data/main.ui.h:13
 msgid "_View"
@@ -314,8 +310,7 @@ msgstr "Szerkesztés"
 #: ../src/daemon/main.py:85
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr ""
-"Már létezik a zárolásfájl. Már fut az alkalmazás egy példánya. (pid=%d)"
+msgstr "Már létezik a zárolásfájl. Már fut az alkalmazás egy példánya. (pid=%d)"
 
 #: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
@@ -366,8 +361,7 @@ msgstr "Nincs"
 msgid "New Category"
 msgstr "Új kategória"
 
-#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
-#: ../src/gui/adddialog.py:434
+#: ../src/gui/adddialog.py:287
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
@@ -375,30 +369,36 @@ msgstr ""
 "A befejező dátum megelőzi a kezdődátumot. A kezdődátummal egyezőre lesz "
 "állítva."
 
-#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
-#: ../src/gui/adddialog.py:435
+#: ../src/gui/adddialog.py:288
 msgid "Date set in the past"
 msgstr "A dátum a múltban van"
 
-#: ../src/gui/adddialog.py:403
+#: ../src/gui/adddialog.py:408
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "„%s” és „%s” mezőket ki kell tölteni."
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
+#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:412
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Kiállító"
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:415
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Összeg"
 
-#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:412 ../src/gui/adddialog.py:415
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "„%s” mezőt ki kell tölteni"
+
+#: ../src/gui/adddialog.py:418
+#| msgid ""
+#| "The end date is set to a date prior to the start date. Setting it to "
+#| "match the start date."
+msgid "The end date is set to a date prior to the start date."
+msgstr "A befejező dátum megelőzi a kezdődátumot."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -445,33 +445,28 @@ msgstr "Jóváhagyás"
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
 #: ../src/gui/maindialog.py:133
-#, fuzzy
 msgid "_New"
-msgstr "_Nézet"
+msgstr "Ú_j"
 
 #: ../src/gui/maindialog.py:134
 msgid "Add new bill"
 msgstr "Új számla felvétele"
 
 #: ../src/gui/maindialog.py:139
-#, fuzzy
 msgid "_Delete"
-msgstr "Törlés"
+msgstr "_Törlés"
 
 #: ../src/gui/maindialog.py:142
-#, fuzzy
 msgid "P_aid"
-msgstr "Befizetett"
+msgstr "Befi_zetett"
 
 #: ../src/gui/maindialog.py:145
-#, fuzzy
 msgid "No_t Paid"
-msgstr "Befizetetlen"
+msgstr "Befize_tetlen"
 
 #: ../src/gui/maindialog.py:148
-#, fuzzy
 msgid "_Show Toolbar"
-msgstr "Eszköztár megjelenítése"
+msgstr "_Eszköztár megjelenítése"
 
 #: ../src/gui/maindialog.py:149
 msgid "Show the toolbar"
@@ -656,27 +651,15 @@ msgstr "Menti a változtatásokat kilépés előtt?"
 msgid "If you close without saving, your changes will be discarded."
 msgstr "Ha mentés nélkül lép ki, a nem mentett változások elvesznek."
 
-#: ../src/lib/scheduler.py:6
+#: ../src/lib/scheduler.py:7
 msgid "Once"
 msgstr "Egyszer"
 
-#: ../src/lib/scheduler.py:7
+#: ../src/lib/scheduler.py:8
 msgid "Weekly"
 msgstr "Hetente"
 
-#: ../src/lib/scheduler.py:8
+#: ../src/lib/scheduler.py:9
 msgid "Monthly"
 msgstr "Havonta"
 
-#~ msgid "_Bill"
-#~ msgstr "S_zámla"
-
-#~ msgid "Add New"
-#~ msgstr "Új felvitele"
-
-#~ msgid ""
-#~ "An error occurred while connecting to BillReminder Notifier!\n"
-#~ "Do you want to launch it and restart BillReminder?"
-#~ msgstr ""
-#~ "Hiba történt a Számlafigyelő-értesítőhöz való csatlakozás közben!\n"
-#~ "El kívánja most indítani és újraindítani a Számlafigyelőt?"
