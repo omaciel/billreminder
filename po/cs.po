@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-14 21:52+0100\n"
-"PO-Revision-Date: 2010-12-13 12:43+0100\n"
+"POT-Creation-Date: 2010-12-27 20:59+0100\n"
+"PO-Revision-Date: 2010-12-17 19:41+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -364,8 +364,7 @@ msgstr "Není"
 msgid "New Category"
 msgstr "Nová kategorie"
 
-#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
-#: ../src/gui/adddialog.py:434
+#: ../src/gui/adddialog.py:287
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
@@ -373,30 +372,33 @@ msgstr ""
 "Konečné datum je nastaveno na dřívější než počáteční. Nastavte jej tak, aby "
 "odpovídalo počátečnímu."
 
-#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
-#: ../src/gui/adddialog.py:435
+#: ../src/gui/adddialog.py:288
 msgid "Date set in the past"
 msgstr "Datum nastaveno do minulosti"
 
-#: ../src/gui/adddialog.py:403
+#: ../src/gui/adddialog.py:414
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "Položky „%s“ a „%s“ je nutné vyplnit."
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
+#: ../src/gui/adddialog.py:415 ../src/gui/adddialog.py:418
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Věřitel"
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:415 ../src/gui/adddialog.py:421
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Částka"
 
-#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:418 ../src/gui/adddialog.py:421
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "Položku „%s“ je nutné vyplnit."
+
+#: ../src/gui/adddialog.py:424
+msgid "The end date is set to a date prior to the start date."
+msgstr "Konečné datum je nastaveno na dřívější než počáteční."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -652,15 +654,15 @@ msgstr "Uložit změny před zavřením?"
 msgid "If you close without saving, your changes will be discarded."
 msgstr "Pokud zavřete bez uložení, budou změny nenávratně ztraceny."
 
-#: ../src/lib/scheduler.py:6
+#: ../src/lib/scheduler.py:7
 msgid "Once"
 msgstr "Jednou"
 
-#: ../src/lib/scheduler.py:7
+#: ../src/lib/scheduler.py:8
 msgid "Weekly"
 msgstr "Týdně"
 
-#: ../src/lib/scheduler.py:8
+#: ../src/lib/scheduler.py:9
 msgid "Monthly"
 msgstr "Měsíčně"
 
