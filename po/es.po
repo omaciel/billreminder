@@ -1,4 +1,4 @@
-# Spanish translation for billreminder
+# Spanish translation for billreminder.master
 # Copyright (C) 2007 Og Maciel
 # This file is distributed under the same license as the billreminder package.
 #
@@ -9,11 +9,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: billreminder\n"
+"Project-Id-Version: billreminder.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=billreminder&component=general\n"
-"POT-Creation-Date: 2010-12-16 22:27+0000\n"
-"PO-Revision-Date: 2010-12-18 14:23+0100\n"
+"POT-Creation-Date: 2010-12-28 03:14+0000\n"
+"PO-Revision-Date: 2010-12-29 23:06+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -390,30 +390,27 @@ msgstr ""
 msgid "Date set in the past"
 msgstr "La fecha está establecida en el pasado"
 
-#: ../src/gui/adddialog.py:408
+#: ../src/gui/adddialog.py:414
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "«%s» y «%s» son campos obligatorios."
 
-#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:412
+#: ../src/gui/adddialog.py:415 ../src/gui/adddialog.py:418
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Beneficiario"
 
-#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:415
+#: ../src/gui/adddialog.py:415 ../src/gui/adddialog.py:421
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Cantidad"
 
-#: ../src/gui/adddialog.py:412 ../src/gui/adddialog.py:415
+#: ../src/gui/adddialog.py:418 ../src/gui/adddialog.py:421
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "«%s» es un campo obligatorio."
 
-#: ../src/gui/adddialog.py:418
-#| msgid ""
-#| "The end date is set to a date prior to the start date. Setting it to "
-#| "match the start date."
+#: ../src/gui/adddialog.py:424
 msgid "The end date is set to a date prior to the start date."
 msgstr ""
 "La fecha de finalización está establecida a una fecha anterior a la fecha de "
@@ -642,6 +639,71 @@ msgstr "Desarrolladores:"
 #: ../src/lib/common.py:22
 msgid "Contributors:"
 msgstr "Colaboradores:"
+
+#: ../src/lib/dal.py:131
+msgid "Utilities"
+msgstr "Utilidades"
+
+#: ../src/lib/dal.py:132
+msgid "Food & Dining"
+msgstr "Comida y bebida"
+
+#: ../src/lib/dal.py:133
+msgid "Mortgage"
+msgstr "Hipoteca"
+
+#: ../src/lib/dal.py:134
+msgid "Rent"
+msgstr "Alquiler"
+
+#: ../src/lib/dal.py:135
+msgid "Medical"
+msgstr "Médicos"
+
+#: ../src/lib/dal.py:136
+msgid "Educational"
+msgstr "Educación"
+
+#: ../src/lib/dal.py:137
+#| msgid "Confirmation"
+msgid "Donations"
+msgstr "Donaciones"
+
+#: ../src/lib/dal.py:138
+msgid "Credit Card"
+msgstr "Tarjeta de crédito"
+
+#: ../src/lib/dal.py:139
+msgid "Gifts"
+msgstr "Regalos"
+
+#: ../src/lib/dal.py:140
+msgid "Books"
+msgstr "Libros"
+
+#: ../src/lib/dal.py:141
+msgid "Online Services"
+msgstr "Servicios en línea"
+
+#: ../src/lib/dal.py:142
+msgid "Insurance"
+msgstr "Seguros"
+
+#: ../src/lib/dal.py:143
+msgid "Auto & Transport"
+msgstr "Vehículo y transporte"
+
+#: ../src/lib/dal.py:144
+msgid "Home"
+msgstr "Casa"
+
+#: ../src/lib/dal.py:145
+msgid "Gas & Fuel"
+msgstr "Gas y gasóleo"
+
+#: ../src/lib/dal.py:146
+msgid "Electronics"
+msgstr "Electrónica"
 
 #. Dialog Title
 #: ../src/lib/utils.py:83
