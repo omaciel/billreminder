@@ -7,14 +7,16 @@
 # Djavan Fagundes <dnoway@gmail.com>, 2008, 2009.
 # Kurt Kraut <translations@kurtkraut.net>, 2008.
 # Og Maciel <ogmaciel@gnome.org>, 2009.
+# Mateus Zenaide <matzenh@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 17:26-0500\n"
-"PO-Revision-Date: 2009-12-19 18:00-0500\n"
-"Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=billreminder&component=general\n"
+"POT-Creation-Date: 2010-12-28 03:14+0000\n"
+"PO-Revision-Date: 2010-12-29 12:57-0300\n"
+"Last-Translator: Mateus Zenaide <mateus.gnome@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -348,8 +350,9 @@ msgstr ""
 "Luiz Armesto <luiz.armesto@gmail.com>\n"
 "Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
 "Vladimir Melo <vladimirmelo.psi@gmail.com>\n"
-"Djavan Fagundes <dnoway@gmail.com>\n"
-"Kurt Kraut <translations@kurtkraut.net>"
+"Djavan Fagundes <djavanf@gnome.org>\n"
+"Kurt Kraut <translations@kurtkraut.net>\n"
+"Mateus Zenaide <matzenh@gmail.com>"
 
 #: ../src/gui/aboutdialog.py:30
 msgid "BillReminder Website"
@@ -382,30 +385,29 @@ msgstr ""
 msgid "Date set in the past"
 msgstr "Data definida no passado"
 
-#: ../src/gui/adddialog.py:408
+#: ../src/gui/adddialog.py:414
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" e \"%s\" são campos requeridos."
 
-#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:412
+#: ../src/gui/adddialog.py:415 ../src/gui/adddialog.py:418
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Titular"
 
-#: ../src/gui/adddialog.py:409 ../src/gui/adddialog.py:415
+#: ../src/gui/adddialog.py:415 ../src/gui/adddialog.py:421
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Valor"
 
-#: ../src/gui/adddialog.py:412 ../src/gui/adddialog.py:415
+#: ../src/gui/adddialog.py:418 ../src/gui/adddialog.py:421
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" é um campo requerido."
 
-#: ../src/gui/adddialog.py:418
+#: ../src/gui/adddialog.py:424
 msgid "The end date is set to a date prior to the start date."
-msgstr ""
-"A data final está definida como uma data anterior à data inicial."
+msgstr "A data final está definida como uma data anterior à data inicial."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -631,6 +633,70 @@ msgstr "Desenvolvedores:"
 msgid "Contributors:"
 msgstr "Contribuidores:"
 
+#: ../src/lib/dal.py:131
+msgid "Utilities"
+msgstr "Utilidades"
+
+#: ../src/lib/dal.py:132
+msgid "Food & Dining"
+msgstr "Alimentos & refeições"
+
+#: ../src/lib/dal.py:133
+msgid "Mortgage"
+msgstr "Hipoteca"
+
+#: ../src/lib/dal.py:134
+msgid "Rent"
+msgstr "Aluguel"
+
+#: ../src/lib/dal.py:135
+msgid "Medical"
+msgstr "Médico"
+
+#: ../src/lib/dal.py:136
+msgid "Educational"
+msgstr "Educação"
+
+#: ../src/lib/dal.py:137
+msgid "Donations"
+msgstr "Doações"
+
+#: ../src/lib/dal.py:138
+msgid "Credit Card"
+msgstr "Cartão de crédito"
+
+#: ../src/lib/dal.py:139
+msgid "Gifts"
+msgstr "Presentes"
+
+#: ../src/lib/dal.py:140
+msgid "Books"
+msgstr "Livros"
+
+#: ../src/lib/dal.py:141
+msgid "Online Services"
+msgstr "Serviços online"
+
+#: ../src/lib/dal.py:142
+msgid "Insurance"
+msgstr "Seguro"
+
+#: ../src/lib/dal.py:143
+msgid "Auto & Transport"
+msgstr "Automóveis & transportes"
+
+#: ../src/lib/dal.py:144
+msgid "Home"
+msgstr "Casa"
+
+#: ../src/lib/dal.py:145
+msgid "Gas & Fuel"
+msgstr "Gás & combustíveis"
+
+#: ../src/lib/dal.py:146
+msgid "Electronics"
+msgstr "Eletrônicos"
+
 #. Dialog Title
 #: ../src/lib/utils.py:83
 msgid "Question"
@@ -670,196 +736,3 @@ msgstr "Semanalmente"
 msgid "Monthly"
 msgstr "Mensalmente"
 
-#~ msgid "_Bill"
-#~ msgstr "Contas"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgid "Add New"
-#~ msgstr "Adicionar nova"
-
-#~ msgid ""
-#~ "An error occurred while connecting to BillReminder Notifier!\n"
-#~ "Do you want to launch it and restart BillReminder?"
-#~ msgstr ""
-#~ "Um erro ocorreu enquanto conectava ao Notificador do BillReminder!\n"
-#~ "Você deseja lançá-lo e reiniciar o BillReminder?"
-
-#~ msgid "<b>Due Date:</b>"
-#~ msgstr "<b>Data de vencimento:</b>"
-
-#~ msgid "<b>_Payee:</b>"
-#~ msgstr "<b>_Titular:</b>"
-
-#~ msgid "<b>_Amount:</b>"
-#~ msgstr "<b>V_alor:</b>"
-
-#~ msgid "<b>_Category:</b>"
-#~ msgstr "<b>_Categoria:</b>"
-
-#~ msgid "<b>_Notes:</b>"
-#~ msgstr "<b>A_notações:</b>"
-
-#~ msgid "<b>A_larm:</b>"
-#~ msgstr "<b>A_larme:</b>"
-
-#~ msgid "_Paid"
-#~ msgstr "_Paga"
-
-#~ msgid "_Not Paid"
-#~ msgstr "_Não paga"
-
-#~ msgid "Edit preferences"
-#~ msgstr "Edita as preferências"
-
-#~ msgid "Quit the Program"
-#~ msgstr "Sai do programa"
-
-#~ msgid "About the application"
-#~ msgstr "Sobre o aplicativo"
-
-#~ msgid "Display all unpaid bills only"
-#~ msgstr "Exibe apenas todas as contas pagas"
-
-#~ msgid "Display all paid bills only"
-#~ msgstr "Exibe apenas as contas pagas"
-
-#~ msgid "Display all bills"
-#~ msgstr "Exibir todas as contas."
-
-#~ msgid "Not _Paid"
-#~ msgstr "Não _paga"
-
-#~ msgid "How many times to repeat this bill."
-#~ msgstr "Quantas vezes repetir esta conta."
-
-#~ msgid "<b>_Monthly Report:</b>"
-#~ msgstr "<b>Relatório _Mensal:</b>"
-
-#~ msgid "<b>_Year:</b>"
-#~ msgstr "<b>_Ano:</b>"
-
-#~ msgid "<b>F_ilter:</b>"
-#~ msgstr "<b>F_iltro:</b>"
-
-#~ msgid "Edit a record"
-#~ msgstr "Edita um registro"
-
-#~ msgid "_All Records"
-#~ msgstr "_Todas as contas"
-
-#~ msgid "Display all records"
-#~ msgstr "Exibe todas as contas"
-
-#~ msgid "Records:"
-#~ msgstr "Registros:"
-
-#~ msgid "Add a New Record"
-#~ msgstr "Adicionar um novo registro"
-
-#~ msgid "Edit a Record"
-#~ msgstr "Editar um registro"
-
-#~ msgid "%Y/%m/%d"
-#~ msgstr "%d/%m/%Y"
-
-#~ msgid "Date:"
-#~ msgstr "Data:"
-
-#~ msgid "Time:"
-#~ msgstr "Hora:"
-
-#~ msgid "Hour :"
-#~ msgstr "Hora :"
-
-#~ msgid "Minute :"
-#~ msgstr "Minuto :"
-
-#~ msgid "Alerts"
-#~ msgstr "Alertas"
-
-#~ msgid ""
-#~ "Usage:  billreminder [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --about\t\tAbout this application.\n"
-#~ "  --add\t\t\tAdds a new record to the database.\n"
-#~ "  --standalone\t\tAccess database directly, without daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Uso:  billreminder [OPÇÕES...]\n"
-#~ "\n"
-#~ "Opções:\n"
-#~ "  --help, -h, -?\tExibe esta mensagem.\n"
-#~ "  --about\t\tSobre esta aplicação.\n"
-#~ "  --add\t\t\tAdiciona um novo registro à base de dados.\n"
-#~ "  --standalone\t\tAcessa a base de dados diretamente, sem o daemon.\n"
-#~ "  --version, -v\t\tExibe o número de versão desta aplicação.\n"
-
-#~ msgid ""
-#~ "Usage:  billreminderd [OPTIONS...]\n"
-#~ "\n"
-#~ "Options:\n"
-#~ "  --help, -h, -?\tShow this message.\n"
-#~ "  --verbose\t\tPrint output messages.\n"
-#~ "  --no-daemon\t\tDon't run as a daemon.\n"
-#~ "  --open-gui\t\tStart daemon and launch GUI.\n"
-#~ "  --stop\t\t\tStop daemon.\n"
-#~ "  --version, -v\t\tDisplays the version number for this application.\n"
-#~ msgstr ""
-#~ "Uso:  billreminderd [OPÇÕES...]\n"
-#~ "\n"
-#~ "Opções:\n"
-#~ "  --help, -h, -?\tExibe esta mensagem.\n"
-#~ "  --verbose\t\tImprime mensagens de saída.\n"
-#~ "  --no-daemon\t\tNão executa como um serviço.\n"
-#~ "  --open-gui\t\tInicia o daemon e abre a interface gráfica.\n"
-#~ "  --stop\t\t\tInterrompe o serviço.\n"
-#~ "  --version, -v\t\tExibe o número de versão desta aplicação.\n"
-
-#~ msgid "1 hour"
-#~ msgstr "1 hora"
-
-#~ msgid "%d minute"
-#~ msgid_plural "%d minutes"
-#~ msgstr[0] "%d minuto"
-#~ msgstr[1] "%d minutos"
-
-#~ msgid "Amount Due"
-#~ msgstr "Valor"
-
-#~ msgid "Startup"
-#~ msgstr "Iniciar"
-
-#~ msgid "_Show notifications when user login"
-#~ msgstr "Exibir notificações no lo_gin"
-
-#~ msgid "Delay:"
-#~ msgstr "Atraso:"
-
-#~ msgid "Open BillReminder _minimized in notification area"
-#~ msgstr "Iniciar BillReminder _minimizado na área de notificação"
-
-#~ msgid "Show notification for bills that will be due _before %d days"
-#~ msgstr "Exibir notificações para contas que _vencerão antes de %d dias"
-
-#~ msgid "Show _alert %(days)d days before due date, at %(hours)s"
-#~ msgstr "Exibir _alerta %(days)d dias antes do vencimento, às  %(hours)s"
-
-#~ msgid "Show alert for bills that are _due"
-#~ msgstr "Exibir alerta para contas venci_das"
-
-#~ msgid "_Launch BillReminder Notifier"
-#~ msgstr "_Iniciar o Notificador do BillReminder"
-
-#~ msgid "%H:%M"
-#~ msgstr "%H:%M"
-
-#~ msgid ""
-#~ "<b>Note:</b> BillReminder Notifier now is running.\n"
-#~ "It is needed to show notifications."
-#~ msgstr ""
-#~ "<b>Nota:</b>O Notificador do BillReminder agora está sendo executado.\n"
-#~ "Ele é necessário para exibir as notificações."
