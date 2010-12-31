@@ -32,6 +32,7 @@ from lib.utils import Message
 from lib.utils import get_dbus_interface
 from lib.utils import force_string
 from lib.utils import create_pixbuf
+from lib.utils import float_to_currency
 from lib import i18n
 
 from lib.common import GCONF_PATH, GCONF_GUI_PATH, GCONF_ALARM_PATH
@@ -496,7 +497,7 @@ class MainDialog:
                 amount += bill.amount
                 if tooltip:
                     tooltip += '\n'
-                tooltip += bill.payee + '\n' + str(bill.amount)
+                tooltip += bill.payee + '\n' + str(float_to_currency(bill.amount))
                 if bill.notes:
                     tooltip += '\n' + bill.notes
 
