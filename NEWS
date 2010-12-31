@@ -1,7 +1,22 @@
-BillReminder 0.3.x
+BillReminder 0.4.0
 ==================
 
-Frontend:
+Features:
+=========
+  * Switched most of the user interface code to Glade files with the hope that
+  it will ease future contributions from ui developers.
+  * Support for configuring notification alarms.
+  * Switched database layer from custom code to SQLAlchemy.
+  * Changed license from BSD to GPL v3.
+  * A set of default categories are now created by default on new
+  installations.
+  * Better overall data validation when adding or editing bills.
+  * Changed menu to use standard "File" entry instead of previous
+  "Bill" menu entry.
+  * Borrowed GConf handler from the Conduit project and register gconf schema
+  by default.
+  * Added charting support from the Hamster project for better visualization of
+  your expenditure.
   * A new calendar widget has been added to replace the caledar from the
   add/edit dialog. In order to display the calendar, it is necessary to
   expand the widget by clicking on the displayed date.
@@ -10,10 +25,9 @@ Frontend:
   Multiple records will then be added using the start and end date to figure
   out their correct due date.
   * A new timeline widget has been added to replace the calendar from the main
-  window. You can now use it to change the way you view your bills by
-  selecting an specific date with a single click as well as drag the
-  timeline to view past and/or future bills. The following keyboard
-  shortcuts are available:
+  window. You can now use it to change the way you view your bills by selecting
+  an specific date with a single click as well as drag the timeline to view past
+  and/or future bills. The following keyboard shortcuts are available:
 
   With focus:
     right arrow     go to next day
@@ -28,10 +42,51 @@ Frontend:
 
   * go to current day plus the number of days displayed in widget.
 
-Backend:
-  * Fixed an issue where datadir was hard coded to '/usr/share'. (Bug #553890).
-  * Make sure that gconf is run (if available) and register schema. Partially
-  fixes Bug #553694.
+Bug Fixes:
+==========
+- #551953: It should be possible to add bills without an amount defined.
+- #553890: Different install/data paths.
+- #554228: Changed Record to Bill to be consistent with nomenclature.
+- #555136: Import sqlite3 if using python 2.5, or pysqlite2 if using python 2.4.
+- #556748: Don't try to cast a dbus.String into an int type, if catId is 'None'.
+- #561550: Make 'notes' widget scroll when number of lines go beyond the widget's
+  height.
+- #561751: UI Doesn't refresh when deleting a record.
+- #563736: Warn users of overlapping dates for recurring bills.
+- #569023: Timeline widget will not support displaying multiple bills with
+  different states on the same day.
+
+Translations:
+=============
+- ca, courtesy of Jordi Estrada
+- ca@valencia, courtesy of Francesc Dorca i Badia
+- cs, courtesy of Marek Černocký
+- da, courtesy of Joe Hansen
+- de, courtesy of Mario Blättermann
+- el, courtesy of Γιάννης Κατσαμπίρης
+- en_CA, courtesy of Og Maciel
+- en_GB, courtesy of Jen Ockwell
+- es, courtesy of Jorge González
+- fi, courtesy of Ilkka Tuohela
+- fr, courtesy of Bruno Brouard
+- gl, courtesy of Fran Diéguez
+- he, courtesy of Yaron Shahrabani
+- hr, courtesy of Mario Đanić
+- hu, courtesy of Gabor Kelemen
+- it, courtesy of Sergio Zanchetta
+- lv, courtesy of Toms Bauģis
+- nb, courtesy of Tommy Mikkelsen
+- nl, courtesy of Martijn Cielen
+- pl, courtesy of Tomasz Z. Napierala
+- pt_BR, courtesy of Mateus Zenaide
+- pt, courtesy of Susana Pereira
+- ro, courtesy of Ionuț Jula
+- ru, courtesy of Ilya B
+- sl, courtesy of Andrej Žnidaršič
+- sv, courtesy of Daniel Nylander
+- tl, courtesy of Jerome S. Gotangco
+- tr, courtesy of Rail Aliev
+- zh_CN, courtesy of du baodao
 
 BillReminder 0.3.2
 ==================
