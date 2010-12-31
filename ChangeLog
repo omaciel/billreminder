@@ -1,146 +1,69 @@
-2009-01-30 Og Maciel <ogmaciel@gnome.org>
+==================
+BillReminder 0.4.0
+==================
 
-	* src/gui/prefdialog.py: Handle missing gconf data when not installed.
-	* src/gui/widgets/datepicker.py: Don't trigger calendar widget event.
-	* src/gui/widgets/timeline.py: Reverted my changes as I am still lost.
+- Create default categories for new installs.
+- Better overall data validation:
+- Fixed algorythm responsible for setting date of future recurring bills.
+- Changed menu to use standard "File" entry.
+- Added new custom Timeline and DatePicker widgets.
+- Added charting support from the Hamster project for better visualization of
+bills.
+- Switched most of the user interface code to Glade files with the hope that
+it will ease future contributions from ui developers.
+- Support for alarms.
+- Borrowed GConf handler from the Conduit project and register gconf schema
+by default (Fixes b.g.o. #)
+- Switched database layer to SQLAlchemy.
+- Changed license from BSD to GPL v3.
 
-2009-01-25 Og Maciel <ogmaciel@gnome.org>
+Bug Fixes:
+==========
+- #551953: It should be possible to add bills without an amount defined.
+- #553890: Different install/data paths.
+- #554228: Changed Record to Bill to be consistent with nomenclature.
+- #555136: Import sqlite3 if using python 2.5, or pysqlite2 if using python 2.4.
+- #556748: Don't try to cast a dbus.String into an int type, if catId is 'None'.
+- #561550: Make 'notes' widget scroll when number of lines go beyond the widget's height.
+- #561751: UI Doesn't refresh when deleting a record.
+- #563736: Warn users of overlapping dates for recurring bills.
+- #569023: Timeline widget will not support displaying multiple bills with different states on the same day.
 
-	* src/gui/widgets/timeline.py: Started work to handle bullets with multiple
-	status.
-	* src/gui/maindialog.py: Removed white space.
+Translations:
+=============
+- ca, courtesy of Jordi Estrada
+- ca@valencia, courtesy of Francesc Dorca i Badia
+- cs, courtesy of Marek Černocký
+- da, courtesy of Joe Hansen
+- de, courtesy of Mario Blättermann
+- el, courtesy of Γιάννης Κατσαμπίρης
+- en_CA, courtesy of Og Maciel
+- en_GB, courtesy of Jen Ockwell
+- es, courtesy of Jorge González
+- fi, courtesy of Ilkka Tuohela
+- fr, courtesy of Bruno Brouard
+- gl, courtesy of Fran Diéguez
+- he, courtesy of Yaron Shahrabani
+- hr, courtesy of Mario Đanić
+- hu, courtesy of Gabor Kelemen
+- it, courtesy of Sergio Zanchetta
+- lv, courtesy of Toms Bauģis
+- nb, courtesy of Tommy Mikkelsen
+- nl, courtesy of Martijn Cielen
+- pl, courtesy of Tomasz Z. Napierala
+- pt_BR, courtesy of Mateus Zenaide
+- pt, courtesy of Susana Pereira
+- ro, courtesy of Ionuț Jula
+- ru, courtesy of Ilya B
+- sl, courtesy of Andrej Žnidaršič
+- sv, courtesy of Daniel Nylander
+- tl, courtesy of Jerome S. Gotangco
+- tr, courtesy of Rail Aliev
+- zh_CN, courtesy of du baodao
 
-2009-01-01 Og Maciel <ogmaciel@gnome.org>
-
-	* po/POTFILES.skip: Added calendarwidget.py.
-	* src/gui/widgets/timeline.py: CTRL mask fix by Luiz Armesto.
-	* NEWS: Entries for the new datepicker and timeline widgets.
-
-2008-12-20 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/adddialog.py: Notify user when the end date is prior to start date.
-	* src/gui/maindialog.py: Convert datetime.date to datetime.datetime when
-	 passing the date from timeline.
-
-2008-12-18 Og Maciel <ogmaciel@gnome.org>
-
-	* src/lib/scheduler.py: Handle end dates set in the past and added tests.
-
-2008-11-20 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/adddialog.py: Handle adding repeating records.
-	* src/gui/widgets/datepicker.py: Emmit signal when data is changed.
-	* src/gui/widgets/genericlistview.py: Reverted r645. Fixes b.g.o #561751.
-	* src/gui/maindialog.py: Code cleanup; update endDate when dueDate is changed.
-	* src/lib/scheduler.py: Code cleanupand improvements for date handling functions.
-
-2008-11-19 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/adddialog.py: Make 'notes' widget scroll when number of lines go beyond the widget's
-	 height. Fixes b.g.o #561550.
-
-2008-11-18 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/categoriesdialog.py: Only select an item if we have data.
-	* src/gui/adddialog.py: toggle widgets sensibility based on presence
-	 of passed record or not; Added DatePicker widgets for Due Date
-	 and End Date; Set the date for DatePicker using the set_date method;
-	 Select date from DatePicker widget using get_date method; Handle 
-	 endDateLabel sensitivity based on selection of frequency.
-	* gui/widgets/datepicker.py: Added get/set_date methods; Check day_selected
-	 event and update currentDate/label;
-
-2008-11-17 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/adddialog.py: Fixed optional fields section for better alignment.
-
-2008-11-16 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/adddialog.py: Use new DatePicker widget and get rid of gtk.Calendar.
-	* src/gui/widgets/datepicker.py: New widget that lets you choose a date from a dropdown calendar.
-	* src/gui/widgets/Makefile.am: Added datepicker.py.
-	* src/gui/maindialog.py:
-	* po/pt_BR.po: Updated the catalog.
-	* po/POTFILES.in: Added datepicker.py.
-	* po/billreminder.pot: Updated the catalog.
-
-2008-10-23 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/aboutdialog.py: Use gnomevfs for url_show method.
-	* src/daemon/main.py, src/lib/dal.py, configure.ac: Don't try to import 
-	pysqlite2 in python 2.5. Patch by John Millikin (Fixes Bug: #555136).
-
-2008-10-17 Og Maciel <ogmaciel@gnome.org>
-
-	* src/lib/dbus_actions.py: Don't try to cast a dbus.String into an int type, if catId is 'None'.
-	 Fixes Bug #556748.
-
-2008-10-13 Og Maciel <ogmaciel@gnome.org>
-
-	* data/Makefile.am: Make sure that gconf schema is installed.
-
-2008-10-01 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/widgets/Makefile.am:
-	* src/gui/maindialog.py:
-	  Removed the searchentry widget as the liststore already has filtering.
-
-2008-09-29 Luiz Armesto <luiz.armesto@gmail.com>
-
-	* src/gui/widgets/timeline.py: Renamed Bullet attribute amount to
-	  amountDue, added refresh method to Timeline and minor fixes.
-	* src/gui/maindialog.py: Use new timeline widget now.
-	* src/lib/actions.py, src/lib/dbus_actions.py, src/daemon/dbus_manager.py: 
-	  Added new methods to dbus - get_interval_totals and get_interval_bills.
-
-2008-09-28 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/widgets/timeline.py: More keyboard shortcuts added, such as zoom in/out.
-	* src/billreminder.py, src/gui/widgets/statusbar.py, src/gui/maindialog.py, src/lib/dialogs.py:
-	  Changed "Record" to "Bill" to be consistent with nomenclature (Fixes Bug: 554228).
-
-2008-09-27 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/adddialog.py: Allow bills to have a null amount. Fixes Bug #551953.
-	* src/gui/widgets/charting.py: Display 2 decimal places for labels. Fixes Bug #551953.
-	* src/gui/widgets/viewbill.py: Allow null values for amountDue. Fixes Bug #551953.
-	* src/lib/actions.py: Handle null values, returning a zero where needed. Fixes Bug #551953.
-	* src/gui/widgets/timeline.py: Added new timeline widget.
-	* data/Makefile.am: Make sure that gconf is run (if available) and register schema.
-	  Partially fixes Bug #553694.
-
-2008-09-26 Og Maciel <ogmaciel@gnome.org>
-
-	* src/lib/common.py: datadir variable is no longer hard coded.
-	* src/lib/Makefile.am: Fixes Bug #553890 to get datadir from configuration step.
-	* src/lib/defs.py.in: datadir is derived during build time.
-
-2008-09-25 Og Maciel <ogmaciel@gnome.org>
-
-	* src/db/billstable.py: Bump version and make amountDue optional.
-	* src/lib/dal.py: Validating that the tables update routine does its job.
-
-2008-09-24 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/widgets/calendarwidget.py: Added mnemonics.
-	* src/gui/widgets/genericlistview.py: Added a filter.
-	* src/gui/widgets/SearchEntry.py: Borrowed code to add smart filtering capabilities.
-	* src/gui/widgets/Makefile.am: Added missing and new files.
-	* src/gui/maindialog.py: Added the new filtering widget.
-	* src/daemon/alarm.py, dbus_manager.py: Added new method call to dbus.
-	* src/lib/actions.py, dbus_actions.py: Fixed new methods to be dbus aware.
-
-2008-09-23 Og Maciel <ogmaciel@gnome.org>
-
-	* src/gui/widgets/calendarwidget.py: New calendaring widget for the main dialog.
-	* src/gui/widgets/chartwidget.py: New charting widget.
-	* src/gui/widgets/charting.py: Charting library based off the hamster-applet.
-	* src/gui/maindialog.py: Added new calendar and chart widget.
-	* src/lib/actions.py: Added partial support for new method.
-	* src/lib/dbus_actions.py: Added partial support for new method.
-	* po/POTFILES.in: Added calendarwidget.py.
-
-==== BillReminder 0.3.2 ====
+==================
+BillReminder 0.3.2
+==================
 
 2008-09-10 Og Maciel <ogmaciel@gnome.org>
 
