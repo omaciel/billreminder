@@ -1,69 +1,1643 @@
-==================
-BillReminder 0.4.0
-==================
+commit 6e77dd3
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Dec 31 13:47:05 2010 -0500
 
-- Create default categories for new installs.
-- Better overall data validation:
-- Fixed algorythm responsible for setting date of future recurring bills.
-- Changed menu to use standard "File" entry.
-- Added new custom Timeline and DatePicker widgets.
-- Added charting support from the Hamster project for better visualization of
-bills.
-- Switched most of the user interface code to Glade files with the hope that
-it will ease future contributions from ui developers.
-- Support for alarms.
-- Borrowed GConf handler from the Conduit project and register gconf schema
-by default (Fixes b.g.o. #)
-- Switched database layer to SQLAlchemy.
-- Changed license from BSD to GPL v3.
+    Updated changelog.
 
-Bug Fixes:
-==========
-- #551953: It should be possible to add bills without an amount defined.
-- #553890: Different install/data paths.
-- #554228: Changed Record to Bill to be consistent with nomenclature.
-- #555136: Import sqlite3 if using python 2.5, or pysqlite2 if using python 2.4.
-- #556748: Don't try to cast a dbus.String into an int type, if catId is 'None'.
-- #561550: Make 'notes' widget scroll when number of lines go beyond the widget's height.
-- #561751: UI Doesn't refresh when deleting a record.
-- #563736: Warn users of overlapping dates for recurring bills.
-- #569023: Timeline widget will not support displaying multiple bills with different states on the same day.
+commit b049ccf
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Dec 31 12:37:28 2010 -0500
 
-Translations:
-=============
-- ca, courtesy of Jordi Estrada
-- ca@valencia, courtesy of Francesc Dorca i Badia
-- cs, courtesy of Marek Černocký
-- da, courtesy of Joe Hansen
-- de, courtesy of Mario Blättermann
-- el, courtesy of Γιάννης Κατσαμπίρης
-- en_CA, courtesy of Og Maciel
-- en_GB, courtesy of Jen Ockwell
-- es, courtesy of Jorge González
-- fi, courtesy of Ilkka Tuohela
-- fr, courtesy of Bruno Brouard
-- gl, courtesy of Fran Diéguez
-- he, courtesy of Yaron Shahrabani
-- hr, courtesy of Mario Đanić
-- hu, courtesy of Gabor Kelemen
-- it, courtesy of Sergio Zanchetta
-- lv, courtesy of Toms Bauģis
-- nb, courtesy of Tommy Mikkelsen
-- nl, courtesy of Martijn Cielen
-- pl, courtesy of Tomasz Z. Napierala
-- pt_BR, courtesy of Mateus Zenaide
-- pt, courtesy of Susana Pereira
-- ro, courtesy of Ionuț Jula
-- ru, courtesy of Ilya B
-- sl, courtesy of Andrej Žnidaršič
-- sv, courtesy of Daniel Nylander
-- tl, courtesy of Jerome S. Gotangco
-- tr, courtesy of Rail Aliev
-- zh_CN, courtesy of du baodao
+    Display amount values in currency format for bullets.
 
-==================
-BillReminder 0.3.2
-==================
+commit 13bed96
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Dec 31 11:29:45 2010 -0500
+
+    Bumping version for release.
+
+commit 04bc997
+Author: Petr Kovar <pknbe@volny.cz>
+Date:   Wed Dec 29 23:52:58 2010 +0100
+
+    Update Czech translation by Marek Cernocky
+
+    Reviewed by Petr Kovar.
+
+commit 0cde8f3
+Author: Jorge González <jorgegonz@svn.gnome.org>
+Date:   Wed Dec 29 23:11:29 2010 +0100
+
+    Updated Spanish translation
+
+commit b8298d3
+Author: Mateus Zenaide <matzenh@gmail.com>
+Date:   Wed Dec 29 14:30:28 2010 -0200
+
+    Updated Brazilian Portuguese translation
+
+commit b4b4f50
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Dec 24 12:11:34 2010 -0500
+
+    Create default categories only for new installs.
+
+commit eae1176
+Author: Petr Kovar <pknbe@volny.cz>
+Date:   Mon Dec 27 20:59:37 2010 +0100
+
+    Update Czech translation by Marek Cernocky
+
+    Reviewed by Petr Kovar.
+
+commit 66ee82d
+Author: Gabor Kelemen <kelemeng@gnome.hu>
+Date:   Sat Dec 25 22:12:50 2010 +0100
+
+    Updated Hungarian translation
+
+commit d22a86d
+Author: Gabor Kelemen <kelemeng@gnome.hu>
+Date:   Sat Dec 25 22:12:14 2010 +0100
+
+    Remove encoding line from POTFILES.skip, stop intltool-update from complaining
+
+commit 2478dec
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Dec 18 14:43:01 2010 -0500
+
+    Added new method that may be used to provide users with a few default categories.
+
+commit db96f7b
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Dec 18 14:42:29 2010 -0500
+
+    Filter by category name to check if already exists.
+
+commit 3e82aa2
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Dec 18 12:14:24 2010 -0500
+
+    Removed duplicated import.
+
+commit 7081ec7
+Author: Jorge González <jorgegonz@svn.gnome.org>
+Date:   Sat Dec 18 14:35:52 2010 +0100
+
+    Updated Spanish translation
+
+commit b7af804
+Author: Peter Savage <silentkeystroke@googlemail.com>
+Date:   Fri Dec 17 22:14:05 2010 +0000
+
+    Modified on_frequency_changed to make end date update when schedule changes
+
+commit 47dbac7
+Author: Andrej Žnidaršič <andrej.znidarsic@gmail.com>
+Date:   Fri Dec 17 20:04:51 2010 +0100
+
+    Updated Slovenian translation
+
+commit d0a6360
+Author: Mario Blättermann <mariobl@gnome.org>
+Date:   Fri Dec 17 15:12:14 2010 +0100
+
+    [l10n] Updated German translation
+
+commit d922fe3
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Dec 16 17:27:22 2010 -0500
+
+    Updated Brazilian Portuguese translation.
+
+commit 3987301
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Dec 16 17:26:13 2010 -0500
+
+    Simplified adddialog in relation to warning user about end date being earlier than starting date.
+
+commit 1032d9b
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Dec 16 17:25:20 2010 -0500
+
+    Fixed issue that would have blown up recurring dates if the day of the month for the first month would not apply to other months (such as 31 would not work for February).
+
+commit 2ea9758
+Author: Petr Kovar <pknbe@volny.cz>
+Date:   Tue Dec 14 21:53:49 2010 +0100
+
+    Update Czech translation by Marek Cernocky
+
+commit fc6674c
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Dec 13 16:01:15 2010 -0500
+
+    Updated all translation files to latest .pot.
+
+commit 140a384
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Dec 13 15:20:24 2010 -0500
+
+    Updated Brazilian Portuguese translation.
+
+commit d6c27fa
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Dec 13 15:02:05 2010 -0500
+
+    Switched the order which the timeline is populated to fix annoying issue where bullet were located a bit offset to the tick mark.
+
+commit 1f66108
+Author: Mario Blättermann <mariobl@gnome.org>
+Date:   Mon Dec 13 20:09:36 2010 +0100
+
+    [l10n] Updated German translation
+
+commit bea311f
+Author: Jorge González <jorgegonz@svn.gnome.org>
+Date:   Mon Dec 13 20:04:16 2010 +0100
+
+    Updated Spanish translation
+
+commit 824ecae
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Dec 12 18:03:37 2010 -0500
+
+    More tweaks to handle start and end dates. Needs to be refactored.
+
+commit 3a5723d
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Dec 12 17:38:19 2010 -0500
+
+    Changed menu entries and shortcuts.
+
+commit 3938a92
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Dec 12 12:35:35 2010 -0500
+
+    Don't allow the end date for recurring records to be set before the start date. This should take care of b.g.o #563736 but some refactoring will be needed.
+
+commit df7a33d
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Tue Dec 7 21:24:45 2010 +0000
+
+    sync with upstream hamster graphics!
+
+commit f56ab39
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Dec 7 13:09:46 2010 -0500
+
+    White space cleanup.
+
+commit 0126149
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 26 12:16:57 2010 -0500
+
+    Updated copyright year.
+
+commit 23524c3
+Author: Jordi Estrada <jordi.estrada@gmail.com>
+Date:   Wed Nov 17 17:05:31 2010 +0000
+
+    Updated Catalan translation
+
+commit 0349a0d
+Author: Carles Ferrando <carles.ferrando@gmail.com>
+Date:   Sat Oct 30 07:50:14 2010 +0100
+
+    Added Catalan (Valencian) translation
+
+commit 208d1ba
+Author: Yaron Shahrabani <sh.yaron@gmail.com>
+Date:   Mon Sep 27 09:20:58 2010 +0200
+
+    Updated Hebrew translation.
+
+commit fe2434d
+Author: Giannis Katsampirhs <juankatsampiris@gmail.com>
+Date:   Sat Aug 21 23:17:47 2010 +0300
+
+    l10n: Updated Greek translation for billreminder
+
+commit d563171
+Author: Aron Xu <aronxu@gnome.org>
+Date:   Fri Jul 30 18:59:05 2010 +0800
+
+    Update Simplified Chinese translation.
+
+commit 925ac93
+Author: Matej Urbančič <mateju@svn.gnome.org>
+Date:   Thu Jun 3 15:00:56 2010 +0200
+
+    Updated Slovenian translation
+
+commit b207d55
+Author: YunQiang Su <wzssyqa@gmail.com>
+Date:   Mon Mar 29 13:57:49 2010 +0800
+
+    Added Simplified Chinese translation.
+
+commit c3a2054
+Author: Bruno Brouard <annoa.b@gmail.com>
+Date:   Wed Mar 24 15:49:26 2010 +0100
+
+    Updated French translation
+
+commit 5688967
+Author: Fran Diéguez <frandieguez@ubuntu.com>
+Date:   Fri Mar 5 13:29:05 2010 +0100
+
+    Updated Galician translation
+
+commit 3ac445a
+Author: Luiz Armesto <luiz.armesto@gmail.com>
+Date:   Sun Jan 24 19:51:13 2010 -0200
+
+    Some work on DBus support.
+
+commit 49dc851
+Author: Gabor Kelemen <kelemeng@gnome.hu>
+Date:   Fri Jan 22 01:03:11 2010 +0100
+
+    Updated Hungarian translation
+
+commit d103d96
+Author: Joe Hansen <joedalton2@yahoo.dk>
+Date:   Sat Jan 16 17:25:39 2010 +0100
+
+    Updated Danish translation
+
+commit 05f4a5b
+Author: Petr Kovar <pknbe@volny.cz>
+Date:   Tue Jan 12 20:12:58 2010 +0100
+
+    Updated Czech translation by Marek Cernocky
+
+commit b667dc5
+Author: Daniel Nylander <po@danielnylander.se>
+Date:   Mon Jan 11 03:43:21 2010 +0100
+
+    Updated Swedish translation
+
+commit 62b3de2
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Jan 10 18:59:26 2010 -0500
+
+    Seems that we're getting Cancel and Ok by default now?
+
+commit 2df7db7
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Jan 10 18:18:56 2010 -0500
+
+    Apparently I was not handling alarmDate correctly and passing a float instead of a datetime object. Also, the alarmDate property was not beeing saved.
+
+commit 67f6ad2
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Jan 10 13:53:49 2010 -0500
+
+    Found a few remaining object.alarm instead of object.alarmDate.
+
+commit a688cd4
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Jan 4 09:32:17 2010 -0500
+
+    Synchronizing charting module with hamster-applet project.
+
+commit c74175c
+Author: Mario Blättermann <mariobl@gnome.org>
+Date:   Sat Jan 2 09:52:06 2010 +0100
+
+    Updated German translation
+
+commit 3698dfa
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Jan 1 22:46:48 2010 -0500
+
+    Fixing dbus methods which seem to be outdated; will need to spend more time on it.
+
+commit a361e50
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Jan 1 22:45:58 2010 -0500
+
+    Fixed SQLAlchemy warning where a timestamp was being passed to query instead of datetime object.
+
+commit 69f787b
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Jan 1 18:21:38 2010 -0500
+
+    Partial commit; trying to figure out sqlalchemy warning message being generated.
+
+commit 247e80c
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Dec 31 18:44:32 2009 -0500
+
+    Alarms now use new gconf handler.
+
+commit 9c2065a
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Dec 31 18:12:18 2009 -0500
+
+    Removed unused import.
+
+commit cd87a80
+Author: Andrej Žnidaršič <andrej.znidarsic@gmail.com>
+Date:   Fri Jan 1 09:33:32 2010 +0100
+
+    Updated Slovenian translation
+
+commit 9edf0ce
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 30 22:18:48 2009 -0500
+
+    Make use of the new gconf handler.
+
+commit 0f5f075
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 30 22:17:47 2009 -0500
+
+    More work done to get a working gconf handler.
+
+commit 1ecc66f
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 30 22:17:05 2009 -0500
+
+    No need to use timestamp
+
+commit 887324c
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 30 22:16:44 2009 -0500
+
+    Add new files to Make
+
+commit d03a400
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 30 18:18:31 2009 -0500
+
+    Fixed typo.
+
+commit da856c7
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 30 18:17:47 2009 -0500
+
+    Adding property that will determine how the application will get its configuration data.
+
+commit ca33034
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 30 18:16:56 2009 -0500
+
+    Borrowing GConf handler classes from the conduit project.
+
+commit 8bdfbe2
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 30 10:56:49 2009 -0500
+
+    Updated graphing lib to latest hamster-project code.
+
+commit b174012
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Dec 20 15:13:20 2009 -0500
+
+    Several changes including start using new gconf handler.
+
+commit deade4e
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Dec 20 15:12:44 2009 -0500
+
+    Call proper sqlalchemy-based methods and start to handle alarms; also use new db entities.
+
+commit 8cb6656
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Dec 20 15:09:03 2009 -0500
+
+    Modular filtering of dates for alarms and dueDates.
+
+commit b79402a
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Dec 20 15:07:48 2009 -0500
+
+    Adding support for Alarms.
+
+commit 34c9661
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sun Dec 20 15:07:07 2009 -0500
+
+    Start of a gconf handler class.
+
+commit b340b6d
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Dec 19 22:08:57 2009 -0500
+
+    Bump version.
+
+commit 25f87bf
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Dec 19 18:25:29 2009 -0500
+
+    Updating copyright year and making sure contributors are properly credited for the work.
+
+commit b3db97c
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Dec 19 18:02:38 2009 -0500
+
+    Updated Brazilian Portuguese translation.
+
+commit 730fec2
+Author: Jorge González <jorgegonz@svn.gnome.org>
+Date:   Sun Dec 13 09:54:26 2009 +0100
+
+    Updated Spanish translation
+
+commit 2e87194
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Thu Dec 10 02:30:18 2009 +0000
+
+    as localisation part is not picking up action labels and tooltips yet - move them into the code
+
+commit 6c4ab34
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Thu Dec 10 02:29:36 2009 +0000
+
+    this file can be generetated by intltool-update -p
+
+commit d085b26
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Thu Dec 10 02:27:51 2009 +0000
+
+    added latvian translation (partial)
+
+commit f6c2c8b
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Thu Dec 10 02:27:24 2009 +0000
+
+    the db files seem to be gone now
+
+commit 678ba18
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Dec 7 13:37:57 2009 -0500
+
+    Chart data should now match what is displayed on timeline and list views.
+
+commit da8402b
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Thu Dec 3 11:54:09 2009 +0000
+
+    updating to match hamster's version
+
+commit 6263a94
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 2 23:12:47 2009 -0500
+
+    Set repeats=True for repeating bills. This will allows us to eventually warn users about deleting a repeatable bill and prompt if all other remaining bills should also be deleted, etc.
+
+commit 33c4ad9
+Author: Luiz Armesto <luiz.armesto@gmail.com>
+Date:   Wed Dec 2 22:10:12 2009 -0200
+
+    Verify if the payee and amount fields are filled when adding new bill.
+
+commit 032c488
+Author: Luiz Armesto <luiz.armesto@gmail.com>
+Date:   Wed Dec 2 21:24:30 2009 -0200
+
+    Fixing the display of bills on timeline when the view is changed.
+
+commit d59248f
+Author: Luiz Armesto <luiz.armesto@gmail.com>
+Date:   Wed Dec 2 19:48:38 2009 -0200
+
+    Changed from binary literal to int to support python 2.5 and older.
+
+commit 1564456
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Dec 2 13:18:24 2009 -0500
+
+    Update timeline correctly when deleting a record.
+
+commit 9ed1df9
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Mon Nov 30 20:00:56 2009 +0000
+
+    use horizontal bar chart so that the category labels fit
+
+commit b05629b
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Nov 30 12:36:34 2009 -0500
+
+    Added Toms to CONTRIBUTORS.
+
+commit da523db
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Mon Nov 30 10:11:18 2009 +0000
+
+    added glade files
+
+commit 6442728
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Mon Nov 30 10:10:55 2009 +0000
+
+    added the missing directory definition. the files are copied in the package directory, hope it's correct
+
+commit 783a92a
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sun Nov 29 17:11:47 2009 +0000
+
+    put the scrollbars back, set graphic height to fixed
+
+commit 22c6680
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sun Nov 29 14:56:01 2009 +0000
+
+    fogot to remove a debug message
+
+commit e6bd33f
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sun Nov 29 14:50:33 2009 +0000
+
+    bar colors
+
+commit b4e0c2a
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sun Nov 29 14:50:02 2009 +0000
+
+    put all the color parsing in single place. now we also accept html-style colors
+
+commit fb66e32
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sun Nov 29 13:17:23 2009 +0000
+
+    using gtk.show_uri to display links; minor cleanup
+
+commit bf92296
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sun Nov 29 13:16:24 2009 +0000
+
+    on response destroy, as we don't care for response
+
+commit 2b5dec0
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sun Nov 29 13:16:06 2009 +0000
+
+    removed the dummy part in license
+
+commit a762a7b
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sun Nov 29 13:15:51 2009 +0000
+
+    a simple function to avoid modality, but keep one window per instance
+
+commit 0a0c51b
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 28 22:30:49 2009 -0500
+
+    Remember to refresh the data after toggling a record's paid attribute.
+
+commit 9c66fc5
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 28 22:24:24 2009 -0500
+
+    Return bills ordered by due date in descending order.
+
+commit aa824d6
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sat Nov 28 13:09:04 2009 +0000
+
+    another gladeification - the add dialog (also fixed the editing bug)
+
+commit eed84f4
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sat Nov 28 11:02:30 2009 +0000
+
+    start of the move into the ui files. could be that the make install is a bit broken now
+
+commit e3c1c98
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sat Nov 28 11:01:52 2009 +0000
+
+    fixed the filtering so it works also with zero (not paid only)
+
+commit 003d04a
+Author: Toms Bauģis <toms.baugis@gmail.com>
+Date:   Sat Nov 28 11:01:20 2009 +0000
+
+    added gitignore for cleaner git statuses!
+
+commit 41e24a3
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 27 20:34:00 2009 -0500
+
+    One more sync with hamster-applet.
+
+commit b626867
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 27 18:45:57 2009 -0500
+
+    Updated graphic lib and now can handle empty datasets with no warnings.
+
+commit 439f027
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 27 12:07:44 2009 -0500
+
+    Removing deleted code from Make files.
+
+commit c9199cd
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 27 12:05:22 2009 -0500
+
+    Removed old code for database layer.
+
+commit 0402f2d
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 27 09:05:38 2009 -0500
+
+    Removed pycha lib.
+
+commit af1dbad
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 27 08:46:06 2009 -0500
+
+    Updating graphing lib.
+
+commit 8427a2b
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Nov 26 18:24:20 2009 -0500
+
+    First cut at getting UI handling new relationship between Bill and Category.
+
+commit 060b9cf
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Nov 26 18:23:40 2009 -0500
+
+    First cut at handling new relationship between Bill and Category
+
+commit 5e7dffc
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Nov 26 18:22:46 2009 -0500
+
+    Get the relationship betwen Bill and Category right.
+
+commit 882c608
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Nov 26 15:47:33 2009 -0500
+
+    Handle categories with None
+
+commit 9b53455
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Nov 26 12:50:01 2009 -0500
+
+    Pass data to charting widget in the proper format.
+
+commit 2dfb722
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Nov 26 12:49:38 2009 -0500
+
+    Going back to using the charting lib from hamster-applet project.
+
+commit e23f60f
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Nov 26 12:49:05 2009 -0500
+
+    Charting lib from hamster-applet project.
+
+commit fcf43af
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Nov 25 09:04:14 2009 -0500
+
+    Make chart widget handle empty sets of data.
+
+commit 45d6800
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Nov 25 07:31:25 2009 -0500
+
+    More work done to wire in new chart widget.
+
+commit dbbcdc2
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 14:40:23 2009 -0500
+
+    Chart widget creates a dynamic image in PNG format now.
+
+commit 400985c
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 13:08:37 2009 -0500
+
+    Removed older database code that relied on custom db layer code which is now replaced by sqlalchemy.
+
+commit e504ffd
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 13:07:53 2009 -0500
+
+    Removed django code. Maybe later on I can bring it back.
+
+commit c259a77
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 13:05:27 2009 -0500
+
+    Removed Debian directory.
+
+commit de0a74b
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 13:04:53 2009 -0500
+
+    Started modifying chartwidget to use newer charting tool based on pycha.
+
+commit a1bd953
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 13:04:14 2009 -0500
+
+    Initial work to fetch categories total expense for reporting.
+
+commit 2559e5a
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 13:03:10 2009 -0500
+
+    Removed .svn directory.
+
+commit fa12637
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 13:01:58 2009 -0500
+
+    Added pycha charting tool.
+
+commit eeaac88
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 13:00:07 2009 -0500
+
+    Removed unnecessary files.
+
+commit 4486fde
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Nov 24 12:59:14 2009 -0500
+
+    Changed license from BSD to GPL v3.
+
+commit afa2633
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 20 12:02:47 2009 -0500
+
+    As bills currently can only have one category, make sure to reset it before assigning new values.
+
+commit 06c5112
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 20 12:00:01 2009 -0500
+
+    Make the add/edit db call more robust and trully do the right thing.
+
+commit 62982fe
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Nov 18 15:41:51 2009 -0500
+
+    Some serious re-work of how to add or edit records to the database. It should be better at editing existing records, though I need to spend more time testing it properly. Will most likely refactor dal.py.
+
+commit 9fe3fc1
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 14 15:58:12 2009 -0500
+
+    Allow for querying of bills based on (optional) paid status; load category correctly when editing existing bill; call the new edit method in the db layer object (work in progress)
+
+commit 1460778
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 14 15:55:37 2009 -0500
+
+    Initial code for method to edit db objects. Work in progress.
+
+commit 8cffe87
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 14 12:58:47 2009 -0500
+
+    Fixed typo inserted yesterday during code refactoring.
+
+commit c8412a5
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 14 12:50:23 2009 -0500
+
+    Handle deleting categories.
+
+commit fa04680
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 14 12:50:04 2009 -0500
+
+    Handle deleting bills.
+
+commit 9898fe5
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 14 12:49:29 2009 -0500
+
+    Wired in the delete method for any dbobject type.
+
+commit e67a687
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Sat Nov 14 12:39:29 2009 -0500
+
+    Warn about import error for sqlalchemy module.
+
+commit 6aed4ab
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 13 13:12:51 2009 -0500
+
+    some code refactoring for the add_bills and add_categories method; Now use the add method regardless of what db object you're trying to add.
+
+commit 296c516
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 13 12:54:45 2009 -0500
+
+    Minor tweak to conditional statement to take advantage of newer python features and to shorten the line.
+
+commit 001369f
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 13 12:40:56 2009 -0500
+
+    Finally fixed toggling paid/unpaid for bills.
+
+commit 5ad4c1e
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Nov 6 15:04:09 2009 -0500
+
+    Started working on toggling paid/unpaid. Still need lots of love.
+
+commit 4fd9d28
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Nov 5 13:29:10 2009 -0500
+
+    More work done to handle adding and editing categories. Also, use a silver color as default color for new categories.
+
+commit 7976dee
+Author: Andrej Žnidaršič <andrej.znidarsic@gmail.com>
+Date:   Thu Nov 5 07:08:27 2009 +0100
+
+    Updated Slovenian translation
+
+commit d61c402
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Nov 4 16:15:46 2009 -0500
+
+    Fixed depecration warning message about gtk.ToolTips.
+
+commit 99a9989
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Wed Nov 4 15:59:14 2009 -0500
+
+    Stopped annoying tracebacks messages about charting widget when empty.
+
+commit ae84ec0
+Author: Petr Kovar <pknbe@volny.cz>
+Date:   Wed Nov 4 21:42:09 2009 +0100
+
+    Updated Czech translation by Marek Cernocky
+
+    Reviewed by: Lucas Lommer.
+
+commit 33e9b57
+Author: Joe Hansen <joedalton2@yahoo.dk>
+Date:   Wed Oct 21 22:48:08 2009 +0200
+
+    Added Danish translation
+
+commit 4fa19a0
+Author: Kenneth Nielsen <k.nielsen81@gmail.com>
+Date:   Wed Oct 21 22:47:15 2009 +0200
+
+    Added da to list of languages
+
+commit f6d3da3
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Oct 13 09:36:36 2009 -0400
+
+    Still working on getting categoriesdialog to properly handle categories.
+
+commit 9f7d9ed
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Oct 13 08:39:30 2009 -0400
+
+    Fixed rendering of category names.
+
+commit a43afc8
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Oct 12 18:08:34 2009 -0400
+
+    Started fixing categories dialog.
+
+commit 950c8c8
+Author: Luiz Fernando <luiz.armesto@gmail.com>
+Date:   Sat Oct 10 10:24:08 2009 -0400
+
+    Timeline widget will not support displaying multiple bills with different states on the same day. Fixes b.g.o #569023
+
+commit 8fe0751
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Oct 2 22:25:56 2009 -0400
+
+    Re-wire timeline code to fetch records based on date range displayed; handle editing existing Bill objects.
+
+commit 1dbb623
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Oct 2 22:22:09 2009 -0400
+
+    Query bills with eagerload to fetch categories.
+
+commit 0fdd624
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Oct 2 22:20:28 2009 -0400
+
+    Uncommented event handler for data changes.
+
+commit cde25cf
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Oct 2 20:42:15 2009 -0400
+
+    Renamed get_schedule_timestamp to get_schedule_date and changed it to return datetime.date objects.
+
+commit a21087c
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Oct 2 13:30:42 2009 -0400
+
+    Initial work to handle adding new Bill objects using the new db layer.
+
+commit 27cad56
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Oct 2 09:04:16 2009 -0400
+
+    Finally hooked the timeline widget code back in to use the new db layer.
+
+commit 7ea5fb5
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Oct 2 08:47:26 2009 -0400
+
+    Check and warn about missing sqlalchemy in the system.
+
+commit 14b0284
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Oct 1 22:22:18 2009 -0400
+
+    Make sure to call actions using a keyworded, variable-length argument list.
+
+commit 16e1fe4
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Oct 1 22:19:44 2009 -0400
+
+    s/status/paid
+
+commit 98974d6
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Oct 1 13:39:55 2009 -0400
+
+    Added new get_categories function. Now get_bills and get_categories accept a keyworded, variable-length argument list.
+
+commit d49e573
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Oct 1 13:20:55 2009 -0400
+
+    Take paid into consideration when querying Bill data.
+
+commit 14d2bd8
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Sep 29 13:33:12 2009 -0400
+
+    Renamed another couple of functions and getting the hang of building dynamic queries. More cleanup required.
+
+commit 22d6f70
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Sep 29 12:50:16 2009 -0400
+
+    Handle the format for paid bills (i.e. strike through amount in the viewer)
+
+commit a54d58e
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Tue Sep 29 12:34:33 2009 -0400
+
+    Renamed a couple of functions and moved record formating for dueDate to the ui and away from widget code.
+
+commit 74b1997
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Sep 28 23:50:31 2009 -0400
+
+    Use eagerload for querying bills; commented out several calls to timeline and chart widgets to get ui to display records for the time being; treeview for bills needs to be changed to handle new datatypes.
+
+commit 205c6f8
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Sep 28 23:13:29 2009 -0400
+
+    Wiring new sqlalchemy-based methods to the ui. Lots to be done.
+
+commit b65bbba
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Sep 28 23:10:58 2009 -0400
+
+    Added new db entities file based on sqlalchemy; commiting initial db layer wiring.
+
+commit d74fd20
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Sep 28 23:09:41 2009 -0400
+
+    Forgot to add src/lib/oldactions.py to previous commit; also change scheduler functions to return datetime.date.
+
+commit eb799f8
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Mon Sep 28 22:40:59 2009 -0400
+
+    Renaming some files to be replaced with newer code.
+
+commit 9a21a4b
+Author: Fran Diéguez <fran.dieguez@glug.es>
+Date:   Tue Sep 15 23:04:57 2009 +0200
+
+    Added gl
+
+commit a29750a
+Author: Fran Diéguez <fran.dieguez@glug.es>
+Date:   Tue Sep 15 23:03:23 2009 +0200
+
+    Added Galician Translation
+
+commit 0ed76d9
+Author: Kostas Papadimas <pkst@gnome.org>
+Date:   Sun Sep 13 17:52:25 2009 +0300
+
+    Added Greek translation.
+
+commit 32d2879
+Author: Kostas Papadimas <pkst@gnome.org>
+Date:   Sun Sep 13 17:42:20 2009 +0300
+
+    Added Greek translation.
+
+commit 0a033ec
+Author: Gabor Kelemen <kelemeng@gnome.hu>
+Date:   Sat Aug 15 02:00:01 2009 +0200
+
+    Hungarian translation updated
+
+commit 27573d1
+Author: Djavan Fagundes <dnoway@gmail.com>
+Date:   Sun Aug 2 12:20:29 2009 -0300
+
+    Updated the Brazilian Portuguese translation.
+
+commit ccd2e6a
+Author: Elyézer Mendes Rezende <elyezermr@gmail.com>
+Date:   Fri Jul 31 20:23:48 2009 -0300
+
+    Creating the setup app and the option model for BillReminder's setup.
+
+commit 4bb548f
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Jul 24 00:25:09 2009 -0400
+
+    Further changes to get the server to run as well as added admin tables.
+
+commit 60c07e7
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Jul 24 00:24:00 2009 -0400
+
+    Updated fixture to include administrative tables.
+
+commit 364c62f
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Jul 24 00:03:53 2009 -0400
+
+    Provide default sample data for a default admin account.
+
+commit 3bc1cff
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Jul 24 00:02:44 2009 -0400
+
+    Provide default configuration and use sqlite3 as the default db engine
+
+commit 37ae637
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Fri Jul 24 00:01:55 2009 -0400
+
+    Added __init__.py so that we can import modules
+
+commit 2ffe539
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Jul 23 15:44:06 2009 -0400
+
+    Make sure we can handle copying configuration files when running from a checkout. Copy the django app itself as well.
+
+commit 4db718c
+Author: Og B. Maciel <ogmaciel@gnome.org>
+Date:   Thu Jul 23 13:35:10 2009 -0400
+
+    Very rough draft of what will be the driver for starting the django based application.
+
+commit 67c3e0e
+Author: David Planella <david.planella@gmail.com>
+Date:   Sat May 2 13:46:48 2009 +0200
+
+    Added Catalan translation by Francesc Dorca.
+
+    	* LINGUAS: Added Catalan language (ca).
+    	* ca.po: Added Catalan translation by Francesc Dorca.
+
+commit 1c2e4a8
+Author: Og Maciel <ogmaciel@gnome.org>
+Date:   Fri May 1 09:35:11 2009 -0400
+
+    Added initial database model.
+
+commit 0944e93
+Author: Og Maciel <ogmaciel@gnome.org>
+Date:   Thu Apr 30 01:55:02 2009 -0400
+
+    Adding core Django files again. Making up for big mistake earlier today.
+
+commit b10b797
+Author: Og Maciel <ogmaciel@gnome.org>
+Date:   Sat Apr 25 20:05:37 2009 -0400
+
+    Fixed email address syntax.
+
+commit 89c51f2
+Author: Og Maciel <ogmaciel@gnome.org>
+Date:   Tue Apr 21 13:04:51 2009 -0400
+
+    Added ignored files
+
+commit 711b188
+Author: Og Maciel <ogmaciel@gnome.org>
+Date:   Tue Apr 21 10:14:32 2009 -0400
+
+    Added *.doap file so git web viewer displays correct project information.
+
+commit 30eb67c
+Author: Philip Withnall <philip@tecnocode.co.uk>
+Date:   Fri Mar 27 07:06:25 2009 +0000
+
+    Updated British English translation by Jen Ockwell
+
+    2009-03-27  Philip Withnall  <philip@tecnocode.co.uk>
+
+    	* en_GB.po: Updated British English translation by Jen Ockwell
+    	<jenfraggleubuntu@gmail.com>.
+
+
+    svn path=/trunk/; revision=697
+
+commit 200d376
+Author: Claude Paroz <claude@2xlibre.net>
+Date:   Thu Feb 5 08:55:03 2009 +0000
+
+    Fixed typo in French translation by Bruno Brouard.
+
+    2009-02-05  Claude Paroz  <claude@2xlibre.net>
+
+    	* fr.po: Fixed typo in French translation by Bruno Brouard.
+
+    svn path=/trunk/; revision=695
+
+commit e3f6b50
+Author: Claude Paroz <claude@2xlibre.net>
+Date:   Wed Feb 4 19:49:13 2009 +0000
+
+    Updated French translation.
+
+    2009-02-04  Claude Paroz  <claude@2xlibre.net>
+
+    	* fr.po: Updated French translation.
+
+    svn path=/trunk/; revision=694
+
+commit 3733bc0
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Fri Jan 30 17:13:59 2009 +0000
+
+    Reverted timeline widget changes. Still don't have a clue about the bullet drawing system.
+
+    svn path=/trunk/; revision=693
+
+commit 710c6cb
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Fri Jan 30 16:54:21 2009 +0000
+
+    Don't trigger calendar widget event.
+
+    svn path=/trunk/; revision=692
+
+commit bfd01bb
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Fri Jan 30 16:38:46 2009 +0000
+
+    Fixes preferences dialog crashing when running without gconf schema installed.
+
+    svn path=/trunk/; revision=691
+
+commit 5389dd0
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sun Jan 25 20:41:28 2009 +0000
+
+    Trying to make Timeline Bullets handle multiple status.
+
+    svn path=/trunk/; revision=690
+
+commit 6a2d333
+Author: Daniel Nylander <dnylande@src.gnome.org>
+Date:   Sat Jan 3 09:05:24 2009 +0000
+
+    sv.po: Updated Swedish translation
+
+    svn path=/trunk/; revision=689
+
+commit 053ba97
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Thu Jan 1 23:16:56 2009 +0000
+
+    Added calendarwidget.py to POTFILES.skip to silence D-L.
+
+    svn path=/trunk/; revision=688
+
+commit 2ff59b2
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Thu Jan 1 21:56:27 2009 +0000
+
+    Minor patch to the timeline widget by @LuizArmesto and NEWS entries.
+
+    svn path=/trunk/; revision=687
+
+commit a236531
+Author: Jorge Gonzalez Gonzalez <jorgegonz@src.gnome.org>
+Date:   Sat Dec 27 14:36:28 2008 +0000
+
+    Updated Spanish translation
+
+    svn path=/trunk/; revision=686
+
+commit 65f6972
+Author: Mario Blättermann <mariobl@src.gnome.org>
+Date:   Sat Dec 20 14:16:49 2008 +0000
+
+    Updated German translation
+
+    svn path=/trunk/; revision=685
+
+commit 871383e
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sat Dec 20 05:47:39 2008 +0000
+
+    Notify user when the end date is prior to start date.
+
+    svn path=/trunk/; revision=684
+
+commit b3973e8
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Thu Dec 18 21:54:39 2008 +0000
+
+    Handle end dates set in the past and added tests.
+
+    svn path=/trunk/; revision=683
+
+commit a594bb6
+Author: Gabor Kelemen <kelemeng@gnome.hu>
+Date:   Mon Dec 15 00:58:10 2008 +0000
+
+    Translation updated.
+
+    2008-12-15  Gabor Kelemen  <kelemeng@gnome.hu>
+
+    	* hu.po: Translation updated.
+
+    svn path=/trunk/; revision=682
+
+commit 919b84e
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Fri Nov 21 04:16:04 2008 +0000
+
+    Reverted r645. Fixes b.g.o #561751.
+
+    svn path=/trunk/; revision=681
+
+commit 890560e
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Fri Nov 21 03:15:11 2008 +0000
+
+    Fixes handling adding repeating entries. Need more cleanup though.
+
+    svn path=/trunk/; revision=680
+
+commit 6667e46
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Nov 19 18:16:32 2008 +0000
+
+    Make 'notes' widget scroll when number of lines go beyond the widget's height. Fixes b.g.o #561550.
+
+    svn path=/trunk/; revision=679
+
+commit 7e411a5
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Nov 19 00:56:57 2008 +0000
+
+    Made the new DatePicker widget work with the add/edit dialog. Need to handle multiple ocurrences.
+
+    svn path=/trunk/; revision=678
+
+commit 1620dd3
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Mon Nov 17 17:58:14 2008 +0000
+
+    Fixed optional fields section for better alignment.
+
+    svn path=/trunk/; revision=677
+
+commit f6ba892
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Mon Nov 17 00:35:48 2008 +0000
+
+    Added new DatePicker widget and replaced calendar with it; updated the translation catalog. More work is required to make the add/edit dialog fully functional.
+
+    svn path=/trunk/; revision=676
+
+commit 2926f2e
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Fri Oct 24 01:42:31 2008 +0000
+
+    Import sqlite3 if using python 2.5, or pysqlite2 if using python 2.4. Fixes Bug #555136
+
+    svn path=/trunk/; revision=675
+
+commit 97196f6
+Author: Jorge Gonzalez Gonzalez <jorgegonz@src.gnome.org>
+Date:   Thu Oct 23 16:47:23 2008 +0000
+
+    Updated Spanish translation by Ulises Genis
+
+    svn path=/trunk/; revision=674
+
+commit ddc5b5d
+Author: Jorge Gonzalez Gonzalez <jorgegonz@src.gnome.org>
+Date:   Thu Oct 23 16:46:50 2008 +0000
+
+    Updated Spansih translation by Ulises Genis
+
+    svn path=/trunk/; revision=673
+
+commit 50f260b
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Fri Oct 17 15:26:27 2008 +0000
+
+    Don't try to cast a dbus.String into an int type, if catId is 'None'. Fixes Bug #556748
+
+    svn path=/trunk/; revision=672
+
+commit b9d102b
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Mon Oct 13 21:14:37 2008 +0000
+
+    Make sure that gconf schemas get installed by default, this time for real.
+
+    svn path=/trunk/; revision=671
+
+commit 921f770
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sun Oct 5 21:37:55 2008 +0000
+
+    Updated Brazilian Portuguese translation.
+
+    svn path=/trunk/; revision=670
+
+commit ae980ff
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sun Oct 5 20:24:12 2008 +0000
+
+    Web site theme clean up by Elyezer Rezende.
+
+    svn path=/trunk/; revision=669
+
+commit e41426b
+Author: Ilkka Tuohela <ituohela@src.gnome.org>
+Date:   Sat Oct 4 18:49:22 2008 +0000
+
+    Updated Finnish translation
+
+    svn path=/trunk/; revision=668
+
+commit ebc9789
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Thu Oct 2 13:42:55 2008 +0000
+
+    Adding website theme to the repository.
+
+    svn path=/trunk/; revision=667
+
+commit d9397f2
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Oct 1 21:33:37 2008 +0000
+
+    Removed the SearchEntry widget from the main dialog.
+
+    svn path=/trunk/; revision=666
+
+commit 6e42809
+Author: Daniel Nylander <dnylande@src.gnome.org>
+Date:   Wed Oct 1 06:18:40 2008 +0000
+
+    sv.po: Updated Swedish translation
+
+    svn path=/trunk/; revision=665
+
+commit 45460e6
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Tue Sep 30 02:56:20 2008 +0000
+
+    More tweaks to the timeline widget and fix a typo which caused headaches with multiple bills in the same date.
+
+    svn path=/trunk/; revision=664
+
+commit 3f4e970
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Tue Sep 30 01:30:55 2008 +0000
+
+    Fixed zoom in/out keyboard shortcuts.
+
+    svn path=/trunk/; revision=663
+
+commit b3b5e2c
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Tue Sep 30 00:14:40 2008 +0000
+
+    Added refresh method to Timeline and minor fixes.
+
+    svn path=/trunk/; revision=662
+
+commit cbebbcf
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Mon Sep 29 18:19:31 2008 +0000
+
+    Integration of timeline widget into the main dialog.
+
+    svn path=/trunk/; revision=661
+
+commit 6e4286c
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Mon Sep 29 01:53:20 2008 +0000
+
+    Changed Record to Bill to be consistent with nomenclature (Fixes Bug: 554228).
+
+    svn path=/trunk/; revision=660
+
+commit cd37df3
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Mon Sep 29 01:32:48 2008 +0000
+
+    timeline.py: More keyboard shortcuts added, such as zoom in/out.
+
+    svn path=/trunk/; revision=659
+
+commit 1cc2dc7
+Author: Gabor Kelemen <kelemeng@gnome.hu>
+Date:   Sun Sep 28 21:24:28 2008 +0000
+
+    Translation updated.
+
+    2008-09-28  Gabor Kelemen  <kelemeng@gnome.hu>
+
+    	* hu.po: Translation updated.
+
+    svn path=/trunk/; revision=658
+
+commit cc35cfa
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sun Sep 28 05:00:17 2008 +0000
+
+    Some more sexy changes done to the timeline widget by Luiz Armesto.
+
+    svn path=/trunk/; revision=657
+
+commit 80ed640
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sun Sep 28 02:14:56 2008 +0000
+
+    It should be possible to add bills without an amount defined (Bug #551953).
+
+    svn path=/trunk/; revision=656
+
+commit 6b8a598
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sat Sep 27 23:39:46 2008 +0000
+
+    Some clean up work in the timeline widget done by Luiz Armesto.
+
+    svn path=/trunk/; revision=655
+
+commit 83e7137
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sat Sep 27 21:55:58 2008 +0000
+
+    Added new timeline widget.
+
+    svn path=/trunk/; revision=654
+
+commit 75f77fb
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sat Sep 27 21:48:30 2008 +0000
+
+    Make sure that gconf is run (if available) and register schema.
+
+    svn path=/trunk/; revision=653
+
+commit bb91f00
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Sat Sep 27 01:29:17 2008 +0000
+
+    Fixes bug #553890.
+
+    svn path=/trunk/; revision=652
+
+commit 841664c
+Author: Jorge Gonzalez Gonzalez <jorgegonz@src.gnome.org>
+Date:   Fri Sep 26 18:41:37 2008 +0000
+
+    Updated Spanish translation by Ulises Genis
+
+    svn path=/trunk/; revision=651
+
+commit e969a43
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Thu Sep 25 21:56:17 2008 +0000
+
+    Make amountDue an optional field in the DB; validating that db upgrade routine works. More to come.
+
+    svn path=/trunk/; revision=650
+
+commit 72c8cde
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Thu Sep 25 04:35:48 2008 +0000
+
+    Updated Brazilian Portuguese translation.
+
+    svn path=/trunk/; revision=649
+
+commit a4ad74a
+Author: Daniel Nylander <dnylande@src.gnome.org>
+Date:   Wed Sep 24 19:22:55 2008 +0000
+
+    sv.po: Updated Swedish translation
+
+    svn path=/trunk/; revision=648
+
+commit 136117c
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Sep 24 16:45:16 2008 +0000
+
+    Added a PNG version of the ERD as the SVG did not work.
+
+    svn path=/trunk/; revision=647
+
+commit 4387942
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Sep 24 16:39:20 2008 +0000
+
+    Added first draft at creating a ERD for the next version of BillReminder, both in *.dia and *.svg formats.
+
+    svn path=/trunk/; revision=646
+
+commit 39f08a6
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Sep 24 14:41:47 2008 +0000
+
+    Added the new filtering widget by Wilson Jr.
+
+    svn path=/trunk/; revision=645
+
+commit 37b8f10
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Sep 24 12:50:31 2008 +0000
+
+    Dbus work done by Luiz Armesto.
+
+    svn path=/trunk/; revision=644
+
+commit b904f62
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Tue Sep 23 20:53:45 2008 +0000
+
+    New widgets added to support charting and new calendaring.
+
+    svn path=/trunk/; revision=643
+
+commit 8196aad
+Author: Daniel Nylander <dnylande@src.gnome.org>
+Date:   Fri Sep 12 06:17:56 2008 +0000
+
+    sv.po: Updated Swedish translation
+
+    svn path=/trunk/; revision=641
+
+commit bba5746
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Sep 10 20:50:13 2008 +0000
+
+    More clean up: removed all Changelog files and desktop file changes.
+
+    svn path=/trunk/; revision=639
+
+commit 42fc030
+Author: Og B. Maciel <ogmaciel@src.gnome.org>
+Date:   Wed Sep 10 20:40:07 2008 +0000
+
+    Added missing semicolon at the end of categories.
+
+    svn path=/trunk/; revision=638
+
+==== BillReminder 0.3.2 ====
 
 2008-09-10 Og Maciel <ogmaciel@gnome.org>
 
@@ -235,7 +1809,7 @@ BillReminder 0.3.2
 
 2008-04-04 Og Maciel <ogmaciel@gnome.org>
 
-	* categoriesdialog.py: Simplify the code; automatically select a newly 
+	* categoriesdialog.py: Simplify the code; automatically select a newly
 	created category. (ref: http://code.google.com/p/billreminder/issues/detail?id=2)
 	* adddialog.py: Expect a category dictionary from categoriesdialog.py.
 
@@ -265,7 +1839,7 @@ BillReminder 0.3.2
 2008-03-23 Og Maciel <ogmaciel@gnome.org>
 
 	* categoriesdialog.py: Display categories by category name in ascending order.
-	* adddialog.py: Display category colored icon to the left of the category name 
+	* adddialog.py: Display category colored icon to the left of the category name
 	in the combobox. This was a patch sent by Laudeci Oliveira which I fine tweaked.
 	* utils.py: Added optional 'index' parameter to global function that
 	selects items in a gtk.ComboBox widget.
@@ -276,7 +1850,7 @@ BillReminder 0.3.2
 	* dialogs.py: Added missing parameters to AddDialog call
 	* maindialog.py: Convert selectedDate from calendar to a datatime object prior
 	to passing it to adddialog.py.
-	* adddialog.py: Make sure that alarmbutton has its date set based on passed 
+	* adddialog.py: Make sure that alarmbutton has its date set based on passed
 	on due date; Set category to None by default on new records.
 
 2008-03-08 Og Maciel <ogmaciel@gnome.org>
