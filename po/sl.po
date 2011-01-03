@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=billreminder&component=general\n"
-"POT-Creation-Date: 2010-12-16 22:27+0000\n"
-"PO-Revision-Date: 2010-12-17 14:35+0100\n"
+"POT-Creation-Date: 2010-12-29 22:53+0000\n"
+"PO-Revision-Date: 2010-12-31 14:14+0100\n"
 "Last-Translator: Andrej Žnidaršič <andrej.znidarsic@gmail.com>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -392,30 +392,30 @@ msgstr "Rok plačila je nastavljen pred datumom začetka. Popravljen bo na datum
 msgid "Date set in the past"
 msgstr "Datum je nastavljen v preteklosti"
 
-#: ../src/gui/adddialog.py:408
+#: ../src/gui/adddialog.py:414
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "\"%s\" in \"%s\" sta zahtevani polji."
 
-#: ../src/gui/adddialog.py:409
-#: ../src/gui/adddialog.py:412
+#: ../src/gui/adddialog.py:415
+#: ../src/gui/adddialog.py:418
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Prejemnik"
 
-#: ../src/gui/adddialog.py:409
 #: ../src/gui/adddialog.py:415
+#: ../src/gui/adddialog.py:421
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Znesek"
 
-#: ../src/gui/adddialog.py:412
-#: ../src/gui/adddialog.py:415
+#: ../src/gui/adddialog.py:418
+#: ../src/gui/adddialog.py:421
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "\"%s\" je zahtevano polje."
 
-#: ../src/gui/adddialog.py:418
+#: ../src/gui/adddialog.py:424
 msgid "The end date is set to a date prior to the start date."
 msgstr "Rok plačila je nastavljen pred datumom začetka."
 
@@ -649,6 +649,70 @@ msgstr "Razvijalci:"
 #: ../src/lib/common.py:22
 msgid "Contributors:"
 msgstr "Sodelujoči:"
+
+#: ../src/lib/dal.py:131
+msgid "Utilities"
+msgstr "Pripomočki"
+
+#: ../src/lib/dal.py:132
+msgid "Food & Dining"
+msgstr "Hrana"
+
+#: ../src/lib/dal.py:133
+msgid "Mortgage"
+msgstr "Odplačevanje kredita"
+
+#: ../src/lib/dal.py:134
+msgid "Rent"
+msgstr "Najemnina"
+
+#: ../src/lib/dal.py:135
+msgid "Medical"
+msgstr "Zdravstvo"
+
+#: ../src/lib/dal.py:136
+msgid "Educational"
+msgstr "Izobraževanje"
+
+#: ../src/lib/dal.py:137
+msgid "Donations"
+msgstr "Prostovoljni prispevki"
+
+#: ../src/lib/dal.py:138
+msgid "Credit Card"
+msgstr "Kreditna kartica"
+
+#: ../src/lib/dal.py:139
+msgid "Gifts"
+msgstr "Darila"
+
+#: ../src/lib/dal.py:140
+msgid "Books"
+msgstr "Knjige"
+
+#: ../src/lib/dal.py:141
+msgid "Online Services"
+msgstr "Spletne storitve"
+
+#: ../src/lib/dal.py:142
+msgid "Insurance"
+msgstr "Zavarovanje"
+
+#: ../src/lib/dal.py:143
+msgid "Auto & Transport"
+msgstr "Avto in prevoz"
+
+#: ../src/lib/dal.py:144
+msgid "Home"
+msgstr "Dom"
+
+#: ../src/lib/dal.py:145
+msgid "Gas & Fuel"
+msgstr "Gorivo"
+
+#: ../src/lib/dal.py:146
+msgid "Electronics"
+msgstr "Elektronika"
 
 #. Dialog Title
 #: ../src/lib/utils.py:83
