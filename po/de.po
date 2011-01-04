@@ -2,8 +2,8 @@
 # Copyright (C) 2008 THE BillReminder'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the BillReminder package.
 # Automatically generated, 2008.
-# Sebastian <haselbeck@gmx.net>, 2008.
-# Lorenz <LorenzLoidl@yahoo.de>, 2008.
+# Sebastian Haselbeck <haselbeck@gmx.net>, 2008.
+# Lorenz Loidl <LorenzLoidl@yahoo.de>, 2008.
 # Mario Blättermann <mariobl@gnome.org>, 2009, 2011.
 #
 msgid ""
@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: BillReminder master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=billreminder&component=general\n"
-"POT-Creation-Date: 2010-12-28 03:14+0000\n"
-"PO-Revision-Date: 2011-01-01 19:17+0100\n"
+"POT-Creation-Date: 2011-01-03 18:28+0000\n"
+"PO-Revision-Date: 2011-01-04 16:09+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -160,21 +160,21 @@ msgstr "Legt fest, ob Benachrichtigungsdialoge angezeigt werden sollen."
 msgid "Add a new bill"
 msgstr "Neue Rechnung hinzufügen"
 
-#: ../data/main.ui.h:2 ../src/gui/maindialog.py:140
+#: ../data/main.ui.h:2 ../src/gui/maindialog.py:141
 msgid "Delete selected bill"
 msgstr "Ausgewählte Rechnung löschen"
 
 #. Dialog Title
-#: ../data/main.ui.h:3 ../src/gui/maindialog.py:137 ../src/lib/dialogs.py:76
+#: ../data/main.ui.h:3 ../src/gui/maindialog.py:138 ../src/lib/dialogs.py:76
 msgid "Edit a bill"
 msgstr "Rechnung bearbeiten"
 
-#: ../data/main.ui.h:4 ../src/gui/maindialog.py:146
+#: ../data/main.ui.h:4 ../src/gui/maindialog.py:147
 msgid "Mark as not paid"
 msgstr "Als nicht bezahlt markieren"
 
 #. Button Title
-#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:143
+#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:144
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Als bezahlt markieren"
@@ -187,7 +187,7 @@ msgstr "Werkzeugleiste anzeigen"
 msgid "_All Bills"
 msgstr "_Alle Rechnungen"
 
-#: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
+#: ../data/main.ui.h:8 ../src/gui/maindialog.py:137
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
@@ -331,7 +331,7 @@ msgstr ""
 #: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr ""
-"Sperrdatei gefunden: Das Programm wurde möglicherweise unterwartet beendet."
+"Sperrdatei gefunden: Das Programm wurde möglicherweise unerwartet beendet."
 
 #: ../src/daemon/main.py:93
 msgid "Removing Lock File..."
@@ -368,7 +368,7 @@ msgstr ""
 
 #: ../src/gui/aboutdialog.py:30
 msgid "BillReminder Website"
-msgstr "BillReminder Website"
+msgstr "BillReminder-Website"
 
 #: ../src/gui/adddialog.py:104 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
@@ -376,7 +376,7 @@ msgstr "Datum und Uhrzeit auswählen"
 
 #. TRANSLATORS: No date selected
 #: ../src/gui/adddialog.py:241 ../src/gui/adddialog.py:265
-#: ../src/gui/maindialog.py:230 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/maindialog.py:231 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
 msgstr "keine"
@@ -458,45 +458,45 @@ msgid_plural "There are %d more bills in this category."
 msgstr[0] "Es gibt eine weitere Rechnung in dieser Kategorie."
 msgstr[1] "Es gibt %d weitere Rechnungen in dieser Kategorie."
 
-#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:424
+#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:425
 msgid "Confirmation"
 msgstr "Bestätigung"
 
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
-#: ../src/gui/maindialog.py:133
+#: ../src/gui/maindialog.py:134
 msgid "_New"
 msgstr "_Neu"
 
-#: ../src/gui/maindialog.py:134
+#: ../src/gui/maindialog.py:135
 msgid "Add new bill"
 msgstr "Neue Rechnung hinzufügen"
 
-#: ../src/gui/maindialog.py:139
+#: ../src/gui/maindialog.py:140
 msgid "_Delete"
 msgstr "_Löschen"
 
-#: ../src/gui/maindialog.py:142
+#: ../src/gui/maindialog.py:143
 msgid "P_aid"
 msgstr "Be_zahlt"
 
-#: ../src/gui/maindialog.py:145
+#: ../src/gui/maindialog.py:146
 msgid "No_t Paid"
 msgstr "Nich_t bezahlt"
 
-#: ../src/gui/maindialog.py:148
+#: ../src/gui/maindialog.py:149
 msgid "_Show Toolbar"
 msgstr "_Werkzeugleiste anzeigen"
 
-#: ../src/gui/maindialog.py:149
+#: ../src/gui/maindialog.py:150
 msgid "Show the toolbar"
 msgstr "Die Werkzeugleiste anzeigen"
 
-#: ../src/gui/maindialog.py:237
+#: ../src/gui/maindialog.py:238
 msgid "%m/%d"
 msgstr "%d.%m."
 
-#: ../src/gui/maindialog.py:422
+#: ../src/gui/maindialog.py:423
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Wollen Sie »%s« wirklich löschen?"
