@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: billreminder master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=billreminder&component=general\n"
-"POT-Creation-Date: 2010-12-29 22:53+0000\n"
-"PO-Revision-Date: 2010-12-31 14:14+0100\n"
+"POT-Creation-Date: 2011-01-04 15:14+0000\n"
+"PO-Revision-Date: 2011-01-07 18:52+0100\n"
 "Last-Translator: Andrej Žnidaršič <andrej.znidarsic@gmail.com>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -157,26 +157,26 @@ msgid "Add a new bill"
 msgstr "Dodajanje novega računa"
 
 #: ../data/main.ui.h:2
-#: ../src/gui/maindialog.py:140
+#: ../src/gui/maindialog.py:141
 msgid "Delete selected bill"
 msgstr "Izbriši izbrani račun"
 
 #. Dialog Title
 #: ../data/main.ui.h:3
-#: ../src/gui/maindialog.py:137
+#: ../src/gui/maindialog.py:138
 #: ../src/lib/dialogs.py:76
 msgid "Edit a bill"
 msgstr "Urejanje računa"
 
 #: ../data/main.ui.h:4
-#: ../src/gui/maindialog.py:146
+#: ../src/gui/maindialog.py:147
 msgid "Mark as not paid"
 msgstr "Označi kot neplačano"
 
 #. Button Title
 #: ../data/main.ui.h:5
 #: ../src/daemon/alarm.py:146
-#: ../src/gui/maindialog.py:143
+#: ../src/gui/maindialog.py:144
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
 msgstr "Označi kot plačano"
@@ -190,7 +190,7 @@ msgid "_All Bills"
 msgstr "_Vsi računi"
 
 #: ../data/main.ui.h:8
-#: ../src/gui/maindialog.py:136
+#: ../src/gui/maindialog.py:137
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -373,7 +373,7 @@ msgstr "Izbor datuma in časa"
 #. TRANSLATORS: No date selected
 #: ../src/gui/adddialog.py:241
 #: ../src/gui/adddialog.py:265
-#: ../src/gui/maindialog.py:230
+#: ../src/gui/maindialog.py:231
 #: ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
@@ -460,45 +460,45 @@ msgstr[2] "V tej kategoriji sta %d računa več."
 msgstr[3] "V tej kategoriji so %d računi več."
 
 #: ../src/gui/categoriesdialog.py:243
-#: ../src/gui/maindialog.py:424
+#: ../src/gui/maindialog.py:425
 msgid "Confirmation"
 msgstr "Potrditev"
 
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
-#: ../src/gui/maindialog.py:133
+#: ../src/gui/maindialog.py:134
 msgid "_New"
 msgstr "_Novo"
 
-#: ../src/gui/maindialog.py:134
+#: ../src/gui/maindialog.py:135
 msgid "Add new bill"
 msgstr "Dodajanje novega računa"
 
-#: ../src/gui/maindialog.py:139
+#: ../src/gui/maindialog.py:140
 msgid "_Delete"
 msgstr "_Izbriši"
 
-#: ../src/gui/maindialog.py:142
+#: ../src/gui/maindialog.py:143
 msgid "P_aid"
 msgstr "P_lačano"
 
-#: ../src/gui/maindialog.py:145
+#: ../src/gui/maindialog.py:146
 msgid "No_t Paid"
 msgstr "N_eplačano"
 
-#: ../src/gui/maindialog.py:148
+#: ../src/gui/maindialog.py:149
 msgid "_Show Toolbar"
 msgstr "_Pokaži orodno vrstico"
 
-#: ../src/gui/maindialog.py:149
+#: ../src/gui/maindialog.py:150
 msgid "Show the toolbar"
 msgstr "Pokaže orodno vrstico"
 
-#: ../src/gui/maindialog.py:237
+#: ../src/gui/maindialog.py:238
 msgid "%m/%d"
 msgstr "%m/%d"
 
-#: ../src/gui/maindialog.py:422
+#: ../src/gui/maindialog.py:423
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
 msgstr "Ali res želite izbrisati \"%s\"?"
