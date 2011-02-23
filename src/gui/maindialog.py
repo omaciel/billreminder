@@ -388,6 +388,14 @@ class MainDialog:
             # Toggles toolbar buttons on/off
             self.toggle_buttons()
 
+        show_paid_bills = self.gconf_client.get('show_paid_bills')
+        if show_paid_bills is 0:
+            self.statusbar.Info(_("Not Paid Only"))
+        elif show_paid_bills is 1:
+            self.statusbar.Info(_("Paid Only"))
+        else:
+            self.statusbar.Info('')
+
     # Event handlers
     def _on_list_button_press_event(self, widget, event):
         """ This function will handle the signal to show a popup menu
