@@ -94,6 +94,8 @@ class Timeline(gtk.DrawingArea):
         self.value = date
         self.orientation = gtk.ORIENTATION_HORIZONTAL
         self._position = round((self._display_days - 1) / 2)
+        self.auto_select_display_days = True
+        self.hide_day_labels = False
 
         # Widget initialization
         self.drag = False
@@ -118,7 +120,7 @@ class Timeline(gtk.DrawingArea):
             gobject.TYPE_NONE,
             (gobject.TYPE_PYOBJECT,)
         )
-        self. connect('size-allocate', self.on_size_allocate)
+        self.connect('size-allocate', self.on_size_allocate)
 
     def do_realize(self):
         self.set_flags(self.flags() | gtk.REALIZED)
@@ -365,7 +367,7 @@ class Timeline(gtk.DrawingArea):
             ## Draw day label
             if i < self._display_days and \
               (self.display_days < 20 or self._dates[i].weekday() == 0 or \
-              self._dates[i] == self.value):
+              self._dates[i] == self.value or not self.hide_day_labels):
                 # Draw today with bold font
                 if self._dates[i] == datetime.date.today():
                     self._layout.set_markup(
@@ -635,6 +637,14 @@ class Timeline(gtk.DrawingArea):
     def on_size_allocate(self, widget, allocation):
         self.width = allocation.width
         self.height = allocation.height
+        
+        if self.auto_select_display_days:
+            self.display_days = self.width / 32
+            self._value_changed()
+            self.queue_draw_area(
+                0, 0, self.allocation.width, self.allocation.height
+            )
+        
         # Set timeline subdivisions size
         self._div_width = float(allocation.width - self._box_rect.x * 2) / \
                           self._display_days
