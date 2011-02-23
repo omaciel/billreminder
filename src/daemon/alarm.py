@@ -19,7 +19,6 @@ from lib import dialogs
 from lib.bubble import NotifyMessage
 from lib.utils import verify_pid
 from lib.utils import Message
-from lib.bill import Bill
 from lib.Settings import Settings as Configuration
 
 class Alarm(object):
@@ -173,14 +172,14 @@ class Alarm(object):
                 print str(e)
 
     def __cb_edit_bill(self, *arg):
-        record = dialogs.edit_dialog(Bill(arg[1][0]))
+        record = dialogs.edit_dialog(arg[1][0])
         if record:
-            try:
+            #try:
                 # Edit bill to database
-                self.parent.dbus_server.edit_bill(record)
-            except Exception, e:
-                print "Error #2"
-                print str(e)
+            self.parent.dbus_server.edit(record)
+            #except Exception, e:
+            #    print "Error #2"
+            #    print str(e)
 
     def timer(self):
         interval = self.gconf_client.get('interval')
