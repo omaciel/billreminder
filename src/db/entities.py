@@ -44,8 +44,8 @@ class Bill(Base):
             self.notes = notes
         self.paid = paid
         self.repeats = repeats
-        	if category:
-		self.category = category
+        if category:
+		    self.category = category
 
     def __repr__(self):
         return self.payee
