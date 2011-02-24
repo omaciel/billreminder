@@ -35,7 +35,7 @@ class DAL(object):
             new_setup = True
 
         # The fake mode is used to run tests using a clean db created on memory
-	if not fake:
+        if not fake:
             self.engine = create_engine('sqlite:///%s' % os.path.join(data_dir, DB_NAME))
         else:
             self.engine = create_engine('sqlite:///:memory:', echo=False)
@@ -63,15 +63,15 @@ class DAL(object):
                     bill.alarmDate = dbobject.alarmDate
                     bill.notes = dbobject.notes
                     bill.paid = dbobject.paid
-                    
+
                     if dbobject.category:
                         try:
                             category = session.query(Category).filter(Category.name==dbobject.category.name).one()
                             bill.category = category
                         except NoResultFound, e:
                             warnings.warn("Failed to retrieve category \"%s\" for bill \"%s\". Creating category." \
-	                        % (dbobject.category.name, dbobject.payee), RuntimeWarning)
-                
+                            % (dbobject.category.name, dbobject.payee), RuntimeWarning)
+
                 if session.dirty:
                     session.commit()
 
@@ -85,8 +85,8 @@ class DAL(object):
                         dbobject.category = category
                     except NoResultFound, e:
                         warnings.warn("Failed to retrieve category \"%s\" for bill \"%s\". Creating category." \
-	                    % (dbobject.category.name, dbobject.payee), RuntimeWarning)
-                
+                        % (dbobject.category.name, dbobject.payee), RuntimeWarning)
+
                 session.add(dbobject)
                 session.commit()
                 dbobject_id = dbobject.id
@@ -111,7 +111,7 @@ class DAL(object):
 
             except NoResultFound, e:
                 session.add(dbobject)
-                session.commit()              
+                session.commit()
                 dbobject_id = dbobject.id
             except Exception, e:
                 session.rollback()
