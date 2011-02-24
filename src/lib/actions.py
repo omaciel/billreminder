@@ -147,7 +147,7 @@ class Actions(object):
 
         try:
             session = self.dal.Session()
-            records = session.query(Category).filter_by(**kwargs).all()
+            records = session.query(Category).filter_by(**kwargs).order_by(Category.name).all()
         except Exception, e:
             print str(e)
         finally:
