@@ -641,9 +641,6 @@ class Timeline(gtk.DrawingArea):
         if self.auto_select_display_days:
             self.display_days = self.width / 32
             self._value_changed()
-            self.queue_draw_area(
-                0, 0, self.allocation.width, self.allocation.height
-            )
         
         # Set timeline subdivisions size
         self._div_width = float(allocation.width - self._box_rect.x * 2) / \
@@ -661,6 +658,8 @@ class Timeline(gtk.DrawingArea):
         else:
             self._bullet_radius = (self._div_width - self._div_width / 4) / 2
 
+        self._center_selection()
+            
         return False
 
     def _dist_dates(self, first=None):
