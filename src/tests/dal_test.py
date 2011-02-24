@@ -51,22 +51,22 @@ class DALTest(unittest.TestCase):
         bills = dict()
 
         # Create a simple bill
-        bills_orig['Harris Teeter'] = dal.Bill('Harris Teeter', Decimal('123.94'), self.today)
+        bills_orig['Food Market'] = dal.Bill('Food Market', Decimal('123.94'), self.today)
         
         # Add bill using DAL
-        self.dal.add(bills_orig['Harris Teeter'])
+        self.dal.add(bills_orig['Food Market'])
 
         session = self.dal.Session()
-        bills['Harris Teeter'] = session.query(dal.Bill).filter(dal.Bill.payee=='Harris Teeter').first()
+        bills['Food Market'] = session.query(dal.Bill).filter(dal.Bill.payee=='Food Market').first()
 
-        self.assertEqual(bills['Harris Teeter'].payee, 'Harris Teeter')
-        self.assertEqual(bills['Harris Teeter'].amount, Decimal('123.94'))
-        self.assertEqual(bills['Harris Teeter'].dueDate, self.today)
-        self.assertEqual(bills['Harris Teeter'].alarmDate, None)
-        self.assertEqual(bills['Harris Teeter'].notes, None)
-        self.assertFalse(bills['Harris Teeter'].paid)
-        self.assertEqual(bills['Harris Teeter'].repeats, None)
-        self.assertEqual(bills['Harris Teeter'].category, None)
+        self.assertEqual(bills['Food Market'].payee, 'Food Market')
+        self.assertEqual(bills['Food Market'].amount, Decimal('123.94'))
+        self.assertEqual(bills['Food Market'].dueDate, self.today)
+        self.assertEqual(bills['Food Market'].alarmDate, None)
+        self.assertEqual(bills['Food Market'].notes, None)
+        self.assertFalse(bills['Food Market'].paid)
+        self.assertEqual(bills['Food Market'].repeats, None)
+        self.assertEqual(bills['Food Market'].category, None)
 
         session.close()    
 
@@ -83,25 +83,25 @@ class DALTest(unittest.TestCase):
         category = session.query(dal.Category).filter(dal.Category.name=='Groceries').first()
 
         # Create a simple bill
-        bills_orig['Harris Teeter'] = dal.Bill('Harris Teeter', Decimal('123.94'), self.today, category=dal.Category('Groceries', 'c0c0c0'))
+        bills_orig['Food Market'] = dal.Bill('Food Market', Decimal('123.94'), self.today, category=dal.Category('Groceries', 'c0c0c0'))
 
         session.close()
         
         # Add bill using DAL
-        self.assertEqual(self.dal.add(bills_orig['Harris Teeter']), 1)
+        self.assertEqual(self.dal.add(bills_orig['Food Market']), 1)
         
         session = self.dal.Session()
         category = session.query(dal.Category).filter(dal.Category.name=='Groceries').first()
-        bills['Harris Teeter'] = session.query(dal.Bill).filter(dal.Bill.payee=='Harris Teeter').first()
+        bills['Food Market'] = session.query(dal.Bill).filter(dal.Bill.payee=='Food Market').first()
         
-        self.assertEqual(bills['Harris Teeter'].payee, 'Harris Teeter')
-        self.assertEqual(bills['Harris Teeter'].amount, Decimal('123.94'))
-        self.assertEqual(bills['Harris Teeter'].dueDate, self.today)
-        self.assertEqual(bills['Harris Teeter'].alarmDate, None)
-        self.assertEqual(bills['Harris Teeter'].notes, None)
-        self.assertFalse(bills['Harris Teeter'].paid)
-        self.assertEqual(bills['Harris Teeter'].repeats, None)
-        self.assertEqual(bills['Harris Teeter'].category.id, category_orig_id)
+        self.assertEqual(bills['Food Market'].payee, 'Food Market')
+        self.assertEqual(bills['Food Market'].amount, Decimal('123.94'))
+        self.assertEqual(bills['Food Market'].dueDate, self.today)
+        self.assertEqual(bills['Food Market'].alarmDate, None)
+        self.assertEqual(bills['Food Market'].notes, None)
+        self.assertFalse(bills['Food Market'].paid)
+        self.assertEqual(bills['Food Market'].repeats, None)
+        self.assertEqual(bills['Food Market'].category.id, category_orig_id)
 
         session.close()
 
@@ -111,22 +111,22 @@ class DALTest(unittest.TestCase):
         category_orig = dal.Category('Nothing', 'c0c0c0')
 
         # Create a simple bill
-        bills_orig['Harris Teeter'] = dal.Bill('Harris Teeter', Decimal('123.94'), self.today, category=category_orig)
+        bills_orig['Food Market'] = dal.Bill('Food Market', Decimal('123.94'), self.today, category=category_orig)
         
         # Add bill using DAL
-        self.dal.add(bills_orig['Harris Teeter'])
+        self.dal.add(bills_orig['Food Market'])
         session = self.dal.Session()
 
-        bills['Harris Teeter'] = session.query(dal.Bill).filter(dal.Bill.payee=='Harris Teeter').first()
+        bills['Food Market'] = session.query(dal.Bill).filter(dal.Bill.payee=='Food Market').first()
         
-        self.assertEqual(bills['Harris Teeter'].payee, 'Harris Teeter')
-        self.assertEqual(bills['Harris Teeter'].amount, Decimal('123.94'))
-        self.assertEqual(bills['Harris Teeter'].dueDate, self.today)
-        self.assertEqual(bills['Harris Teeter'].alarmDate, None)
-        self.assertEqual(bills['Harris Teeter'].notes, None)
-        self.assertFalse(bills['Harris Teeter'].paid)
-        self.assertEqual(bills['Harris Teeter'].repeats, None)
-        self.assertEqual(bills['Harris Teeter'].category.id, 1)
+        self.assertEqual(bills['Food Market'].payee, 'Food Market')
+        self.assertEqual(bills['Food Market'].amount, Decimal('123.94'))
+        self.assertEqual(bills['Food Market'].dueDate, self.today)
+        self.assertEqual(bills['Food Market'].alarmDate, None)
+        self.assertEqual(bills['Food Market'].notes, None)
+        self.assertFalse(bills['Food Market'].paid)
+        self.assertEqual(bills['Food Market'].repeats, None)
+        self.assertEqual(bills['Food Market'].category.id, 1)
 
         session.close()
 

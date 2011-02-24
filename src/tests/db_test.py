@@ -46,40 +46,40 @@ class EntitiesTest(unittest.TestCase):
         bills = dict()
 
         # Create a simple bill
-        bills_orig['Harris Teeter'] = entities.Bill('Harris Teeter', 123.94, self.today)
+        bills_orig['Food Market'] = entities.Bill('Food Market', 123.94, self.today)
 
         session = self.Session()
-        session.add(bills_orig['Harris Teeter'])
+        session.add(bills_orig['Food Market'])
         session.commit()
 
-        bills['Harris Teeter'] = session.query(entities.Bill).filter(entities.Bill.payee=='Harris Teeter').first()
+        bills['Food Market'] = session.query(entities.Bill).filter(entities.Bill.payee=='Food Market').first()
 
-        self.assertEqual(bills['Harris Teeter'].payee, 'Harris Teeter')
-        self.assertEqual(bills['Harris Teeter'].amount, Decimal('123.94'))
-        self.assertEqual(bills['Harris Teeter'].dueDate, self.today)
-        self.assertEqual(bills['Harris Teeter'].alarmDate, None)
-        self.assertEqual(bills['Harris Teeter'].notes, None)
-        self.assertFalse(bills['Harris Teeter'].paid)
-        self.assertEqual(bills['Harris Teeter'].repeats, None)
-        self.assertEqual(bills['Harris Teeter'].category, None)
+        self.assertEqual(bills['Food Market'].payee, 'Food Market')
+        self.assertEqual(bills['Food Market'].amount, Decimal('123.94'))
+        self.assertEqual(bills['Food Market'].dueDate, self.today)
+        self.assertEqual(bills['Food Market'].alarmDate, None)
+        self.assertEqual(bills['Food Market'].notes, None)
+        self.assertFalse(bills['Food Market'].paid)
+        self.assertEqual(bills['Food Market'].repeats, None)
+        self.assertEqual(bills['Food Market'].category, None)
 
         # Create a complete bill
-        bills_orig['Toyota'] = entities.Bill('Toyota', 3900.00, self.today, self.today_t, 'My new car', True, True)
+        bills_orig['Car'] = entities.Bill('Car', 3900.00, self.today, self.today_t, 'My new car', True, True)
 
         session = self.Session()
-        session.add(bills_orig['Toyota'])
+        session.add(bills_orig['Car'])
         session.commit()
 
-        bills['Toyota'] = session.query(entities.Bill).filter(entities.Bill.payee=='Toyota').first()
+        bills['Car'] = session.query(entities.Bill).filter(entities.Bill.payee=='Car').first()
 
-        self.assertEqual(bills['Toyota'].payee, 'Toyota')
-        self.assertEqual(bills['Toyota'].amount, Decimal('3900.00'))
-        self.assertEqual(bills['Toyota'].dueDate, self.today)
-        self.assertEqual(bills['Toyota'].alarmDate, self.today_t)
-        self.assertEqual(bills['Toyota'].notes, 'My new car')
-        self.assertTrue(bills['Toyota'].paid)
-        self.assertTrue(bills['Toyota'].repeats)
-        self.assertEqual(bills['Toyota'].category, None)
+        self.assertEqual(bills['Car'].payee, 'Car')
+        self.assertEqual(bills['Car'].amount, Decimal('3900.00'))
+        self.assertEqual(bills['Car'].dueDate, self.today)
+        self.assertEqual(bills['Car'].alarmDate, self.today_t)
+        self.assertEqual(bills['Car'].notes, 'My new car')
+        self.assertTrue(bills['Car'].paid)
+        self.assertTrue(bills['Car'].repeats)
+        self.assertEqual(bills['Car'].category, None)
 
         session.close()
 
@@ -88,25 +88,25 @@ class EntitiesTest(unittest.TestCase):
         bills = dict()
 
         # Create bills and category to be tested
-        bills['Harris Teeter'] = entities.Bill('Harris Teeter', 123.94, self.today)
-        bills['Toyota'] = entities.Bill('Toyota', 3900.00, self.today, self.today, 'My new car', True, True)
+        bills['Food Market'] = entities.Bill('Food Market', 123.94, self.today)
+        bills['Car'] = entities.Bill('Car', 3900.00, self.today, self.today, 'My new car', True, True)
         categories['Miscellaneous'] = entities.Category('Miscellaneous', 'c0c0c0')        
 
         # Verify that there is no relations between bills and category yet
         self.assertEqual(categories['Miscellaneous'].bills, [])
-        self.assertEqual(bills['Harris Teeter'].category, None)
-        self.assertEqual(bills['Toyota'].category, None)
+        self.assertEqual(bills['Food Market'].category, None)
+        self.assertEqual(bills['Car'].category, None)
 
         # Set cotegory for one bill
-        bills['Harris Teeter'].category = categories['Miscellaneous']        
-        self.assertEqual(categories['Miscellaneous'].bills, [bills['Harris Teeter']])
-        self.assertEqual(bills['Harris Teeter'].category, categories['Miscellaneous'])
+        bills['Food Market'].category = categories['Miscellaneous']        
+        self.assertEqual(categories['Miscellaneous'].bills, [bills['Food Market']])
+        self.assertEqual(bills['Food Market'].category, categories['Miscellaneous'])
 
         # Verify that the other bill remains with no category
-        self.assertEqual(bills['Toyota'].category, None)
+        self.assertEqual(bills['Car'].category, None)
 
         # Append the other bill to the category using another method
-        categories['Miscellaneous'].bills.append(bills['Toyota'])
-        self.assertEqual(categories['Miscellaneous'].bills, [bills['Harris Teeter'], bills['Toyota']])
-        self.assertEqual(bills['Toyota'].category, categories['Miscellaneous'])
+        categories['Miscellaneous'].bills.append(bills['Car'])
+        self.assertEqual(categories['Miscellaneous'].bills, [bills['Food Market'], bills['Car']])
+        self.assertEqual(bills['Car'].category, categories['Miscellaneous'])
 
