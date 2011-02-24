@@ -288,7 +288,8 @@ class MainDialog:
         if records:
             # Add new bill to database
             for rec in records:
-                bill = self.actions.add(rec)
+                bill_id = self.actions.add(rec)
+                bill = self.actions.get_bills(id=bill_id)[0]
                 if bill:
                     self.list.add(self.format_row(bill))
             self.update_statusbar()
