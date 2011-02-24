@@ -34,9 +34,9 @@ class Bill(Base):
     catId = Column(Integer, ForeignKey('categories.id'))
     category = relation(Category, backref=backref('bills', order_by=id))
 
-    def __init__(self, payee, amount, dueDate, alarmDate=None, notes=None, paid=False, repeats=False):
+    def __init__(self, payee, amount, dueDate, alarmDate=None, notes=None, paid=False, repeats=None, category=None):
         self.payee = payee
-        self.amount=amount
+        self.amount = amount
         self.dueDate = dueDate
         if alarmDate:
             self.alarmDate = alarmDate
@@ -44,6 +44,8 @@ class Bill(Base):
             self.notes = notes
         self.paid = paid
         self.repeats = repeats
+        if category:
+		    self.category = category
 
     def __repr__(self):
         return self.payee
@@ -66,7 +68,7 @@ if __name__ == 'main':
     # Create a new Category record
     food = Category('Groceries')
     # Add category to bill
-    ht.category.append(food)
+    food.bills.append(ht)
 
     # Session to talk to the database
     session = Session()
@@ -84,5 +86,5 @@ if __name__ == 'main':
         print "Category: %s" % instance
 
     # Get all Bills with a category of 'Groceries'
-    for instance in session.query(Bill).filter(Bill.category.contains(food)):
+    for instance in session.query(Bill).filter(Bill.category==food):
         print instance

@@ -3,6 +3,7 @@
 __all__ = ['Statusbar']
 
 import gtk
+import pango
 
 from lib import i18n
 
@@ -29,7 +30,12 @@ class Statusbar(gtk.HBox):
         self.noteValue = gtk.Label()
         self.noteValue.set_justify(gtk.JUSTIFY_LEFT)
         self.noteValue.set_markup("")
-        self.pack_start(self.noteValue, expand=False, fill=True, padding=2)
+        self.pack_start(self.noteValue, expand=True, fill=True, padding=2)
+
+        self.infoValue = gtk.Label()
+        self.infoValue.set_justify(gtk.JUSTIFY_RIGHT)
+        self.infoValue.set_markup("")
+        self.pack_start(self.infoValue, expand=False, fill=True, padding=2)
 
         self.set_border_width(2)
 
@@ -37,11 +43,22 @@ class Statusbar(gtk.HBox):
         self.recordCount.set_markup("%(count)d  " % {'count': count})
 
     def Notes(self, notes=''):
-        if notes:
+        if notes:          
             # Add notes to status bar...
             self.noteValue.set_markup("%(notes)s" % \
                 {'notes': notes.replace('\n', ' ')})
             # ... and a tooltip.
             self.noteValue.set_tooltip_text(notes.replace('\n', ' '))
+            self.noteValue.set_ellipsize(pango.ELLIPSIZE_END)  
         else:
             self.noteValue.set_markup('')
+
+    def Info(self, info=''):
+        if info:
+            # Add notes to status bar...
+            self.infoValue.set_markup("<b>%(info)s</b>" % \
+                {'info': info.replace('\n', ' ')})
+            # ... and a tooltip.
+            self.infoValue.set_tooltip_text(info.replace('\n', ' '))
+        else:
+            self.infoValue.set_markup('')

@@ -19,7 +19,6 @@ from gui.widgets.chartwidget import ChartWidget
 from gui.widgets.timeline import Timeline, Bullet
 
 # Import data model modules
-from lib.bill import Bill
 from lib.actions import Actions
 
 # Import common utilities
@@ -289,7 +288,8 @@ class MainDialog:
         if records:
             # Add new bill to database
             for rec in records:
-                bill = self.actions.add(rec)
+                bill_id = self.actions.add(rec)
+                bill = self.actions.get_bills(id=bill_id)[0]
                 if bill:
                     self.list.add(self.format_row(bill))
             self.update_statusbar()
@@ -388,6 +388,14 @@ class MainDialog:
             self.statusbar.Notes("")
             # Toggles toolbar buttons on/off
             self.toggle_buttons()
+
+        show_paid_bills = self.gconf_client.get('show_paid_bills')
+        if show_paid_bills is 0:
+            self.statusbar.Info(_("Not Paid Only"))
+        elif show_paid_bills is 1:
+            self.statusbar.Info(_("Paid Only"))
+        else:
+            self.statusbar.Info('')
 
     # Event handlers
     def _on_list_button_press_event(self, widget, event):

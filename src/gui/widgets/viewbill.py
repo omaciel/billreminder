@@ -7,7 +7,6 @@ import locale
 import datetime
 
 from gui.widgets.genericlistview import GenericListView
-from lib.bill import Bill
 from lib import i18n
 from lib import utils
 
