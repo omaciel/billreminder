@@ -640,8 +640,15 @@ class Timeline(gtk.DrawingArea):
         
         if self.auto_select_display_days:
             self.display_days = self.width / 32
+            self._position = self.display_days / 2
+            self._dist_dates()
             self._value_changed()
         
+        self.calculate_subdivisions_size(self, allocation)
+        
+        return False
+
+    def calculate_subdivisions_size(self, widget, allocation):
         # Set timeline subdivisions size
         self._div_width = float(allocation.width - self._box_rect.x * 2) / \
                           self._display_days
@@ -658,9 +665,6 @@ class Timeline(gtk.DrawingArea):
         else:
             self._bullet_radius = (self._div_width - self._div_width / 4) / 2
 
-        self._center_selection()
-            
-        return False
 
     def _dist_dates(self, first=None):
         """ Calculate dates for visible positions """
@@ -817,7 +821,7 @@ class Timeline(gtk.DrawingArea):
         self._display_days = days
         self._dist_dates()
         # Set timeline subdivisions size
-        self.on_size_allocate(self, self.allocation)
+        self.calculate_subdivisions_size(self, self.allocation)
         self._center_selection()
         self.queue_draw_area(
             0, 0, self.allocation.width, self.allocation.height
