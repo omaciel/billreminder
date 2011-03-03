@@ -34,7 +34,7 @@ AC_SUBST(VERSION)
 AM_CHECK_PYMOD([gobject], , , AC_MSG_ERROR([Python module gobject required to run BillReminder]))
 
 dnl This entire python check section borrowed from the hamster-applet project.
-if test "x$PYTHON_VERSION" = "x2.5"; then
+if test "x$PYTHON_VERSION" > "x2.4"; then
     AC_MSG_CHECKING([for python sqlite module])
     if AC_RUN_LOG([DISPLAY= $PYTHON -c '
 try:
