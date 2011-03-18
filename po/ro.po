@@ -2,22 +2,26 @@
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the billreminder package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
-#
+# Nicolae Antonio <anto.nicolae@gmail.com>, 2010.
+# Badea Andrei <kenzy.bratianu@gmail.com>, 2010.
+# Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: billreminder\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-13 16:00-0500\n"
-"PO-Revision-Date: 2008-07-08 08:05+0000\n"
-"Last-Translator: Ionuț Jula <ionutjula@gmail.com>\n"
-"Language-Team: Romanian <ro@li.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=billre"
+"minder&component=general\n"
+"POT-Creation-Date: 2010-12-31 17:37+0000\n"
+"PO-Revision-Date: 2011-03-19 00:43+0200\n"
+"Last-Translator: Lucian Adrian Grijincu <lucian.grijincu@gmail.com>\n"
+"Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
-"== 0) && (n != 0))) ? 2: 1));\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Virtaal 0.6.1\n"
 "X-Launchpad-Export-Date: 2008-07-12 02:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/billreminderd.desktop.in.h:1 ../src/billreminderd.py:43
 #: ../src/daemon/alarm.py:139 ../src/daemon/dbus_manager.py:46
@@ -38,158 +42,144 @@ msgid "BillReminder"
 msgstr "BillReminder"
 
 #: ../data/billreminder.schemas.in.h:1
-#, fuzzy
 msgid "Default X coordinate for the application."
-msgstr "Afișează numărul versiunii pentru această aplicație."
+msgstr "Coordonata X implicită pentru aplicație."
 
 #: ../data/billreminder.schemas.in.h:2
-#, fuzzy
 msgid "Default Y coordinate for the application."
-msgstr "Afișează numărul versiunii pentru această aplicație."
+msgstr "Coordonata Y implicită pentru aplicație."
 
 #: ../data/billreminder.schemas.in.h:3
-#, fuzzy
 msgid "Default height of the application."
-msgstr "Despre aplicație"
+msgstr "Înălțimea implicită a aplicației."
 
 #: ../data/billreminder.schemas.in.h:4
-#, fuzzy
 msgid "Default width of the application."
-msgstr "Despre aplicație"
+msgstr "Lățimea implicită a aplicației."
 
 #: ../data/billreminder.schemas.in.h:5
-#, fuzzy
 msgid "Defines the default X coordinate for the application."
-msgstr "Afișează numărul versiunii pentru această aplicație."
+msgstr "Definește coordonata X implicită pentru aplicație."
 
 #: ../data/billreminder.schemas.in.h:6
-#, fuzzy
 msgid "Defines the default Y coordinate for the application."
-msgstr "Afișează numărul versiunii pentru această aplicație."
+msgstr "Definește coordonata Y implicită pentru aplicație."
 
 #: ../data/billreminder.schemas.in.h:7
-#, fuzzy
 msgid "Defines the default height of the application."
-msgstr "Afișează numărul versiunii pentru această aplicație."
+msgstr "Definește înălțimea implicită a aplicației."
 
 #: ../data/billreminder.schemas.in.h:8
 msgid "Defines the default width of the application."
-msgstr ""
+msgstr "Definește lățimea implicită a aplicației."
 
 #: ../data/billreminder.schemas.in.h:9
 msgid "Delay between notifications."
-msgstr ""
+msgstr "Întârziere între notificări."
 
 #: ../data/billreminder.schemas.in.h:10
-#, fuzzy
 msgid "Display only paid bills."
-msgstr "Arată doar înregistrările plătite"
+msgstr "Afișează numai facturile plătite."
 
 #: ../data/billreminder.schemas.in.h:11
 msgid "Display the menu bar."
-msgstr ""
+msgstr "Afișează bara de meniu."
 
 #: ../data/billreminder.schemas.in.h:12
-#, fuzzy
 msgid "Display the toolbar."
-msgstr "Afişează bara de unelte"
+msgstr "Afișează bara de instrumente."
 
 #: ../data/billreminder.schemas.in.h:13
 msgid "How long to display the alarm notification."
-msgstr ""
+msgstr "Cât timp să se afișeze alarma de notificare."
 
 #: ../data/billreminder.schemas.in.h:14
 msgid "How many days prior to due date to alert."
-msgstr ""
+msgstr "Câte zile înainte de data scadentă pentru a alerta."
 
 #: ../data/billreminder.schemas.in.h:15
 msgid "How many days prior to due date to notify."
-msgstr ""
+msgstr "Câte zile înainte de data scadentă pentru a notifica."
 
 #: ../data/billreminder.schemas.in.h:16
 msgid "Start the application in the system's tray."
-msgstr ""
+msgstr "Porniți aplicația în zona de notificare a sistemului."
 
 #: ../data/billreminder.schemas.in.h:17
-#, fuzzy
 msgid "The date a bill is due."
-msgstr "Este timpul pentru a plăti factura %s."
+msgstr "Data la care trebuie plătită o factură."
 
 #: ../data/billreminder.schemas.in.h:18
 msgid "What specific time to display alert."
-msgstr ""
+msgstr "Când exact să se afișeze alerta."
 
 #: ../data/billreminder.schemas.in.h:19
 msgid "Whether to display notifications on startup."
-msgstr ""
+msgstr "Dacă se afișează notificările la pornire."
 
 #: ../data/billreminder.schemas.in.h:20
 msgid "Whether to display the menu bar or not."
-msgstr ""
+msgstr "Dacă se afișează bara de meniu sau nu."
 
 #: ../data/billreminder.schemas.in.h:21
 msgid "Whether to display the toolbar or not."
-msgstr ""
+msgstr "Dacă se afișează bara de instrumente sau nu."
 
 #: ../data/billreminder.schemas.in.h:22
 msgid "Whether to show alarms before a bill is due."
-msgstr ""
+msgstr "Dacă să fie arătate alarmele înainte de data scadentă a unei facturi."
 
 #: ../data/billreminder.schemas.in.h:23
 msgid "Whether to show alarms."
-msgstr ""
+msgstr "Dacă să fie arătate alarmele."
 
 #: ../data/billreminder.schemas.in.h:24
 msgid "Whether to show notifications for paid bills."
-msgstr ""
+msgstr "Dacă să se arătate notificări pentru facturile plătite."
 
 #: ../data/billreminder.schemas.in.h:25
 msgid "Whether to start the application in the system's tray."
-msgstr ""
+msgstr "Dacă să se pornească aplicația în zona de notificare a sistemului"
 
 #: ../data/billreminder.schemas.in.h:26
 msgid "Whether to use dialogs for notifications."
-msgstr ""
+msgstr "Dacă se utilizează casete de dialog pentru notificări."
 
 #. Dialog Title
 #: ../data/main.ui.h:1 ../src/lib/dialogs.py:65
-#, fuzzy
 msgid "Add a new bill"
-msgstr "Adaugă o înregistrare nouă"
+msgstr "Adaugă o factură nouă"
 
-#: ../data/main.ui.h:2 ../src/gui/maindialog.py:140
-#, fuzzy
+#: ../data/main.ui.h:2 ../src/gui/maindialog.py:141
 msgid "Delete selected bill"
-msgstr "Elimină înregistrarea aleasă"
+msgstr "Șterge factura selectată"
 
 #. Dialog Title
-#: ../data/main.ui.h:3 ../src/gui/maindialog.py:137 ../src/lib/dialogs.py:76
+#: ../data/main.ui.h:3 ../src/gui/maindialog.py:138 ../src/lib/dialogs.py:76
 msgid "Edit a bill"
-msgstr ""
+msgstr "Modifică o factură"
 
-#: ../data/main.ui.h:4 ../src/gui/maindialog.py:146
+#: ../data/main.ui.h:4 ../src/gui/maindialog.py:147
 msgid "Mark as not paid"
 msgstr "Bifează ca neplătit"
 
 #. Button Title
-#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:143
+#: ../data/main.ui.h:5 ../src/daemon/alarm.py:146 ../src/gui/maindialog.py:144
 #: ../src/lib/utils.py:135
 msgid "Mark as paid"
-msgstr "Bifează ca plătit"
+msgstr "Marchează ca plătit"
 
 #: ../data/main.ui.h:6
-#, fuzzy
 msgid "Show Toolbar"
-msgstr "Afişează bara de unelte"
+msgstr "Arată bara de instrumente"
 
 #: ../data/main.ui.h:7
 msgid "_All Bills"
-msgstr ""
+msgstr "To_ate facturile"
 
-#: ../data/main.ui.h:8 ../src/gui/maindialog.py:136
-#, fuzzy
+#: ../data/main.ui.h:8 ../src/gui/maindialog.py:137
 msgid "_Edit"
-msgstr "Modifică"
+msgstr "_Editare"
 
 #: ../data/main.ui.h:9
 msgid "_File"
@@ -212,9 +202,8 @@ msgid "_View"
 msgstr "_Vizualizare"
 
 #: ../data/add_bill.ui.h:1
-#, fuzzy
 msgid "A_larm:\t"
-msgstr "Alarmă"
+msgstr "A_larmă:\t"
 
 #: ../data/add_bill.ui.h:2
 msgid "Manage Categories"
@@ -222,42 +211,35 @@ msgstr "Administrare categorii"
 
 #: ../data/add_bill.ui.h:3
 msgid "Optional Fields"
-msgstr ""
+msgstr "Câmpuri opționale"
 
 #: ../data/add_bill.ui.h:4
-#, fuzzy
 msgid "_Amount:"
-msgstr "Sumă"
+msgstr "Sum_a:"
 
 #: ../data/add_bill.ui.h:5
-#, fuzzy
 msgid "_Category:"
-msgstr "Categorie"
+msgstr "_Categorie:"
 
 #: ../data/add_bill.ui.h:6
-#, fuzzy
 msgid "_Due Date:"
-msgstr "Data scadentă:"
+msgstr "_Data scadentă:"
 
 #: ../data/add_bill.ui.h:7
-#, fuzzy
 msgid "_End Date:"
-msgstr "Data:"
+msgstr "Data finali_zării:"
 
 #: ../data/add_bill.ui.h:8
-#, fuzzy
 msgid "_Notes:"
-msgstr "Notițe:"
+msgstr "_Notițe:"
 
 #: ../data/add_bill.ui.h:9
-#, fuzzy
 msgid "_Payee:"
-msgstr "Beneficiar"
+msgstr "_Beneficiar:"
 
 #: ../data/add_bill.ui.h:10
-#, fuzzy
 msgid "_Repeat:"
-msgstr "Repetă:"
+msgstr "_Repetă:"
 
 #: ../src/billreminder.py:45 ../src/billreminderd.py:23
 msgid "Usage:  billreminder [OPTIONS...]"
@@ -272,9 +254,8 @@ msgid "About this application."
 msgstr "Despre această aplicație."
 
 #: ../src/billreminder.py:48
-#, fuzzy
 msgid "Adds a new bill to the database."
-msgstr "Adaugă o înregistrare nouă la baza de date."
+msgstr "Adaugă o factură nouă în baza de date."
 
 #: ../src/billreminder.py:49
 msgid "Access database directly, without daemon."
@@ -292,7 +273,7 @@ msgstr "Acesta este %(appname)s - Versiunea: %(version)s"
 
 #: ../src/billreminderd.py:25
 msgid "Print output messages."
-msgstr "Tipărește mesajele de ieșite."
+msgstr "Tipărește mesajele de ieșire."
 
 #: ../src/billreminderd.py:26
 msgid "Don't run as a daemon."
@@ -300,7 +281,7 @@ msgstr "Nu rula ca serviciu."
 
 #: ../src/billreminderd.py:27
 msgid "Start daemon and launch GUI."
-msgstr "Pornește serviciul și lansează GUI."
+msgstr "Pornește serviciul și lansează interfața grafică."
 
 #: ../src/billreminderd.py:28
 msgid "Stop daemon."
@@ -316,12 +297,12 @@ msgstr[2] "Aveți de plătit %s de facturi!"
 
 #: ../src/daemon/alarm.py:81
 msgid "Show BillReminder"
-msgstr "Afișează BillReminder"
+msgstr "Arată BillReminder"
 
 #: ../src/daemon/alarm.py:123 ../src/daemon/alarm.py:230
 #, python-format
 msgid "The bill %(bill)s will be due at %(day)s."
-msgstr "Factura %(bill)s trebuie achitată în %(day)s."
+msgstr "Factura %(bill)s trebuie achitată în ziua de %(day)s."
 
 #: ../src/daemon/alarm.py:135
 #, python-format
@@ -330,22 +311,24 @@ msgstr "Este timpul pentru a plăti factura %s."
 
 #: ../src/daemon/alarm.py:148 ../src/lib/utils.py:136
 msgid "Edit"
-msgstr "Modifică"
+msgstr "Editare"
 
 #: ../src/daemon/main.py:85
 #, python-format
 msgid "Lock File found: You have another instance running. (pid=%d)"
-msgstr "Fişierul de blocaj a fost găsit. Deja rulează un alt proces. (pid=%d)"
+msgstr ""
+"Fișierul de blocaj a fost găsit. Rulează o altă instanță a acestui proces. "
+"(pid=%d)"
 
 #: ../src/daemon/main.py:90
 msgid "Lock File found: Possibly the program was exited unexpectedly."
 msgstr ""
-"Fişierul de blocaj a fost găsit. Este posibil ca programul să fi fost închis "
-"datorită unei erori."
+"Fișierul de blocaj a fost găsit. Posibil că programul a fost închis pe "
+"neașteptate."
 
 #: ../src/daemon/main.py:93
 msgid "Removing Lock File..."
-msgstr "Se șterge fișierul de blocaj"
+msgstr "Se șterge fișierul de blocaj..."
 
 #: ../src/daemon/main.py:95
 msgid "Successfully."
@@ -366,11 +349,12 @@ msgstr ""
 "  Adi Roiban https://launchpad.net/~adiroiban\n"
 "  Cătălina Popovici https://launchpad.net/~catalina\n"
 "  Ionuț Jula https://launchpad.net/~ionutjula\n"
-"  Ryan Lortie https://launchpad.net/~desrt"
+"  Ryan Lortie https://launchpad.net/~desrt\n"
+"  Nicolae Antonio <anto.nicolae@gmail.com>"
 
 #: ../src/gui/aboutdialog.py:30
 msgid "BillReminder Website"
-msgstr "Pagina web BillReminder"
+msgstr "Sait web BillReminder"
 
 #: ../src/gui/adddialog.py:104 ../src/gui/widgets/datebutton.py:40
 msgid "Select Date and Time"
@@ -378,46 +362,50 @@ msgstr "Alege data și ora"
 
 #. TRANSLATORS: No date selected
 #: ../src/gui/adddialog.py:241 ../src/gui/adddialog.py:265
-#: ../src/gui/maindialog.py:230 ../src/gui/widgets/datebutton.py:18
+#: ../src/gui/maindialog.py:231 ../src/gui/widgets/datebutton.py:18
 #: ../src/gui/widgets/datebutton.py:26
 msgid "None"
-msgstr "Nici una"
+msgstr "Niciuna"
 
 #: ../src/gui/adddialog.py:247 ../src/gui/categoriesdialog.py:48
 msgid "New Category"
 msgstr "Categorie nouă"
 
-#: ../src/gui/adddialog.py:287 ../src/gui/adddialog.py:425
-#: ../src/gui/adddialog.py:434
+#: ../src/gui/adddialog.py:287
 msgid ""
 "The end date is set to a date prior to the start date. Setting it to match "
 "the start date."
 msgstr ""
+"Data de sfârșit este stabilită la o dată înainte de data de început. Se "
+"stabilește astfel încât să se potrivească cu data de început."
 
-#: ../src/gui/adddialog.py:288 ../src/gui/adddialog.py:426
-#: ../src/gui/adddialog.py:435
+#: ../src/gui/adddialog.py:288
 msgid "Date set in the past"
-msgstr ""
+msgstr "Dată stabilită în trecut"
 
-#: ../src/gui/adddialog.py:403
+#: ../src/gui/adddialog.py:414
 #, python-format
 msgid "\"%s\" and \"%s\" are required fields."
 msgstr "„%s” și „%s” sunt câmpuri obligatorii."
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:407
+#: ../src/gui/adddialog.py:415 ../src/gui/adddialog.py:418
 #: ../src/gui/widgets/viewbill.py:85
 msgid "Payee"
 msgstr "Beneficiar"
 
-#: ../src/gui/adddialog.py:404 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:415 ../src/gui/adddialog.py:421
 #: ../src/gui/widgets/viewbill.py:89
 msgid "Amount"
 msgstr "Sumă"
 
-#: ../src/gui/adddialog.py:407 ../src/gui/adddialog.py:410
+#: ../src/gui/adddialog.py:418 ../src/gui/adddialog.py:421
 #, python-format
 msgid "\"%s\" is required field."
 msgstr "„%s” este un câmp obligatoriu."
+
+#: ../src/gui/adddialog.py:424
+msgid "The end date is set to a date prior to the start date."
+msgstr "Data de sfârșit este setată la o dată înainte de data de început."
 
 #: ../src/gui/categoriesdialog.py:23
 msgid "Categories Manager"
@@ -448,7 +436,7 @@ msgstr ""
 
 #: ../src/gui/categoriesdialog.py:239
 msgid "Do you really want to delete this category?\n"
-msgstr "Doriți să ștergeți această categorie?\n"
+msgstr "Chiar vreți să ștergeți această categorie?\n"
 
 #: ../src/gui/categoriesdialog.py:240
 #, python-format
@@ -458,109 +446,96 @@ msgstr[0] "Mai este %d factură în această categorie."
 msgstr[1] "Mai sunt %d facturi în această categorie."
 msgstr[2] "Mai sunt %d de facturi în această categorie."
 
-#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:424
+#: ../src/gui/categoriesdialog.py:243 ../src/gui/maindialog.py:425
 msgid "Confirmation"
 msgstr "Confirmare"
 
 #. for some reason the actions strings do not get translated yet
 #. so we define them here so they would be picked up by the pyfile scanner
-#: ../src/gui/maindialog.py:133
-#, fuzzy
-msgid "_New"
-msgstr "Nou"
-
 #: ../src/gui/maindialog.py:134
-#, fuzzy
+msgid "_New"
+msgstr "_Nou"
+
+#: ../src/gui/maindialog.py:135
 msgid "Add new bill"
-msgstr "_Adaugă nou"
+msgstr "Adăugați o factură nouă"
 
-#: ../src/gui/maindialog.py:139
+#: ../src/gui/maindialog.py:140
 msgid "_Delete"
-msgstr ""
+msgstr "Ș_terge"
 
-#: ../src/gui/maindialog.py:142
-#, fuzzy
+#: ../src/gui/maindialog.py:143
 msgid "P_aid"
-msgstr "Plătit"
+msgstr "Plăt_ită"
 
-#: ../src/gui/maindialog.py:145
-#, fuzzy
+#: ../src/gui/maindialog.py:146
 msgid "No_t Paid"
-msgstr "Neplătit"
-
-#: ../src/gui/maindialog.py:148
-#, fuzzy
-msgid "_Show Toolbar"
-msgstr "Afişează bara de unelte"
+msgstr "Neplă_tită"
 
 #: ../src/gui/maindialog.py:149
-msgid "Show the toolbar"
-msgstr "Afişează bara de unelte"
+msgid "_Show Toolbar"
+msgstr "_Arată bara de unelte"
 
-#: ../src/gui/maindialog.py:237
+#: ../src/gui/maindialog.py:150
+msgid "Show the toolbar"
+msgstr "Arată bara de unelte"
+
+#: ../src/gui/maindialog.py:238
 msgid "%m/%d"
 msgstr "%m/%d"
 
-#: ../src/gui/maindialog.py:422
+#: ../src/gui/maindialog.py:423
 #, python-format
 msgid "Do you really want to delete \"%s\"?"
-msgstr "Doriți să ștergeți „%s”?"
+msgstr "Chiar vreți să ștergeți „%s”?"
 
 #: ../src/gui/prefdialog.py:26 ../src/gui/widgets/trayicon.py:47
 msgid "Preferences"
 msgstr "Preferințe"
 
 #: ../src/gui/prefdialog.py:55
-#, fuzzy
 msgid "<b>Alarms</b>"
-msgstr "Alarme"
+msgstr "<b>Alarme</b>"
 
 #: ../src/gui/prefdialog.py:61
-#, fuzzy
 msgid "_Alert before due date:"
-msgstr "Atenționează înainte de data scandentă:"
+msgstr "_Atenționează înainte de data scandentă:"
 
 #: ../src/gui/prefdialog.py:66 ../src/gui/prefdialog.py:116
 msgid "day(s)."
 msgstr "zi(le)."
 
 #: ../src/gui/prefdialog.py:69
-#, fuzzy
 msgid "_Preferred time:"
-msgstr "Oră preferată:"
+msgstr "Oră _preferată:"
 
 #: ../src/gui/prefdialog.py:72
 msgid "Get alerted when individual bills are due."
 msgstr "Primiți atenționare când se apropie scandența facturilor individuale."
 
 #: ../src/gui/prefdialog.py:96
-#, fuzzy
 msgid "<b>Notifications</b>"
-msgstr "Înștiințări"
+msgstr "<b>Notificări</b>"
 
 #: ../src/gui/prefdialog.py:102
 msgid "Define when to be notified of upcoming bills."
 msgstr "Înștiințează când sa se facă notificarea facturilor viitoare."
 
 #: ../src/gui/prefdialog.py:110
-#, fuzzy
 msgid "_Notify before due date:"
-msgstr "Înștiințează înainte de data scandentă:"
+msgstr "Ate_nționează înainte de data scandentă:"
 
 #: ../src/gui/prefdialog.py:131
-#, fuzzy
 msgid "<b>Alert Type</b>"
-msgstr "Tip alertă"
+msgstr "<b>Tip alertă</b>"
 
 #: ../src/gui/prefdialog.py:141
-#, fuzzy
 msgid "Notification _Bubble"
-msgstr "Balo_n de înștiințare"
+msgstr "_Balon de înștiințare"
 
 #: ../src/gui/prefdialog.py:143
-#, fuzzy
 msgid "Alert _Dialog"
-msgstr "Dialog al_ertă"
+msgstr "_Dialog alertă"
 
 #: ../src/gui/prefdialog.py:155
 msgid ""
@@ -582,18 +557,16 @@ msgstr "<b>Notă:<b> Înștiințarea BillReminder este acum pornită."
 
 #. TRANSLATORS: This is the date that is selected from the calendar. Try to keep it small.
 #: ../src/gui/widgets/datepicker.py:87
-#, fuzzy
 msgid "%m/%d/%Y"
-msgstr "%m/%d"
+msgstr "%d/%m/%Y"
 
 #: ../src/gui/widgets/datebutton.py:32 ../src/gui/widgets/datebutton.py:65
 msgid "%Y/%m/%d %H:%M"
 msgstr "%Y/%m/%d %H:%M"
 
 #: ../src/gui/widgets/datebutton.py:43 ../src/gui/widgets/datebutton.py:73
-#, fuzzy
 msgid "_None"
-msgstr "Nici una"
+msgstr "_Niciuna"
 
 #: ../src/gui/widgets/datebutton.py:70
 msgid "Select date and time"
@@ -601,10 +574,9 @@ msgstr "Alegeți data și ora"
 
 #: ../src/gui/widgets/datebutton.py:94
 msgid "<b>_Time:</b>"
-msgstr ""
+msgstr "<b>_Timp:</b>"
 
 #: ../src/gui/widgets/statusbar.py:16
-#, fuzzy
 msgid "Bills:"
 msgstr "Facturi:"
 
@@ -614,7 +586,7 @@ msgstr "Notițe:"
 
 #: ../src/gui/widgets/timewidget.py:39
 msgid "(hh/mm)"
-msgstr ""
+msgstr "(hh/mm)"
 
 #: ../src/gui/widgets/trayicon.py:42
 msgid "Hide Window"
@@ -660,6 +632,71 @@ msgstr "Dezvoltatori:"
 msgid "Contributors:"
 msgstr "Au contribuit:"
 
+#: ../src/lib/dal.py:131
+msgid "Utilities"
+msgstr "Utilități"
+
+#: ../src/lib/dal.py:132
+msgid "Food & Dining"
+msgstr "Alimentare & mese"
+
+#: ../src/lib/dal.py:133
+msgid "Mortgage"
+msgstr "Credit ipotecar"
+
+#: ../src/lib/dal.py:134
+msgid "Rent"
+msgstr "Chirie"
+
+#: ../src/lib/dal.py:135
+msgid "Medical"
+msgstr "Medicale"
+
+#: ../src/lib/dal.py:136
+msgid "Educational"
+msgstr "Educațional"
+
+#: ../src/lib/dal.py:137
+#| msgid "Confirmation"
+msgid "Donations"
+msgstr "Donații"
+
+#: ../src/lib/dal.py:138
+msgid "Credit Card"
+msgstr "Cărți de credit"
+
+#: ../src/lib/dal.py:139
+msgid "Gifts"
+msgstr "Cadouri"
+
+#: ../src/lib/dal.py:140
+msgid "Books"
+msgstr "Cărți"
+
+#: ../src/lib/dal.py:141
+msgid "Online Services"
+msgstr "Servicii online"
+
+#: ../src/lib/dal.py:142
+msgid "Insurance"
+msgstr "Asigurare"
+
+#: ../src/lib/dal.py:143
+msgid "Auto & Transport"
+msgstr "Auto & transporturi"
+
+#: ../src/lib/dal.py:144
+msgid "Home"
+msgstr "Acasă"
+
+#: ../src/lib/dal.py:145
+msgid "Gas & Fuel"
+msgstr "Gaz & combustibil"
+
+#: ../src/lib/dal.py:146
+msgid "Electronics"
+msgstr "Electronice"
+
 #. Dialog Title
 #: ../src/lib/utils.py:83
 msgid "Question"
@@ -673,7 +710,7 @@ msgstr "Eroare"
 #. Dialog Title
 #: ../src/lib/utils.py:122
 msgid "Information"
-msgstr "Informaţii"
+msgstr "Informații"
 
 #: ../src/lib/utils.py:150
 msgid "Close _Without Saving"
@@ -687,15 +724,15 @@ msgstr "Doriți să salvați modificările înainte de a închide?"
 msgid "If you close without saving, your changes will be discarded."
 msgstr "Dacă închideți fără a salva, schimbările vor fi anulate."
 
-#: ../src/lib/scheduler.py:6
-msgid "Once"
-msgstr "Odată"
-
 #: ../src/lib/scheduler.py:7
+msgid "Once"
+msgstr "O dată"
+
+#: ../src/lib/scheduler.py:8
 msgid "Weekly"
 msgstr "Săptămânal"
 
-#: ../src/lib/scheduler.py:8
+#: ../src/lib/scheduler.py:9
 msgid "Monthly"
 msgstr "Lunar"
 
@@ -735,7 +772,7 @@ msgstr "Lunar"
 #~ msgstr "_Neplătit"
 
 #~ msgid "Edit preferences"
-#~ msgstr "Modifică preferinţele"
+#~ msgstr "Modifică preferințele"
 
 #~ msgid "Quit the Program"
 #~ msgstr "Închide programul"
