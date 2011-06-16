@@ -231,7 +231,7 @@ class Graphics(object):
     @staticmethod
     def _rel_line_to(context, x, y): context.rel_line_to(x, y)
     def rel_line_to(self, x, y = None):
-        if x and y:
+        if x is not None and y is not None:
             self._add_instruction(self._rel_line_to, x, y)
         elif isinstance(x, list) and y is None:
             for x2, y2 in x:
@@ -375,7 +375,7 @@ class Graphics(object):
     def _show_layout(context, layout, text, font_desc, alignment, width, wrap, ellipsize):
         layout.set_font_description(font_desc)
         layout.set_markup(text)
-        layout.set_width(width or -1)
+        layout.set_width(int(width or -1))
         layout.set_alignment(alignment)
 
         if width > 0:
@@ -576,12 +576,14 @@ class Sprite(gtk.Object):
         "on-render": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, ())
     }
 
-    transformation_flags = set(('x', 'y', 'rotation', 'scale_x', 'scale_y',
-                                'pivot_x', 'pivot_y', '_prev_parent_matrix'))
-    dirty_flags = set(('opacity', 'visible', 'z_order'))
-    graphics_unrelated_flags = set(('drag_x', 'drag_y', '_matrix', 'sprites',
-                                    '_stroke_context',
-                                    'mouse_cursor', '_scene', '_sprite_dirty'))
+    transformation_attrs = set(('x', 'y', 'rotation', 'scale_x', 'scale_y', 'pivot_x', 'pivot_y'))
+
+    visibility_attrs = set(('opacity', 'visible', 'z_order'))
+
+    cache_attrs = set(('_stroke_context', '_matrix', '_prev_parent_matrix', '_extents', '_scene'))
+
+    graphics_unrelated_attrs = set(('drag_x', 'drag_y', 'sprites', 'mouse_cursor', '_sprite_dirty'))
+
 
 
     def __init__(self, x = 0, y = 0,
@@ -666,54 +668,65 @@ class Sprite(gtk.Object):
 
         self._extents = None
         self._prev_extents = None
+        self._stroke_context = None
 
 
     def __setattr__(self, name, val):
         if self.__dict__.get(name, "hamster_graphics_no_value_really") == val:
             return
-
         self.__dict__[name] = val
 
-        if name == 'visible' or (hasattr(self, "visible") and self.visible):
-            self.__dict__['_extents'] = None
+        # prev parent matrix walks downwards
+        if name == '_prev_parent_matrix' and self.visible:
+            self._extents = None
 
+            # downwards recursive invalidation of parent matrix
+            for sprite in self.sprites:
+                sprite._prev_parent_matrix = None
+
+
+        if name in self.cache_attrs or name in self.graphics_unrelated_attrs:
+            return
+
+
+        """all the other changes influence cache vars"""
+
+        # either transforms or path operations - extents have to be recalculated
+        self._extents = None
+
+        if name == 'visible' and self.visible == False:
+            # when transforms happen while sprite is invisible
+            for sprite in self.sprites:
+                sprite._prev_parent_matrix = None
+
+
+        # on moves invalidate our matrix, child extent cache (as that depends on our transforms)
+        # as well as our parent's child extents as we moved
+        # then go into children and invalidate the parent matrix down the tree
+        if name in self.transformation_attrs:
+            self._matrix = None
+            for sprite in self.sprites:
+                sprite._prev_parent_matrix = None
+
+        # if attribute is not in transformation nor visibility, we conclude
+        # that it must be causing the sprite needs re-rendering
+        if name not in self.transformation_attrs and name not in self.visibility_attrs:
+            self.__dict__["_sprite_dirty"] = True
+
+        # on parent change invalidate the matrix
         if name == 'parent':
             self._prev_parent_matrix = None
             return
 
-        if name == '_prev_parent_matrix':
-            for sprite in self.sprites:
-                sprite._prev_parent_matrix = None
-            return
-
-        if name in self.graphics_unrelated_flags:
-            return
-
-        if name in self.transformation_flags:
-            self.__dict__['_matrix'] = None
-
-            for sprite in self.sprites:
-                sprite._prev_parent_matrix = None
-
-
-        elif name in ("visible", "z_order"):
-            for sprite in self.sprites:
-                sprite._prev_parent_matrix = None
-
-
-
         if name == 'opacity' and self.__dict__.get("cache_as_bitmap") and hasattr(self, "graphics"):
             # invalidating cache for the bitmap version as that paints opacity in the image
             self.graphics._last_matrix = None
-        elif name == 'z_order' and self.__dict__.get('parent'):
+
+        if name == 'z_order' and self.__dict__.get('parent'):
             self.parent._sort()
 
 
-
-        if name not in (self.transformation_flags ^ self.dirty_flags):
-            self.__dict__["_sprite_dirty"] = True
-            self.redraw()
-
+        self.redraw()
 
 
     def _sort(self):
@@ -761,6 +774,16 @@ class Sprite(gtk.Object):
         if self._extents:
             return self._extents
 
+
+        if self._sprite_dirty:
+            # redrawing merely because we need fresh extents of the sprite
+            context = gtk.gdk.CairoContext(cairo.Context(cairo.ImageSurface(cairo.FORMAT_A1, 0, 0)))
+            context.transform(self.get_matrix())
+            self.emit("on-render")
+            self.__dict__["_sprite_dirty"] = False
+            self.graphics._draw(context, 1)
+
+
         if not self.graphics.paths:
             self.graphics._draw(cairo.Context(cairo.ImageSurface(cairo.FORMAT_A1, 0, 0)), 1)
 
@@ -797,7 +820,7 @@ class Sprite(gtk.Object):
             return False
 
         if extents.x <= x <= extents.x + extents.width and extents.y <= y <= extents.y + extents.height:
-            return self._stroke_context.in_fill(x, y)
+            return self._stroke_context is None or self._stroke_context.in_fill(x, y)
         else:
             return False
 
@@ -937,7 +960,7 @@ class BitmapSprite(Sprite):
 
         self._surface = None
 
-        self.graphics_unrelated_flags = self.graphics_unrelated_flags ^ set(('_surface',))
+        self.cache_attrs = self.cache_attrs ^ set(('_surface',))
 
     def __setattr__(self, name, val):
         Sprite.__setattr__(self, name, val)
@@ -1018,9 +1041,8 @@ class Label(Sprite):
         "on-change": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, ()),
     }
     def __init__(self, text = "", size = 10, color = None,
-                 alignment = pango.ALIGN_LEFT, font_face = None,
+                 alignment = pango.ALIGN_LEFT,
                  max_width = None, wrap = None, ellipsize = None,
-                 outline_color = None, outline_width = 5,
                  **kwargs):
         Sprite.__init__(self, **kwargs)
         self.width, self.height = None, None
@@ -1037,12 +1059,6 @@ class Label(Sprite):
         #: color of label either as hex string or an (r,g,b) tuple
         self.color = color
 
-        #: color for text outline (currently works only with a custom font face)
-        self.outline_color = outline_color
-
-        #: text outline thickness (currently works only with a custom font face)
-        self.outline_width = outline_width
-
         self._bounds_width = None
 
         #: wrapping method. Can be set to pango. [WRAP_WORD, WRAP_CHAR,
@@ -1056,30 +1072,23 @@ class Label(Sprite):
         #: alignment. one of pango.[ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER]
         self.alignment = alignment
 
-        #: label's `FontFace <http://www.cairographics.org/documentation/pycairo/2/reference/text.html#cairo.FontFace>`_
-        self.font_face = font_face
-
         #: font size
         self.size = size
-
 
         #: maximum  width of the label in pixels. if specified, the label
         #: will be wrapped or ellipsized depending on the wrap and ellpisize settings
         self.max_width = max_width
-
-        self._ascent = None # used to determine Y position for when we have a font face
 
         self.__surface = None
 
         #: label text
         self.text = text
 
-        self._letter_sizes = {}
         self._measures = {}
 
         self.connect("on-render", self.on_render)
 
-        self.graphics_unrelated_flags = self.graphics_unrelated_flags ^ set(("_letter_sizes", "__surface", "_ascent", "_bounds_width", "_measures"))
+        self.cache_attrs = self.cache_attrs ^ set(("_letter_sizes", "__surface", "_ascent", "_bounds_width", "_measures"))
 
 
     def __setattr__(self, name, val):
@@ -1100,110 +1109,11 @@ class Label(Sprite):
             if name in ("width", "text", "size", "font_desc", "wrap", "ellipsize", "max_width"):
                 self._measures = {}
                 # avoid chicken and egg
-                if hasattr(self, "text") and hasattr(self, "size") and hasattr(self, "font_face"):
-                    self.__dict__['width'], self.__dict__['height'], self.__dict__['_ascent'] = self.measure(self.text)
-
-            if name in("font_desc", "size"):
-                self._letter_sizes = {}
+                if hasattr(self, "text") and hasattr(self, "size"):
+                    self.__dict__['width'], self.__dict__['height'] = self.measure(self.text)
 
             if name == 'text':
                 self.emit('on-change')
-
-
-    def _wrap(self, text):
-        """wrapping text ourselves when we can't use pango"""
-        if not text:
-            return [], 0
-
-        context = self._test_context
-        context.set_font_face(self.font_face)
-        context.set_font_size(self.size)
-
-
-        if (not self._bounds_width and not self.max_width) or self.wrap is None:
-            return [(text, context.text_extents(text)[4])], context.font_extents()[2]
-
-
-        width = self.max_width or self.width
-
-        letters = {}
-        # measure individual letters
-        if self.wrap in (pango.WRAP_CHAR, pango.WRAP_WORD_CHAR):
-            letters = set(unicode(text))
-            sizes = [self._letter_sizes.setdefault(letter, context.text_extents(letter)[4]) for letter in letters]
-            letters = dict(zip(letters, sizes))
-
-
-        line = ""
-        lines = []
-        running_width = 0
-
-        if self.wrap in (pango.WRAP_WORD, pango.WRAP_WORD_CHAR):
-            # if we wrap by word then we split the whole thing in words
-            # and stick together while they fit. in case if the word does not
-            # fit at all, we break it in pieces
-            while text:
-                fragment, fragment_length = "", 0
-
-                word = re.search("\s", text)
-                if word:
-                    fragment = text[:word.start()+1]
-                else:
-                    fragment = text
-
-                fragment_length = context.text_extents(fragment)[4]
-
-
-                if (fragment_length > width) and self.wrap == pango.WRAP_WORD_CHAR:
-                    # too big to fit in any way
-                    # split in pieces so that we fit in current row as much
-                    # as we can and trust the task of putting things in next row
-                    # to the next run
-                    while fragment and running_width + fragment_length > width:
-                        fragment_length -= letters[fragment[-1]]
-                        fragment = fragment[:-1]
-
-                    lines.append((line + fragment, running_width + fragment_length))
-                    running_width = 0
-                    fragment_length = 0
-                    line = ""
-
-
-
-                else:
-                    # otherwise the usual squishing
-                    if running_width + fragment_length <= width:
-                        line += fragment
-                    else:
-                        lines.append((line, running_width))
-                        running_width = 0
-                        line = fragment
-
-
-
-                running_width += fragment_length
-                text = text[len(fragment):]
-
-        elif self.wrap == pango.WRAP_CHAR:
-            # brute force glueing while we have space
-            for fragment in text:
-                fragment_length = letters[fragment]
-
-                if running_width + fragment_length <= width:
-                    line += fragment
-                else:
-                    lines.append((line, running_width))
-                    running_width = 0
-                    line = fragment
-
-                running_width += fragment_length
-
-        if line:
-            lines.append((line, running_width))
-
-        return lines, context.font_extents()[2]
-
-
 
 
     def measure(self, text):
@@ -1214,46 +1124,29 @@ class Label(Sprite):
         if text in self._measures:
             return self._measures[text]
 
-        width, height, ascent = None, None, None
+        width, height = None, None
 
         context = self._test_context
-        if self.font_face:
-            context.set_font_face(self.font_face)
-            context.set_font_size(self.size)
-            font_ascent, font_descent, font_height = context.font_extents()[:3]
 
-            if self._bounds_width or self.max_width:
-                lines, line_height = self._wrap(text)
+        layout = self._test_layout
+        layout.set_font_description(self.font_desc)
+        layout.set_markup(text)
 
-                if self._bounds_width:
-                    width = self._bounds_width / pango.SCALE
-                else:
-                    max_width = 0
-                    for line, line_width in lines:
-                        max_width = max(max_width, line_width)
-                    width = max_width
+        max_width = 0
+        if self.max_width:
+            max_width = self.max_width * pango.SCALE
 
-                height = len(lines) * line_height
-                ascent = font_ascent
-            else:
-                width = context.text_extents(text)[4]
-                ascent, height = font_ascent, font_ascent + font_descent
+        layout.set_width(int(self._bounds_width or max_width or -1))
+        layout.set_ellipsize(pango.ELLIPSIZE_NONE)
 
+        if self.wrap is not None:
+            layout.set_wrap(self.wrap)
         else:
-            layout = self._test_layout
-            layout.set_font_description(self.font_desc)
-            layout.set_markup(text)
-            layout.set_width((self._bounds_width or -1))
-            layout.set_ellipsize(pango.ELLIPSIZE_NONE)
+            layout.set_ellipsize(self.ellipsize or pango.ELLIPSIZE_END)
 
-            if self.wrap is not None:
-                layout.set_wrap(self.wrap)
-            else:
-                layout.set_ellipsize(self.ellipsize or pango.ELLIPSIZE_END)
+        width, height = layout.get_pixel_size()
 
-            width, height = layout.get_pixel_size()
-
-        self._measures[text] = width, height, ascent
+        self._measures[text] = width, height
         return self._measures[text]
 
 
@@ -1266,54 +1159,26 @@ class Label(Sprite):
 
         rect_width = self.width
 
-        if self.font_face:
-            self.graphics.set_font_size(self.size)
-            self.graphics.set_font_face(self.font_face)
-            if self._bounds_width or self.max_width:
-                lines, line_height = self._wrap(self.text)
+        max_width = 0
+        if self.max_width:
+            max_width = self.max_width * pango.SCALE
 
-                x, y = 0.5, int(self._ascent) + 0.5
-                for line, line_width in lines:
-                    if self.alignment == pango.ALIGN_RIGHT:
-                        x = self.width - line_width
-                    elif self.alignment == pango.ALIGN_CENTER:
-                        x = (self.width - line_width) / 2
+            # when max width is specified and we are told to align in center
+            # do that (the pango instruction takes care of aligning within
+            # the lines of the text)
+            if self.alignment == pango.ALIGN_CENTER:
+                self.graphics.move_to(-(self.max_width - self.width)/2, 0)
 
-                    if self.outline_color:
-                        self.graphics.save_context()
-                        self.graphics.move_to(x, y)
-                        self.graphics.text_path(line)
-                        self.graphics.set_line_style(width=self.outline_width)
-                        self.graphics.fill_stroke(self.outline_color, self.outline_color)
-                        self.graphics.restore_context()
+        bounds_width = max_width or self._bounds_width or -1
 
-                    self.graphics.move_to(x, y)
-                    self.graphics.set_color(self.color)
-                    self.graphics.show_text(line)
+        self.graphics.show_layout(self.text, self.font_desc,
+                                  self.alignment,
+                                  bounds_width,
+                                  self.wrap,
+                                  self.ellipsize)
 
-                    y += line_height
-
-            else:
-                if self.outline_color:
-                    self.graphics.save_context()
-                    self.graphics.move_to(0, self._ascent)
-                    self.graphics.text_path(self.text)
-                    self.graphics.set_line_style(width=self.outline_width)
-                    self.graphics.fill_stroke(self.outline_color, self.outline_color)
-                    self.graphics.restore_context()
-
-                self.graphics.move_to(0, self._ascent)
-                self.graphics.show_text(self.text)
-
-        else:
-            self.graphics.show_layout(self.text, self.font_desc,
-                                      self.alignment,
-                                      self._bounds_width,
-                                      self.wrap,
-                                      self.ellipsize)
-
-            if self._bounds_width:
-                rect_width = self._bounds_width / pango.SCALE
+        if self._bounds_width:
+            rect_width = self._bounds_width / pango.SCALE
 
         self.graphics.rectangle(0, 0, rect_width, self.height)
         self.graphics.clip()
@@ -1693,7 +1558,6 @@ class Scene(gtk.DrawingArea):
             if self._mouse_sprite and self._mouse_sprite != over:
                 self._mouse_sprite.emit("on-mouse-out")
                 self.emit("on-mouse-out", self._mouse_sprite)
-                self.redraw()
 
             if over:
                 if over.mouse_cursor is not None:
@@ -1709,7 +1573,6 @@ class Scene(gtk.DrawingArea):
                 if over != self._mouse_sprite:
                     over.emit("on-mouse-over")
                     self.emit("on-mouse-over", over)
-                    self.redraw()
 
             self._mouse_sprite = over
 
@@ -1745,7 +1608,6 @@ class Scene(gtk.DrawingArea):
 
                     self._drag_sprite.emit("on-drag-start", event)
                     self.emit("on-drag-start", self._drag_sprite, event)
-                    self.redraw()
 
                     self.__drag_started = True
 
@@ -1760,7 +1622,6 @@ class Scene(gtk.DrawingArea):
 
                 self._drag_sprite.emit("on-drag", event)
                 self.emit("on-drag", self._drag_sprite, event)
-                self.redraw()
 
         else:
             # avoid double mouse checks - the redraw will also check for mouse!
@@ -1776,7 +1637,6 @@ class Scene(gtk.DrawingArea):
         self._mouse_in = False
         if self._mouse_sprite:
             self.emit("on-mouse-out", self._mouse_sprite)
-            self.redraw()
             self._mouse_sprite = None
 
 
@@ -1805,12 +1665,10 @@ class Scene(gtk.DrawingArea):
                 target.emit("on-click", event)
 
             self.emit("on-click", event, target)
-            self.redraw()
 
         if self._drag_sprite:
             self._drag_sprite.emit("on-drag-finish", event)
             self.emit("on-drag-finish", self._drag_sprite, event)
-            self.redraw()
 
             self._drag_sprite.drag_x, self._drag_sprite.drag_y = None, None
             self._drag_sprite = None
