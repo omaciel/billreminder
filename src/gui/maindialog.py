@@ -9,7 +9,7 @@ pygtk.require('2.0')
 import gtk
 import time
 import datetime
-from gobject import timeout_add
+import gobject
 
 # Import widgets modules
 from gui.widgets.statusbar import Statusbar
@@ -39,11 +39,22 @@ from lib.common import CFG_NAME
 from lib.common import USER_CFG_PATH, DEFAULT_CFG_PATH
 from os.path import exists, join
 
-class MainDialog:
+class MainDialog(gobject.GObject):
     search_text = ""
     _bullet_cache = {}
 
+    __gsignals__ = {
+        'bill-added': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
+                       (gobject.TYPE_PYOBJECT,)),
+        'bill-updated': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
+                       (gobject.TYPE_PYOBJECT,)),
+        'bill-removed': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
+                       (gobject.TYPE_PYOBJECT,))
+    }
+
     def __init__(self):
+        gobject.GObject.__init__(self)
+
         if exists(join(USER_CFG_PATH, CFG_NAME)):
             from lib.migrate_to_gconf import migrate
             migrate(join(USER_CFG_PATH, CFG_NAME))
@@ -310,6 +321,7 @@ class MainDialog:
             for rec in records:
                 # Edit bill to database
                 rec = self.actions.edit(rec)
+                self.emit('bill-updated', rec)
 
             # Reload records tree (something changed)
             self.reloadTreeView()
@@ -318,6 +330,7 @@ class MainDialog:
     def remove_bill(self):
         self.actions.delete(self.currentrecord)
         self.list.remove()
+        self.emit('bill-removed', None)
         self.update_statusbar()
         self.reloadTreeView()
         self.reloadTimeline()
@@ -330,6 +343,8 @@ class MainDialog:
 
         # Edit bill in the database
         transaction = self.actions.add(record)
+
+        self.emit('bill-updated', record)
 
         # Update our current copy
         self.currentrecord = self.actions.get_bills(id = self.currentrecord.id)[0]
