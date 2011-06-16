@@ -16,7 +16,7 @@ from gui.widgets.statusbar import Statusbar
 from gui.widgets.viewbill import ViewBill as ViewBill
 from gui.widgets.trayicon import NotifyIcon
 from gui.widgets.chartwidget import ChartWidget
-from gui.widgets.timeline import Timeline, Bullet
+from gui.widgets.timeline import Timeline, Event
 
 # Import data model modules
 from lib.actions import Actions
@@ -79,9 +79,14 @@ class MainDialog:
         self.statusbar = Statusbar()
         self.ui.get_object("statusbar_box").add(self.statusbar)
 
+        # Restore timeline zoom
+        timeline_count = self.gconf_client.get('timeline_count')
+
         # Timeline
-        self.timeline = Timeline(callback=self.on_timeline_cb)
+        self.timeline = Timeline(count=timeline_count,
+                                 callback=self.on_timeline_cb)
         self.timeline.connect("value-changed", self._on_timeline_changed)
+        self.timeline.connect("cleared", self._on_timeline_cleared)
         self.ui.get_object("timeline_box").add(self.timeline)
 
         # Chart
@@ -346,6 +351,7 @@ class MainDialog:
     def _quit_application(self):
         self.save_position()
         self.save_size()
+        self.save_timeline_zoom()
         gtk.main_quit()
         return False
 
@@ -358,6 +364,10 @@ class MainDialog:
         width, height = self.window.get_size()
         self.gconf_client.set('window_width', width)
         self.gconf_client.set('window_height', height)
+
+    def save_timeline_zoom(self):
+        count = self.timeline.count
+        self.gconf_client.set('timeline_count', count)
 
     def toggle_buttons(self, paid=None):
         """ Toggles all buttons conform number of records present and
@@ -456,6 +466,8 @@ class MainDialog:
     def _on_timeline_changed(self, widget, args):
         self.reloadTreeView()
 
+    def _on_timeline_cleared(self, widget, args):
+        self._bullet_cache = {}
 
     def switch_view(self, view_number):
         self.gconf_client.set('show_paid_bills', view_number)
@@ -487,42 +499,55 @@ class MainDialog:
         self._bullet_cache = {}
         self.timeline.refresh()
 
-    def on_timeline_cb(self, date, display_type):
+    def on_timeline_cb(self, date, display_type, force=False):
         # TODO: Improve tooltip
         # TODO: Improve cache
 
-        if not date in self._bullet_cache.keys():
-            self._bullet_cache[date] = self.actions.get_bills(dueDate=date)
+        if date in self._bullet_cache.keys() and not force:
+            return None
 
+        self._bullet_cache[date] = self.actions.get_bills(dueDate=date)
         if self._bullet_cache[date]:
             status = self.gconf_client.get('show_paid_bills')
             amount = 0
+            amount_not_paid = 0
             tooltip = ''
-            bullet = Bullet()
+            bullet = Event()
             bullet.date = date
 
             for bill in self._bullet_cache[date]:
                 amount += bill.amount
                 if tooltip:
                     tooltip += '\n'
-                tooltip += bill.payee + '\n' + str(float_to_currency(bill.amount))
-                if bill.notes:
-                    tooltip += '\n' + bill.notes
+                tooltip += bill.payee + ' (' + str(float_to_currency(bill.amount)) + ')'
 
                 if bill.paid:
-                    if status == 0: return False
+                    tooltip += ' [%s]' % _('Paid')
+
+                    if status == 0:
+                        return False
                     bullet.status = bullet.status | bullet.PAID
-                elif date <= datetime.date.today():
-                    if status == 1: return False
-                    bullet.status = bullet.status | bullet.OVERDUE
                 else:
-                    if status == 1: return False
-                    bullet.status = bullet.status | bullet.TO_BE_PAID
+                    amount_not_paid += bill.amount
+                    if date <= datetime.date.today():
+                        if status == 1:
+                            return False
+                        bullet.status = bullet.status | bullet.OVERDUE
+                    else:
+                        if status == 1:
+                            return False
+                        bullet.status = bullet.status | bullet.TO_BE_PAID
 
-            bullet.amountDue = amount
+                if bill.notes:
+                    tooltip += ' - ' + bill.notes
 
-            if len(self._bullet_cache[date]) > 1:
-                bullet.multi = True
+            bullet.amountdue = amount_not_paid if amount_not_paid else amount
+            bullet.payee = bill.payee
+
+            bills = len(self._bullet_cache[date])
+            if bills > 1:
+                bullet.multi = bills
+                bullet.payee = '%d bills' % bills
             bullet.tooltip = tooltip
             return bullet
 

@@ -80,6 +80,7 @@ class Settings(gobject.GObject):
         'show_menubar'              :   False,
         'show_paid_bills'           :   2,
         'due_date'                  :   0,
+        'timeline_count'            :   15,
     }
 
     def __init__(self, **kwargs):
