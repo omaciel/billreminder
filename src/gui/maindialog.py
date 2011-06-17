@@ -17,6 +17,7 @@ from gui.widgets.viewbill import ViewBill as ViewBill
 from gui.widgets.trayicon import NotifyIcon
 from gui.widgets.chartwidget import ChartWidget
 from gui.widgets.timeline import Timeline, Event
+from gui.widgets.unity import UNITY, UnityIntegration
 
 # Import data model modules
 from lib.actions import Actions
@@ -142,6 +143,10 @@ class MainDialog(gobject.GObject):
         # populate treeview
         self.reloadTreeView()
         self.notify = NotifyIcon(self)
+
+        # Integrate with Ubuntu Unity
+        if UNITY:
+            self.unity = UnityIntegration(self)
 
     def set_action_strings(self):
         # for some reason the actions strings do not get translated yet
