@@ -15,5 +15,6 @@ billreminder_widgets_PYTHON = \
 	timewidget.py \
 	toolbar.py \
 	trayicon.py \
+	unity.py \
 	viewbill.py \
 	viewcategory.py

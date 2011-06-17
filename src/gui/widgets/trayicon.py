@@ -6,6 +6,11 @@ import sys
 import os
 import gtk
 import time
+try:
+    import appindicator
+    APPINDICATOR = True
+except:
+    APPINDICATOR = False
 
 from lib import common
 from lib.utils import ContextMenu
@@ -24,15 +29,30 @@ class NotifyIcon:
     def start(self):
         """ Function used to show an icon in notification area."""
 
-        self.tray = gtk.StatusIcon()
-        self.tray.set_from_file(common.TRAY_ICON)
-        self.tray.set_tooltip(_("BillReminder"))
-        self.tray.connect("popup-menu", self.show_menu, None)
-        self.tray.connect("activate", self.show_hide, None)
+        if APPINDICATOR:
+            self.indicator = appindicator.Indicator("billreminder", "ApplicationStatus", appindicator.CATEGORY_APPLICATION_STATUS)
+            self.indicator.set_status(appindicator.STATUS_ACTIVE)
+            self.indicator.set_attention_icon(common.PANEL_ATTENTION_ICON)
+            self.indicator.set_icon(common.PANEL_ICON)
+            self.menu = self.show_menu(None, None, None)
+            self.indicator.set_menu(self.menu)
+            self.menu.show()
+        else:
+            self.tray = gtk.StatusIcon()
+            self.tray.set_from_file(common.TRAY_ICON)
+            self.tray.set_tooltip(_("BillReminder"))
+            self.tray.connect("popup-menu", self.show_menu, None)
+            self.tray.connect("activate", self.show_hide, None)
 
     def show_hide(self, status_icon, arg=None):
         """ Show and Hide the main window. """
         self.parent.show_hide_window()
+        if isinstance(status_icon, gtk.MenuItem):
+            menu_item = status_icon
+            if self.parent.get_window_visibility():
+                menu_item.set_label(_('Hide Window'))
+            else:
+                menu_item.set_label(_('Show Window'))
 
     def show_menu(self, status_icon, button, activate_time, arg=None):
         """ Show a popup menu when an user right clicks notification
@@ -45,15 +65,18 @@ class NotifyIcon:
 
         c.addMenuItem('-', None)
         c.addMenuItem(_('Preferences'),
-                      self.parent.on_btnPref_clicked,
+                      self.parent.on_btnPrefs_activate,
                       gtk.STOCK_PREFERENCES)
         c.addMenuItem(_('About'),
-                      self.parent.on_btnAbout_clicked,
+                      self.parent.on_btnAbout_activate,
                       gtk.STOCK_ABOUT)
         c.addMenuItem('-', None)
         c.addMenuItem(_('Quit'),
-                      self.parent.on_btnQuit_clicked,
+                      self.parent.on_btnQuit_activate,
                       gtk.STOCK_QUIT)
+
+        if APPINDICATOR:
+            return c
 
         print type(activate_time)
         c.popup(None,

@@ -6,7 +6,6 @@ billreminder_lib_PYTHON = \
 	actions.py \
 	bubble.py \
 	common.py \
-	config.py \
 	dal.py \
 	dbus_actions.py \
 	defs.py \

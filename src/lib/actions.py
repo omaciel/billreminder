@@ -155,6 +155,20 @@ class Actions(object):
 
         return records
 
+    def count_not_paid(self):
+        count = 0
+
+        try:
+            session = self.dal.Session()
+            count = session.query(Bill).filter(Bill.paid == False).count()
+        except Exception, e:
+            print str(e)
+        finally:
+            session.close()
+
+        return count
+
+
     def add(self, dbobject):
         return self.dal.add(dbobject)
 

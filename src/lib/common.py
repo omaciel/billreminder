@@ -31,6 +31,7 @@ AUTHORS = [
 ARTISTS = [
     'Led Style <ledstyle@gmail.com>',
     'Vinicius Depizzol <vdepizzol@gmail.com>'
+    'Luiz Armesto <luiz.armesto@gmail.com>',
 ]
 
 
@@ -54,8 +55,16 @@ along with BillReminder.  If not, see <http://www.gnu.org/licenses/>.
 # Media path
 if os.path.exists(os.path.abspath('../data/images/')):
     IMAGE_PATH = os.path.abspath('../data/images/')
+    PANEL_ICON = os.path.join(IMAGE_PATH, 'billreminder-indicator-dark.svg')
+    PANEL_DISABLED_ICON = os.path.join(IMAGE_PATH, 'billreminder-indicator-dark-disabled.svg')
+    PANEL_ATTENTION_ICON = os.path.join(IMAGE_PATH, 'billreminder-indicator-blue.svg')
+    PANEL_IMPORTANT_ICON = os.path.join(IMAGE_PATH, 'billreminder-indicator-red.svg')
 else:
     IMAGE_PATH = '%s/billreminder/images' % datadir
+    PANEL_ICON = 'billreminder'
+    PANEL_DISABLED_ICON = 'billreminder'
+    PANEL_ATTENTION_ICON = 'billreminder-attention'
+    PANEL_IMPORTANT_ICON = 'billreminder-important'
 
 # Images
 APP_ICON = os.path.join(IMAGE_PATH, 'billreminder16.png')
